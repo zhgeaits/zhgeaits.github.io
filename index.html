@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Your New Jekyll Site
+title: 张戈的技术生涯
 ---
 
 <div id="home">
-  <h1>日志记录</h1>
+  <h1 id="newlog">最新日志</h1>
   <ul class="posts">
     {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
