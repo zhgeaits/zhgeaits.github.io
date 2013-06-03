@@ -2,8 +2,8 @@
 layout: post
 title: "阿里巴巴终试"
 date: 2013-06-03 17:44:00
-categories: technology
 type: technology
+categories: jobinterview
 ---
 
 >今天状态超不好，TMD，阿里最终面试居然问到很多不知道的，唉，我真不爽！
