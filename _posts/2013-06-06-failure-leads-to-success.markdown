@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "failure leads to success!"
+title: "Failure Leads to Success!"
 date: 2013-06-06 12:23:00
 categories: life
 type: life

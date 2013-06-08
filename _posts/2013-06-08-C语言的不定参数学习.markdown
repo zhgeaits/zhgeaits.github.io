@@ -1,0 +1,71 @@
+---
+layout: post
+title:  "C语言的不定参数学习"
+date:   2013-06-09 10:00:00
+categories: c
+type: technology
+---
+
+在java里面不定参数是一个很有用的东西，在方法里面用三个点就能使用了，例如：
+{% highlight java %}
+public int test(String va, Object... values) {
+    //todo
+    //实际上得到的是values数组，如果用数组做参数，也可以得到长度，所以在java这里用数组做参数差不多的。
+    //估计底层实现和C一样的。好处在于用Object类型，不需要考虑参数类型，底层实现都做好了。
+}
+{% endhighlight %}
+
+>在学习TCP/IP网络编程的时候，书上有一个函数:
+{% highlight c %}
+int errexit(const char *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    vfprintf(stderr, format, args);
+    va_end(args);
+    exit(1);
+}
+{% endhighlight %}
+>可以看到C的不定参数也是用三个点来表示，但是不能确定类型和个数，上面那个函数是通过format里面%的参数来确定个数和类型的。
+>
+>man va_start可以看到stdarg的手册，但是看到的东西有点乱，不太容易懂!然后locate了以下stdarg\.h找到它的位置打开：
+{% highlight vim %}
+$locate stdarg.h
+$vim /usr/lib/gcc/x86_64-linux-gnu/4.4/include/stdarg.h
+$vim /usr/lib/gcc/x86_64-linux-gnu/4.4/include/cross-stdarg.h
+//经过几个转换，还是找不到宏定义，还好，装了ctags，直接在函数名字上使用ctrl+w+]就会跳到定义那里了：
+#define  _AUPBND                (sizeof (acpi_native_int) - 1)
+#define _bnd(X, bnd)            (((sizeof (X)) + (bnd)) & (~(bnd)))
+#define va_arg(ap, T)           (*(T *)(((ap) += (_bnd (T, _AUPBND))) - (_bnd (T,_ADNBND))))
+#define va_end(ap)              (void) 0
+#define va_start(ap, A)         (void) ((ap) = (((char *) &(A)) + (_bnd (A,_AUPBND))))
+#define va_list 		void *
+
+//n与int所占字节数对齐
+#define _INTSIZEOF(n)  ((sizeof(n)+sizeof(int)-1)&~(sizeof(int) - 1) )
+{% endhighlight %}
+>重要的是_bnd(X, bnd), 这里计算了X参数在栈中字对齐以后所占的字节数，就是要就算sizeof(X)与bnd对齐后的值。  
+>例如上面的_INTSIZEOF，就是要sizeof(n)对sizeof(int)的倍数对齐。即把sizeof(n)的结果变成至少是sizeof(int)的整倍数，如果sizeof(int)是4，那么，当sizeof(n)的结果在1~4之间是，_INTSIZEOF(n)的结果会是4；当sizeof(n)的结果在5~8时，_INTSIZEOF(n)的结果会是8，如此类推。bnd=sizeof(int)\-1。
+>
+>**理论基础如下：**  
+>对于一般两个整数a，b有：a=bq\+r, 0=&lt;r&lt;b。  
+>若a与b对齐以后有：a=bq'\+r', -b&lt;r'&lt;=0。我们要的值就是bq'。  
+>为了用C语言来计算bq'，要这样处理：a\+b=bq'\+b\+r', 0&lt;b\+r'&lt;=b;   
+>a\+b\-1=bq'\+b\+r'\-1, 0&lt;=b\+r'\-1&lt;b;  
+>最后得到的式子a+b-1=bq'+b+r'-1, 0&lt;=b+r'-1&lt;b; 和一般的式子a=bq+r, 0=&lt;r&lt;b是相同的。  
+>所以在C语言里面要计算就简单了，先用除法得到整数部分，因为c语言里面除法是直接去掉小数的，所以再乘以b就行了。  
+>因此bq'=((a+b-1)/b)\*b。  
+>也许你会觉得一个if判断或者三元运算符就搞定，(a%b==0?a:a/b\*b)。  
+>我暂时也没想到为什么，可能不够高端，效率不高，因为还要判断，这里直接运算就行了，然后再移位操作。  
+>上面的除法乘法换成移位操作得到对齐的结果就是要保证右边的n位为0。如果b=sizeof(int)=4,则二进制值右边两位为0即可保持是4的倍数。  
+>所以除4就是右移两位，乘4就是左移两位，结果就相当于把a+b-1最右边两位清0。再对换成与或非的操作就是更简单了，先制造右边两位是0，其他位是1的掩码，再与就得到结果了。例如这里的掩码~(sizeof(int)-1)是11111100。
+>
+>明白了这个对齐计算以后，也就知道了另外三个宏定义的意思了，为什么要先对齐，而不是直接计算类型的字节数？因为如果内存按4个字节对齐访问，效率会高，地址总线总是按照对齐后的地址访问的。那个AUPBND的定义根据不同的操作系统不同，这里就是按照int的4个字节对齐的。在栈里面按照对齐后的地址访问，效率所以高呐。
+>
+>对于那三个函数：  
+>va_start(ap, A)，其中A就是不定参数的前一个参数，ap是va_list类型，结果就是得到第一个不定参数的地址。  
+>va_arg(ap, t), 其中t是不定参数的类型，返回结果是参数的值，并且ap指向下一个参数的地址，就像迭代器模式一样。先修改ap指向下一个参数地址，再返回获得上一个参数的值。  
+>va_end(ap),是清空ap。
+>
+>这样子说还是有点抽象，幸好上软件测试课时，老师给我们讲安全测试的时候讲了栈的内容，让我完全懂得这里的不定参数实现。
