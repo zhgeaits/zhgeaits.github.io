@@ -57,6 +57,9 @@ void test()
 {% endhighlight %}
 >g的地址和内容都是在栈。p这个指针地址是存放在栈的，但是内容“zhangge”却存放在文字常量区。c存放在全局(静态)初始化区，b存放在全局(静态)为初始化区。栈的速度比堆快，就是说g比p的速度快。
 >
+>看下面这个C语言的内存模型图：
+![cstack3]
+>
 >__5\.__unsigned转换成signed时，直接复制原码到signed的低位，高位为0，即signed是正数，如果signed类型位数不够，只直接装载unsigned低位。  
 >  signed转换层unsigned时，直接复制补码到低位，高位的符号位也复制,如果unsigned位数不够，只直接装载signed低位。
 >
@@ -75,3 +78,4 @@ void test()
 >__11\.__sizeof(变量)会得到这个变量所占的字节，跟sizeof(类型)一样，但是要注意两个地方，如果是数组的时候，例如char test\[10\],那么sizeof(char[10])==sizeof(test)<>sizeof(char),但是如果是指针就不行了，char \*test, 依然是sizeof(char \*)==sizeof(test),却得不到test的大小长度，就是不等于strlen(test)。
 
 [网址]: http://dabentu.com/1280.html 
+[cstack3]: /image/c_stack_3.gif

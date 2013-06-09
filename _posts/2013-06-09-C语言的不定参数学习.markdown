@@ -1,0 +1,148 @@
+---
+layout: post
+title:  "C语言的不定参数学习"
+date:   2013-06-09 10:00:00
+categories: c
+type: technology
+---
+
+在java里面不定参数是一个很有用的东西，在方法里面用三个点就能使用了，例如：
+{% highlight java %}
+public int test(String va, Object... values) {
+    //todo
+    //实际上得到的是values数组，如果用数组做参数，也可以得到长度，所以在java这里用数组做参数差不多的。
+    //估计底层实现和C一样的。好处在于用Object类型，不需要考虑参数类型，底层实现都做好了。
+}
+{% endhighlight %}
+
+>在学习TCP/IP网络编程的时候，书上有一个函数:
+{% highlight c %}
+int errexit(const char *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    vfprintf(stderr, format, args);
+    va_end(args);
+    exit(1);
+}
+{% endhighlight %}
+>可以看到C的不定参数也是用三个点来表示，但是不能确定类型和个数，上面那个函数是通过format里面%的参数来确定个数和类型的。
+>
+>man va_start可以看到stdarg的手册，但是看到的东西有点乱，不太容易懂!然后locate了以下stdarg\.h找到它的位置打开：
+{% highlight vim %}
+$locate stdarg.h
+$vim /usr/lib/gcc/x86_64-linux-gnu/4.4/include/stdarg.h
+$vim /usr/lib/gcc/x86_64-linux-gnu/4.4/include/cross-stdarg.h
+//经过几个转换，还是找不到宏定义，还好，装了ctags，直接在函数名字上使用ctrl+w+]就会跳到定义那里了：
+#define  _AUPBND                (sizeof (acpi_native_int) - 1)
+#define _bnd(X, bnd)            (((sizeof (X)) + (bnd)) & (~(bnd)))
+#define va_arg(ap, T)           (*(T *)(((ap) += (_bnd (T, _AUPBND))) - (_bnd (T,_ADNBND))))
+#define va_end(ap)              (void) 0
+#define va_start(ap, A)         (void) ((ap) = (((char *) &(A)) + (_bnd (A,_AUPBND))))
+#define va_list 		void *
+
+//n与int所占字节数对齐
+#define _INTSIZEOF(n)  ((sizeof(n)+sizeof(int)-1)&~(sizeof(int) - 1) )
+{% endhighlight %}
+>重要的是_bnd(X, bnd), 这里计算了X参数在栈中字对齐以后所占的字节数，就是要就算sizeof(X)与bnd对齐后的值。  
+>例如上面的_INTSIZEOF，就是要sizeof(n)对sizeof(int)的倍数对齐。即把sizeof(n)的结果变成至少是sizeof(int)的整倍数，如果sizeof(int)是4，那么，当sizeof(n)的结果在1~4之间是，_INTSIZEOF(n)的结果会是4；当sizeof(n)的结果在5~8时，_INTSIZEOF(n)的结果会是8，如此类推。bnd=sizeof(int)\-1。
+>
+>**理论基础如下：**  
+>对于一般两个整数a，b有：a=bq\+r, 0=&lt;r&lt;b。  
+>若a与b对齐以后有：a=bq'\+r', -b&lt;r'&lt;=0。我们要的值就是bq'。  
+>为了用C语言来计算bq'，要这样处理：a\+b=bq'\+b\+r', 0&lt;b\+r'&lt;=b;   
+>a\+b\-1=bq'\+b\+r'\-1, 0&lt;=b\+r'\-1&lt;b;  
+>最后得到的式子a+b-1=bq'+b+r'-1, 0&lt;=b+r'-1&lt;b; 和一般的式子a=bq+r, 0=&lt;r&lt;b是相同的。  
+>所以在C语言里面要计算就简单了，先用除法得到整数部分，因为c语言里面除法是直接去掉小数的，所以再乘以b就行了。  
+>因此bq'=((a+b-1)/b)\*b。  
+>也许你会觉得一个if判断或者三元运算符就搞定，(a%b==0?a:a/b\*b)。  
+>我暂时也没想到为什么，可能不够高端，效率不高，因为还要判断，这里直接运算就行了，然后再移位操作。  
+>上面的除法乘法换成移位操作得到对齐的结果就是要保证右边的n位为0。如果b=sizeof(int)=4,则二进制值右边两位为0即可保持是4的倍数。  
+>所以除4就是右移两位，乘4就是左移两位，结果就相当于把a+b-1最右边两位清0。再对换成与或非的操作就是更简单了，先制造右边两位是0，其他位是1的掩码，再与就得到结果了。例如这里的掩码~(sizeof(int)-1)是11111100。
+>
+>明白了这个对齐计算以后，也就知道了另外三个宏定义的意思了，为什么要先对齐，而不是直接计算类型的字节数？因为如果内存按4个字节对齐访问，效率会高，地址总线总是按照对齐后的地址访问的。那个AUPBND的定义根据不同的操作系统不同，这里就是按照int的4个字节对齐的。在栈里面按照对齐后的地址访问，效率所以高呐。
+>
+>对于那三个函数：  
+>va_start(ap, A)，其中A就是不定参数的前一个参数，ap是va_list类型，结果就是得到第一个不定参数的地址。  
+>va_arg(ap, t), 其中t是不定参数的类型，返回结果是参数的值，并且ap指向下一个参数的地址，就像迭代器模式一样。先修改ap指向下一个参数地址，再返回获得上一个参数的值。  
+>va_end(ap),是清空ap。
+>
+>这样子说还是有点抽象，幸好上软件测试课时，老师给我们讲安全测试的时候讲了栈的内容，让我完全懂得这里的不定参数实现。
+>
+>引用老师ppt的内容来记录一下体系结构知识：
+<pre>
+程序如何运行?
+在执行程序时，操作系统创建一个新的进程及其上下文（contex），包括PC，寄存器组当前值，以及主存内容，然后将控制权传递给这个新建的进程
+处理器对存储在RAM中的值进行操作，告知CPU如何操作的机器码指令也存储在RAM中
+CPU从RAM中取每一条指令，执行后继续从RAM中取并执行下一条指令
+CPU中有少量的快速临时存储位置，称为“寄存器”
+CPU从RAM中取得指令及其相关的值，将其存储在寄存器中，在这些寄存器中操作，并将结果存储在内存中
+在X86上，用户寄存器为eax, ebx, ecx, edx, esi, edi, ebp, esp 以及eip
+eax、ebx、ecx以及edx寄存器作为通用寄存器，可以用来进行临时存储
+esi和edi可以用来存储，但对操作字符串类的函数有其他意义
+ebp通常用来容纳当前栈帧（stack frame）的内存地址，esp保存栈顶地址------------在这里只需要记住这两个寄存器
+eip保存当前执行指令的内存地址。机器代码不能直接修改该寄存器，只能通过jmp和call指令族进行间接修改，实现循环，调用等
+
+过程与栈
+过程调用包括将数据和控制从代码的一部分传递到另一部分，还必须在进入时为过程的局部变量分配空间，并在退出时释放
+栈是内存中一个特殊区域，CPU用栈来保存状态并实现子程序（函数，过程），其内容先入后出。 -------------更详细的栈介绍，看C语言学习记录日志
+当CPU执行调用一个函数时，下一个eip值（最近应执行的那条指令的内存地址,就是函数返回执行的地址）被压入栈内，当该函数执行完，
+这个地址弹出，CPU就执行位于该内存地址的指令
+被调用的函数的参数在跳转到该函数的第1条指令之前，被压入栈
+由于在函数执行中esp寄存器会发生变化，它的值复制到ebp中，而ebp中的前一个值压入栈中。这样，当函数返回时，可以恢复该ebp值
+该函数所使用的任何临时变量都存储在栈中。函数内部，ebp值称为帧指针，用来引用该函数的参数（相对该函数的正偏移量）和栈变量（相对该函数的负偏移量）
+为单个过程分配的那部分栈称为栈帧，由esp和ebp定界。由于栈指针esp在程序执行中是可以移动的，因此信息访问一般相对于ebp进行
+假定过程P调用过程Q，Q的参数放在P的栈帧里，当P调用Q时，P的返回地址压入栈，形成P栈帧的末尾（从Q返回时应继续执行的地方）。
+Q的栈帧从保存的帧指针开始，后边是其他寄存器的值以及其他局部变量
+依据惯例，寄存器eax，edx，ecx规定为调用者保存，当过程P调用Q，Q可以覆盖这些寄存器，而不会破坏P所需要的内容
+寄存器ebx，esi，edi规定为被调用者保存，即Q在覆盖它前，必须将其值保存到栈中，并在返回前恢复这些值，已备P在恢复执行后使用
+必须保持寄存器ebp，esp
+</pre>
+>以上内容，多而复杂，需要好好看，我还要在整理一下以便更好理解。  
+>配合下面两个图就基本能理解到位了。  
+![cstack1][cstack1]
+![cstack2][cstack2]
+>现在基本明白了，ebp是帧指针，是当前函数的栈帧开始标识，esp是栈顶指针，函数的参数是存放在上一个栈帧的，即是调用者的栈。  
+>而且函数的参数是从右往左进栈的，然后从左往右出栈。只要我们知道不定参数的左边第一个参数的地址，然后加一定的地址就能获得不定的参数了。  
+>顺便说一下安全的事情，C语言的字符函数是不安全的，它不会检测到栈的帧溢出，例如在函数定义一个大小为4的字符数组，但是你确填充了超过4的内容，这样就会修改了函数的返回执行地址和调用者的帧内容，特别是黑客修改返回地址去执行恶意代码！！！  
+>
+>这样就基本能理解va_start, va_arg, va_end的作用了，再去看看肯定能理解！我们看看man手册提供的示例代码：
+{% highlight c %}
+#include <stdio.h>
+#include <stdarg.h>
+
+void foo(char *fmt, ...)
+{
+    va_list ap;
+    int d;
+    char c, *s;
+
+    va_start(ap, fmt);
+    while (*fmt)
+	switch (*fmt++) {
+	    case 's':              /* string */
+		s = va_arg(ap, char *);
+		printf("string %s\n", s);
+		break;
+	    case 'd':              /* int */
+		d = va_arg(ap, int);
+		printf("int %d\n", d);
+		break;
+	    case 'c':              /* char */
+		/* need a cast here since va_arg only
+		   takes fully promoted types */
+		c = (char) va_arg(ap, int);
+		printf("char %c\n", c);
+		break;
+	}
+    va_end(ap);
+}
+{% endhighlight %}
+>对于这个不定参数，查了一下网上的资料，还有一个问题就是如何确定不定参数的个数和类型。网上提供了两个方法解决：  
+>a）在不定参数前指定一个参数int来确定补丁参数的个数。  
+>b）除了指定不定参数个数以外，还要指定类型，所以要自定义int类型来表示不同的类型，然后不定参数以类型1，参数1，类型2，参数2的形式传进来。  
+
+[cstack1]: /image/c_stack_1.png
+[cstack2]: /image/c_stack_2.jpg
+
