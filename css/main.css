@@ -96,6 +96,10 @@ ul.posts span {
     line-height: 20px;
     color: #888;
 }
+#rsspic {
+    width: 20px;
+    height: 20px;
+}
 
 #motohead {
     margin: 0;
