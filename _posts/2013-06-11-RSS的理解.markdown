@@ -1,0 +1,41 @@
+---
+layout: post
+title: "RSS的理解"
+date: 2013-06-11 01:23:14
+categories: xml
+type: technology
+---
+
+>以前大一的时候学习过xml，也就知道了RSS这个东西，但是并不清楚更多的内部，只是了解它是一个利用xml技术进行订阅的功能，然后觉得没什么意思，感觉效果不好，于是就再也没有碰过这个东西了，我自己也从来没有订阅什么东西。现在自己在github上有blog了，就想弄一下这个东西，然后就google了一下。
+>
+>现在是想要记录一下自己的理解，我不想以后又忘记了。
+>
+>在学习体系架构的时候，学习过订阅者模式，这里使用的就是它。现在我的blog提供RSS订阅功能，也就是说，我blog除了输出html内容让浏览器来读以外，还输出xml内容让RSS阅读器来读，所以我的blog是一个RSS信息源，也叫feed。这就简单了，只要我的blog有一个xml文件，就像html文件那样就OK拉！
+>
+>RSS阅读器只要订阅我的blog，就是记住我的xml文件的url就可以获取我的blog内容了，这里注意了，我的blog是被动的，我只要生成xml文件即可，然后是是RSS阅读器主动来获取xml内容进行阅读。但是应该什么时候去获取呢？定时吗？当然是可以的。每隔一段时间发出请求，blog服务器检测xml文件是否变化，如果修改时间和内容等都发生了变化，那么让RSS阅读器获取xml文件，否则不用获取。
+>
+>更好的方式是推送，只要blog有内容更新了，那么blog就发一个状态给所有的订阅者，告诉他内容更新了，让RSS阅读器来获取。这就需要blog记住所有的订阅者信息了，但是这明显是困难的，因为订阅者的IP是变动的；或者使用一个中介来实现，例如网页的阅读器，什么鲜果阅读器和QQ邮箱阅读器等。反正能固定订阅者地址就好。还有对服务器也要有推送的功能。这些看起来不现实，我也没有看到有这样做的，一般都是只有订阅的功能罢了。
+>
+>客户端的阅读器很简单，就是按照rss的xml规范来读取节点信息即可；服务端也是，生成相应的节点信息即可。
+>
+>在jekyll上添加RSS也很简单，只要在根目录写一个xml文件模板，里面是用jekyll等语言来写。可以自己去写，也可以用别人，反正都有人为你做好了，上这里[jekyll-rss-feeds], 然后clone下来，选择一个适合自己的xml文件添加到blog根目录。还要修改_config.yml文件，添加name，description，url属性，不然在xml里面就读不到内容了。然后跑jekyll，就可以在_site目录下看到一个有内容的xml文件了。
+>
+>但是，RSS阅读器还是需要知道你这个xml文件的url啊，所以要在网页上添加这个标签：
+{% highlight html %}
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
+{% endhighlight %}
+>如此一来，就算订阅的时候填blog的地址就能找到xml文件了。
+>
+>一般来说，我们还会借用第三方服务来管理自己所有的信息源（Feeds），例如blog，qq，weibo等，然后聚合（烧合）在一起，统一来阅读，甚至帮你管理一些订阅的统计信息，它会定时向我们的feed来获取最新内容，然后通知订阅者（RSS阅读器），实现推送的功能。[FeedSky]是国内很好的一个这样服务。
+>
+>注册以后，添加github的blog作为一个feed，并生成永久的地址，然后修改原来的xml link，并加入一个图标超链接：
+{% highlight html %}
+<link rel="alternate" type="application/atom+xml" title="{{ site.name }}" href="http://feed.feedsky.com/zhgeaits">
+<a id="subscribe" href="http://feed.feedsky.com/zhgeaits">
+	<img src="/image/rss.png" alt="Subscribe to RSS Feed" id="rsspic"/>
+</a>
+{% endhighlight %}
+>现在github的blog就有订阅功能了。
+
+[jekyll-rss-feeds]: https://github.com/snaptortoise/jekyll-rss-feeds
+[FeedSky]: www.feedsky.com
