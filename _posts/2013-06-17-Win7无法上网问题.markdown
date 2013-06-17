@@ -3,7 +3,7 @@ layout: post
 title: "Win7无法上网问题"
 date: 2013-06-17 12:49:03
 categories: os
-type: technology
+type: try-and-error
 ---
 
 >以前我的win7也试过无法上网，这些问题也经常有同学问我，修复多了，但是时间一长还是忘记，于是打算写到日志里面以便以后能记住。
