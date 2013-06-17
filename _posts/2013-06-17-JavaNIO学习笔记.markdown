@@ -1,0 +1,18 @@
+---
+layout: post
+title: "JavaNIO学习笔记"
+date: 2013-06-17 16:19:46
+categories: java
+type: technology
+---
+
+_这个是学习java编程思想上面的java nio，感觉内容有点少，而且是没有selector选择器的，这个应该有点像异步IO吧，以后再学习。这里总结了一下学习的记录_
+
+>__1\.__nio的引入是为了提高速度，实际上，旧的IO包已经使用nio重新实现过了，因此，即使我们不显式地用nio编写代码，也能从中受益。  
+>__2\.__通道是一种相当基础的东西：可以向它传送用于读写的ByteBuffer，并且可以锁定文件的某些区域用于独占式访问。  
+>__3\.__感觉这个nio就是更加直接的像在使用c来操作文件而已。  
+>__4\.__要获得FileChannel可以使用FileInputStream FileOutputStream RandomAccessFile来getChannel，或者然后调用FileChannel的write，传入Buffer就行，ByteBuffer需要使用allocate来分配大小，要读内容就调用filechannel的read，读之前buffer要clear()，读完以后要flip()，read到文件末尾返回-1。buffer的get返回一个字节，buffer的asXXXBuffer可以转换成其他的buffer，就是试图缓冲器。buffer的rewind方法使得回到数据开始的地方，和flip的区别在于，file还是这了limit=position。  
+>__5\.__缓冲器的细节问题：有四个索引：mark标记，position位置，limit界限，capacity容量。标记就是打了一个标记，然后调用reset方法的时候回到mark的位置。position就是当前指针的位置，limit就是放了内容的最后。 往buffer写数据时，limit指向capacity，position一直移动知道limit。读数据时，limit指向position，因为position是写数据的最后位置，然后position再指向0.  
+>__6\.__内存映射文件，可以处理大容量的文件，很高的效率，使用方法看代码，注意一下，使用MappedByteBuffer,它是继承ByteBuffer的，直接使用mappedbuffer来put和get即可，不需要filechannel来read和write了，因为是filechannel映射过来的。映射文件中的所有输出必须使用RandomAccessFile。  
+>__7\.__对于文件可以加锁，这样在写的时候就安全了。实例代码FileLocking。SocketChannel,DatagramChannel, ServerSOcketChannel不需要加锁，因为他们是从单进程实体继承而来的，我们通常不再两个进程之间共享网络socket。tryLock是非阻塞的，lock是阻塞的。共享锁目前还不懂什么意思。也可以对文件的一部分进行锁。看实例代码LockingMappedFiles。  
+>__8\.__代码：看JavaTextBox项目有演示  
