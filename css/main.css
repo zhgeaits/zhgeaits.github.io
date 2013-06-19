@@ -48,12 +48,12 @@ ul.posts {
 
 ul.posts li {
   line-height: 1.75em;
+  margin-left: 3em;
 }
 
 ul.posts span {
-  color: #aaa;
-  font-family: Monaco, "Courier New", monospace;
-  font-size: 80%;
+  font:14px/18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 90%;
 }
 
 #home { 
@@ -61,10 +61,14 @@ ul.posts span {
   border-top: 4px solid #eee;
 }
 
-#newlog {
-  margin: 1em 0;
+#year {
+  font:20px/30px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+#month {
+  font:15px/20px "Trebuchet MS", Arial, Helvetica, sans-serif;
+  margin-left: 1em;
+}
 #catalogo {
     width: 16px;
     height: 16px;
@@ -92,7 +96,7 @@ ul.posts span {
 #catalog {
     background: #e1e5e8;
     font-family: "Georgia", Tahoma, Sans-Serif;
-    font-size: 17px;
+    font-size: 20px;
     line-height: 20px;
     color: #888;
 }
