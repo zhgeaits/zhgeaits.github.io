@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Self Introduction English Version"
-date: 2013-06-19 23:03:05
+date: 2013-03-31 23:03:05
 categories: resume
 type: resume
 ---
