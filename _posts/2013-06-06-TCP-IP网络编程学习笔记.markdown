@@ -57,14 +57,18 @@ type: technology
 >**第七章**
 >
 >__1\.__例子库使用
+
 {% highlight c %}
 extern int errno;
 strerror(errno);
 {% endhighlight %}
+
 则必须
+
 {% highlight c %}
 #include <errno.h>
 {% endhighlight %}
+
 否则报Segmentation fault错误。  
 >__2\.__对于linux下的TIME和ECHO服务，可以安装openbsd-inet来启动。  
 >__3\.__daytime和time服务不同，daytime服务意在为人所用，而time服务意在为那些存储或维护时间的程序所使用。  

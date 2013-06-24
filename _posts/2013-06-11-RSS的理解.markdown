@@ -21,20 +21,24 @@ type: technology
 >在jekyll上添加RSS也很简单，只要在根目录写一个xml文件模板，里面是用jekyll等语言来写。可以自己去写，也可以用别人，反正都有人为你做好了，上这里[jekyll-rss-feeds], 然后clone下来，选择一个适合自己的xml文件添加到blog根目录。还要修改_config.yml文件，添加name，description，url属性，不然在xml里面就读不到内容了。然后跑jekyll，就可以在_site目录下看到一个有内容的xml文件了。
 >
 >但是，RSS阅读器还是需要知道你这个xml文件的url啊，所以要在网页上添加这个标签：
+
 {% highlight html %}
-<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="{{ site\.name }}" href="{{ site\.url }}/feed.xml">
 {% endhighlight %}
+
 >如此一来，就算订阅的时候填blog的地址就能找到xml文件了。
 >
 >一般来说，我们还会借用第三方服务来管理自己所有的信息源（Feeds），例如blog，qq，weibo等，然后聚合（烧合）在一起，统一来阅读，甚至帮你管理一些订阅的统计信息，它会定时向我们的feed来获取最新内容，然后通知订阅者（RSS阅读器），实现推送的功能。[FeedSky]是国内很好的一个这样服务。
 >
 >注册以后，添加github的blog作为一个feed，并生成永久的地址，然后修改原来的xml link，并加入一个图标超链接：
+
 {% highlight html %}
 <link rel="alternate" type="application/atom+xml" title="{{ site.name }}" href="http://feed.feedsky.com/zhgeaits">
 <a id="subscribe" href="http://feed.feedsky.com/zhgeaits">
 	<img src="/image/rss.png" alt="Subscribe to RSS Feed" id="rsspic"/>
 </a>
 {% endhighlight %}
+
 >现在github的blog就有订阅功能了。
 
 [jekyll-rss-feeds]: https://github.com/snaptortoise/jekyll-rss-feeds
