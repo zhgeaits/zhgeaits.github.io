@@ -17,3 +17,15 @@ type: try-and-error
 {% endhighlight %}
 
 >这个估计是在学习git的时候配置的，它的值只能是file，不能是文件夹，所以出错拉，删掉就好了！
+>
+>#2.从工作室的RhodeCode的仓库创建一个git项目以后，克隆下来的时候发现这个错误：
+
+{% highlight vim %}
+server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificat
+{% endhighlight %}
+
+原因证书问题，这个证书没有正式配置吧，所以只能绕过不验证了，在本机配置一个环境变量,和我們使用hg時候那個問題是一致的。
+
+{% highlight vim %}
+export GIT_SSL_NO_VERIFY=1
+{% endhighlight %}
