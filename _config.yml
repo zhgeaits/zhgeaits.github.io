@@ -1,4 +1,7 @@
 name: 张戈的技术生涯
 description: 我会记录我的IT技术生涯的！
 url: http://zhgeaits.github.io
-pygments: true
+highlighter: pygments
+highlighter: true
+safe: true
+lsi: false
