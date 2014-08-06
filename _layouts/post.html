@@ -1,17 +1,21 @@
 ---
 layout: default
 ---
-<h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }}</p>
 
 <div id="post">
-{{ content }}
+	<h2>{{ page.title }}</h2>
+	<p class="meta">{{ page.date | date_to_string }}</p>
+
+	{{ content }}
+
+	<hr width="100%" color="#e1e5e8" >
+
+	<div class="ds-thread"></div>
 </div>
 
-<hr width="100%" color="#e1e5e8" >
+
 
 <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread"></div>
 <script type="text/javascript">
     var duoshuoQuery = {short_name:"zhgeaits"};
 (function() {

@@ -3,7 +3,7 @@ layout: post
 title: "Java线程并发学习记录"
 date: 2013-06-19 23:12:54
 categories: java
-type: technology
+type: java
 ---
 
 >_在面试的时候发现自己其实对于java线程并发学习还是不够，而且学过没有好好记录下载，现在就重新记录一下，然后还有线程池的学习，以后继续补充_

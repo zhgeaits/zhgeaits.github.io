@@ -56,9 +56,11 @@ ul.posts span {
   font-size: 90%;
 }
 
-#home { 
+#home {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 1em;
-  border-top: 4px solid #eee;
 }
 
 #year {
@@ -124,7 +126,6 @@ ul.posts span {
 .site {
   font-size: 115%;
   text-align: justify;
-  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
@@ -141,6 +142,7 @@ ul.posts span {
   display: inline-block;
   margin-bottom: 1em;
   margin-top: 1em;
+  margin-left: 3em;
 }
 
 .site .header h1.title a {
@@ -168,8 +170,9 @@ ul.posts span {
 .site .footer {
   font-size: 80%;
   color: #666;
-  border-top: 4px solid #eee;
   margin-top: 2em;
+  margin-left: 3em;
+  margin-right: auto;
   overflow: hidden;
 }
 
@@ -192,11 +195,20 @@ ul.posts span {
   border: 0;
 }
 
+
 /*****************************************************************************/
 /*
 /* Posts
 /*
 /*****************************************************************************/
+
+
+#post {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+}
 
 /* standard */
 #post pre {
