@@ -3,7 +3,7 @@ layout: post
 title:  "C语言学习手记"
 date:   2013-06-08 15:00:03
 categories: c
-type: technology
+type: other
 ---
 
 >_这个手记记录我学习C语言的一些心得、重要知识点、容易忘记、混淆的知识点等，这并不是记录C的所有知识点。_

@@ -3,7 +3,7 @@ layout: post
 title:  "TCP/IP网络编程学习笔记"
 date:   2013-06-06 20:12:03
 categories: Unix
-type: technology
+type: other
 ---
 
 >_这个手记记录我学习Unix下的TCP/IP网络编程的一些知识点和重要的理解，还包含了一些遇到的错误以及解决方法。这个日志会一直更新。_

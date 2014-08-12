@@ -2,8 +2,8 @@
 layout: post
 title:  "Hg学习笔记!"
 date:   2014-08-05 11:00:03
-categories: java
-type: java
+categories: other
+type: other
 ---
 
 ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER

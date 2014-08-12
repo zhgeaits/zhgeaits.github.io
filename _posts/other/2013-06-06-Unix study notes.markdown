@@ -3,7 +3,7 @@ layout: post
 title:  "Unix初级编程学习笔记"
 date:   2013-06-06 19:12:03
 categories: Unix
-type: technology
+type: other
 ---
 
 _本手记主要记录理解unix编程的内容_

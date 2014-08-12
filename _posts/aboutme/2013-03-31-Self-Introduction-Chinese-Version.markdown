@@ -3,7 +3,7 @@ layout: post
 title: "自我介绍中文版本"
 date: 2013-03-31 23:08:35
 categories: resume
-type: resume
+type: aboutme
 ---
 
 >

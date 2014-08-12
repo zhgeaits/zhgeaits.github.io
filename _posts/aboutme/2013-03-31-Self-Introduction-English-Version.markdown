@@ -3,7 +3,7 @@ layout: post
 title: "Self Introduction English Version"
 date: 2013-03-31 23:03:05
 categories: resume
-type: resume
+type: aboutme
 ---
 >
 >  My name is ZhangGe, and I am the student from University of Electronic Science and Technology of China majoring in Software Engineering. I am from Guangdong. When I was a child at five-grade in primary school, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with a machine by using Q-basic. It would be proud to talk about that I won the third prize when I took part in the computer competition in the city. From then on I have loved computer programming.

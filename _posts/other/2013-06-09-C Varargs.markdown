@@ -3,7 +3,7 @@ layout: post
 title:  "C语言的不定参数学习"
 date:   2013-06-09 10:00:00
 categories: c
-type: technology
+type: other
 ---
 
 在java里面不定参数是一个很有用的东西，在方法里面用三个点就能使用了，例如：

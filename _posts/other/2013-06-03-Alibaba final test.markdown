@@ -2,8 +2,8 @@
 layout: post
 title: "阿里巴巴终试"
 date: 2013-06-03 17:44:00
-type: technology
-categories: jobinterview
+type: other
+categories: other
 ---
 
 >今天状态超不好，6点就起来奔市里，以为可以搞定材料库的服务器问题，可是搞了一天还是原地踏步，累啊！赶着回来刚好是阿里终面。晕死，最终面试居然问到很多不知道的，唉，真不爽！

@@ -3,7 +3,7 @@ layout: post
 title: "Tomcat无法启动问题"
 date: 2013-07-02 16:18:30
 categories: tomcat
-type: try-and-error
+type: other
 ---
 
 >材料库部署以后，本来是在ubuntu server + tomcat6 + jdk6的环境，但是，客户的各种原因导致现在是放在了win2003server下，而且又不能登录来调试，出问题比较麻烦。

@@ -3,7 +3,7 @@ layout: post
 title:  "腾达无线网卡832U安装记录"
 date:   2013-06-07 17:00:03
 categories: linux
-type: technology
+type: other
 ---
 
 >昨天买了一个腾达的无线网卡，其实很久以前就想买一个的，但是因为没有什么特别用处就没有买了，这次想在工作室装一台电脑玩玩，装一下[Linux_mint]，或者装以下[e17]，还有搭建一下[hadoop]环境，重新学习，而且飞哥介绍了一个两个电脑共享剪切板的软件[synergy]。

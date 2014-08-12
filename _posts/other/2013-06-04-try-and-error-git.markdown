@@ -2,8 +2,8 @@
 layout: post
 title:  "错误学习之Git"
 date:   2013-06-04 00:30:00
-categories: try-and-error
-type: try-and-error
+categories: other
+type: other
 ---
 
 >#1.fault: cannot use bin as an exclude file git.#
