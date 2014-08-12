@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "vim/vi神器!"
+title:  "Android的圆形头像学习笔记!"
 date:   2014-08-05 11:00:03
-categories: other
-type: other
+categories: android
+type: android
 ---
 
 ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER

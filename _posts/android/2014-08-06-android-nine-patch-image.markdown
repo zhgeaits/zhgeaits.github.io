@@ -1,8 +1,9 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2013-06-01 17:00:03
-categories: jekyll update
+title:  "Android的九宫格图学习笔记!"
+date:   2014-08-05 11:00:03
+categories: android
+type: android
 ---
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
