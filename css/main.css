@@ -48,7 +48,7 @@ ul.posts {
 
 ul.posts li {
   line-height: 1.75em;
-  margin-left: 3em;
+  margin-left: 5.5em;
 }
 
 ul.posts span {
@@ -70,7 +70,7 @@ ul.posts span {
 
 #month {
   font:15px/20px "Trebuchet MS", Arial, Helvetica, sans-serif;
-  margin-left: 1em;
+  margin-left: 2.5em;
 }
 #catalogo {
     width: 16px;
