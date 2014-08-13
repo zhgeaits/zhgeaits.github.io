@@ -8,7 +8,9 @@ type: android
 
 **什么是IntelliJ IDEA**
 
-IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来是很不习惯的，但是到网上搜索有很多比较两者的优劣的文章，我就不多说了。来到新公司，大家都用这个，就用吧，用着就会习惯的了。
+IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来是很不习惯的，但是到网上搜索有很多比较两者的优劣的文章，我就不多说了。
+来到新公司，大家都用这个，就用吧，用着就会习惯的了。再说虽然Android官方主要的开发IDE还是eclipse，但是android已经在intellij的基础上
+修改出一个android studio了，目前还是测试版。。。。
 主要还是先要记一下常用的快捷键。
 
 **一些常用快捷键**
