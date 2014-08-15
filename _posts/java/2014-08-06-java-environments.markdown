@@ -1,17 +1,55 @@
 ---
 layout: post
 title:  "JDK环境搭建!"
-date:   2014-08-05 11:00:03
+date:   2013-05-06 14:00:03
 categories: java
 type: java
 ---
 
-ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
+JDK安装配置
 
+windows下配置
 
-可回收的图片控件：
-RecycleImageView继承自ImageView：可Recycle Bitmap减少OOM的ImageView
-这个view存放的是RecycleBitmapDrawable继承自BitmapDrawable.
-给RecycleImageView放置Drawable的时候，首先调用getDrawable()方法来获取上一个在这个view的drawable，然后再去设置新的drawable，最后去通知RecycleBitmapDrawable这个drawable的显示状态，它会根据状态来回收。注意到的是，调用getDrawable()方法获取的可能是RecyleBitmapDrawable，也可能是LayerDrawable。如果是layerDrawable的话，只需要一个个提取出来再递归处理即可。
-RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计数，是否已经显示过。
-进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
+安装
+下载传送门 
+找到windows版本下载
+
+设置环境变量
+第一步：我的电脑-->属性-->高级-->环境变量 
+第二步：配置用户变量: 
+a.新建 JAVA_HOME 
+  值为 C:\Program Files\Java\j2sdk1.5.0 （JDK的安装路径）
+b.修改 PATH
+  添加 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
+c.新建 CLASSPATH
+
+  .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
+测试
+开始--->运行--->cmd(曹孟德控制台，o(∩∩)o...哈哈)
+输入java --version
+over!~提示你的java版本有木有？
+
+Linux下配置
+
+安装
+下载传送门 
+找到Linux版本下载 
+下载jdk到你的主目录下，然后用这个命令修改可执行权限：
+
+chmod +x jdk1.6.0_31.bin
+设置环境变量
+sudo vim .bashrc
+加入以下：
+#要根据你实际的路径来配置啊，不要随便复制有木有
+export JAVA_HOME="/home/zhangge/jdk1.6.0_31"
+export PATH="$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin"
+export CLASSPATH="$CLASSPATH:.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib"
+ 
+然后:wq保存退出（：wq是vim命令！～）
+运行命令：
+source .bashrc
+测试
+在terminal下输入
+
+java -version
+
