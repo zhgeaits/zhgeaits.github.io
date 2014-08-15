@@ -99,6 +99,14 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + X：</td>
 		<td>删除行</td>
 	</tr>
+	<tr>
+		<td>Ctrl + O：</td>
+		<td>重载方法Override</td>
+	</tr>
+	<tr>
+		<td>Ctrl + I：</td>
+		<td>实现方法Implement</td>
+	</tr>
 </table>
 
  
