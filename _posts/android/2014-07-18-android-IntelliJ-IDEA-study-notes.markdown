@@ -13,6 +13,17 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 修改出一个android studio了，目前还是测试版。。。。
 主要还是先要记一下常用的快捷键。
 
+**Troubleshooting**
+
+同事跑公司项目报这个错：
+
+Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
+
+然后下面的Exception stack几乎没有用，主要说是zip file is empty。。。
+那就是说这个classes.jar是空的。。。说明intellij在dex的时候没成功什么的。很蛋疼。。。。搞来搞去都找不到原因，然后我就搜索项目下的所有classes.jar文件，
+然后把0kb的删除，再跑项目，竟然奇迹的跑起来了。。。。好吧，无语了。。。。再说这个异常在我机器却没有。。。
+但是，上次我这里跑yy2.0一直抛一个错，现在我都没解决呢。。。晕死了。。
+
 **一些常用快捷键**
 
 我比较喜欢使用ctrl+w来关闭tab，这个在eclipse使用太好了，不明白这里为毛用ctrl+F4，实在手不够长啊。。。。。到settings->keymap：搜一下close，在Editor Tabs那里改改就好。当然可以在这里自定义自己的快捷键。
@@ -91,14 +102,3 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 </table>
 
  
-
- 
-
- 
- 
- 
-
- 
-
- 
-
