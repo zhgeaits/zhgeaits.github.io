@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的IntelliJ IDEA学习笔记!"
+title:  "Android开发IDE之IntelliJ IDEA使用，快捷键，常用技巧!"
 date:   2014-07-18 11:00:03
 categories: android
 type: android
@@ -79,6 +79,14 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 	<tr>
 		<td>Alt + Insert：</td>
 		<td>Generate</td>
+	</tr>
+	<tr>
+		<td>Ctrl + D：</td>
+		<td>复制行</td>
+	</tr>
+	<tr>
+		<td>Ctrl + X：</td>
+		<td>删除行</td>
 	</tr>
 </table>
 
