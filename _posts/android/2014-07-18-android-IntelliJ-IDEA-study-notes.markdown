@@ -76,6 +76,10 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 		<td>Ctrl+Shift+上下键：</td>
 		<td>移动选中的代码</td>
 	</tr>
+	<tr>
+		<td>Alt + Insert：</td>
+		<td>Generate</td>
+	</tr>
 </table>
 
  
