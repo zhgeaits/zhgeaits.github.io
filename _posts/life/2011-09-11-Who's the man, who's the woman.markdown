@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "金枝玉叶：诠释张国荣的爱情"
-date: 2011-09-11 00:00:07
+date: 2011-09-11 05:00:07
 categories: life
 type: life
 ---
