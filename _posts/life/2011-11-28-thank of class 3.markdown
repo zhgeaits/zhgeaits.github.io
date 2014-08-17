@@ -67,3 +67,15 @@ type: life
 我想说三班关爱活动真的很好，希望能一直保持下去，下次我一定会出现在视频里面的。
 
 期待寒假相聚！
+
+![class3_reply_1][class3_reply_1]
+![class3_reply_2][class3_reply_2]
+![class3_reply_3][class3_reply_3]
+![class3_reply_4][class3_reply_4]
+![class3_reply_5][class3_reply_5]
+
+[class3_reply_1]: /image/class3_reply_1.png
+[class3_reply_2]: /image/class3_reply_2.png
+[class3_reply_3]: /image/class3_reply_3.png
+[class3_reply_4]: /image/class3_reply_4.png
+[class3_reply_5]: /image/class3_reply_5.png
