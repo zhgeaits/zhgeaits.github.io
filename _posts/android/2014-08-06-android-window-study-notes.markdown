@@ -28,7 +28,9 @@ Window是一个抽象类，官网上说他的唯一的实现是PhoneWindow，
 window都有一个View，称之为DecorView，是主窗口中的顶级view，实际上就是ViewGroup。  
 并不是一个app只有一个window，而是当有东西需要显示在界面上，就需要一个window，就是说一个界面，包括内容，逻辑和窗口，三者同时需要。启动activity需要window，启动dialog需要window，
 只要启动的控件有getWindow()方法都需要一个window来显示。那么这些window的管理，增删回收等就需要一个Manager了。  
-可以修改设置window的参数，也可以设置window里面的view的参数，  没有认真学习过这些类，是完全不能理解这些参数设置的意义的。
+可以修改设置window的参数，也可以设置window里面的view的参数，  没有认真学习过这些类，是完全不能理解这些参数设置的意义的。  
+设置全屏：  
+getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 WindowManager主要用来管理窗口的一些状态、属性、view增加、删除、更新、窗口顺序、消息收集和处理等。在WindowManager中还有一个重要的静态类LayoutParams.通过它可以设置和获得当前窗口的一些属性。
 
