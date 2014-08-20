@@ -107,6 +107,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + I：</td>
 		<td>实现方法Implement</td>
 	</tr>
+	<tr>
+		<td>Ctrl + Alt + 空格：</td>
+		<td>提示，相当于eclipse的Alt+/</td>
+	</tr>
 </table>
 
  

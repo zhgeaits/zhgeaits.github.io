@@ -11,6 +11,11 @@ TextView可以设置这样一个属性，文字上面配一个图片。
 android:drawableTop="@drawable/default_tip"
 {% endhighlight %}
 
+TextView可以设置文字对齐，但是排版问题解决不了。。。
+{% highlight xml %}
+android:gravity="right"
+{% endhighlight %}
+
 给一个TextView设置Text后，如何马上获得这个TextView的宽度？
 
 给一个View动态在代码里面设置android:layout_toLeftOf这样的属性，这个在RelativeLayout里面的属性：  
