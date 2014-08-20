@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Android的ImageView学习笔记!"
-date:   2014-08-06 11:00:03
+date:   2014-03-06 11:00:03
 categories: android
 type: android
 ---

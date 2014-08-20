@@ -2,8 +2,8 @@
 layout: post
 title:  "JavaScript学习记录!"
 date:   2014-08-05 11:00:03
-categories: other
-type: other
+categories: javaweb
+type: javaweb
 ---
 
 一个笑话：
