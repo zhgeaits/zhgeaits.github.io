@@ -13,6 +13,12 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 修改出一个android studio了，目前还是测试版。。。。
 主要还是先要记一下常用的快捷键。
 
+**DIY settings**  
+给标签tab设置一个星※，*，就像eclipse那样，如果一个文件，tab，被修改了，就显示一个*，然后按下ctrl+s保存以后这个星就消失；  
+在settings->Editor->Editor tabls->Mark modified tabs with asterisk，勾上就好了。  
+这里还有两个设置，当关闭一个tab的时候，激活上次打开的那个，则勾上：when closing editor, active the most recently tabs.  
+再勾上show tabs in single row，让它显示在一行，两行闪来闪去，实在受不了。。。
+
 **Troubleshooting**
 
 同事跑公司项目报这个错：
