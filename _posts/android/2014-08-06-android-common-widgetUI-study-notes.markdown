@@ -23,7 +23,7 @@ android:gravity="right"
 {% endhighlight %}
 
 另外一种方式是，字符是动态变化的，则然后可以再代码里面设置：  
-{% hightlight java %}
+{% highlight java %}
 TextView textView = (TextView)findViewById(R.id.testView); 
 textView.setText(Html.fromHtml("<u>"+"换一张"+"</u>"));
 {% endhighlight %}
