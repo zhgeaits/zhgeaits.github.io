@@ -1,17 +1,14 @@
 ---
 layout: post
-title:  "Android的Eclipse学习笔记!"
-date:   2014-08-05 11:00:03
+title:  "Android的Eclipse的使用记录，常用设置，技巧等记录!"
+date:   2013-11-10 10:10:10
 categories: android
 type: android
 ---
 
-ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
+因为javaweb那边放了myeclipse的post，然后eclipse就放到android这边好了，目前android官方推荐的ide还是eclipse，
+但是也快要变了，改成idea改的studio。为什么不把这个post放到其他那边，因为我也没用eclipse开发别的，之前在阿里
+是使用eclipse开发web的，因为那边有专门的插件，在东软也用过一会eclipse，一般情况我都是用myeclipse，后来搞android
+装上adt以后就常用eclipse了，所以就放到这里吧。
 
-
-可回收的图片控件：
-RecycleImageView继承自ImageView：可Recycle Bitmap减少OOM的ImageView
-这个view存放的是RecycleBitmapDrawable继承自BitmapDrawable.
-给RecycleImageView放置Drawable的时候，首先调用getDrawable()方法来获取上一个在这个view的drawable，然后再去设置新的drawable，最后去通知RecycleBitmapDrawable这个drawable的显示状态，它会根据状态来回收。注意到的是，调用getDrawable()方法获取的可能是RecyleBitmapDrawable，也可能是LayerDrawable。如果是layerDrawable的话，只需要一个个提取出来再递归处理即可。
-RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计数，是否已经显示过。
-进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
+其实也没什么特别的设置，就是一些常用的快捷键啊，普通有用的设置啊，反正有关的东西以后都会记到这里。
