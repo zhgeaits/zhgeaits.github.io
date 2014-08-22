@@ -21,4 +21,6 @@ ImageView的scaletype属性：这个属性可以修改图片的显示形式来�
 RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计数，是否已经显示过。  
 进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
 
+实现在AlmightyZGBox-android项目里面。
+
 * **CircleImageView**

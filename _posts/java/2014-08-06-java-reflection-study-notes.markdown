@@ -1,17 +1,22 @@
 ---
 layout: post
 title:  "Java反射机制学习笔记!"
-date:   2014-08-05 11:00:03
+date:   2011-09-22 11:09:22
 categories: java
 type: java
 ---
 
-ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
+以前学习的反射笔记，慢慢再补上来。。。
 
+当想要知道当前运行的class是哪一个class的话，可以用:  
+this.getClass();  
+如果想要判断是不是我想的那个class，那么可以用:  
+this.getClass().equals(ZgClass.class);
 
-可回收的图片控件：
-RecycleImageView继承自ImageView：可Recycle Bitmap减少OOM的ImageView
-这个view存放的是RecycleBitmapDrawable继承自BitmapDrawable.
-给RecycleImageView放置Drawable的时候，首先调用getDrawable()方法来获取上一个在这个view的drawable，然后再去设置新的drawable，最后去通知RecycleBitmapDrawable这个drawable的显示状态，它会根据状态来回收。注意到的是，调用getDrawable()方法获取的可能是RecyleBitmapDrawable，也可能是LayerDrawable。如果是layerDrawable的话，只需要一个个提取出来再递归处理即可。
-RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计数，是否已经显示过。
-进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
+一开始我想到的是this.getClass().getName().equals("")；然后去debug，获取ZgClass.class.getName();  
+这样真不是正确的解决方法。万一包名改了什么的代码就蛋疼了，肯定不对，所以不能使用运行时的变量。  
+应该使用固定的，equals()方法是正确的。
+
+在android里面this.getClass()可能会报错，说不知道this是哪个Object的。在IDEA上面有问题报错，所以， 
+这样写一下就OK：  
+((Object) this).getClass();
