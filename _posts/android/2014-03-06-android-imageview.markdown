@@ -9,6 +9,10 @@ type: android
 * **ImageView**  
 ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
 
+* **从imageview保存图片到sd卡**  
+首先从ImageView获取Drawable，然后转换成Bitmap，再将Bitmap保存即可。
+代码在AlmightZGBox-android下面的ui.imgage.ZGImageUtils里面。
+
 下面两个自定义控件是来到公司以后，学习到的内容：  
 
 * **RecycleImageView**  
