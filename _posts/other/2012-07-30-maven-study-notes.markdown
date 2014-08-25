@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "项目构建神器之Maven学习笔记，常用使用记录"
+title:  "项目构建神器之Maven学习笔记，常用使用记录&Nexus仓库管理"
 date:   2012-07-30 07:30:03
 categories: other
 type: other
@@ -8,6 +8,13 @@ type: other
 
 maven这个高大上的东西，在没有上项目管理的课程时候是不知道什么是项目构建的，虽然就是打包，但是包含很多知识和技术，
 我们工作室很早就开始使用maven，从大二开始使用，因为飞哥去淘宝实习，从那里学习得到回来教我们的。
+
+**环境搭建**  
+这个简单到和搭建JDK环境一样。  
+第一步：去官网下载一个版本，然后解压到本地随便一个目录。  
+第二步：在环境变量设置一个MAVEN_HOME，指向解压的目录，再去PATH路径加入%MAVEN_HOME%\bin。这时候可以再控制台输入mvn -version了。  
+第三步：随便在某一个地方设置一个仓库目录，例如在MAVEN_HOME\resposity, 然后在conf\settings.xml里面设置<localRepository>D:/maven3.0.5/repository</localRepository>。
+当然，根据自己所在团队要详细设置settings了。例如，xhome要设置自己的镜像，YY要设置自己的仓库等等。
 
 命令大全：  
 1.帮助信息查询：mvn help:describe -Dplugin=help -Dfull  
