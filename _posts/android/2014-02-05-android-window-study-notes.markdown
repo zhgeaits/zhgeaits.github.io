@@ -36,6 +36,12 @@ WindowManager主要用来管理窗口的一些状态、属性、view增加、删
 
 在自定义一个弹窗的时候，继承Dialog，然后获取window，设置他的大小，位置，例如在底部，然后再设置动画，则可以实现底部弹窗的效果。但是popwindow也挺好用的。
 
+**dialog的edittext无法弹出键盘问题**  
+//只用下面这一行弹出对话框时需要点击输入框才能弹出软键盘
+window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//加上下面这一行弹出对话框时软键盘随之弹出
+window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
 暂时就只学习到这里，日后继续补充。
 
 **PopWindow**  

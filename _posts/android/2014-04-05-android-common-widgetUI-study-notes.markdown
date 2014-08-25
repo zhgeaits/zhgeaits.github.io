@@ -41,6 +41,11 @@ params.rightMargin = dip2px(this, 30);
 view.setLayoutParams(params);
 {% endhighlight %}
 
+**Intent**  
+启动一个activity的时候，给intent加flag可以处理activity栈：  
+FLAG_ACTIVITY_CLEAR_TOP  如果新的activity实例已经在返回栈中运行，这时候会把它置顶，并且清除上面的activity。  
+FLAG_ACTIVITY_SINGLE_TOP  如果返回栈中最上面的activity是正在启动的activity，那么这个实例会置于前台，不会创建新的activity。
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {

@@ -17,3 +17,5 @@ listview去掉边缘滑动阴影和按下颜色（这些效果耗内存）：
 android:overScrollMode="never"
 android: listSelector="@android:color/transparent"
 {% endhighlight %}
+
+listview作为聊天界面的时候，要自动滚到底部，可以设置一个定时器，然后执行chatList.setSelection(fragmentAdapter.getCount() - 1);就可以。
