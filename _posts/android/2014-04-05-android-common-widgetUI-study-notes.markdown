@@ -85,6 +85,9 @@ view.setLayoutParams(params);
 FLAG_ACTIVITY_CLEAR_TOP  如果新的activity实例已经在返回栈中运行，这时候会把它置顶，并且清除上面的activity。  
 FLAG_ACTIVITY_SINGLE_TOP  如果返回栈中最上面的activity是正在启动的activity，那么这个实例会置于前台，不会创建新的activity。
 
+* **判断当前的activity是否是栈顶的活动activity**  
+需要添加android.permission.GET_TASKS权限，然后获得ActivityManager，再获取getRunningTasks，最后比较getClassName就可以。具体看代码：CommonUtils
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
