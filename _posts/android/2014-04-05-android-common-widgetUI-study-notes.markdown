@@ -16,6 +16,38 @@ android:drawableTop="@drawable/default_tip"
 android:gravity="right"
 {% endhighlight %}
 
+* TextView设置滚动效果  
+之前排版的问题解决不了，不如就设置一行，然后滚动。  
+{% highlight xml %}
+android:singleLine="true”
+android:ellipsize="marquee”
+android:focusableInTouchMode="true”
+android:focusable="true”
+android:marqueeRepeatLimit="marquee_forever”
+{% endhighlight %}
+
+上面的配置使得textview只有在获得焦点以后才会滚动，要一直滚动，需要重写三个方法。  
+{% highlight java %}
+@Override
+protected void onFocusChanged(boolean focused, int direction,
+Rect previouslyFocusedRect) {
+// TODO Auto-generated method stub
+if(focused)
+super.onFocusChanged(focused, direction, previouslyFocusedRect);
+}
+
+@Override
+public void onWindowFocusChanged(boolean hasWindowFocus) {
+// TODO Auto-generated method stub
+if(hasWindowFocus)
+super.onWindowFocusChanged(hasWindowFocus);
+}
+@Override
+public boolean isFocused() {
+return true;
+}
+{% endhighlight %}
+
 * TextView设置下划线：  
 一种方式是，字符是固定的，则然后可以再strings.xml里面设置：  
 {% highlight xml %}
