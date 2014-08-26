@@ -48,6 +48,13 @@ return true;
 }
 {% endhighlight %}
 
+* TextView设置一行文字，然后超过就显示点点。。。省略号
+{% highlight xml %}
+android:maxEms="6" 
+android:singleLine="true"
+android:ellipsize="end"
+{% endhighlight %}
+
 * TextView设置下划线：  
 一种方式是，字符是固定的，则然后可以再strings.xml里面设置：  
 {% highlight xml %}
