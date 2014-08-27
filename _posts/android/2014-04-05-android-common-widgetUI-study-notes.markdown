@@ -86,7 +86,16 @@ FLAG_ACTIVITY_CLEAR_TOP  如果新的activity实例已经在返回栈中运行�
 FLAG_ACTIVITY_SINGLE_TOP  如果返回栈中最上面的activity是正在启动的activity，那么这个实例会置于前台，不会创建新的activity。
 
 * **判断当前的activity是否是栈顶的活动activity**  
-需要添加android.permission.GET_TASKS权限，然后获得ActivityManager，再获取getRunningTasks，最后比较getClassName就可以。具体看代码：CommonUtils
+需要添加android.permission.GET_TASKS权限，然后获得ActivityManager，再获取getRunningTasks，最后比较getClassName就可以。具体看代码：CommonUtils  
+另外一种方式，可以用一个boolean变量，在onResume方法设置为true，在onPause方法设置为false，这样也可以判断。
+
+* **使用Dialog的一个报错**  
+一般来讲，如果activity要关闭的时候show一个dialog，就会报这个错。但是我在这个大项目里面，明明是没有关闭的，也报错，估计是回调那些太复杂了导致的，具体原因我也没有查出来。。。。  
+Unable to add window  token android.os.BinderProxy is not valid; is your activity running?  
+解决方法就是:  
+if(!isFinishing()) {  
+   // show dialog  
+}
 
 * dp和pix之间的转换：  
 {% highlight java %}
