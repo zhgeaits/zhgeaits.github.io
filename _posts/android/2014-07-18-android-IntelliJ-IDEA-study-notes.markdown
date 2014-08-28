@@ -117,6 +117,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + Alt + 空格：</td>
 		<td>提示，相当于eclipse的Alt+/</td>
 	</tr>
+	<tr>
+		<td>Ctrl + Shift + F：</td>
+		<td>在整个项目查询字符</td>
+	</tr>
 </table>
 
  
