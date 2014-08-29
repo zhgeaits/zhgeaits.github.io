@@ -11,9 +11,10 @@ webview的使用很简单，设置网络权限，控件，然后loadurl就OK：
 webView.getSettings().setJavaScriptEnabled(true);
 webView.getSettings().setBuiltInZoomControls(true);
 webView.loadUrl("http://www.baidu.com");  
-
-//然后重写一个方法来捕获后退事件：  
-//默认点回退键，会退出Activity，需监听按键操作，使回退在WebView内发生
+{% endhighlight %}
+然后重写一个方法来捕获后退事件：  
+默认点回退键，会退出Activity，需监听按键操作，使回退在WebView内发生
+{% highlight java %}
 @Override
 public boolean onKeyDown(int keyCode, KeyEvent event) {  
 	// TODO Auto-generated method stub  
