@@ -69,6 +69,9 @@ textView.setText(Html.fromHtml("<u>"+"换一张"+"</u>"));
 
 * 给一个TextView设置Text后，如何马上获得这个TextView的宽度？
 
+* **EditText设置长度**  
+editInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2048)});
+
 * 给一个View动态在代码里面设置android:layout_toLeftOf这样的属性，这个在RelativeLayout里面的属性：   
 {% highlight java %}
 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
