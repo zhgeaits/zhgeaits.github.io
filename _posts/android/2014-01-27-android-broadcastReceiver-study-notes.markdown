@@ -21,7 +21,7 @@ type: android
 还要new一个intent filter，然后调用Context的registerReceiver(receiver, filter)来注册，一般在onResume()注册，在onPause()
 注销，调用unregisterReciver(receiver)。
 
-很重要的一点是：android给一个receiver的执行时间为5-10秒，所以一般来讲receiver不应该执行耗时的事情！！！
+很重要的一点是：android给一个receiver的执行时间为5-10秒，所以一般来讲receiver不应该执行耗时的事情！！！  
 引用网友一段话：不应该在BroadcastReceiver中开启一个新线程完成耗时的操作，因为BroadcastReceiver本身的生命周期很短，
 可能出现的情况是子线程还没有结束，BroadcastReceiver就已经退出的情况，而如果BroadcastReceiver所在的进程结束了，
 该线程就会被标记为一个空线程，根据Android的内存管理策略，在系统内存紧张的时候，会按照优先级，结束优先级低的线程，
