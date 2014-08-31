@@ -6,25 +6,20 @@ categories: android
 type: android
 ---
 
-这个是android的线程通信的消息机制，很多，比较复杂，handler，handlerThread，AsyncQueryHandler，message，messageQueue，looper。
+这个是android的线程通信的消息机制，很多，比较复杂，handler，handlerThread，AsyncQueryHandler，message，messageQueue，looper。  
 我不是研究系统级别的，就是理解一下，知道怎么使用，大概就差不多了。
 
 这是比较原生的用法了，异步的话，AsyncTask其实就是封装了handler之类的（Looper，HandlerThread）。而handler之类的其实也是封装了java的线程或者C的线程吧。
 
-android的主线程就是UI线程，只能在UI线程对UI进行操作，当其他的工作线程对UI进行操作时候，会报错，所以android使用消息机制解决。
-给UI线程发一个消息，UI线程取出消息，然后进行UI操作。有消息就有消息队列和消息的发送和处理。
+android的主线程就是UI线程，只能在UI线程对UI进行操作，当其他的工作线程对UI进行操作时候，会报错，所以android使用消息机制解决。给UI线程发一个消息，UI线程取出消息，然后进行UI操作。有消息就有消息队列和消息的发送和处理。
 
-Message就是一个消息的封装，MessageQueue就消息队列，Handler就是发送消息和处理消息的对象。而Looper是管理消息队列的对象，附属于UI线程，附属的意思就是，UI线程有自己的Looper对象，
-其实是启动线程的时候，自己创建了Looper的，并放到ThreadLocal来保证本地安全的，这个ThreadLocal以后再学习。其实每个线程都可以有Looper，HandlerThread就是一个例子。
+Message就是一个消息的封装，MessageQueue就消息队列，Handler就是发送消息和处理消息的对象。而Looper是管理消息队列的对象，附属于UI线程，附属的意思就是，UI线程有自己的Looper对象，其实是启动线程的时候，自己创建了Looper的，并放到ThreadLocal来保证本地安全的，这个ThreadLocal以后再学习。其实每个线程都可以有Looper，HandlerThread就是一个例子。
 
-我从网上找了下面一张图，其实这图不完整。左边的Thread就是我们的工作线程，它持有UI线程的handler对象，handler对象持有UI线程的Looper对象，
-工作线程用handler来post一个runnable对象或者一个消息的时候，就是加入到MessageQueue消息队列，Looper就是循环消息队列，取出消息交给对应的handler来处理，执行handleMessage方法，
-或者执行runnable对象。这样更新UI就不会报错，因为Looper是属于UI线程内部的。一般来讲handler也属于UI线程内部的，当然也可以不是，只要在创建handler对象时候传入UI线程的Looper就可以。  
+我从网上找了下面一张图，其实这图不完整。左边的Thread就是我们的工作线程，它持有UI线程的handler对象，handler对象持有UI线程的Looper对象，工作线程用handler来post一个runnable对象或者一个消息的时候，就是加入到MessageQueue消息队列，Looper就是循环消息队列，取出消息交给对应的handler来处理，执行handleMessage方法，或者执行runnable对象。这样更新UI就不会报错，因为Looper是属于UI线程内部的。一般来讲handler也属于UI线程内部的，当然也可以不是，只要在创建handler对象时候传入UI线程的Looper就可以。  
 ![handler][handler]
 
 **HandlerThread**  
-这个是继承Thread的，和普通线程不同的是，有Looper对象和不会销毁；有点像UI线程，但是又不能去修改UI。
-使用它我们就可以使用Handler了，不用创建很多线程。不能修改UI，但是可以做耗时操作，然后发message给UI线程的handler来修改UI。
+这个是继承Thread的，和普通线程不同的是，有Looper对象和不会销毁；有点像UI线程，但是又不能去修改UI。因为这个线程的Looper对象不销毁，所以这个线程也不会销毁，所以要退出线程的方法就是调用Looper的quit方法即可。使用它我们就可以使用Handler了，不用创建很多线程。不能修改UI，但是可以做耗时操作，然后发message给UI线程的handler来修改UI。
 
 **Looper**  
 Looper.prepare()方法是初始化。  

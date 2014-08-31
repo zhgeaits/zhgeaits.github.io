@@ -30,7 +30,7 @@ tongli那个的功能是进入视频列表后把手机拍摄的视频复制到�
 
 最好的解决方法是service+单例的Handler+HandlerThread，这样就不会变成空线程了，又解决同步问题。
 
-什么时候关闭这个service？AsyncTask是执行完就会被回收的，HandlerThread我目前还不是十分了解，这个线程是一直常驻的貌似。而service可以一直不关闭，或者所有业务完成后stopSelf。关于这个关闭以后还需要学习的。
+什么时候关闭这个service？AsyncTask是执行完就会被回收的，HandlerThread我目前还不是十分了解，这个线程是一直常驻，要退出就调用looper.quit()。而service可以一直不关闭，或者所有业务完成后stopSelf。关于这个关闭以后还需要学习的。
 
 现在已经比较了解什么是service了，但是service还有很多要学习的。先记录简单的。
 
