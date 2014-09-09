@@ -72,6 +72,9 @@ textView.setText(Html.fromHtml("<u>"+"换一张"+"</u>"));
 * **EditText设置长度**  
 editInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2048)});
 
+**EditText的点击事件**  
+setOnTouchListener()比setOnClickListener()更快获得点击事件，后者会先弹出键盘，然后有时候就失效了。
+
 * 给一个View动态在代码里面设置android:layout_toLeftOf这样的属性，这个在RelativeLayout里面的属性：   
 {% highlight java %}
 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
