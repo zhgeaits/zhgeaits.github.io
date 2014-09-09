@@ -7,7 +7,9 @@ type: android
 ---
 
 * **ImageView**  
-ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
+ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER。  
+CENTER_CROP：按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽) 。  
+
 
 * **从imageview保存图片到sd卡**  
 首先从ImageView获取Drawable，然后转换成Bitmap，再将Bitmap保存即可。
