@@ -103,6 +103,11 @@ if(!isFinishing()) {
    // show dialog  
 }
 
+**progressbar的左右宽度**  
+progressbar左右的padding好像默认不是0，所以要设置一下  
+android:paddingLeft="0px"  
+android:paddingRight="0px"  
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
