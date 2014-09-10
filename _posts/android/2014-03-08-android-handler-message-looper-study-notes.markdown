@@ -44,4 +44,8 @@ Looper处理消息不能并发，所以handler的工作不能阻塞。
 
 Looper取出Message对象，message对象里面有handler的引用和runnable的引用。如果Handler在UI线程创建，并重写了handleMessage方法来修改UI，但是给这个Handler传非UI线程的Looper。那么looper取出消息时候，是回调handler来修改UI，这个不会报错的，因为handler在UI线程创建，属于UI线程。但是Runnable就不行了，因为looper是直接调用这个runnable的run方法的，runnable是属于Looper所在的非UI线程，即使这个runnable在UI线程创建，它也不属于UI线程的（和直接在UI线程创建一个Runnable来修改UI一个意思！）。
 
+**其他**  
+Handler.removeCallbacksAndMessages(null);  
+这个方法是移除所有的callbacks 和 message。
+
 [handler]: /image/handler.png
