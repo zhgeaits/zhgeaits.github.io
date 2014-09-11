@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的抽屉效果，DrawerLayout，SlidingMenu学习笔记!"
+title:  "Android的抽屉效果，DrawerLayout，SlidingMenu，SlidingPaneLayout，ActionBarDrawerToggle学习笔记!"
 date:   2014-09-11 10:06:03
 categories: android
 type: android

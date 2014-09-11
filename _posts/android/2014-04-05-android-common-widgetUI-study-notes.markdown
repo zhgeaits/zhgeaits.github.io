@@ -108,6 +108,9 @@ progressbar左右的padding好像默认不是0，所以要设置一下
 android:paddingLeft="0px"  
 android:paddingRight="0px"  
 
+**ActionBar**  
+是3.0以后才有ActionBar，可以在menu/main.xml配置bar上面的item，然后在Activity的onCreateOptionsMenu里面创建。
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
