@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "JavaScript学习记录!"
-date:   2014-08-05 11:00:03
+date:   2011-03-11 11:00:03
 categories: javaweb
 type: javaweb
 ---
