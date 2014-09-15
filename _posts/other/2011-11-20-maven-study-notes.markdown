@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "项目构建神器之Maven学习笔记，常用使用记录&Nexus仓库管理"
-date:   2012-03-15 07:30:03
+date:   2011-11-20 07:30:03
 categories: other
 type: other
 ---
