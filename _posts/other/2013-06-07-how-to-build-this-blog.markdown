@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "这个Blog是如何搭建的!"
-date:   2014-08-05 11:00:03
+date:   2013-06-07 11:00:03
 categories: other
 type: other
 ---
