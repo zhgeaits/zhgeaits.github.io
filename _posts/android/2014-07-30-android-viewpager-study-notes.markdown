@@ -50,6 +50,15 @@ public CharSequence getPageTitle(int position)   {
 **FragmentPagerAdapter**  
 viewpager的adapter的另外一种写法，不是继承PagerAdapter，而是继承FragmentPagerAdapter，没什么难的，只是viewpager的每一个view都是fragment而已。而且，这个adapter还需要传FragmentManager进去。
 
+**FragmentStatePagerAdapter**  
+FragmentPagerAdapter更多的用于少量界面的ViewPager，比如Tab。划过的fragment会保存在内存中，尽管已经划过。而FragmentStatePagerAdapter和ListView有点类似，会保存当前界面，以及下一个界面和上一个界面（如果有），最多保存3个，其他会被销毁掉。
+
+**FixedFragmentStatePagerAdapter**  
+可以google一下这个，说是修复被回收后重启时不能从fragmentstatepageradapter恢复的bug。但是我还是不太懂，先记录下来，也许以后遇到这个问题就懂了。
+
+**setOffscreenPageLimit**  
+设置mPager.setOffscreenPageLimit(3);viewpager的适配器会预装在3个view,包含当前显示的view，一共4个，这是一个窗口,移动窗口时候，后面加载一个，前面销毁一个，最好能重写adapter的onDestoryItem方法。如果fragment缓存了的话，就不会去执行getItem方法，就会不去new Fragment了。
+
 有一个开源的strip，那些tap是可以滑动的：  
 pagerslidingtabstrip：http://blog.csdn.net/top_code/article/details/17438027
 如果要用它的时候再认真去学，公司就是用这个的，然后再适当修改为自己需求的。
