@@ -13,3 +13,5 @@ https://github.com/jfeinstein10/SlidingMenu
 
 然后2013的Google I/O大会上，官方发布了DrawerLayout，直接就支持了这个抽屉的导航功能，但是需要比较高的API支持。并且Google放弃了SlidingDrawer，直接使用DrawerLayout即可。  
 官方教程：http://developer.android.com/training/implementing-navigation/nav-drawer.html
+
+原来用eclipse直接创建项目的时候就可以创建一个drawlayout的项目了。。。。真是方便。。。。
