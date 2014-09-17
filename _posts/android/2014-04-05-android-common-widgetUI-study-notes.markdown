@@ -111,6 +111,9 @@ android:paddingRight="0px"
 **ActionBar**  
 是3.0以后才有ActionBar，可以在menu/main.xml配置bar上面的item，然后在Activity的onCreateOptionsMenu里面创建。
 
+**Application**  
+公司的项目里面，是自己继承了Application的，当出现异常崩溃以后，发现App的oncreate执行了一次，虽然不知道具体是什么，猜测是有一些服务例如是sticky的导致系统要去启动Application，但是不会启动应用。
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
