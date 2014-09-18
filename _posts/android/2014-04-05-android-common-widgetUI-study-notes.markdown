@@ -67,6 +67,16 @@ TextView textView = (TextView)findViewById(R.id.testView);
 textView.setText(Html.fromHtml("<u>"+"换一张"+"</u>"));
 {% endhighlight %}
 
+* TextView设置超链接:  
+再strings.xml里面设置
+{% highlight xml %}
+<string name="str_register_agreement">注册即表示您已同意<a href="http://3g.yy.com/notice/declare.html" style="color:0091FF">使用条款和隐私政策</a></string>
+{% endhighlight %}
+然后布局里面不用改什么，网上说加一个属性autoLink="web",但是我加了还是不能跳转，然后网上又有说在代码里面加这一段：  
+TextView agree = (TextView) view.findViewById(R.id.register_agree);  
+agree.setMovementMethod(LinkMovementMethod.getInstance());  
+我发现加了更加没有，连超链接的颜色都失效了。后来发现，上面代码需要，但是autoLink属性去掉即可。
+
 * 给一个TextView设置Text后，如何马上获得这个TextView的宽度？
 
 * **EditText设置长度**  
