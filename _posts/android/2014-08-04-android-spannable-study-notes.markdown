@@ -27,4 +27,10 @@ Spanned.SPAN_INCLUSIVE_INCLUSIVE(前后都包括)
 
 TextView一样的做法。
 
+给TextView高亮关键字：  
+SpannableString span = new SpannableString(title);  
+span.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.top_bar_line_color)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
+title.setText(span);  
+如此的简单！~
+
 以后慢慢学习补充。。
