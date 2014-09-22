@@ -31,6 +31,6 @@ TextView一样的做法。
 SpannableString span = new SpannableString(title);  
 span.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.top_bar_line_color)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
 title.setText(span);  
-如此的简单！~
+如此的简单！~之前公司的项目，一个搜索功能，以前的人写的时候，在搜索结果页要把关键字高亮，然他就用String.replaceAll()方法来把关键字替换html的<span>标签。然后没有处理到一些情况，如果用户输入正则表达式就会崩溃。因为这个方法就是用正则表达式来替换的。我开始用Matcher.quoteReplacement(searchKey)，但是会抛OOM错，由于转移递归了。后面处理方法就是遍历字符串，用spannable高亮了。
 
 以后慢慢学习补充。。
