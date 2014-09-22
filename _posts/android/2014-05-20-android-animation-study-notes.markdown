@@ -29,12 +29,14 @@ android的动画主要分这几种：
 如果不是xml定义的，是分别new的AlphaAnimation这些，就分别start即可。
 
 **帧动画**  
-也是定义xml文件，书上说必须放在res/drawable/下，但是网上说放在res/anim/下，我测试了，都可以。  
-xml文件的根节点是<animation-list>，下面是<item>节点，每个item放一张图片。  
-帧动画是绑定到imageview的，这样使用：  
-imageview.setBackgroundResource(R.drawable.test);  
-imageviewAnima = (AnimationDrawable) imageview.getBackground();  
-imageviewAnima.start();  
+也是定义xml文件，书上说必须放在res/drawable/下，但是网上说放在res/anim/下，我测试了，都可以。xml文件的根节点是<animation-list>，下面是<item>节点，每个item放一张图片。帧动画是绑定到imageview的，这样使用：  
+imageview.setBackgroundResource(R.drawable.test);    
+imageviewAnima = (AnimationDrawable) imageview.getBackground();    
+imageviewAnima.start();    
+下面这种用法已经过时：  
+animate = (AnimationDrawable) getResources().getDrawable(R.anim.test);  
+imageview.setBackgroundDrawable(animate);  
+animate.start();  
 注意的是：不能在oncreate里面start，因为imageview还没初始化好。
 
 **属性动画**  
