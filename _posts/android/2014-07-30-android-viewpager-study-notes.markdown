@@ -75,4 +75,65 @@ http://blog.csdn.net/eclipsexys/article/details/8688538
 
 **其他一些设置**  
 viewpager去掉边缘滑动阴影（这些效果耗内存）：
-android:overScrollMode="never"
+android:overScrollMode="never"  
+
+* **设置自动滑动的切换速度**  
+由于公司项目有需求，viewpager加一个按钮点击，然后滑动到下一个页面，直接去调用：mViewPager.setCurrentItem(mPos, true);发现切换得很快。调查发现，可以用反射修改viewpager的scroller属性。  
+Field sField = ViewPager.class.getDeclaredField("mScroller");  
+sField.setAccessible(true);  
+mScroller = new FixedSpeedScroller(mViewPager.getContext(), mDuration);  
+sField.set(mViewPager, mScroller);  
+FixedSpeedScroller在我的github上有。。 
+给viewpager设置onTouch事件，如果返回true则可以屏蔽viewpager手动滑动。
+
+* **滑动页面时对按钮进行渐变效果**  
+例子如下：
+{% highlight java %}
+//viewpager页面改变事件，主要做的是对开始按钮和下一步箭头按钮进行透明度处理
+mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		//在第三页滑到第四页（最后页），马上体验按钮要逐渐进行显示，下一步按钮逐渐消失，通过设置Alpha值来改变透明度
+		//positionOffset变化是0-1，向后滑逐渐增大，向前逐渐变小。
+		if (position >= 2 && positionOffset != 0) {
+			begin.setVisibility(View.VISIBLE);
+			next.setVisibility(View.VISIBLE);
+			if (positionOffset > 0.9) {
+				//大于0.9以后则直接显示begin，消失next
+				begin.getBackground().setAlpha(255);
+				next.getBackground().setAlpha(0);
+			} else if (positionOffset > 0) {
+				//只要是大于0，那么就进行一个渐变效果
+				begin.getBackground().setAlpha((int) (255 * positionOffset));
+				next.getBackground().setAlpha(255 - (int) (255 * positionOffset));
+			} else if (positionOffset == 0) {
+				//为0情况，则next消失
+				next.setVisibility(View.GONE);
+			}
+		} else if (position != 3) {
+			//不是最后一页情况
+			begin.setVisibility(View.GONE);
+			next.setVisibility(View.VISIBLE);
+		}
+		mPos = position;
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+		//如果是最后一页，则进行显示 马上体验按钮，隐藏 下一步箭头按钮
+		//其他页相反处理
+		if (position == 3) {
+			begin.setVisibility(View.VISIBLE);
+			next.setVisibility(View.GONE);
+		} else {
+			begin.setVisibility(View.GONE);
+			next.setVisibility(View.VISIBLE);
+		}
+		mPos = position;
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+	}
+});
+{% endhighlight %}
