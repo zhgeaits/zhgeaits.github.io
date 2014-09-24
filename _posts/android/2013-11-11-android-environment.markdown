@@ -36,3 +36,6 @@ adt就是android develop tool，要做eclipse可以识别sdk，支持android，�
 搞好IDE后，在IDE里面可以打开android的SDK manager，其实也可以自己去sdk目录打开的。   
 然后就是去下载各种API，这个看网速了，不用全部下载，根据你开发需要来下载api，因为实在太大太多了，一般被墙下载不了。  
 所以翻墙工具少不了，还有就是不要去下载img，就是虚拟机模拟器，android的模拟器简直就是渣。。。不敢用，还是用真机吧！
+
+**ADB**  
+跑起项目以后，在命令行运行adb shell以后就能运行linux命令了，例如，执行ps,top等命令
