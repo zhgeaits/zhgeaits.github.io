@@ -15,3 +15,6 @@ type: android
 
 对代码进行格式化的时候，有一点老是不喜欢，就是格式化以后行宽度很窄，方法换行了。设置：  
 Java->Code Style->Formatter->Edit->Line Wrapper
+
+*android分析当前页面的布局*  
+这有点像chrome直接看页面的代码，超级方便。。打开DDMS的Perspective，然后在Devices那里有一个Dump View Hierarchy for UI Automator.......Over
