@@ -68,3 +68,6 @@ typeArray.recycle();
 属性的命名规则是：采取的名字_属性这种格式。例如：R.styleable.roundedimageview_border_thickness  
 还有：  
 一定要执行typeArray.recycle();这是回收给别的地方用。
+
+*Switch*  
+这个控件是4.0以后才有的，如果想要低版本用，可以直接拿官网的源码来用。。。。这也说明了一点，其实如果有时候一些新版本的控件也可以这样拿来用。
