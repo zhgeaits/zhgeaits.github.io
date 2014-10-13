@@ -16,7 +16,7 @@ ffmpeg是一个开源的大项目，可以多平台使用，而且有多个版�
 第一次编译的时候，网上搜了很多教程，几乎都不行，后来发现国外roman10的就很好使：  
 http://www.roman10.net/how-to-build-ffmpeg-with-ndk-r9/
 
-其实编译很简单，一个脚本即可，在我github项目那里有一个脚本。建议在linux下搞。这个脚本编译出来应该有问题，要用ndk比较低的版本，而且那个arm要用4.4.3
+其实编译很简单，一个脚本即可，在我github项目那里有一个脚本。建议在linux下搞。这个脚本编译出来应该有问题，要用ndk r8的版本，而且toolchains那个arm要用4.4.3
 
 硬件解码libstagefright：  
 ffmpeg的这个还是建议不要搞了，我弄了很久才编译出来，发现只支持android2.3版本，而且ffmpeg自己也不再维护这个模块了，里面太多bug了，不过可以去学习里面怎么实现omx硬件解码的。他专注于搞软解的。libstagefright.so是omx接口实现的，在android系统里面就有个这个库，以后我再去学习omx这个硬件接口了。。。编译的话，很简单，主要跑tools/build_libstagefright这个脚本即可，重要是下载android源码的一些重要头文件和lib，这个翻墙就好下载了。
