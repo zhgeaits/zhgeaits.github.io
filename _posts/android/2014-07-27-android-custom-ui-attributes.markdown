@@ -31,9 +31,9 @@ format="color" 是说明这个属性只能填颜色值
 **第三步**
 在布局文件里面引用新的命名空间。
 {% highlight xml %}
-xmlns:zg="http://schemas.android.com/apk/res/org.zhangge.ui.image" 
+xmlns:zg="http://schemas.android.com/apk/res/org.zhangge.almightyzgbox_android" 
 {% endhighlight %}
-org.zhangge.ui.image这个是我的控件类所在包名
+org.zhangge.almightyzgbox_android这个是我的包名
 
 使用新的自定义控件和自定义属性
 {% highlight xml %}
