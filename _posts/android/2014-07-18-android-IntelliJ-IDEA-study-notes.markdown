@@ -121,6 +121,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + Shift + F：</td>
 		<td>在整个项目查询字符</td>
 	</tr>
+	<tr>
+		<td>Double click shift：</td>
+		<td>双击shift键，超级查询，可以查到jar包里面的东西</td>
+	</tr>
 </table>
 
  
