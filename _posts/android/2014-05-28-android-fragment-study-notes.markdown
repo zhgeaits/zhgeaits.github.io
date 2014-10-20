@@ -42,6 +42,6 @@ add的时候可以加一个tag参数，下次就用fm.findFragmentByTag方法来
 考虑到UI被系统回收后，系统又会自动回复情况（调试模式选择不保留活动），一般来讲，Fragment要保留一个空的默认构造函数。如果要传参数的话，应该用Bundle，然后Fragment.setArguments()方法。如果只有有参数的构造函数则会导致程序崩溃。
 
 *fragment回收慢*  
-公司的项目，当前activity里面有fragment，当退出activity以后，fragment还没被销毁，导致core回调两次。。。原因不知道，因为只在小米系统出现，解决方法忘记问同事了。。。
+公司的项目，当前activity里面有fragment，当退出activity以后，fragment还没被销毁，导致core回调两次。。。原因不知道，因为只在小米系统出现，解决方法是core回调的时候要判断当前activity是否top的activity。
 
 现在是简单的学习了一下Fragment，它还有很多东西可以学习。以后慢慢再搞。
