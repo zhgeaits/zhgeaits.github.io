@@ -124,6 +124,9 @@ android:paddingRight="0px"
 **Application**  
 公司的项目里面，是自己继承了Application的，当出现异常崩溃以后，发现App的oncreate执行了一次，虽然不知道具体是什么，猜测是有一些服务例如是sticky的导致系统要去启动Application，但是不会启动应用。
 
+**include和viewstub**  
+两者都是可以直接引入一个layout，达到布局重用。区别是，前者是随着引用以后跟着父布局即时渲染，这样效率不高；后者是你去调用viewstub.inflate()方法以后才会去渲染。
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
