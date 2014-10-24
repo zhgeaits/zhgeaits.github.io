@@ -19,6 +19,9 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 这里还有两个设置，当关闭一个tab的时候，激活上次打开的那个，则勾上：when closing editor, active the most recently tabs.  
 再勾上show tabs in single row，让它显示在一行，两行闪来闪去，实在受不了。。。
 
+**编码**  
+在eclipse里面直接项目右键就能打开属性设置项目的编码，intellij的话，File->settings->File encodings也可以设置了。
+
 **Troubleshooting**
 
 同事跑公司项目报这个错：
