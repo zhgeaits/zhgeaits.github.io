@@ -11,6 +11,13 @@ type: android
 android:drawableTop="@drawable/default_tip"
 {% endhighlight %}
 
+如果是用代码来写，必须给drawable调setBounds
+{% highlight xml %}
+Drawable drawable = getResources().getDrawable(R.drawable.onlinestate_down_btn);
+drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+mOnlinestate.setCompoundDrawables(null, null, drawable, null);
+{% endhighlight %}
+
 * TextView可以设置文字对齐，但是排版问题解决不了。。。
 {% highlight xml %}
 android:gravity="right"
