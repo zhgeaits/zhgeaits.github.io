@@ -18,3 +18,6 @@ Java->Code Style->Formatter->Edit->Line Wrapper
 
 *android分析当前页面的布局*  
 这有点像chrome直接看页面的代码，超级方便。。打开DDMS的Perspective，然后在Devices那里有一个Dump View Hierarchy for UI Automator.......Over
+
+*Tips*  
+eclipse有一个很蛋疼的问题，在android项目使用第三方库的时候，例如sharesdk，腾讯的第三方sdk，我们把jar包放到lib目录下，虽然选择了这个jar加入到build path，但是运行时候报找不到class的异常。。。。。及其蛋疼，必须把libs目录设置为源目录才行。
