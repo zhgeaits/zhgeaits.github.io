@@ -134,6 +134,9 @@ android:paddingRight="0px"
 **include和viewstub**  
 两者都是可以直接引入一个layout，达到布局重用。区别是，前者是随着引用以后跟着父布局即时渲染，这样效率不高；后者是你去调用viewstub.inflate()方法以后才会去渲染。
 
+**如果想要在代码中设置 android:layout_centerInParent属性，则可以在代码中这样写：**  
+layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
