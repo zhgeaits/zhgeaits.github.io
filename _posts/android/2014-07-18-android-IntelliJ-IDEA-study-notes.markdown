@@ -128,6 +128,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Double click shift：</td>
 		<td>双击shift键，超级查询，可以查到jar包里面的东西</td>
 	</tr>
+	<tr>
+		<td>Ctrl + F12</td>
+		<td>查询方法</td>
+	</tr>
 </table>
 
  
