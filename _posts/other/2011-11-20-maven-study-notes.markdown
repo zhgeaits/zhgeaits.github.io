@@ -31,6 +31,7 @@ maven这个高大上的东西，在没有上项目管理的课程时候是不知
 12.创建一个打包好的命令行应用程序:配置maven-assembly-plugin，然后运行：mvn assembly:assembly  
 13.分析依赖：mvn dependency:analyze  
 14.安装是跳过测试：mvn install -Dmaven.test.skip=true  
+15.打源码包：mvn clean javadoc:jar source:jar install -Dmaven.test.skip=true  
 发布包：  
 mvn install:install-file -Dfile=外部包的路径 \  
 	-DgroupId=外部包的groupID \  
