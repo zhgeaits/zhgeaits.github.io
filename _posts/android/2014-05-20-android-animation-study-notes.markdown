@@ -28,6 +28,20 @@ android的动画主要分这几种：
 使用Animation anima = AnimationUtils.loadAnimation(Context, resourceId);加载xml定义的动画，然后view.startAnimation(anima)即可。可以start也可stop的。。  
 如果不是xml定义的，是分别new的AlphaAnimation这些，就分别start即可。
 
+scale  
+<!--   
+interpolator指定动画插入器，常见的有加速减速插入器accelerate_decelerate_interpolator，加速插入器accelerate_interpolator，减速插入器decelerate_interpolator。  
+fromXScale,fromYScale，动画开始前X,Y的缩放，0.0为不显示，1.0为正常大小  
+toXScale，toYScale，动画最终缩放的倍数，1.0为正常大小，大于1.0放大  
+pivotX，pivotY动画起始位置，相对于屏幕的百分比,两个都为50%表示动画从屏幕中间开始  
+startOffset，动画多次执行的间隔时间，如果只执行一次，执行前会暂停这段时间，单位毫秒  
+duration，一次动画效果消耗的时间，单位毫秒，值越小动画速度越快   
+repeatCount，动画重复的计数，动画将会执行该值+1次  
+repeatMode，动画重复的模式，reverse为反向，当第偶次执行时，动画方向会相反。restart为重新执行，方向不变  
+fillBefore是指动画结束时画面停留在此动画的第一帧;  
+fillAfter是指动画结束是画面停留在此动画的最后一帧。  
+ -->  
+
 **帧动画**  
 也是定义xml文件，书上说必须放在res/drawable/下，但是网上说放在res/anim/下，我测试了，都可以。xml文件的根节点是<animation-list>，下面是<item>节点，每个item放一张图片。帧动画是绑定到imageview的，这样使用：  
 imageview.setBackgroundResource(R.drawable.test);    
