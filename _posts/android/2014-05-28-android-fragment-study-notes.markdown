@@ -41,6 +41,9 @@ add的时候可以加一个tag参数，下次就用fm.findFragmentByTag方法来
 * **Tips**  
 考虑到UI被系统回收后，系统又会自动回复情况（调试模式选择不保留活动），一般来讲，Fragment要保留一个空的默认构造函数。如果要传参数的话，应该用Bundle，然后Fragment.setArguments()方法。如果只有有参数的构造函数则会导致程序崩溃。
 
+**getView()**  
+不要随便重写这个方法，他会先与onCreateView()方法调用的，搞不好，整个fragment都没有view。
+
 **onAttach**  
 fragment有这个方法，是当fragment绑定到他的activity时候回调的。以前遇到一个问题就是当fragment和activity被回收以后，再由系统恢复，这两者之间就失去关联，fragment拿不到他的activity的引用，现在才发现可以从这里去拿。在这里比较安全，以前是在oncreate那里调getActivity(),但是可能为空，不安全。
 

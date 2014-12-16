@@ -10,4 +10,4 @@ SQLite数据库是一个轻量级的数据库，和一般的数据库其实统�
 http://blog.csdn.net/liuhe688/article/details/6712782  
 http://blog.csdn.net/liuhe688/article/details/6715983  
 
-在android中操作有很多接口，看我的github上又工具类。
+在android中操作有很多接口，看我的github上有工具类。

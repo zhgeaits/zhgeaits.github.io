@@ -17,7 +17,8 @@ type: android
 git clone https://android.googlesource.com/platform/frameworks/volley  
 因为这个项目是支持多个构建工具的，最简单就是导入eclipse，然后导出jar包即可。  
 如果会maven的话，直接在目录下运行mvn clean javadoc:jar source:jar install -Dmaven.test.skip=true即可。  
-还可以用ant，gradle来构建。。
+还可以用ant，gradle来构建。。  
+具体使用在androidbox自己进行了封装。
 
 
 **AsyncHttpClient的使用**  

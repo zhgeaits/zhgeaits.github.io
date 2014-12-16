@@ -132,6 +132,11 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + F12</td>
 		<td>查询方法</td>
 	</tr>
+	<tr>
+		<td>Ctrl + Alt + O</td>
+		<td>优化import自动去除无用的import语句</td>
+	</tr>
+	
 </table>
 
  
