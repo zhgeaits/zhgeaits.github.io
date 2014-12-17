@@ -21,3 +21,5 @@ Java->Code Style->Formatter->Edit->Line Wrapper
 
 *Tips*  
 eclipse有一个很蛋疼的问题，在android项目使用第三方库的时候，例如sharesdk，腾讯的第三方sdk，我们把jar包放到lib目录下，虽然选择了这个jar加入到build path，但是运行时候报找不到class的异常。。。。。及其蛋疼，必须把libs目录设置为源目录才行。
+
+新建android项目的时候，如果选择的最小sdk小于4.0，则会生成一个appcompat_V7的包，这个好蛋疼。如果adt版本有问题，还不会生成Activity呢。
