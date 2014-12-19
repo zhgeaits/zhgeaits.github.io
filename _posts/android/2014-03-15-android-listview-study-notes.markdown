@@ -23,5 +23,9 @@ listview作为聊天界面的时候，要自动滚到底部，可以设置一个
 android:transcriptMode="alwaysScroll"  
 listview默认应该是normal，估计PullToRefreshView做了手脚。
 
+分割线：  
+android:divider="@null";
+android:divider="@drawable/listview_horizon_line"
+
 给listview设置一个黏住，浮起来不动的标题：StickyListHeaders  
 github开源：https://github.com/emilsjolander/StickyListHeaders
