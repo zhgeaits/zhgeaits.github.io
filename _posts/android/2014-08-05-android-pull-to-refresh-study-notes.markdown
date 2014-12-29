@@ -15,3 +15,6 @@ https://github.com/chrisbanes/Android-PullToRefresh
 现在发现公司其实用的是上面的第二个，然后稍作修改成为自己的来使用。然后再加一个无限下拉的控件使用。现在不研究这些控件怎么实现的，以后有时间再去学习。现在就学会使用就OK。
 
 使用其实很简单，github上的页面已有介绍，基本就是在布局设置控件，然后设置listener就完了。
+
+注意：  
+这个下拉刷新是包含了一个listview的，如果要设置onTouch事件必须先拿到真正的listview：listView.getRefreshableView()。
