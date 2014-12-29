@@ -149,3 +149,11 @@ public static int px2dip(Context context, float pxValue) {
 	return (int) (pxValue / scale + 0.5f);
 }
 {% endhighlight %}
+
+获取view在屏幕的坐标：  
+{% highlight java %}
+int[] location = new int[2];
+view.getLocationOnScreen(location);
+int x = location[0];
+int y = location[1];
+{% endhighlight %}

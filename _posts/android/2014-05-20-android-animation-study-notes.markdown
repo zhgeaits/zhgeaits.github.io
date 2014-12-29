@@ -54,3 +54,18 @@ animate.start();
 
 **属性动画**  
 发现一般补间动画就够用了，属性动画看UI那本书的例子就可以。现在还没用到，以后再补充。  
+
+学习资源：  
+http://blog.csdn.net/singwhatiwanna/article/details/17841165
+
+
+**Activity动画**  
+要修改启动activity和关闭activity的动画，就在startActivity的时候调用overridePendingTransition(R.anim.in, R.anim.out); 在finish()的时候也可以调用。  
+activity有新的api来使用动画，ActivityOptions，看下面的blog即可。  
+http://www.cnblogs.com/tianzhijiexian/p/4087917.html  
+http://www.cnblogs.com/tianzhijiexian/p/4128045.html
+
+
+**viewpager动画**  
+实现这个接口：PageTransformer  
+http://www.csdn123.com/html/topnews201408/88/5988.htm
