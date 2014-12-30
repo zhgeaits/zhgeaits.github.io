@@ -53,7 +53,21 @@ animate.start();
 注意的是：不能在oncreate里面start，因为imageview还没初始化好。  
 
 **属性动画**  
-发现一般补间动画就够用了，属性动画看UI那本书的例子就可以。现在还没用到，以后再补充。  
+发现一般补间动画就够用了，属性动画看UI那本书的例子就可以。属性动画就是改变view的属性，在一定范围的变化的过程中进行改变。    
+到官网查看一下就知道，不要使用ObjectAnimator,老是有很多属性没效果，使用ValueAnimator,自己的例子如下：  
+{% highlight java %}
+ValueAnimator animator = ValueAnimator.ofInt(mLoginContainerHeight, 0);
+animator.setDuration(300).start();
+animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	@Override
+	public void onAnimationUpdate(ValueAnimator animation) {
+		int value = (Integer) animation.getAnimatedValue();
+		mLoginContainer.getLayoutParams().height = value;
+		mLoginContainer.requestLayout();
+	}
+
+});
+{% endhighlight %}
 
 学习资源：  
 http://blog.csdn.net/singwhatiwanna/article/details/17841165
