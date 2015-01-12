@@ -137,3 +137,28 @@ mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 	}
 });
 {% endhighlight %}
+
+**要拿到viewpager的指定或者当前子view方法**  
+方法一：  
+创建子view的时候设置一个ID，然后可以根据这个id来find。  
+{% highlight java %}
+view.setId(index);
+mPager.findViewById(position);
+{% endhighlight %}  
+
+方法二：  
+在adapter里面设置。  
+{% highlight java %}
+	private View mCurrentView;
+
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) {
+		mCurrentView = (View)object;
+	}
+
+	public View getPrimaryItem() {
+		return mCurrentView;
+	}
+{% endhighlight %}
+
+方法一在viewpager的onpagechange事件里面使用很好，方法二就不行了，因为是会先处理onpagechange事件，再调用adapter里面的方法来设置。注意，mPager.childAt(mPager.getCurrentItem());这个方法不准确，viewpager超过三个就不行了。
