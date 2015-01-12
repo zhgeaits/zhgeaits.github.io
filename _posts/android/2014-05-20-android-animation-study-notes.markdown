@@ -25,8 +25,9 @@ android的动画主要分这几种：
 当然，可以在xml文件设置，也可以在代码动态设置动画，四个节点分别对应AlphaAnimation。。。等等。  
 
 使用：  
-使用Animation anima = AnimationUtils.loadAnimation(Context, resourceId);加载xml定义的动画，然后view.startAnimation(anima)即可。可以start也可stop的。。  
-如果不是xml定义的，是分别new的AlphaAnimation这些，就分别start即可。
+使用Animation anima = AnimationUtils.loadAnimation(Context, resourceId);加载xml定义的动画，然后view.startAnimation(anima)即可。可以start没有stop的。。只有clearAnimartion()...    
+如果不是xml定义的，是分别new的AlphaAnimation这些，就分别start即可。  
+如果在webview里面用补间动画，有时候会花屏，这时候就需要换成帧动画或者属性动画了。  
 
 scale:    
 interpolator指定动画插入器，常见的有加速减速插入器accelerate_decelerate_interpolator，加速插入器accelerate_interpolator，减速插入器decelerate_interpolator。  
