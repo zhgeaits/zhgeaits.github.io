@@ -12,6 +12,8 @@ http://developer.android.com/guide/topics/resources/animation-resource.html
 eoe上面的学习地址：http://www.eoeandroid.com/thread-173194-1-1.html  
 至于书上的介绍学习就比较少了。
 
+一个开源动画库：nineoldandroids，不需要考虑属性动画的兼容性问题了。。。
+
 android的动画主要分这几种：  
 补间动画：名字难以理解。它作用于view，定义一系列关于位置，大小，旋转和透明度的改变。有缺陷，如果view
 的形状改变，那么控件（如按钮）的按事件触发位置还在老位置。  
@@ -60,6 +62,21 @@ fillAfter是指动画结束是画面停留在此动画的最后一帧。
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>  
     </style> 
 {% endhighlight %}
+
+activity动画的新接口实现：  
+{% highlight java %}
+ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(context,
+                R.anim.slide_in_from_right, R.anim.slide_out_from_left);
+ActivityCompat.startActivity((Activity) context, intent, options.toBundle());
+
+int[] location = new int[2];
+view.getLocationOnScreen(location);
+int x = location[0];
+int y = location[1];
+ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(view, x/2, y/2, view.getMeasuredWidth(), view.getMeasuredHeight());
+ActivityCompat.startActivity((Activity)context, intent, options.toBundle());
+{% endhighlight %}
+ActivityOptionsCompat是一个兼容性接口，可以看更多ActivityOptions。 
 
 
 **帧动画**  
