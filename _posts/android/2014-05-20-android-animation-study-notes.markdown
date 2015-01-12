@@ -121,3 +121,7 @@ http://www.cnblogs.com/tianzhijiexian/p/4128045.html
 **viewpager动画**  
 实现这个接口：PageTransformer  
 http://www.csdn123.com/html/topnews201408/88/5988.htm
+
+
+**修改progressbar**  
+可以百度一下，太多了。
