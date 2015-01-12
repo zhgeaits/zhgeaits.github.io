@@ -40,6 +40,26 @@ repeatMode，动画重复的模式，reverse为反向，当第偶次执行时，
 fillBefore是指动画结束时画面停留在此动画的第一帧;  
 fillAfter是指动画结束是画面停留在此动画的最后一帧。  
 
+配置activity的启动和关闭动画：overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);  
+也可以配置全局的，首先配置theme，然后配置为application就OK。
+
+{% highlight java %}
+	<style name="AppTheme" parent="@android:style/Theme.NoTitleBar">  
+        <!-- 设置没有标题 -->  
+        <item name="android:windowNoTitle">true</item>  
+        <!-- 设置activity切换动画 -->  
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>  
+    </style>  
+    
+    <!-- animation 样式 -->  
+    <style name="activityAnimation" parent="@android:style/Animation">  
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>  
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/push_right_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>  
+    </style> 
+{% endhighlight %}
+
 
 **帧动画**  
 也是定义xml文件，书上说必须放在res/drawable/下，但是网上说放在res/anim/下，我测试了，都可以。xml文件的根节点是<animation-list>，下面是<item>节点，每个item放一张图片。帧动画是绑定到imageview的，这样使用：  
