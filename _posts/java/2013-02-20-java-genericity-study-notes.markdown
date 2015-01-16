@@ -12,6 +12,7 @@ type: java
 一般就是在类，或者接口那里用上，例如：List<String>，或者Map<Integer, String>。然后也可以在自己的Base类使用<T>。
 
 如果使用了Base<T>以后，在方法参数可以这样：  
+{% highlight java %}
 public void test(Base<?> temp);//任何类型  
 public void test(Base<? extends SecondBase> temp);//规定了上限，只能接收SecondBase及其SecondBase的子类     
 public void test(Base<? super String> temp);//规定上限，只能接收String或Object类型的泛型  
@@ -22,7 +23,7 @@ public void test(Base<? super String> temp);//规定上限，只能接收String�
 public static <T> T test(T t)；//<T>是声明泛型，这里是任何类型。  
 public static <T extends Base> T test(T param);//加入限定  
 public static <T extends Base> Info<T> test(Info<T> param);//这样使用也可以
-
+{% endhighlight %}
 
 对于数组，可变参数都可以在泛型用上。
    
