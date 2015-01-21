@@ -12,7 +12,7 @@ type: android
 
 上面两个功能android的官方出了volley的这个框架，功能都集中了。Volley在性能方面也进行了大幅度的调整，它的设计目标就是非常适合去进行数据量不大，但通信频繁的网络操作，而对于大数据量的网络操作，比如说下载文件等，Volley的表现就会非常糟糕。
 
-**volley的使用**
+**volley的使用**  
 从官方下载volley的源码：项目不大，有时间自己去学习。。。   
 git clone https://android.googlesource.com/platform/frameworks/volley  
 因为这个项目是支持多个构建工具的，最简单就是导入eclipse，然后导出jar包即可。  
@@ -27,3 +27,9 @@ git clone https://android.googlesource.com/platform/frameworks/volley
 
 **UniversalImageLoader的使用**  
 去github下载jar包放到自己的项目，或者maven依赖也可以。github上有非常详细的使用。我自己封装了一下来使用，还是以后学习volley以后自己重新实现。
+
+**volley的源码学习笔记**  
+初始化volley就是运行一个请求池RequestQueue。
+RequestQueue类，它相当于一个请求池：  
+请求的队列。HashMap<String, Queue<Request<?>>>存放一个阻塞队列。HashSet<Request<?>>存放当前活动的队列。
+分发器：NetworkDispatcher和CacheDispatcher，一共4个网络分发器。

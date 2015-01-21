@@ -137,6 +137,20 @@ android:paddingRight="0px"
 **如果想要在代码中设置 android:layout_centerInParent属性，则可以在代码中这样写：**  
 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
+**Activity屏幕旋转会再次执行oncreate**   
+给activity配置属性android:configChanges="orientation|screenSize"，告诉activity不要去执行oncreate，我们自己处理，然后就会收到回调：  
+{% highlight java %}
+public void onConfigurationChanged（Configuration newConfig） {
+       
+		super.onConfigurationChanged（newConfig）;
+        if （newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE） {
+            
+        } else {
+		
+        }
+}
+{% endhighlight %}
+
 * dp和pix之间的转换：  
 {% highlight java %}
 public static int dip2px(Context context, float dpValue) {
