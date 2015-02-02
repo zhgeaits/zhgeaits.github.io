@@ -93,3 +93,81 @@ to time, but if you keep at it, things become clearer and you’ll get there eve
 
 **马士兵的视频原话**  
 三流的公司卖产品，二流的公司卖服务，一流的公司卖标准
+
+**马云创业那样的团队**  
+我需要这样的团队：他们帮我做得更好，而不是告诉我怎么做！
+
+**某部电影里面说的选择**  
+由出生开始直到死的那一刻，我们一共要做超过两千万的选择，人有选择的自由，但是没有不选择的自由，这个世界充满了选择，踏出家门口，往左还是往右？跟家人还是跟朋友吃饭？和什么人一起生活？还是自己一个人？每一个选择都反映着和影响着我们前面的路，在这些选择里面，总有一些我们后悔的，想要重新选择的。想重新选择，是因为我们不喜欢现在的自己。我们自己没有办法选择的东西似乎很多，包括生，不知道死算不算？我们一出生就有一个跟着自己一辈子的符号，就是我们的名字，家里给的，不由得自己选择。先人留了一个姓给家族，而名字就父母对我们的期望。以前很少人会想到要改变自己的名字，因为他们相信姓名跟自己有一种特殊关系，可是现在，好想所有东西都可以重新选择，只要不喜欢。
+
+每当沮丧的时候，总以为自己做错了选择。
+When in despire, people tend to think they make all wrong choices.
+
+**what steve jobs said**  
+We had nothing to lose, and we had everything to gain! Even if we have everything burn, the experience will have been worth 10 times the cost.
+
+Everybody in this country should learn how to program a computer, because it teaches you how to think. 
+
+**穷孩子努力吧！**  
+除非爸爸很有钱，否则大多数的年轻人都是很穷的，而我就是大多数年轻之一。
+不招人妒 ,便是庸才。
+
+**勇敢**  
+发现自己很多时候想到的事情都不敢去做，推迟以后再做，算了吧，想到就马上去做。  
+人生不是一场冒险，就是一无所有。   
+不要害怕，勇敢去做想做的事情，不要怕后悔，不要怕污点，不要羞涩，也许以后那是一件传奇回忆。  
+去做想做的事情吧！  
+
+**什么是为人处事**  
+最近突然想明白什么是为人处事，过去一直以为做人就只是做好人，培养一下好的素质，好的品德就是了。现在想深一层以后，并没有这么简单，人活着是有意义的，你的过程是有价值的，而你的过程就是体现着你是如何为人处事的，因为最近一直想着人生，想着理想，想着未来，想了好多，于是想到了我怎么走过这段人生，期间就是我怎么样做一个人，怎么对待世间的事情。我也许真的只能做一个小人物，但是，我可以做一个不一样的小人物，依然在我的世界里面活得精彩。我的表达不是那么好，也许只能说到这些，更多的在脑海里而不能使之流露出来。
+
+**时常总结自己**  
+学习新知识不如总结旧知识和经验。  
+当有些事情你想当然以后，恭喜你输了！（算是面试过后的突然明白吧）  
+为了得到想要的，只能装傻，不要脸，忍住。  
+对自己没信心的人才会害怕。  
+成长也许带来的痛苦就是成为一个自己曾经憎恶的人。  
+喜欢做技术，喜欢追求那可望不可及的感觉  
+方向对了就不怕路远。
+
+**训练**  
+读到了挪威的森林男主角解析什么英语语法，微积分，资本论等等一些学校知识的用处，他说，那是一种训练，训练我们更加系统地把握事物。  
+说得太对了，引发我的共鸣，训练，其实这个词，很早之前，大概暑假的时候，我就对它有了一些想法，但是没有记录下来。  
+我作为一个那么奇怪的人，也算不上完美主义，但是总是追求所谓的最有，什么东西要么不做，要么就做的最好，物尽其用，什么都刚刚好那就好了。如果一辈子都认真花完所有的时间，没有浪费掉，专注做那件事情，那么做出来的效果是最好的，至少以前是这种观念。其实，如果30%的时间用来训练，剩下的才真正利用起来，那么也许那件事情做得更好，真的吗？确实是，我们忽略了训练，或者说我忽视了训练，没有认识到它的重要性。在训练的这段时间里，虽然没有创造价值，但是它有潜在的价值，其实就是平时的学习和练习了，最实际的表现。为了做的更好这件事情，必须花时间去做另外一件事情，而且必须做好，这是同样的道理！沉住气，好好修炼，也是这样的道理！少年，训练吧！
+
+**云图的最后一段话**  
+我们所做的任何事情，在人类宏大的历史和空间范围里，都是微不足道的，但正是这些不计其数的微小的善的信念，使得人性的种子即使在最险恶的环境中，仍能够得以保存。经过时空的洗礼，在未来的某个时间某个世界放射出最耀眼的光辉。
+
+**熟悉就是好**  
+在一个地方待熟悉了，腻了，其实才是最舒服的地方
+在杭州待了三个月还是那么不舒服，就想起了宿舍，工作室，家，虽然那里都总觉待不住了，腻了，但是认真想想，却是最舒服的地方。
+
+**一些英语摘录和自己的思考**  
+The way to succeed is to double your failure rate.  
+其实就是多点尝试，不要害怕失败！
+
+Something really entertain me is listening to the music while I am coding.
+
+My life was out of passionate these days because of the coming exams.
+
+If you can't explain it simply, you don't understand it well enough. - A. Einstein
+
+The five matters in a university refer to in Chinese are studies, student society , hall, dating and part time job.  
+在中国，大学生主要做五件事情：研究，学生社会，学堂，约会和兼职
+
+It will be up to you to define your life at University. Don’t be a blind follower!Get out of the classroom , get out of campus. Go travel! Have fun in the city, have fun in Asia! Skip class if you have to!  
+在大学，你要决定你自己的生活，不要做一个盲目的跟从者。走出学校，走出校园，去旅行。在这个城市好好玩，在亚洲好好玩。如果有必要，尽管逃课吧！
+
+When face with two choices, simply toss a coin. It works not because it settles the question for you but because in that brief moment when the coin in the air, you suddenly know what you are hoping for! 
+当面对两个选择的时候，通常我们抛硬币来决定。这很有用因为能马上帮你做出选择，但是，这并不是硬币帮助了你，而是在你看到硬币在空中的时候，你内心最渴望的东西突然告诉了你结果。
+
+Experience is what you get when you didn’t get what you want.  
+经验就是你失败后得到的东西
+
+Later equals never
+
+Ideas are a dime a dozen. Implementation is everything.  
+想法不值钱，实现了才是一切。
+
+The ups and downs of life must be taken as they come.  
+我们必须承受人生之沉浮。
