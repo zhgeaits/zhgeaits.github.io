@@ -86,6 +86,8 @@ type: life
 
 >学习ruby
 
+>600w的密码，学习制作彩虹表
+
 >学习mongdb
 
 >学习opengles
