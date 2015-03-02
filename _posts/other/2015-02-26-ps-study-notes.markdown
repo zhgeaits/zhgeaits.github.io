@@ -6,4 +6,5 @@ categories: other
 type: other
 ---
 
-
+快捷键：  
+ctrl+T:拉伸修改图
