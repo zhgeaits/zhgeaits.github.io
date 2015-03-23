@@ -22,6 +22,10 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 **编码**  
 在eclipse里面直接项目右键就能打开属性设置项目的编码，intellij的话，File->settings->File encodings也可以设置了。
 
+**导入eclipse项目**  
+直接import项目，选择eclipse就可以了。然后libs的jar包，需要选中以后右键选择"Add as library"就像eclipse那样"Add to build path"，但是eclipse的貌似默认会依赖libs下的jar包。  
+然后要保持编码一致就不会乱码了，基本上都使用utf-8比较好，以后少用gbk编码。
+
 **Troubleshooting**
 
 同事跑公司项目报这个错：
