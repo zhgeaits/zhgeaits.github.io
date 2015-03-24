@@ -92,6 +92,35 @@ dependencies {
 }
 {% endhighlight %}  
 
+构建多个项目
+
+要创建多Project的Gradle项目，我们首先需要在根Project中加入名为settings.gradle的配置文件，该文件应该包含各个子Project的名称。比如，我们有一个根Project名为root-project，它包含有两个子Project，名字分别为sub-project1和sub-project2。root-project本身也有自己的build.gradle文件，同时它还拥有settings.gradle文件位于和build.gradle相同的目录下。此外，两个子Project也拥有他们
+自己的build.gradle文件。  
+settings.gradle里面配置：  
+{% highlight groovy %}
+include 'sub-project1', 'sub-project2'
+{% endhighlight %}
+
+在Gradle中，我们可以通过根Project的allprojects()方法将配置一次性地应用于所有的Project，当然也包括定义Task：
+{% highlight groovy %}
+allprojects {
+   apply plugin: 'idea' 
+
+   task allTask << {
+      println project.name
+   }
+}
+{% endhighlight %}
+
+除了allprojects()之外，Project还提供了subprojects()方法用于配置所有的子Project（不包含根Project）:
+{% highlight groovy %}
+subprojects {
+   task subTask << {
+      println project.name
+   }
+}
+{% endhighlight %}
+
 **命令**
 
 gradle tasks：查看Project中所有的Task  
