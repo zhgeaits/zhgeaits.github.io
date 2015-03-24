@@ -28,5 +28,9 @@ listview默认应该是normal，估计PullToRefreshView做了手脚。
 android:divider="@null";
 android:divider="@drawable/listview_horizon_line"
 
+每项的间距：
+android:dividerHeight="10dp"
+
+
 给listview设置一个黏住，浮起来不动的标题：StickyListHeaders  
 github开源：https://github.com/emilsjolander/StickyListHeaders

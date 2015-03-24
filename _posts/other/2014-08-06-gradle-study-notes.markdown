@@ -1,17 +1,11 @@
 ---
 layout: post
-title:  "Gradle!"
+title:  "Gradle学习笔记"
 date:   2014-08-05 11:00:03
 categories: other
 type: other
 ---
 
-ImageView的scaletype属性：这个属性可以修改图片的显示形式来填充画面，默认是CENTER
+这个东西和maven相似，可以对比来学习。
 
-
-可回收的图片控件：
-RecycleImageView继承自ImageView：可Recycle Bitmap减少OOM的ImageView
-这个view存放的是RecycleBitmapDrawable继承自BitmapDrawable.
-给RecycleImageView放置Drawable的时候，首先调用getDrawable()方法来获取上一个在这个view的drawable，然后再去设置新的drawable，最后去通知RecycleBitmapDrawable这个drawable的显示状态，它会根据状态来回收。注意到的是，调用getDrawable()方法获取的可能是RecyleBitmapDrawable，也可能是LayerDrawable。如果是layerDrawable的话，只需要一个个提取出来再递归处理即可。
-RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计数，是否已经显示过。
-进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
+和Maven一样，Gradle只是提供了构建项目的一个框架，真正起作用的是Plugin。Gradle在默认情况下为我们提供了许多常用的Plugin，其中包括有构建Java项目的Plugin，还有War，Ear等。与Maven不同的是，Gradle不提供内建的项目生命周期管理，只是java Plugin向Project中添加了许多Task，这些Task依次执行，为我们营造了一种如同Maven般项目构建周期。
