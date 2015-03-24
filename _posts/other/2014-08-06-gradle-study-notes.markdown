@@ -57,7 +57,40 @@ myTask.configure {
 
 Task之间可以存在依赖关系，比如taskA依赖于taskB，那么在执行taskA时，Gradle会先执行taskB，然后再执行taskA，taskA(dependsOn: taskB)。也可以用语句来执行依赖关系，如果taskA.dependsOn taskB。
 
+使用java插件
 
+apply plugin: 'java'
+
+java项目的目录结构和maven的一致，也可以自己去定义修改。
+
+依赖管理
+
+配置maven的仓库：
+{% highlight groovy %}
+repositories {
+   mavenCentral()
+}
+{% endhighlight %}  
+自定义依赖：  
+Gradle将对依赖进行分组，比如编译Java时使用的是这组依赖，运行Java时又可以使用另一组依赖。每一组依赖称为一个Configuration，在声明依赖时，我们实际上是在设置不同的Configuration。值得一提的是，将依赖称为Configuration并不是一个好的名字，更好的应该叫作诸如“DependencyGroup”之类的。这个分组并不是按照task来分组的。分组完以后就给不同的组设置不同的依赖，  
+{% highlight groovy %}
+configurations {
+   myDependency
+}
+dependencies {
+   myDependency 'org.apache.commons:commons-lang3:3.0'
+   myDependency 'com.android.support:appcompat-v7:20.+'
+}
+{% endhighlight %}  
+一般来说，java和android插件都有compile和testCompile分组，为这两个来配置依赖就可以。  
+Gradle还允许我们声明对其他Project或者文件系统的依赖：  
+{% highlight groovy %}
+dependencies {
+   compile project(':ProjectB')
+   compile files('spring-core.jar', 'spring-aap.jar')
+   compile fileTree(dir: 'deps', include: '*.jar')
+}
+{% endhighlight %}  
 
 **命令**
 
