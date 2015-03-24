@@ -74,7 +74,29 @@ Don't be shy, just a try!
 
 需要哪些能力？快速学习，动手操作，交流沟通，心里承受，专业设计与工程。要去找找大企业招软件工程师的广告看看。
 
+**英语标签**
+
+manager yourself/succeed with others/finding purpose/enjoying the journey/there's no mistakes in life only lessons/you are the key to your own success/passions,learn everyday, ask question, work hard./A creative innovator/A effective communicator/A Passionate salesperson/A encouraging coach/Capacity never lacks opportunity
+
+**对自己说**
+
+拖延是一个坏习惯。  
+今天比昨天做得更好了吗？  
+今天你进步了吗？  
+承担风险，提高创造力！  
+把自己放在一个劣势的地位，然后be thinking how to win!  
+坚持别人坚持不了的。
+
+**大学四个地点（个人的观点）**  
+
+实验室：着重于研究理论，需要强悍的数学功底，研究气氛严肃。  
+工作室：着重于应用，需要工程开发能力，工作气氛轻松。  
+图书馆：着重于扩展视野，不应该在图书馆研究学习；而是查找资料，快速阅读资料，以后再重复深入学习。以后就是这样学习。  
+教室：着重于听课，写作业，上自习。
+
 **我的领悟**
+
+都是这些年偶然领悟的东西，有些很幼稚，有些现在看起来却又那么的激励，现在需要经常回头看看，给自己正能量。
 
 做一个既有很大抱负，有很大计划，又能沉住气，耐心地一小步一小步前进的人。  
 好像很久之前我就是醒着踏进新的一天了，晚上12点过后才睡也是太累了。  
