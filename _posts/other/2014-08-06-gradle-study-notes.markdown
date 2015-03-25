@@ -164,7 +164,32 @@ task hello1(type:HelloWorldTask){
 
 **构建android项目**  
 
-官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide
+官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide  
+例子（例如兼容eclipse使用）：https://github.com/Goddchen/Android-Gradle-Examples
+
+使用android studio创建android项目就已经默认支持gradle了，而且生成的文件非常方便。  
+buildscript{}：project的运行环境  
+android{}：设置编译android项目的参数
+
+打包签名apk，首先我们得要有一个keystore..-_-!!，然后在android{}里加入这些：  
+{% highlight groovy %}
+signingConfigs {
+    myConfig {
+        storeFile file("test.keystore")
+        storePassword "test"
+        keyAlias "test"
+        keyPassword "test"
+    }
+}
+    
+buildTypes{
+    release {
+        signingConfig  signingConfigs.myConfig
+        runProguard true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+    } 
+}
+{% endhighlight %}
 
 **命令**
 
