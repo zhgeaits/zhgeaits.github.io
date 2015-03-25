@@ -11,8 +11,8 @@ maven这个高大上的东西，在没有上项目管理的课程时候是不知
 **环境搭建**  
 这个简单到和搭建JDK环境一样。  
 第一步：去官网下载一个版本，然后解压到本地随便一个目录。  
-第二步：在环境变量设置一个MAVEN_HOME，指向解压的目录，再去PATH路径加入%MAVEN_HOME%\bin。这时候可以再控制台输入mvn -version了。  
-第三步：随便在某一个地方设置一个仓库目录，例如在MAVEN_HOME\resposity, 然后在conf\settings.xml里面设置<localRepository>D:/maven3.0.5/repository</localRepository>。
+第二步：在环境变量设置一个M2_HOME，指向解压的目录，再去PATH路径加入%M2_HOME%\bin。这时候可以再控制台输入mvn -version了。  
+第三步：随便在某一个地方设置一个仓库目录，例如在M2_HOME\resposity, 然后在conf\settings.xml里面设置<localRepository>D:/maven3.0.5/repository</localRepository>。
 当然，根据自己所在团队要详细设置settings了。例如，xhome要设置自己的镜像，YY要设置自己的仓库等等。
 
 命令大全：  

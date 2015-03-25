@@ -70,6 +70,17 @@ repositories {
 }
 {% endhighlight %}  
 
+使用本地maven仓库：  
+{% highlight groovy %}
+repositories {
+    mavenLocal()
+}
+{% endhighlight %}  
+
+在USER_HOME/.m2下的settings.xml文件中的配置会覆盖存放在M2_HOME/conf下的settings.xml文件中的配置。如果没有settings.xml配置文件，Gradle会使用默认的USER_HOME/.m2/repository地址。  
+gradle的本地缓存库在：USER_HOME/.gradle  
+但是这个库不像maven的那样，而且也不能像maven那样进行修改。
+
 * 自定义依赖
 
 Gradle将对依赖进行分组，每一组依赖称为一个Configuration，在声明依赖时，我们实际上是在设置不同的Configuration。分组完以后就给不同的组设置不同的依赖。
@@ -151,11 +162,17 @@ task hello1(type:HelloWorldTask){
 * 自定义plugin
 
 
+**构建android项目**  
+
+官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide
+
 **命令**
 
 gradle tasks：查看Project中所有的Task  
 gradle properties：查看Project中所有的Property  
-apply plugin: 应用插件  
+apply plugin：应用插件  
+gradle clean：清除gradle 插件  
+gradle build：构建android 项目
 
 **疑惑**  
 
