@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "markdown语言的一些记录!"
+title:  "markdown语言的一些记录"
 date:   2013-06-03 11:00:03
 categories: other
 type: other

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "对学校查重系统的一些思考与猜想!"
+title:  "对学校查重系统的一些思考与猜想"
 date:   2012-04-07 13:03:03
 categories: other
 type: other

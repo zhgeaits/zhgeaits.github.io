@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "轻量级分布式版本控制器Hg/Mercurial教程与学习笔记!"
+title:  "轻量级分布式版本控制器Hg/Mercurial教程与学习笔记"
 date:   2011-08-02 11:00:03
 categories: other
 type: other
@@ -15,6 +15,7 @@ type: other
 Hg是Mercurial的缩写，就是一个调用程序，是为了命令更加方便而已，就像svn就是subversion一样。Mercurial 是一个跨平台的分布式版本控制软件。Mercurial主要由Python语言实现，不过也包含一个用C实现的二进制比较工具。
 
 **优点**
+
 * 更轻松的管理。  
 传统的版本控制系统使用集中式的 repository，一些和 repository相关的管理就只能由管理员一个人进行。由于采用了分布式的模型，Mercurial 中就没有这样的困扰，每个用户管理自己的 repository，管理员只需协调同步这些repository。
 

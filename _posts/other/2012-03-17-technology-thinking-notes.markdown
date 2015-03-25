@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "关于技术的思考，探索，三观的形成，零碎的记录！"
+title:  "关于技术的思考，探索，三观的形成，零碎的记录"
 date:   2012-03-17 11:00:03
 categories: other
 type: other
