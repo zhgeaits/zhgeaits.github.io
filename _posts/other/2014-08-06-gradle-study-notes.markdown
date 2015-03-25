@@ -191,6 +191,9 @@ buildTypes{
 }
 {% endhighlight %}
 
+* 打多渠道包：  
+
+
 **命令**
 
 gradle tasks：查看Project中所有的Task  
