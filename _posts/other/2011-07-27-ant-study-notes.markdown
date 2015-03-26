@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "经典的JAVA构建Ant"
+title:  "经典的JAVA项目构建工具之Ant"
 date:   2011-07-27 11:00:03
 categories: other
 type: other
