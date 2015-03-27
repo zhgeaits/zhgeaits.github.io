@@ -47,7 +47,37 @@ add的时候可以加一个tag参数，下次就用fm.findFragmentByTag方法来
 **onAttach**  
 fragment有这个方法，是当fragment绑定到他的activity时候回调的。以前遇到一个问题就是当fragment和activity被回收以后，再由系统恢复，这两者之间就失去关联，fragment拿不到他的activity的引用，现在才发现可以从这里去拿。在这里比较安全，以前是在oncreate那里调getActivity(),但是可能为空，不安全。
 
-*fragment回收慢*  
+**fragment回收慢**  
 公司的项目，当前activity里面有fragment，当退出activity以后，fragment还没被销毁，导致core回调两次。。。原因不知道，因为只在小米系统出现，解决方法是core回调的时候要判断当前activity是否top的activity。
 
 现在是简单的学习了一下Fragment，它还有很多东西可以学习。以后慢慢再搞。
+
+**Troubleshotting**  
+
+**一个崩溃**
+
+{% highlight java %}
+java.lang.RuntimeException: Unable to resume activity {XX.XXActivity}: java.lang.IllegalStateException: Recursive entry to executePendingTransactions
+	at android.app.ActivityThread.performResumeActivity(ActivityThread.java:2124)
+	at android.app.ActivityThread.handleResumeActivity(ActivityThread.java:2139)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:1672)
+	at android.app.ActivityThread.access$1500(ActivityThread.java:117)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:935)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:130)
+	at android.app.ActivityThread.main(ActivityThread.java:3691)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:507)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:907)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:665)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.IllegalStateException: Recursive entry to executePendingTransactions
+	at android.support.v4.app.FragmentManagerImpl.execPendingActions(FragmentManager.java:1450)
+	at android.support.v4.app.FragmentActivity.onResume(FragmentActivity.java:445)
+	at android.app.Instrumentation.callActivityOnResume(Instrumentation.java:1150)
+	at android.app.Activity.performResume(Activity.java:3858)
+	at android.app.ActivityThread.performResumeActivity(ActivityThread.java:2114)
+	... 12 more
+{% endhighlight %}
+
+它只在2.3系统上面崩溃，就是一个activity套了一个fragment，activity的布局是一个framelayout，然后这个layout直接被替换成了fragment。百思不得其解，然后我的同事解决了，他把布局修改了一下，activity的布局是一个RelativeLayout，然后包一个LinearLayout，这个线性布局再被替换成fragment。不知道为什么，我网上也查不到，也没去研究android源码，特别是2.3的，问同事怎么解决的，他说他以前好像也遇到过，也看了别的地方都是这样用就不报错，这也是解决问题的一个思路啊。我们猜测，可能是下拉刷新的控件被包了一个StatusLayout，这个layout会被替换成别的fragment所造成的。
