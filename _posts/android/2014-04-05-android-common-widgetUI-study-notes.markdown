@@ -92,6 +92,19 @@ editInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2048)});
 **EditText的点击事件**  
 setOnTouchListener()比setOnClickListener()更快获得点击事件，后者会先弹出键盘，然后有时候就失效了。
 
+* **修改EditText的光标**  
+android:textCursorDrawable="@null"//这样表示光标颜色和字体颜色一致  
+如果要修改颜色这样
+这样一个drawable文件color_cursor.xml
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <size android:width="3dp" />
+    <solid android:color="#FFFFFF"  />
+</shape>
+android:textCursorDrawable="@drawable/color_cursor"
+{% endhighlight %}
+
 * 给一个View动态在代码里面设置android:layout_toLeftOf这样的属性，这个在RelativeLayout里面的属性：   
 {% highlight java %}
 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
