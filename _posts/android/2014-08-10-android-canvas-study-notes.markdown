@@ -16,12 +16,27 @@ Canvas是画布的意思，没有深入了解过这个类，不知道是不是�
 public void drawArc (RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint);  
 oval是圆所在的矩阵，startAngle是起始角度，sweepAngle是弧的角度，useCenter是否显示半径连线，即是否画到圆心，最后是paint画笔。
 
+public void drawBitmap(Bitmap bitmap, float left, float top, Paint paint);  
+画bitmap，left，top都容易理解，就是距离左边和上边的距离。
+
+public void drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint);  
+画bitmap，src是要截取原本bitmap的哪些区域，传null进去就是画整个bitmap；dst是要画在屏幕的哪些区域，Rect(left, top, right, bottom)，left和top是左上角距左边和上边的距离，right是右上角（右边那条边）距左边的距离，bottom是左下角（底边）距上边的距离。
+
 **Paint**
 
 Paint是画笔的意思，其实画笔就是带有颜色(Color)和样式(Styles)这些属性。调用canvas画东西的时候，必须传入一个画笔。画笔还可以设置锯齿，argb，字体大小，边框等属性。
 
 更多Paint的方法：  
 paint.setAntiAlias(true);  //消除锯齿
+paint.ascent();  
+paint.descent();//这些方法获取一定的距离值,如下图  
+![alt Baseline](/image/baseline.jpg "Baseline")  
+1.基准点是baseline  
+2.ascent：是baseline之上至字符最高处的距离  
+3.descent：是baseline之下至字符最低处的距离  
+4.leading：是上一行字符的descent到下一行的ascent之间的距离，也就是相邻行间的空白距离  
+5.top：是指的是最高字符到baseline的值，即ascent的最大值  
+6.bottom：是指最低字符到baseline的值，即descent的最大值  
 
 **Color**
 
