@@ -22,6 +22,9 @@ public void drawBitmap(Bitmap bitmap, float left, float top, Paint paint);
 public void drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint);  
 画bitmap，src是要截取原本bitmap的哪些区域，传null进去就是画整个bitmap；dst是要画在屏幕的哪些区域，Rect(left, top, right, bottom)，left和top是左上角距左边和上边的距离，right是右上角（右边那条边）距左边的距离，bottom是左下角（底边）距上边的距离。
 
+public void drawRoundRect(@NonNull RectF rect, float rx, float ry, @NonNull Paint paint);  
+画圆角矩阵，rect就是这个矩阵的坐标，paint是画笔，rx是x方向上的圆的半径，ry是y方向上的圆的半径，比较难理解，取其中一只角，可以平均切成两端弧，一段是水平方向（x方向），一段是垂直方向（y方向），这两段弧分别是来自不同半径的圆，这样就理解了。
+
 **Paint**
 
 Paint是画笔的意思，其实画笔就是带有颜色(Color)和样式(Styles)这些属性。调用canvas画东西的时候，必须传入一个画笔。画笔还可以设置锯齿，argb，字体大小，边框等属性。
