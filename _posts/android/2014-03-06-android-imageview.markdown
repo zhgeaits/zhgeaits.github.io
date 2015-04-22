@@ -28,5 +28,3 @@ RecycleBitmapDrawable里面的属性包括，cache引用计数，显示引用计
 进行显示和cache的时候计数都要更新，并且检查状态，一旦各个计数归0，并且已经显示过了，并且这个drawable的bitmap没有被回收，则进行回收这个bitmap。
 
 实现在AlmightyZGBox-android项目里面。
-
-* **CircleImageView**

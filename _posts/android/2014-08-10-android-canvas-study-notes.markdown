@@ -51,3 +51,7 @@ http://developer.android.com/reference/android/graphics/ColorMatrix.html
 **Matrix**
 
 Matrix是修改位置，例如进行旋转，平移什么的，也非常强大，目前还没用到过，但是有一些比较厉害的应用就是实现Folding Layout，可以去Google一下。。。
+
+
+**其他**  
+对于自定义绘制圆形，或者圆角图片，可以使用Xfermode，Shader。先不记录，可以参考github上我的源码。
