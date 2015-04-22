@@ -53,3 +53,7 @@ GLSurfaceView继承surfaceview，但是直接用gl渲染到gpu，所以很快。
 我回去再看了一下mediacodec的那个例子，之前失败的那个，cts测试那里一个例子用mediacodec解码以后把一帧读取到bitmap然后保存到sd卡。那里的实现就是用到onFrameAvailable相关的，这次，我拿到bitmap以后，然后用canvas来画到surface，发现好卡，不知道为什么。估计是阻塞队列没做好，后面又得去做很多工作，而且很多未知错误，风险太大了，还是放弃这条路了。
 
 最后，只能想eassee那样做了，用glsurfaceview+mediaplayer，我找到一个cts，完美成功，但是要实现tongli的像素移动，那得去学习opengles的东西了，用到shader来做，那需要编写gpu运行语言来做。。。。。好吧，就到这里，先去买本书来学习一下。
+
+
+**其他**  
+Elecard StreamEye Tools这是一个很强大的软件，可以用来分析视频的I帧，P，B帧。。。值得学习
