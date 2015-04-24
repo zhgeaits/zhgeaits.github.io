@@ -34,3 +34,25 @@ android:dividerHeight="10dp"
 
 给listview设置一个黏住，浮起来不动的标题：StickyListHeaders  
 github开源：https://github.com/emilsjolander/StickyListHeaders
+
+根据每一项的高度来动态设置listview的高度  
+{% highlight java %}
+public static void setListViewHeightBasedOnChildren(ListView listView, Context context, int itemHeight) {
+
+	ListAdapter listAdapter = listView.getAdapter();
+
+	if (listAdapter == null) {
+		return;
+	}
+
+	int totalHeight = 0;
+	for (int i = 0; i < listAdapter.getCount(); i++) {
+		totalHeight += CommonUtils.dip2pixel(context, itemHeight) + listView.getDividerHeight();
+	}
+
+	ViewGroup.LayoutParams params = listView.getLayoutParams();
+	params.height = totalHeight;
+	listView.setLayoutParams(params);
+	listView.requestLayout();
+}
+{% endhighlight %}
