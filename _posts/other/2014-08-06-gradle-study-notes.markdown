@@ -92,6 +92,7 @@ configurations {
 dependencies {
    myDependency 'org.apache.commons:commons-lang3:3.0'
    myDependency 'com.android.support:appcompat-v7:20.+'
+   compile 'com.nineoldandroids:library:2.4.0'//+号应该是获取最新版本的意思，但是如果忘了不好就很难下载maven-metadata.xml文件，获取不了版本号了，所以可以指定一个最新的版本
 }
 {% endhighlight %}  
 
