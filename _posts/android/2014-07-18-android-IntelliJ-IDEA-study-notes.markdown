@@ -26,6 +26,9 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 直接import项目，选择eclipse就可以了。然后libs的jar包，需要选中以后右键选择"Add as library"就像eclipse那样"Add to build path"，但是eclipse的貌似默认会依赖libs下的jar包。  
 然后要保持编码一致就不会乱码了，基本上都使用utf-8比较好，以后少用gbk编码。
 
+**如果在Run/Debug Configuration里面Launch default Activity选项中说找不到**  
+是因为Java类没有编译成为class文件，所以找不到，这时候需要rebuild一下项目，就算rebuild完了也是找不到的，因为没有更新，所以需要在File那里点击Invalidate Caches/Restart。
+
 **Troubleshooting**
 
 同事跑公司项目报这个错：
@@ -139,6 +142,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 	<tr>
 		<td>Ctrl + Alt + O</td>
 		<td>优化import自动去除无用的import语句</td>
+	</tr>
+	<tr>
+		<td>Ctrl + G</td>
+		<td>跳到某一行，相当于eclipse的Ctrl+L</td>
 	</tr>
 	
 </table>
