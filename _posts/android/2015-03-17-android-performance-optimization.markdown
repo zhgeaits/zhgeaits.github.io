@@ -31,4 +31,6 @@ dx --dex --verbose --no-strict --output=temp.dex D:\dfm-0.3.1\classes.jar
 dexdump.exe -f D:\android-sdk-windows\build-tools\21.1.2\temp.dex | find "method_ids_size"  
 dexdump.exe -f D:\android-sdk-windows\build-tools\21.1.2\temp.dex | find "field_ids_size"  
 
+公司的项目方法数达到了5W，属性数达到了3W，但是用idea编译的时候，却奇怪了，方法数增加，属性数也增加，而且属性数增加得离谱，多了几万，一下子就超了65535，想了很久都不知道为什么，只知道是idea的bug，我也还是菜鸟一个，然后公司的一个高手就分析dex文件，对比idea编出来的包和maven命令编出来的包，用dexdump命令来分析数据，排序，过滤，对比，发现多处的是R文件来的属性，只要发现子项目没有r文件，就从application项目复制一个r文件来编译，这样导致属性数就多了。所以大家都想到，搞一个r文件给子项目就好了，然后就随便搞一个string.xml，就会生成r文件了，那样就O了。主要是学习怎么分析dex文件，这个比较重要。。
+
 ![alt build_dex](/image/build_dex.png "build_dex") 
