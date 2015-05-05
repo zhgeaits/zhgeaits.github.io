@@ -61,6 +61,21 @@ apply plugin: 'java'
 
 java项目的目录结构和maven的一致，也可以自己去定义修改。
 
+**修改目录结构**  
+{% highlight groovy %}
+sourceSets {
+   main {
+      java {
+         srcDir 'src'
+      }
+      resources {
+         srcDir 'res'
+      }
+	  jniLibs.srcDirs = ['src/main/libs']
+   }
+}
+{% endhighlight %}
+
 * 依赖管理
 
 配置maven的仓库：
