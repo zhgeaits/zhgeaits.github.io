@@ -61,10 +61,14 @@ apply plugin: 'java'
 
 java项目的目录结构和maven的一致，也可以自己去定义修改。
 
+api:http://dcow.io/android-gradle-plugin-docs/com/android/build/gradle/api/AndroidSourceSet.html
+
+
 **修改目录结构**  
 {% highlight groovy %}
 sourceSets {
    main {
+      //这个好像不行，还是不是很懂groovy的语法
       java {
          srcDir 'src'
       }
@@ -72,6 +76,12 @@ sourceSets {
          srcDir 'res'
       }
 	  jniLibs.srcDirs = ['src/main/libs']
+	  manifest.srcFile 'AndroidManifest.xml'
+ 	  java.srcDirs = ['src']
+	  //这样也可以 java.srcDir 'src'
+	  resources.srcDirs = ['src']
+	  res.srcDirs = ['res']
+	  assets.srcDirs = ['assets']
    }
 }
 {% endhighlight %}
