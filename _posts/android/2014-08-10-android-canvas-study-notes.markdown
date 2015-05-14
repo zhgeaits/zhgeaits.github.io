@@ -33,7 +33,7 @@ public void drawText(@NonNull String text, float x, float y, @NonNull Paint pain
 Paint是画笔的意思，其实画笔就是带有颜色(Color)和样式(Styles)这些属性。调用canvas画东西的时候，必须传入一个画笔。画笔还可以设置锯齿，argb，字体大小，边框等属性。
 
 更多Paint的方法：  
-paint.setAntiAlias(true);  //消除锯齿
+paint.setAntiAlias(true);//消除锯齿  
 paint.ascent();  
 paint.descent();//这些方法获取一定的距离值,如下图  
 ![alt Baseline](/image/baseline.jpg "Baseline")  

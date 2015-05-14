@@ -42,3 +42,4 @@ adt就是android develop tool，要做eclipse可以识别sdk，支持android，�
 
 常用adb命令：  
 安装：adb install -r D:\test.apk  
+拉取文件：adb pull /mnt/sdcard/yymobile/logs/logs.txt D:/
