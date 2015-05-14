@@ -39,3 +39,6 @@ adt就是android develop tool，要做eclipse可以识别sdk，支持android，�
 
 **ADB**  
 跑起项目以后，在命令行运行adb shell以后就能运行linux命令了，例如，执行ps,top等命令
+
+常用adb命令：  
+安装：adb install -r D:\test.apk  
