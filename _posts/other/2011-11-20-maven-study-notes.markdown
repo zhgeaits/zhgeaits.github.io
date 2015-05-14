@@ -42,4 +42,6 @@ mvn install:install-file -Dfile=外部包的路径 \
 	
 以前在工作室是用maven构建web项目，去阿里那里也是，而且那里的maven是阿里自己修改过的。。。现在来到YY，也用maven构建android项目。
 
+对于android，maven构建jar时是不支持aidl的，so库这些的,而apklib支持，apklib只是对源码和资源文件的打包，所以apklib是maven自己搞的东西，但是已经不支持和流行了，官方文档都没了，现在已经被gradle的aar锁代替了。
+
 慢慢再记录。
