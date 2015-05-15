@@ -8,7 +8,8 @@ type: other
 
 既是跻身于互联网之中，又是做web开发的，不得不学习了解http啊。
 
-官方标准规范文档：RFC2616.Google一下，有中文翻译版，已下载PDF。
+官方标准规范文档：RFC2616.Google一下，有中文翻译版，已下载PDF。  
+查看更多的Content-Type类型，参考RFC1341。更详细的上传表单，参考RFC1867
 
 以前做web的时候只知道在提交form表单的时候可以选择method是get或者post，而且肤浅的理解两者区别是url上的一个参数是否隐藏。顾名思义，get就是获取数据，post就是发布数据，但是提交表单也能是get方法，而且是默认的，为什么？就算提交表单，其实也是获取结果返回数据。
 post查询字符串（名称/值对）是在 POST 请求的 HTTP 消息主体中发送的。  
@@ -61,3 +62,41 @@ Content-Type: audio/mpeg
 {% endhighlight %}
 
 **Post方法：**  
+用chrome看到的一个post的实例header：  
+{% highlight html %}
+POST /Test/upload HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 241
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Origin: http://localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarymfU8VQGnQMKVkr77
+Referer: http://localhost:8080/Test/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4
+Cookie: JSESSIONID=641280E9BC95D0FF5E06B087F24279B8; CNZZDATA5420382=cnzz_eid%3D177016966-1427339623-%26ntime%3D1431598864
+//上面是header，下面开始是Request Payload
+------WebKitFormBoundarymfU8VQGnQMKVkr77
+Content-Disposition: form-data; name="abc"
+
+asdfzxcv
+------WebKitFormBoundarymfU8VQGnQMKVkr77
+Content-Disposition: form-data; name="dce"
+
+asdfzxcfv
+------WebKitFormBoundarymfU8VQGnQMKVkr77--
+{% endhighlight %}
+
+如果上传文件的话，只是Request Payload有区别，如下上传一个pdf：  
+{% highlight html %}
+------WebKitFormBoundaryG1cZNiwsHjo8vWnE
+Content-Disposition: form-data; name="uploadfile"; filename="HTTP??RFC2616???.pdf"
+Content-Type: application/pdf
+
+
+------WebKitFormBoundaryG1cZNiwsHjo8vWnE--
+{% endhighlight %}
+
+不明白为什么不是网上所说的boundary有27个-，但是一样的是，header上的boundary和data是-是相差两个。

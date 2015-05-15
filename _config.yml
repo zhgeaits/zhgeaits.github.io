@@ -1,7 +1,7 @@
 name: zhangge's stupid and messy life
 description: 我会记录我的IT技术生涯的！
 url: http://zhgeaits.github.io
-highlighter: pygments
+#highlighter: pygments
 highlighter: rouge/pygments
 safe: true
 lsi: false
