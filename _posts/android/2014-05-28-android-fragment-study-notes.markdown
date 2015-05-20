@@ -84,3 +84,65 @@ Caused by: java.lang.IllegalStateException: Recursive entry to executePendingTra
 {% endhighlight %}
 
 它只在2.3系统上面崩溃，就是一个activity套了一个fragment，activity的布局是一个framelayout，然后这个layout直接被替换成了fragment。百思不得其解，然后我的同事解决了，他把布局修改了一下，activity的布局是一个RelativeLayout，然后包一个LinearLayout，这个线性布局再被替换成fragment。不知道为什么，我网上也查不到，也没去研究android源码，特别是2.3的，问同事怎么解决的，他说他以前好像也遇到过，也看了别的地方都是这样用就不报错，这也是解决问题的一个思路啊。我们猜测，可能是下拉刷新的控件被包了一个StatusLayout，这个layout会被替换成别的fragment所造成的。
+
+**一个OOM引起的RuntimeException**
+
+{% highlight java %}
+java.lang.RuntimeException: Unable to pause activity {com.duowan.mobile/com.yy.mobile.ui.channel.ChannelActivity}: android.view.InflateException: Binary XML file line #7: Error inflating class <unknown>
+	at android.app.ActivityThread.performPauseActivity(ActivityThread.java:3226)
+	at android.app.ActivityThread.performPauseActivity(ActivityThread.java:3185)
+	at android.app.ActivityThread.handlePauseActivity(ActivityThread.java:3160)
+	at android.app.ActivityThread.access$1000(ActivityThread.java:147)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1299)
+	at android.os.Handler.dispatchMessage(Handler.java:102)
+	at android.os.Looper.loop(Looper.java:135)
+	at android.app.ActivityThread.main(ActivityThread.java:5233)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:372)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:904)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:699)
+Caused by: android.view.InflateException: Binary XML file line #7: Error inflating class <unknown>
+	at android.view.LayoutInflater.createView(LayoutInflater.java:637)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:747)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:810)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:813)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:813)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:508)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:418)
+	at com.yy.mobile.ui.channel.WorksFragment.onCreateView(WorksFragment.java:114)
+	at android.support.v4.app.Fragment.performCreateView(Fragment.java:1500)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:938)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:1115)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:1097)
+	at android.support.v4.app.FragmentManagerImpl.dispatchPause(FragmentManager.java:1909)
+	at android.support.v4.app.Fragment.performPause(Fragment.java:1658)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:984)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:1115)
+	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:1097)
+	at android.support.v4.app.FragmentManagerImpl.dispatchPause(FragmentManager.java:1909)
+	at android.support.v4.app.FragmentActivity.onPause(FragmentActivity.java:412)
+	at com.yy.mobile.ui.BaseActivity.onPause(BaseActivity.java:134)
+	at com.yy.mobile.ui.channel.ChannelActivity.onPause(ChannelActivity.java:241)
+	at android.app.Activity.performPause(Activity.java:6052)
+	at android.app.Instrumentation.callActivityOnPause(Instrumentation.java:1294)
+	at android.app.ActivityThread.performPauseActivity(ActivityThread.java:3212)
+	... 11 more
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:288)
+	at android.view.LayoutInflater.createView(LayoutInflater.java:611)
+	... 34 more
+Caused by: java.lang.OutOfMemoryError: Failed to allocate a 528 byte allocation with 16777216 free bytes and 80MB until OOM; failed due to fragmentation (required continguous free 65536 bytes for a new buffer where largest contiguous free 61440 bytes)
+	at java.lang.reflect.Constructor.newInstance(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:288)
+	at android.view.LayoutInflater.createView(LayoutInflater.java:611)
+	at com.android.internal.policy.impl.PhoneLayoutInflater.onCreateView(PhoneLayoutInflater.java:55)
+	at android.view.LayoutInflater.onCreateView(LayoutInflater.java:686)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:745)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:810)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:483)
+	at com.handmark.pulltorefresh.library.internal.LoadingLayout.<init>(LoadingLayout.java:87)
+	... 37 more
+{% endhighlight %}
+
+看到这个OOM，google了一下，人家说是系统级别的错误，看这里https://www.reddit.com/r/Android/comments/34549b/poor_ram_management_affecting_the_galaxy_s6_and/。完全不知道怎么解决，而且重现几率低，因为本来这个错误就是内存不足了的，肯定是app出现了内存泄露，所以要去dump内存分析才行。这里看crash log的栈，activity onPause的时候会执行Fragment.performCreateView，这时候不需要再创建一次view了。目前临时解决方法是这个。
