@@ -62,3 +62,24 @@ http://www.eclipse.org/mat/downloads.php
 点击OQL图标，在窗口输入select * from instanceof android.app.Activity并按Ctrl + F5或者!按钮，看看多少activity是泄露没有被回收的。点击一个activity对象，右键选中Path to GC roots，再选中exclude weak/soft references，就可以看到是哪些引用导致activity没有被回收。
 
 一般是handler的runnable对外面有引用，所以runnable要写成静态内部类static inner class，然后runnable对外面的引用要用弱引用。基本能解决，另外可以使用开源的weekhanlder解决。还有一个简单方法的就是在onDestory的时候remove这个runnable就可以了。
+
+切换到Histogram视图，会列出每個class产生了多少個实例，以及占有多大内存，所占百分比。  
+可以很容易找出站内存最多的几个类，根据Retained Heap排序，找出前几个。  
+可以分不同的维度来查看类的Histogram视图，Group by class、Group by superclass、Group by class  loader、Group by package  
+只要有溢出，时间久了，溢出类的实例数量或者其占有的内存会越来越多，排名也就越来越前，通过多次对比不同时间点下的Histogram图对比就能很容易把溢出类找出来。  
+
+切换到Dominator Tree（支配树）视图，会列出每个对象(Object instance)与其引用关系的树状结构，还包含了占有多大内存，所占百分比。
+可以很容易的找出占用内存最多的几个对象，根据Percentage（百分比）来排序。  
+可以分不同维度来查看对象的Dominator Tree视图，Group by class、Group by class  loader、Group by package  
+和Histogram类似，时间久了，通过多次对比也可以把溢出对象找出来，Dominator Tree和Histogram的区别是站的角度不一样，Histogram是站在类的角度上去看，Dominator Tree是站的对象实例的角度上看，Dominator Tree可以更方便的看出其引用关系。
+
+这里可以使用Merge Shortest Paths to GC Roots来看到引用链，和Path to GC roots一样。
+
+另外：  
+list objects -- with outgoing references : 查看这个对象持有的外部对象引用。  
+list objects -- with incoming references : 查看这个对象被哪些外部对象引用。  
+show objects by class  --  with outgoing references ：查看这个对象类型持有的外部对象引用  
+show objects by class  --  with incoming references ：查看这个对象类型被哪些外部对象引用   
+
+**jstat跟踪**  
+ 
