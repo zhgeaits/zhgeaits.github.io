@@ -81,5 +81,12 @@ list objects -- with incoming references : 查看这个对象被哪些外部对�
 show objects by class  --  with outgoing references ：查看这个对象类型持有的外部对象引用  
 show objects by class  --  with incoming references ：查看这个对象类型被哪些外部对象引用   
 
+**例子**  
+在公司的项目，android不能频繁开Thread来操作，开大量Thread会导致wait()的崩溃和占用大量系统资源导致创建新Thread时系统报因为线程太多无法创建的崩溃。项目小还好，如果项目大了的话，就要好好管理线程了，用线程池比较好，能够重用，不需要重复打开，我们也要避免使用不会退出的死循环线程。另外使用ZGTask来创建一个HandlerThread管理线程比较好，不会重复创建线程，能重用，但是却采用了Looper，这个是一个队列，并发性没那么好。
+
+尽量不要使用Timer，它会创建新的线程，官方建议android内定时任务使用Handler，或者CountDownTimer，这个是用handler实现的。
+
+避免静态对象引用了Activity、Fragment、View，这样会导致无法回收。平时对于view这些，考虑用弱引用。
+
 **jstat跟踪**  
  
