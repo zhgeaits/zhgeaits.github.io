@@ -145,4 +145,4 @@ Caused by: java.lang.OutOfMemoryError: Failed to allocate a 528 byte allocation 
 	... 37 more
 {% endhighlight %}
 
-看到这个OOM，google了一下，人家说是系统级别的错误，看这里https://www.reddit.com/r/Android/comments/34549b/poor_ram_management_affecting_the_galaxy_s6_and/。完全不知道怎么解决，而且重现几率低，因为本来这个错误就是内存不足了的，肯定是app出现了内存泄露，所以要去dump内存分析才行。这里看crash log的栈，activity onPause的时候会执行Fragment.performCreateView，这时候不需要再创建一次view了。目前临时解决方法是这个。
+看到这个OOM，google了一下，人家说是系统级别的错误，看这里https://www.reddit.com/r/Android/comments/34549b/poor_ram_management_affecting_the_galaxy_s6_and/。完全不知道怎么解决，而且重现几率低，因为本来这个错误就是内存不足了的，肯定是app出现了内存泄露，所以要去dump内存分析才行。这里看crash log的栈，activity onPause的时候会执行Fragment.performCreateView，这时候不需要再创建一次view了。目前临时解决方法是这个。但是这样做的话会有问题，一个activity，多个fragment的时候，就不能按返回键来回退了。
