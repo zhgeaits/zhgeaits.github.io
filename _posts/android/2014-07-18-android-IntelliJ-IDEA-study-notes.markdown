@@ -147,7 +147,22 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Ctrl + G</td>
 		<td>跳到某一行，相当于eclipse的Ctrl+L</td>
 	</tr>
-	
+	<tr>
+		<td>Ctrl + Tab/Ctrl + Shift + Tab</td>
+		<td>可以选择界面的某一个区域，某一个版面</td>
+	</tr>
+	<tr>
+		<td>Shift + Esc</td>
+		<td>收起最小化</td>
+	</tr>
+	<tr>
+		<td>Shift + F10</td>
+		<td>run application</td>
+	</tr>
+	<tr>
+		<td>Shift + F5</td>
+		<td>自己定义的，没默认，Attach debugger to android process</td>
+	</tr>
 </table>
 
  
