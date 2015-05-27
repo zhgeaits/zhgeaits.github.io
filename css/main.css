@@ -57,7 +57,7 @@ ul.posts span {
 }
 
 #home {
-  width: 75em;
+  width: 65em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
@@ -85,13 +85,14 @@ ul.posts span {
 }
 
 #motofooter {
+	width: 65em;
    	text-align: right;
-      	background-color:#005b7f;
-        padding:0;
+    background-color:#005b7f;
+    padding:0;
 	font-family:arial, sans-serif;
 	font-size:15px;
-        margin:0px auto auto auto;
-        color:#888;
+    margin:0px auto auto auto;
+    color:#888;
 }
 #motocata {
 	float:right;
@@ -109,14 +110,16 @@ ul.posts span {
 }
 
 #motohead {
-    margin: 0;
+    margin:0px auto auto auto;
     padding: 0;
+	width: 65em;
     line-height: 1.5em;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 16px;
     color: #6f6f6f;
     background: #2ac5c0 repeat-x;
     text-align: right;
+	align: center;
 }
 /*****************************************************************************/
 /*
@@ -135,7 +138,7 @@ ul.posts span {
 }
 
 .site .header {
-  width: 75em;
+  width: 65em;
   margin-right: auto;
   margin-left: auto;
 }
@@ -176,7 +179,7 @@ ul.posts span {
 .site .footer {
   font-size: 80%;
   color: #666;
-  width: 94em;
+  width: 80em;
   margin-top: 2em;
   margin-left: auto;
   margin-right: auto;
@@ -212,7 +215,7 @@ ul.posts span {
 
 
 #post {
-  width: 75em;
+  width: 65em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;

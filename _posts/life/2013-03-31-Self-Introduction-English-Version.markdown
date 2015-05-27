@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Who am I? I will tell you about me."
+title: "Self Introduction English Version"
 date: 2013-03-31 23:03:05
 categories: life
 type: life

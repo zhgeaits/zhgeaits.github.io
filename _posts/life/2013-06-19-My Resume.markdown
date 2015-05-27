@@ -2,6 +2,6 @@
 layout: post
 title: "个人简历"
 date: 2013-06-19 23:10:41
-categories: resume
-type: aboutme
+categories: life
+type: life
 ---
