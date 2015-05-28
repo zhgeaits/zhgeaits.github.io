@@ -40,6 +40,9 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 然后把0kb的删除，再跑项目，竟然奇迹的跑起来了。。。。好吧，无语了。。。。再说这个异常在我机器却没有。。。
 但是，上次我这里跑yy2.0一直抛一个错，现在我都没解决呢。。。晕死了。。
 
+**找不到包**  
+如果项目找不到一些类，无法编译，那么就是可能没找到jar包，在项目的project structure 那里去看看，在SDKs那块，例如有时候依赖maven的android22，但是maven却没成功下载, 那么可以在classpath那里手动选择本地sdk的android.jar。
+
 **一些常用快捷键**
 
 我比较喜欢使用ctrl+w来关闭tab，这个在eclipse使用太好了，不明白这里为毛用ctrl+F4，实在手不够长啊。。。。。到settings->keymap：搜一下close，在Editor Tabs那里改改就好。当然可以在这里自定义自己的快捷键。
