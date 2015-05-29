@@ -166,6 +166,22 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 		<td>Shift + F5</td>
 		<td>自己定义的，没默认，Attach debugger to android process</td>
 	</tr>
+	<tr>
+		<td>Alt + E</td>
+		<td>自己定义的，默认是End键，移动到行尾。这个实在没有eclipse自动跳到右括号去方便啊。</td>
+	</tr>
+	<tr>
+		<td>Alt + K</td>
+		<td>自己定义的，没有默认，Clone caret Above。向上复制光标，可以多行编辑，和vim一样，超爽。</td>
+	</tr>
+	<tr>
+		<td>Alt + U</td>
+		<td>自己定义的，没有默认，Clone caret Above。向上复制光标，可以多行编辑，和vim一样，超爽。</td>
+	</tr>
+	<tr>
+		<td>Alt + D</td>
+		<td>自己定义的，没有默认，Clone caret below。向下复制光标，可以多行编辑，和vim一样，超爽。</td>
+	</tr>
 </table>
 
  
