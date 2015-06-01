@@ -14,7 +14,33 @@ android:minHeight="50dp"
 listview去掉边缘滑动阴影和按下颜色（这些效果耗内存）：
 {% highlight xml %}
 android:overScrollMode="never"
-android: listSelector="@android:color/transparent"
+android:listSelector="@android:color/transparent"
+{% endhighlight %}
+如果要定制按下的颜色变化，就需要自己写一个selector，这里会有点问题，如果每个item本来就有背景颜色的，然后selector只是写成了这样：  
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/item_press" android:state_pressed="true"/>
+    <item android:drawable="@color/item_normal"/>
+</selector>
+{% endhighlight %}
+这个selector对于正常的点击是好用的，但是因为listview的item有很多状态：  
+默认时的背景图片：什么都不设置  
+没有焦点时的背景图片：android:state_window_focused="false"   
+非触摸模式下获得焦点并单击时的背景图片：android:state_focused="true" android:state_pressed="true"   
+触摸模式下单击时的背景图片：android:state_focused="false" android:state_pressed="true"
+选中时的图片背景：android:state_selected="true"  
+获得焦点时的图片背景：android:state_focused="true"   
+
+所以如果还是用上面的selector的话就会有问题，默认的颜色和item的背景重叠了。修改如下问题就解决了：  
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/shenqu_local_upload_press" android:state_pressed="true"/>
+    <item android:drawable="@color/transparent" android:state_window_focused="false"/>
+    <item android:drawable="@color/transparent" android:state_focused="true" android:state_pressed="true"/>
+    <item android:drawable="@color/shenqu_local_upload_normal"/>
+</selector>
 {% endhighlight %}
 
 listview作为聊天界面的时候，要自动滚到底部，可以设置一个定时器，然后执行chatList.setSelection(fragmentAdapter.getCount() - 1);就可以。  
