@@ -53,7 +53,8 @@ fragment有这个方法，是当fragment绑定到他的activity时候回调的�
 现在是简单的学习了一下Fragment，它还有很多东西可以学习。以后慢慢再搞。
 
 **public void setUserVisibleHint(boolean isVisibleToUser)**  
-当页面对用户可见的时候会调用这里，isVisibleToUser=true，通常在这里可以做一些请求数据的优化等等。
+当页面对用户可见的时候会调用这里，isVisibleToUser=true，通常在这里可以做一些请求数据的优化等等。  
+貌似在viewpager那里setUserVisibleHint才好用，其他时候可以用这个方法public void onHiddenChanged(boolean hidden)
 
 **Troubleshotting**  
 
