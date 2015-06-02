@@ -19,6 +19,8 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 这里还有两个设置，当关闭一个tab的时候，激活上次打开的那个，则勾上：when closing editor, active the most recently tabs.  
 再勾上show tabs in single row，让它显示在一行，两行闪来闪去，实在受不了。。。
 
+设置固定行长度，settings->Editor->Code Style->Right margin(columns)，如果想要在输入的时候自动wrap，可以勾选Wrap when typing reaches right margin。设置了这个不一定生效，要再到Code Style->Java->Wrapping and Braces勾选Ensure right margin is not exceeded(超出)才行。
+
 **编码**  
 在eclipse里面直接项目右键就能打开属性设置项目的编码，intellij的话，File->settings->File encodings也可以设置了。
 
@@ -181,6 +183,10 @@ Error:Android Pre Dex: classes.jar UNEXPECTED TOP-LEVEL EXCEPTION
 	<tr>
 		<td>Alt + D</td>
 		<td>自己定义的，没有默认，Clone caret below。向下复制光标，可以多行编辑，和vim一样，超爽。</td>
+	</tr>
+	<tr>
+		<td>Ctrl + Alt + I</td>
+		<td>Indent，自动跳到适合位置，不用多次tab键，超爽。</td>
 	</tr>
 </table>
 
