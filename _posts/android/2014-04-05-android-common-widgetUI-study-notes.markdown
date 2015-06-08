@@ -23,6 +23,8 @@ mOnlinestate.setCompoundDrawables(null, null, drawable, null);
 android:gravity="right"
 {% endhighlight %}
 
+如果textview的width和height没有match_parent的话，那么设置centerVertical和centerHorizontal就会无效。
+
 * TextView设置滚动效果  
 之前排版的问题解决不了，不如就设置一行，然后滚动。  
 {% highlight xml %}
