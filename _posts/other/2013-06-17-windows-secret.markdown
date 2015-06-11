@@ -1,4 +1,4 @@
----
+n---
 layout: post
 title: "关于Windows你不知道的秘密"
 date: 2013-06-17 12:49:03
@@ -10,6 +10,10 @@ type: other
 1.win+D:最小化  
 2.win+箭头：最大化最小化窗口与移动窗口  
 3.win+空格：透视   
+
+追中路由转发，windows命令：tracert，例如 tracert www.baidu.com 可以看到出口ip，直接在百度输入ip也能看到出口ip。这个命令和linux下的traceroute一样。
+
+查看域名ip命令：nslookup www.baidu.com
 
 **Win7无法上网问题**
 
