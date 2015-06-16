@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "关于Http的理解与学习"
+title:  "关于Http&DNS的理解与学习"
 date:   2012-05-13 11:00:03
 categories: other
 type: other
@@ -100,3 +100,10 @@ Content-Type: application/pdf
 {% endhighlight %}
 
 不明白为什么不是网上所说的boundary有27个-，但是一样的是，header上的boundary和data是-是相差两个。
+
+**DNS：**  
+dns就是域名解析服务器，其实就是把域名转换成ip，这个是最简单的理解，但是对于如果有反向代理的服务器，那么单纯把域名替换成ip就有问题了，丢失域名无法完成请求的。dns的过程，需要好好复习一下大学的网络课程，ip只是包里面的两个字段source和target（是target么？忘记了），域名host这个字段还是要保留的带过去的。所以在使用apache的httpclient网络包的时候就要注意了，不能直接把url里面的host替换成ip，还需要保留host。可以这样做，设置一个host（虚拟主机）过去：  
+HttpRequest.getParams().put(ClientPNames.VIRTUAL_HOST, new HttpHost("www.zhangge.com"));  
+HttpRequest就是HttpGet，HttpPost等的接口。  
+这是我看源码看出来的，如果对于不同的情况和httpclient版本，还是需要自己去看源码处理实际情况。不过原理就这样，理解就好了。  
+对于自己解析域名，httpclient还提供了别的接口，自定义BasicClientConnectionManager和DnsResolver类，然后传给DefaultHttpClient就可以了。
