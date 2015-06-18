@@ -43,3 +43,5 @@ type: android
 13.client注册了以后，在onDestory的时候有没有remove掉？  
 
 14.一些逻辑处理，考虑到是否登录没有？考虑到被踢的情况没？
+
+15.某些手机的的foreach会有问题，在死循环了，例如vivo，所以之前一定要判空不要进去了，例如File[] files = currentDir.listFiles(filter);for (File subFile : files) {}
