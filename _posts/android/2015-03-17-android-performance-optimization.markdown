@@ -31,7 +31,8 @@ Android提供了工具StrictMode来检测不良行为。开发时候用这个很
 - **相关命令(在ShellUtility项目下还有详细的shell脚本)**
   
   
-**把jar包转换成dex文件的命令如下**    
+**把jar包转换成dex文件的命令如下**
+ 
 > dx --dex --verbose --no-strict --output=temp.dex D:\dfm-0.3.1\classes.jar  
 
 **统计dex文件里面的方法数，属性数**  
