@@ -6,7 +6,7 @@ categories: android
 type: android
 ---
 
-### 性能优化 ###
+## 性能优化 ##
 
 - **代码优化**
 
@@ -23,10 +23,9 @@ Android提供了工具StrictMode来检测不良行为。开发时候用这个很
 
 ----------
 
-### 方法数、属性数优化 ###
+## 方法数、属性数优化 ##
   
-> 虽然android程序用java来写，但是android跑的不是java虚拟机，java代码编译成的class文件不用直接用，还需要编译成为dex文件，如下图所示。  
-网上很多相关的资料介绍，主要是因为android对于方法和field都是使用short类型来建立索引，所以只能2^16是最大值，很容易就超了。
+> 虽然android程序用java来写，但是android跑的不是java虚拟机，java代码编译成的class文件不用直接用，还需要编译成为dex文件，如下图所示。网上很多相关的资料介绍，主要是因为android对于方法和field都是使用short类型来建立索引，所以只能2^16是最大值，很容易就超了。
 
 - **相关命令(在ShellUtility项目下还有详细的shell脚本)**
   
@@ -50,7 +49,7 @@ dx和dexdump命令都在android-sdk-windows\build-tools\21.1.2目录下。
 
 ----------
 
-### 内存优化 ###
+## 内存优化 ##
 
 - **使用eclipse的DDMS对android程序进行实时的内存检测**
   
@@ -64,10 +63,14 @@ Heap视图中Type列有一行叫做data object，也就是我们的程序中大�
 - **使用MAT（MemoryAnalyzerTool）进行内存分析**  
   
 **MAT安装：**  
+
 可以选择eclipse插件的方式安装  
-http://download.eclipse.org/mat/1.3/update-site/  
-也可以选择单独MAT程序下载安装  
-http://www.eclipse.org/mat/downloads.php
+
+> http://download.eclipse.org/mat/1.3/update-site/
+  
+也可以选择单独MAT程序下载安装
+
+> http://www.eclipse.org/mat/downloads.php
 
 **Eclipse中使用**
   
@@ -75,7 +78,7 @@ http://www.eclipse.org/mat/downloads.php
 
 **idea或者android studio中dump出内存.hprof文件**
 
-点击左下角的Android  
+> 点击左下角的Android  
 选中你的程序的包名  
 点击 initiates garbage collection on selected vm  
 点击 dump java heap for selected client  
@@ -102,7 +105,7 @@ http://www.eclipse.org/mat/downloads.php
 
 这里可以使用Merge Shortest Paths to GC Roots来看到引用链，和Path to GC roots一样。
 
-PS：  
+> PS：  
 list objects -- with outgoing references : 查看这个对象持有的外部对象引用。  
 list objects -- with incoming references : 查看这个对象被哪些外部对象引用。  
 show objects by class  --  with outgoing references ：查看这个对象类型持有的外部对象引用  
