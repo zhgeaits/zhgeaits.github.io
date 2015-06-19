@@ -6,7 +6,7 @@ categories: android
 type: android
 ---
 
-# 性能优化 #
+### 性能优化 ###
 
 - **代码优化**
 
@@ -23,7 +23,7 @@ Android提供了工具StrictMode来检测不良行为。开发时候用这个很
 
 ----------
 
-# 方法数、属性数优化 #
+### 方法数、属性数优化 ###
   
 > 虽然android程序用java来写，但是android跑的不是java虚拟机，java代码编译成的class文件不用直接用，还需要编译成为dex文件，如下图所示。  
 网上很多相关的资料介绍，主要是因为android对于方法和field都是使用short类型来建立索引，所以只能2^16是最大值，很容易就超了。
@@ -49,7 +49,7 @@ dx和dexdump命令都在android-sdk-windows\build-tools\21.1.2目录下。
 
 ----------
 
-# 内存优化 #
+### 内存优化 ###
 
 - **使用eclipse的DDMS对android程序进行实时的内存检测**
   
