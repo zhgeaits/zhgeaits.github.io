@@ -232,3 +232,6 @@ gradle build：构建android 项目
 
 定义task的时候，"<<"和doLast和doFirst的区别是什么？    
 闭包这些还是需要好好理解一下，因为没有学习过groovy，所以比较难理解。
+
+**troubleshotting**  
+Error:Execution failed for task ':yymobile_client:dexDebug'.> com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process 'command 'C:\Program Files\Java\jdk1.7.0_25\bin\java.exe'' finished with non-zero exit value 2

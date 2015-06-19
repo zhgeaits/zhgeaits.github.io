@@ -88,5 +88,10 @@ show objects by class  --  with incoming references ：查看这个对象类型�
 
 避免静态对象引用了Activity、Fragment、View，这样会导致无法回收。平时对于view这些，考虑用弱引用。
 
+内部类会对外部类有一个隐式的引用，不然为什么能直接访问外部类的属性？例如，Activity里面的创建一个Handler内部类，这样只要handler一直在消息队列没被销毁，Activity就会泄露了。可以修改Handler为静态的内部类，它不会对外部类有引用。但是，如果这时候handler持有外部类的属性，例如Textview，而这个textview实际上是对activity有引用的，一样会导致activity泄露，所以在handler里面还是需要用WeakReference对Textview包起来。其实最简单的方法是在Activity销毁的时候调用Handler的removeCallbacksAndMessages(null)就行了。
+
 **jstat跟踪**  
  
+ 
+**strict mode**  
+这个也可以检查一些内存泄露，例如实例数量超过2个，详细使用StrictModeUtils这个类。

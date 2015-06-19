@@ -21,6 +21,11 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 
 设置固定行长度，settings->Editor->Code Style->Right margin(columns)，如果想要在输入的时候自动wrap，可以勾选Wrap when typing reaches right margin。设置了这个不一定生效，要再到Code Style->Java->Wrapping and Braces勾选Ensure right margin is not exceeded(超出)才行。
 
+新版的idea会提示这个override is not allowed when implementing interface method，就是说如果实现一个接口使用了@Override的注解的话，就会报错了，想要取消这个提示，在Inspections是找不到的。其实是这是jdk1.6一下的提示错误，1.6以上包括1.6的jdk是不会报错的了，所以只要把project的language level改一下就OK了：在Project Structure | Project 那里修改 Project language Level 为 6.0 - @Override in interfaces，如果还是不行，那是因为其他model没有使用的是整个project的level，那么就在Modules那里把每个module的level都同样修改即可。但是可能修改以后运行项目就报错了：  
+Information:java: javacTask: 源发行版 1.7 需要目标发行版 1.7  
+Error:java: Compilation failed: internal java compiler error  
+原因是对应模块的java compiler不对，那么就去settings->java Compiler那里修改一下即可。
+
 **编码**  
 在eclipse里面直接项目右键就能打开属性设置项目的编码，intellij的话，File->settings->File encodings也可以设置了。
 
