@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Groovy!"
+title:  "Groovy语言学习笔记"
 date:   2015-05-08 11:00:03
 categories: other
 type: other
@@ -16,7 +16,11 @@ type: other
 
 ## 配置环境：  
 
-> eclipse4.4：这个plugin：http://dist.springsource.org/release/GRECLIPSE/e4.4/
+**通过eclipse4.4安装plugin**
+
+> http://dist.springsource.org/release/GRECLIPSE/e4.4/
+
+**本地安装**
 
 或者像maven一样下载bin包，然后配置环境变量就可以了。然后创建一个Test.groovy文件，直接用groovy命令就能运行了。
 
@@ -35,12 +39,14 @@ groovy.util.*
 它还是多方法的（方法名相同），因为它是脚本语言的特性，方法在runtime的时候call，会根据实际的参数类型去调用不同的方法。  
 不能使用{}大括号来声明数组了，因为那是闭包，所以使用中括号[]。  
 
-
 ## 语法：
 
 ### 注释  
 注释和java一样，只不过多了一个Shebang line的注释，其实和shell的第一行一样。  
-> #!/usr/bin/env groovy
+
+{% highlight groovy %}
+#!/usr/bin/env groovy
+{% endhighlight %}
 
 ### 关键字  
 出了java的那些关键字，还包括const def goto  
@@ -92,7 +98,7 @@ println aMultilineString
 println var
 {% endhighlight %}
 
-只有使用双引号的字符串才能使用占位符插值，占位符还能够是表达式，例如：
+只有使用双引号的字符串才能使用占位符插值，占位符还能够是表达式，这个是GString，例如：
 
 {% highlight groovy %}
 def name = 'Guillaume' // a plain string
@@ -103,3 +109,7 @@ assert greeting.toString() == 'Hello Guillaume'
 def sum = "The sum of 2 and 3 equals ${2 + 3}"
 assert sum.toString() == 'The sum of 2 and 3 equals 5'
 {% endhighlight %}
+
+关于字符串在插值的时候会有闭包的表达式，还不懂，看了闭包以后在回头看,4.4.2。
+
+GString作为参数传递的时候会隐式调用toString()方法。

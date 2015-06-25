@@ -31,6 +31,8 @@ Looper.getMainLooper()获得主线程的looper对象，就是UI线程。
 队列，里面放Message对象，和Runnable对象。handler往队列放东西，当从队列取出东西以后，也要交给放进去的那个handler来处理。
 Looper处理消息不能并发，所以handler的工作不能阻塞。
 
+> PS:注意一下，使用Handler其实是顺序队列处理消息，所以有顺序的事情不要用到java的线程池去做，那里并发不保证顺序的，例如把一个cancel和start操作放到线程池，那么就会出现先cancel再start的情况了。
+
 **Handler**  
 构造Handler就需要指定一个Looper，不然不知道消息发到哪里去。默认的构造方法获取的Looper是当前线程的Looper，就是Looper.myLooper()。
 当然也可以给Handler指定UI线程的Looper了。这样就不用再UI线程里面来new Handler了。
