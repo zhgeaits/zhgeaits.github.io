@@ -8,23 +8,23 @@ type: other
 
 ## Windows下的github-blog搭建
 
-1.下载git，官方版本，不需要另外的gui版本了，纯命令比较好！呵呵!地址：
+**1.**下载git，官方版本，不需要另外的gui版本了，纯命令比较好！呵呵！地址：
 
 > http://git-scm.com/downloads
   
 直接安装完毕即可
 
-2.必须得注册一个github账号。
+**2.**必须得注册一个github账号。
 
-3.在官网的初始化一个名为`XXX.github.io`的库,XXX就是你的github账号。这里的详细步骤以后补充
+**3.**在官网的初始化一个名为`XXX.github.io`的库,XXX就是你的github账号。这里的详细步骤以后补充
 
-4.安装ruby（赶紧去学习吧！！！）下载地址：
+**4.**安装ruby（赶紧去学习吧！！！）下载地址：
 
 > http://rubyinstaller.org/downloads/
   
 安装过程简单，选择配置环境变量和gui tool即可。我下载的版本是：Ruby 1.9.3
 
-5.安装Ruby DevKit（还不了解是什么，估计就是ruby的开发工具吧，学了ruby就知道了。貌似是集成linux下的make，gcc等命令工具）下载地址：
+**5.**安装Ruby DevKit（还不了解是什么，估计就是ruby的开发工具吧，学了ruby就知道了。貌似是集成linux下的make，gcc等命令工具）下载地址：
 
 > http://rubyinstaller.org/downloads/
   
@@ -46,7 +46,7 @@ type: other
 
 > ruby dk.rb install
 
-6.安装jekyll，运行命令:
+**6.**安装jekyll，运行命令:
 
 > gem install jekyll
   
@@ -58,7 +58,7 @@ type: other
 
 > gem install rdiscount
 
-7.如果使用语法高亮插件Pygments，则需要安装Python(有几个版本，不太懂，什么portable python，还有distribute 0.6.49，还有settools等等。。。赶紧学python就懂了。）
+**7.**如果使用语法高亮插件Pygments，则需要安装Python(有几个版本，不太懂，什么portable python，还有distribute 0.6.49，还有settools等等。。。赶紧学python就懂了。）
 
 这里下载portable python：
 
@@ -78,7 +78,7 @@ type: other
 
 >easy_install Pygments
 
-8.如果使用另一个语法高亮引擎Rouge。它是ruby写的，所以不需要再安装python了。
+**8.**如果使用另一个语法高亮引擎Rouge。它是ruby写的，所以不需要再安装python了。
 
 >gem install rouge
 
@@ -87,7 +87,7 @@ type: other
 
 我还没使用过rouge所以不知道语法怎么样的。
 
-9.其实在执行完第5步以后，我自己的blog不需要再执行其他步骤的了，因为使用bundle更方便，我在项目下配置了Gemfile:
+**9.**其实在执行完第5步以后，我自己的blog不需要再执行其他步骤的了，因为使用bundle更方便，我在项目下配置了Gemfile:
 
 >source 'https://ruby.taobao.org'  
 gem 'github-pages'
@@ -107,7 +107,7 @@ gem 'github-pages'
 具体详情看jekyll的官网：
 >http://jekyllrb.com/docs/github-pages/
 
-10.一般问题都是版本原因，不要总用最新版本，版本之间兼容问题比较多。
+**10.**一般问题都是版本原因，不要总用最新版本，版本之间兼容问题比较多。
 
 
 ## 命令
