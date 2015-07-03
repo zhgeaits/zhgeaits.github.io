@@ -253,12 +253,16 @@ Global Settings就是设置全局参数
 
 ![hg30][hg30]
 
-这个KDiff用得蛋疼，强烈建议安装一个meld，我在ubuntu下用得爽，windows下和hg配合不起来，所以windows下不建议使用，也还有很多工具自己去找！  
-Linux安装命令：sudo apt-get install meld。然后按照上面配置就行了。
+这个KDiff用得蛋疼，强烈建议安装一个meld，我在ubuntu下用得爽，windows下和hg配合不起来，所以windows下不建议使用，也还有很多工具自己去找！
+
+Linux安装命令：
+>sudo apt-get install meld。
+
+然后按照上面配置就行了。
 
 **源码托管**
 
-https://bitbucket.org
+> https://bitbucket.org
 
 只要你注册一个帐号就可以登录，然后创建一个HG的库以后就可以克隆这个库了。
 
@@ -266,7 +270,8 @@ https://bitbucket.org
 
 **1.**	本地库的更改集不是服务器更改集的字节点，然后就push到服务器，就是常见的没拉取就推送，服务器的版本与本地的不一样（正常情况是本地的版本比服务器的要新）：
 
-提示：abort: push creates new remote heads!  
+提示：
+>abort: push creates new remote heads!  
 (did you forget to merge? use push -f to force)
 
 推送终止，因为在服务器会创造多个heads，目前还是正常的！（我用hg heads查看都是正常的）然后pull下来，可以看到多了一个heads，就是多个一个分支，这是可以运行hg heads查看多个heads，再运行hg merge合并，如果没冲突，合并顺利完成，否则会进入编辑阶段，就是所谓的三路合并了（本地版本，服务器版本，本地和服务器的最新共同版本），完成以后就commit，再推送到服务器。
@@ -274,7 +279,8 @@ https://bitbucket.org
 **2.**	我们以前说的没拉就推其实是可以的（实际想说的是没拉取更新就提交一个版本），之前我们的思想还是集中式的，不想产生分支！其实这正是分布式的好处，可以本地提交，不过我们要做的是，分支要尽快合并，除非是开发其他的版本，否则你会很egg painful！
 
 **参考教程：**
-http://wenku.baidu.com/view/f9733b1e59eef8c75fbfb317  
+
+>http://wenku.baidu.com/view/f9733b1e59eef8c75fbfb317  
 http://blog.csdn.net/vagrxie/article/details/4593687  
 http://mercurial.selenic.com/wiki/CategoryChinese  
 
