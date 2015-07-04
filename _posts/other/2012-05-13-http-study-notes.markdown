@@ -101,9 +101,60 @@ Content-Type: application/pdf
 
 不明白为什么不是网上所说的boundary有27个-，但是一样的是，header上的boundary和data是-是相差两个。
 
-**DNS：**  
-dns就是域名解析服务器，其实就是把域名转换成ip，这个是最简单的理解，但是对于如果有反向代理的服务器，那么单纯把域名替换成ip就有问题了，丢失域名无法完成请求的。dns的过程，需要好好复习一下大学的网络课程，ip只是包里面的两个字段source和target（是target么？忘记了），域名host这个字段还是要保留的带过去的。所以在使用apache的httpclient网络包的时候就要注意了，不能直接把url里面的host替换成ip，还需要保留host。可以这样做，设置一个host（虚拟主机）过去：  
-HttpRequest.getParams().put(ClientPNames.VIRTUAL_HOST, new HttpHost("www.zhangge.com"));  
-HttpRequest就是HttpGet，HttpPost等的接口。  
+## DNS
+
+我们都知道DNS就是域名系统(Domain Name System)，提供把域名转换成IP地址的目录服务，但是我们却不知道它的原理和更多机制。其实它是一个应用层的协议，不同的是它不是直接给用户用的，而是给http,ftp,smtp这些协议使用的。
+
+>DNS是一个由分层的DNS服务器实现的**分布式数据库**；是一个允许主机查询分布式数据库的应用层协议；DNS协议运行在UDP之上，使用53号端口。在RFC1034和1035有详细定义。
+
+除了是分布式数据库，还有重要的一点，DNS是通过client/server模式提供服务的。例如：
+
+>浏览器从url中抽取host:zhgeaits.me，然后传给dns应用的client端，通常调用的方法是`getHostByName()`，dns的client就向server发起一个请求，最后会收到一个报文，包含了ip地址，浏览器最后会向这个ip地址的server建立一个tcp的连接。
+
+**DNS的工作机理**
+
+DNS的层次结构：
+
+![alt dns_structure](/image/dns_structure.png "dns_structure") 
+
+第一层是Root服务器，第二层是Top Level Domain服务器，第三层是权威服务器。根服务器全球只有13个，编号是A-M，大部分在美国，中国好像有一个。顶级服务器是负责com,org,net,edu,cn,gov等等这些域名的。权威服务器比较多，一般我们是付费在权威服务器上面买域名（资源记录）的。
+
+除了那三种服务器以后，还有一种称为**本地DNS服务器**，他是由大学，公司，或者组织机构等ISP所提供的，可以理解为代理的DNS服务器，因为我们一般就是配置这些DNS的，发请求都是发到它这里来的。例如拨号电信上网，电信会给我们一个本地DNS服务器地址；还有google的DNS服务器`8.8.8.8`也是属于本地DNS服务器，因为它不是权威的，没有提供域名购买相关服务，只是代理转换的作用。其实在本地服务器也是可以买记录的，没有严格意义上的区分。
+
+正常来说，如果没有本地DNS服务器，那么我们的主机要被访问到，就必须到权威服务器上面去买一条记录，也就是说每一个主机都有自己的权威服务器，世界那么多主机，这样明显不科学的，顶级服务器要记录那么多的权威服务器！然后就有一个不是很权威的本地服务器，它在权威服务器上面有一条记录，然后我们也就可以在本地服务器上面买一条记录了。其实，权威服务器上面买一条记录和在本地服务器上面买一条记录价格差别是很大的。
+
+>可以这样区分本地DNS服务区和权威DNS服务器，告诉用户主机IP地址的是本地DNS服务器，因为它一般距离用户就几个路由，而告诉本地DNS服务器主机IP地址的就是权威服务器。本地服务器一般提供代理查询的服务，而权威服务器提供域名购买的服务。当然本地服务器的缓存也是提供的IP转换，就像权威服务器一样的功能，但是毕竟不是权威的嘛，例如我也可以配置本地的host啊。
+
+DNS的解析流程：
+
+![alt dns_flow](/image/dns_flow.png "dns_flow")
+
+首先我们先本地服务器发起查询请求，本地服务器就去根服务器查询请求，根服务器告诉TLD服务器的地址，我们再去TLD服务器查询，TLD告诉权威服务器的地址，权威服务器最后告诉IP地址是什么。然而，上面说了，其实TLD服务器并不知道所有的权威服务器，TLD只知道中间的权威服务器，中间的权威服务器才知道最后的不是那么权威的权威服务器，所以，一般不是8步，而是10步。
+
+有了DNS缓存就不一样了，不会每次都走上面的流程，上面的每一步都可以缓存，而且，这个是分布式数据库啊，数据同步极其的快速。然后本地的电脑也是可以配置host的嘛。
+
+DNS的记录：
+
+`(Name, Value, Type, TTL)`
+
+TTL就是生命周期，就是缓存时间多久。Name和Value就是一对名字和值了。而Type有四种类型，分别是：
+
+Type=A，其实就Address嘛，存放的就是域名对应IP地址了。 
+
+Type=NS，其实是NameSpace，存放的是权威DNS服务器的域名。
+
+Type=CNAME,其实就是CanonicalName，存放的是规范主机名，例如，其实百度的域名有很多别名的，但是只有一个规范的主机名而已。
+
+Type=MX，存放的是邮件服务器的规范主机名。
+
+基本上理解这些就可以了，更深入的暂时还没有去学习到，以后需要再去学习！
+
+**其他**
+
+一般的url，把host换成ip来请求是没问题的，但是对于如果有反向代理的服务器，那么单纯把域名替换成ip就有问题了，丢失域名无法完成请求的。ip只是包里面的两个字段源IP地址和目的IP地址的值，对于应用层协议，如http，域名host这个字段还是要保留的带过去的。所以在使用apache的httpclient网络包的时候就要注意了，不能直接把url里面的host替换成ip，还需要保留host。  
+可以这样做，设置一个host（虚拟主机）过去：
+> HttpRequest.getParams().put(ClientPNames.VIRTUAL_HOST, new HttpHost("www.zhangge.com"));  
+HttpRequest就是HttpGet，HttpPost等的接口。
+  
 这是我看源码看出来的，如果对于不同的情况和httpclient版本，还是需要自己去看源码处理实际情况。不过原理就这样，理解就好了。  
-对于自己解析域名，httpclient还提供了别的接口，自定义BasicClientConnectionManager和DnsResolver类，然后传给DefaultHttpClient就可以了。
+对于自己解析域名，httpclient还提供了别的接口，自定义`BasicClientConnectionManager`和`DnsResolver`类，然后传给`DefaultHttpClient`就可以了。

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TortoiseSVN/Subversion 学习、理解、使用记录"
+title:  "TortoiseSVN/Subversion 学习、理解和一些重要的使用记录"
 date:   2011-07-20 11:00:03
 categories: other
 type: other
