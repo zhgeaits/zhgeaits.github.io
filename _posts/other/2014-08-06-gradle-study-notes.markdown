@@ -20,7 +20,7 @@ gradle的bean和delegate机制。bean机制就是默认给属性生成getter和s
 
 增量式构建机制：如果我们将Gradle的Task看作一个黑盒子，那么我们便可以抽象出输入和输出的概念，一个Task对输入进行操作，然后产生输出。比如，在使用java插件编译源代码时，输入即为Java源文件，输出则为class文件。如果多次执行一个Task时的输入和输出是一样的，那么我们便可以认为这样的Task是没有必要重复执行的。此时，反复执行相同的Task是冗余的，并且是耗时的。为了解决这样的问题，Gradle引入了增量式构建的概念。在增量式构建中，我们为每个Task定义输入（inputs）和输入（outputs），如果在执行一个Task时，如果它的输入和输出与前一次执行时没有发生变化，那么Gradle便会认为该Task是最新的（UP-TO-DATE），因此Gradle将不予执行。一个Task的inputs和outputs可以是一个或多个文件，可以是文件夹，还可以是Project的某个Property，甚至可以是某个闭包所定义的条件。
 
-API：http://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/TaskContainer.html
+>API：http://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/TaskContainer.html
 
 **环境搭建**
 
@@ -57,11 +57,11 @@ Task之间可以存在依赖关系，比如taskA依赖于taskB，那么在执行
 
 * 使用java插件
 
-apply plugin: 'java'
+>apply plugin: 'java'
 
 java项目的目录结构和maven的一致，也可以自己去定义修改。
 
-api:http://dcow.io/android-gradle-plugin-docs/com/android/build/gradle/api/AndroidSourceSet.html
+>api:http://dcow.io/android-gradle-plugin-docs/com/android/build/gradle/api/AndroidSourceSet.html
 
 
 **修改目录结构**  
@@ -190,7 +190,7 @@ task hello1(type:HelloWorldTask){
 
 **构建android项目**  
 
-官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide  
+>官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide  
 例子（例如兼容eclipse使用）：https://github.com/Goddchen/Android-Gradle-Examples
 
 使用android studio创建android项目就已经默认支持gradle了，而且生成的文件非常方便。  
@@ -222,7 +222,7 @@ buildTypes{
 
 **命令**
 
-gradle tasks：查看Project中所有的Task  
+>gradle tasks：查看Project中所有的Task  
 gradle properties：查看Project中所有的Property  
 apply plugin：应用插件  
 gradle clean：清除gradle 插件  
@@ -233,5 +233,6 @@ gradle build：构建android 项目
 定义task的时候，"<<"和doLast和doFirst的区别是什么？    
 闭包这些还是需要好好理解一下，因为没有学习过groovy，所以比较难理解。
 
-**troubleshotting**  
-Error:Execution failed for task ':yymobile_client:dexDebug'.> com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process 'command 'C:\Program Files\Java\jdk1.7.0_25\bin\java.exe'' finished with non-zero exit value 2
+**troubleshotting**
+
+>Error:Execution failed for task ':yymobile_client:dexDebug'.>    com.android.ide.common.process.ProcessException:    org.gradle.process.internal.ExecException: Process 'command 'C:\Program Files\Java\jdk1.7.0_25\bin\java.exe'' finished with non-zero exit value 2
