@@ -140,6 +140,58 @@ progressbar左右的padding好像默认不是0，所以要设置一下
 android:paddingLeft="0px"  
 android:paddingRight="0px"  
 
+{% highlight xml %}
+<ProgressBar
+    android:id="@+id/progress_horizontal"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:progressDrawable="@drawable/capture_progress_style"
+    android:layout_width="match_parent"
+    android:layout_height="6dp"
+    android:max="100"
+    android:progress="10"
+    android:secondaryProgress="20"
+    />
+
+//其中capture_progress_style.xml配置如下：
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="1.0dip"/>
+            <gradient
+                    android:startColor="#1Effffff"
+                    android:endColor="#1Effffff"
+                    android:angle="270.0"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="1.0dip"/>
+                <gradient
+                        android:startColor="#ffa401"
+                        android:endColor="#ffa401"
+                        android:centerColor="#ffa401"
+                        android:angle="270.0"/>
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="1.0dip"/>
+                <gradient
+                        android:startColor="#89ffa401"
+                        android:endColor="#89ffa401"
+                        android:centerColor="#89ffa401"
+                        android:angle="270.0"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>
+
+{% endhighlight %}
+
 **ActionBar**  
 是3.0以后才有ActionBar，可以在menu/main.xml配置bar上面的item，然后在Activity的onCreateOptionsMenu里面创建。
 
