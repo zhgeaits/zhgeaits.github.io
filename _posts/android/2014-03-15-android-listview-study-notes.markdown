@@ -82,3 +82,7 @@ public static void setListViewHeightBasedOnChildren(ListView listView, Context c
 	listView.requestLayout();
 }
 {% endhighlight %}
+
+getView()和notifyDataSetChanged()
+
+一般调用notifyDataSetChanged()就会触发getView()方法。然后我在项目这里发现了不管怎么调用notifyDataSetChanged都不会触发getView，想了一天都不能解决，后来才发现，必须在UI线程调用啊。。。。。。
