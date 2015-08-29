@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "让音乐点缀大学生活"
+title: "让音乐点缀我的大学生活"
 date: 2012-06-26 21:19:05
 categories: life
 type: life

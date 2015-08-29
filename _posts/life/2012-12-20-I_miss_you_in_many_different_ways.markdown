@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "我想念你的多种方式"
+title: "我想念你的多种方式..."
 date: 2012-12-20 04:19:05
 categories: life
 type: life
