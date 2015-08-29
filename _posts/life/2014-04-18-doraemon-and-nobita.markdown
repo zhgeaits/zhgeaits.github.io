@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "哆啦A梦与大雄"
+title: "童心永恒，哆啦A梦与大雄就永远在我心中"
 date: 2014-04-18 12:20:03
 categories: life
 type: life
