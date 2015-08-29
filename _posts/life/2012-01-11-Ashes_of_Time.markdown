@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "东邪西毒：终极版----男人的传奇"
+title: "东邪西毒终极版----男人的传奇"
 date: 2012-01-11 23:49:03
 categories: life
 type: life
