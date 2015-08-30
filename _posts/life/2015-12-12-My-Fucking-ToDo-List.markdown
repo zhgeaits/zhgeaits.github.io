@@ -8,6 +8,21 @@ type: life
 
 因为本人有极其复杂的懒惰症，天天做白日梦，很多事情，太多计划，又来不及做，又老是忘记。实在蛋疼无语，好吧，就在blog这里顶一个top post，一直提醒自己要做什么。不然老是觉得没事情做，这是一种病态，盯着电脑不知道干嘛。
 
+双击
+瀑布流
+混淆
+listview无滚动条
+camera权限
+浮窗的输入框，size span
+onActivityResult
+adb logcat
+adb -s devices -r install
+static, coremanager
+dex-method-counts.jar
+dllhost.exe
+progressbar style
+动态构建selector
+Comparable
 SectionIndexer
 SwipeRefreshLayout
 
