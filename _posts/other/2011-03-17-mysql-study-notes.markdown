@@ -126,7 +126,22 @@ PS：如果以上不能下载，可能是被墙了，大家自个去找个自由
 
 这些都是纯的数据库操作，只有学习了这些基础后才可以去学习如何使用高级语言来操作数据库。对java来说，就要使用JDBC，JDBC==java database connection。
 
-## 4.附录一：常用操作命令
+## 4.配置
+
+客户端的一些配置，windows下找到my.ini，linux下找到mysql.conf文件，如配置端口，默认登陆账号密码，字符编码等等：
+
+{% highlight mysql %}
+[client]
+port=3306
+user=zhangge
+password=zhangshuaige
+
+[mysql]
+default-character-set=utf-8
+
+{% endhighlight %}
+
+## 5.附录一：常用操作命令
 
 1.查看Mysql运行情况：
 
@@ -256,4 +271,13 @@ select now();
 select date_format(now(),'%Y-%m-%d %H:%i:%s');
 insert into emp values(9999,'clerk',7369,'1981-12-23 12:23:23',8000,80,10);
 --(自动插入时间格式的字符到时间类型的位置）
+{% endhighlight %}
+
+10.创建一个用户并授权：
+
+{% highlight mysql %}
+drop database if exists zhanggedb;
+create database zhanggedb;
+use zhanggedb;
+grant SELECT,INSERT,UPDATE,DELETE,EXECUTE,CREATE,DROP on zhanggedb.* to 'zhangge'@'localhost' IDENTIFIED BY 'zhangshuaige';
 {% endhighlight %}
