@@ -247,6 +247,8 @@ public int delete() {}//删除
 }
 {% endhighlight %} 
 
+### 5.3封装DAO成为一个框架
+
 很容易看出来，在DAO里面有很多操作是在不断地重复的，如果我们把这些重复的操作封装称为模块和做成一个模板的话，用起来就非常方便了，这就是我们简单的一个框架了。
 
 如下是整个框架的设计架构：
@@ -265,7 +267,7 @@ DAOImpl：就是DAO implementation，针对不同的数据存储来实现，我�
 
 BaseDAO接口：主要是把共有的东西集中在一起。
 
-BaseDAOImpl:对BaseDAO的实现
+BaseDAOImpl：对BaseDAO的实现
 
 JdbcTemplate：jdbcTemplate模板，封装了JDBC的操作，详细去看代码，我简单地封装了两个方法，后面大家根据自己的需要继续封装不一样的方法即可。
 
@@ -273,4 +275,4 @@ EntityMapping：封装把数据库记录转换成对象的操作。
 
 DBManager：管理连接数据库的工具类。
 
-这里就不贴代码了，比较多，直接到JavaTest这个项目的jdbc/framework包下看即可。
+这里就不贴代码了，比较多，基础架构我已经写好，直接到JavaTest这个项目的jdbc/framework包下看即可，入口在那个test包里面，可以从那里开始读源码。重要是先把整个脉络弄清楚，然后再去注意细节问题。
