@@ -3,7 +3,7 @@ layout: post
 title:  "Java反射机制学习笔记!"
 date:   2011-09-22 11:09:22
 categories: java
-type: java
+type: java&web
 ---
 
 以前学习的反射笔记，慢慢再补上来。。。

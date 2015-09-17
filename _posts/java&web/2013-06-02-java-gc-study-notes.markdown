@@ -3,7 +3,7 @@ layout: post
 title:  "Java GC垃圾回收机制学习笔记!"
 date:   2013-06-02 16:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 1.概念上讲，初始化和创建是彼此独立的，但是在JAVA中，初始化和创建捆绑在一起，两者不分离。在Object类中找不到initialize()方法。

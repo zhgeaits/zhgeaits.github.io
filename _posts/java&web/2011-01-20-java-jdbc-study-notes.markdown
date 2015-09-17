@@ -3,7 +3,7 @@ layout: post
 title:  "Java Database Connection(JDBC)学习笔记!"
 date:   2011-01-20 11:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 >回想当年，做飞哥一号布置的寒假项目，寒假在家里看马士兵的视频学习数据库，当时主要学习的是oracle数据库，然后写了一个简单的学生信息管理项目，项目的地址在JavaTest这个项目的sys包下。
@@ -19,6 +19,7 @@ type: java
 ## 2.代码实现连接数据库
 
 具体代码在JavaTest这个项目的jdbc/learn包下。以连接mysql为例子，代码很简单，但是要记得添加mysql的驱动包，地址：  
+
 >http://dev.mysql.com/downloads/connector/j/  
 
 首先需要创建数据库“zhangge_test”，具体请看mysql的blog。

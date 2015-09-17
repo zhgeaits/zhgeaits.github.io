@@ -3,7 +3,7 @@ layout: post
 title: "MyBatis学习记录"
 date: 2012-07-11 01:15:24
 categories: javaweb
-type: javaweb
+type: java&web
 ---
 
 1.以前在spring配置文件配置每个mapper的bean，现在可以用另外一种方式来自动扫描：

@@ -3,7 +3,7 @@ layout: post
 title:  "Java泛型学习笔记!"
 date:   2013-02-20 11:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 大一刚学java时候接触过泛型，但是不是很理解，只记得<T>使用就好，然后参考飞哥的web项目时候也在Base基类接触过一下，但是还是没有认真学习到泛型的东西。现在来总结一下常用的地方。

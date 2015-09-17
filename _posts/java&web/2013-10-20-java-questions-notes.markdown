@@ -3,7 +3,7 @@ layout: post
 title:  "记录一些自己对Java的理解，学习笔记，疑问与部分解答笔记!"
 date:   2013-10-20 11:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 **当年实习面试记录的一些关于java的问题**

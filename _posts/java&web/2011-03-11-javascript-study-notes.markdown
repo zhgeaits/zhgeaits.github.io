@@ -3,7 +3,7 @@ layout: post
 title:  "JavaScript学习记录!"
 date:   2011-03-11 11:00:03
 categories: javaweb
-type: javaweb
+type: java&web
 ---
 
 一个笑话：

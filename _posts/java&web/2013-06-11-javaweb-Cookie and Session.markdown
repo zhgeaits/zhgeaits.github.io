@@ -3,7 +3,7 @@ layout: post
 title: "Cookie和Session学习记录"
 date: 2013-06-11 01:15:24
 categories: frontend
-type: javaweb
+type: java&web
 ---
 
 >在学javaee的时候就学过这两个东西，但是但是什么基础都没有，学了就学了，只是简单地记住而已，并非真正理解了这个东西，现在有了操作系统，网络等基础知识以后，再次学习！

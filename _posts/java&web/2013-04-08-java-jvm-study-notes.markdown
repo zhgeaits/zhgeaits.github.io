@@ -3,7 +3,7 @@ layout: post
 title:  "Java的JVM学习笔记!"
 date:   2013-04-08 13:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 1.Java内存可以大概理解为运行前java虚拟机向操作系统申请初始化内存，然后运行中java应用程序在jvm管理的逻辑内存下运行，

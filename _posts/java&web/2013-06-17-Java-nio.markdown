@@ -3,7 +3,7 @@ layout: post
 title: "JavaNIO学习笔记"
 date: 2013-06-17 16:19:46
 categories: java
-type: java
+type: java&web
 ---
 
 _这个是学习java编程思想上面的java nio，感觉内容有点少，而且是没有selector选择器的，这个应该有点像异步IO吧，以后再学习。这里总结了一下学习的记录_

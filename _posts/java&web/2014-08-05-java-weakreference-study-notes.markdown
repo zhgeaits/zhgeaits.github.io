@@ -3,7 +3,7 @@ layout: post
 title:  "Java 弱引用WeakReference， 软引用SoftReference，强引用Strong Reference, 学习笔记!"
 date:   2014-08-05 11:00:03
 categories: java
-type: java
+type: java&web
 ---
 
 强引用Strong Reference：平时我们使用的都是强引用。一旦引用数为0，就会被GC回收。
