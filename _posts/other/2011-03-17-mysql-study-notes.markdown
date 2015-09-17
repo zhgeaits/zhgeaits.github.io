@@ -141,7 +141,9 @@ default-character-set=utf-8
 
 {% endhighlight %}
 
-## 5.附录一：常用操作命令
+## 5.附录
+
+### 5.1常用操作命令
 
 1.查看Mysql运行情况：
 
@@ -281,3 +283,7 @@ create database zhanggedb;
 use zhanggedb;
 grant SELECT,INSERT,UPDATE,DELETE,EXECUTE,CREATE,DROP on zhanggedb.* to 'zhangge'@'localhost' IDENTIFIED BY 'zhangshuaige';
 {% endhighlight %}
+
+### 5.2其他
+
+在PersonalResources项目的public/database下有更多的mysql，sql资料可以参考。
