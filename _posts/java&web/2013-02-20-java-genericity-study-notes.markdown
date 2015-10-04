@@ -26,4 +26,14 @@ public static <T extends Base> Info<T> test(Info<T> param);//这样使用也可�
 {% endhighlight %}
 
 对于数组，可变参数都可以在泛型用上。
+
+
+java的泛型不是真正的泛型，是伪泛型，就是说运行期不能将泛型类型与用户定义的普通类型同等对待，例如运行期做反射时无法获得泛型信息。但是C#语言是真正的发支持泛型。
+
+当想要把泛型T实例化，可以这样做：  
+Class<T> resultType；  
+Type genType = getClass().getGenericSuperclass();  
+Type[] params = ((ParameterizedType) genType).getActualTypeArguments();  
+resultType = (Class) params[0];  
+T result = resultType.newInstance();  
    
