@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java的class字节码文件，内存模型，classloader类加载机制学习笔记!"
+title:  "Java的class字节码文件，内存模型，classloader类加载机制，反射学习笔记!"
 date:   2013-03-17 13:00:03
 categories: java
 type: java&web
@@ -54,14 +54,20 @@ final的意思是不能被修改了，如果只用final来修饰的话，按道�
 
 ### 2.1 类的生命周期和加载的时机
 
-类的整个生命周期包括七个阶段：加载(Loading)，验证(Verification)，准备(Preparation)，解析(Resolution)，初始化(Initialization)，使用(Using)和卸载(Unloading)。其中验证，准备和解析统称为连接(linking)阶段。前5个阶段并不是严格串行的，通常会在一个阶段执行的过程中调用激活另外一个阶段。虚拟机规范并没有指定什么时候必须进行第一步的加载，但是却严格规定了5中情况必须对类进行初始化，而初始化之前肯定先得加载和连接过程了。
+类的整个生命周期包括七个阶段：`加载(Loading)`，`验证(Verification)`，`准备(Preparation)`，`解析(Resolution)`，`初始化(Initialization)`，`使用(Using)`和`卸载(Unloading)`。其中验证，准备和解析统称为`连接(linking)`阶段。前5个阶段并不是严格串行的，通常会在一个阶段执行的过程中调用激活另外一个阶段。虚拟机规范并没有指定什么时候必须进行第一步的加载，但是却严格规定了5中情况必须对类进行初始化，而初始化之前肯定先得加载和连接过程了。
 
 ### 2.2 加载
 
 加载阶段只需要完成3件事情：  
 1.通过一个类的全限定名（包名+类名）来获取定义此类的二进制字节流（class文件）。通常可以从zip包（jar，war，ear），网络，运行时生成，数据库等地方读取，这都是开放实现的。  
 2.将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。其实就是把这个class存储在了方法区。  
-3.在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据结构的访问入口。Class对象可能存在堆中，也可能存在方法区中，根据不同的虚拟机而定，Hotspot虚拟机就是存在方法区的。
+3.在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据结构的访问入口。Class对象可能存在堆中，也可能存在方法区中，根据不同的虚拟机而定，Hotspot虚拟机就是存在方法区的。这个Class类包含了ClassLoader。
+
+从第三点可以知道每个对象都有一个Class对象，可以通过getClass获取，那么我们其实就知道了instanceof的意思了，objectA instanceof A，其实意思就是objectA.getClass()==A.class或者objectA.getClass().equals(A.class)的意思。
+
+PS：在android里面this.getClass()可能会报错，说不知道this是哪个Object的。在IDEA上面有问题报错，所以，这样写一下就OK：
+  
+>((Object) this).getClass();
 
 ### 2.3 验证
 
@@ -86,18 +92,109 @@ final的意思是不能被修改了，如果只用final来修饰的话，按道�
 4.虚拟机启动时候包含mian方法的类。  
 5.使用jdk1.7的动态语言支持的时候。  
 
-### 2.7 类加载器
+## 3 类加载器
 
 完成第一阶段加载工作的代码模块就是类加载器（ClassLoader）。同一个类加载器只能加载相同的一个类，不同的类加载器却可以加载相同的类，但是这两个类的实例对象却不是相同的类来的，使用instanceof的时候会返回false。
 
 类加载器分为三种：  
-1.启动类加载器（Bootstrap ClassLoader）：它是C++语言实现的，负责加载<JAVA_HOME>/lib目录下的所有jar包。它是顶层的类加载器。其他的加载器都是用java实现的，而且是实现抽象类ClassLoader。  
+1.启动类加载器（Bootstrap ClassLoader）：它是C++语言实现的，负责加载<JAVA_HOME>/lib目录下的所有jar包。它是顶层的根类加载器。其他的加载器都是用java实现的，而且是实现抽象类ClassLoader。  
 2.扩展类加载器（Extension ClassLoader)：它负责加载<JAVA_HOME>/lib/ext目录，或者java.ext.dirs环境变量指定的目录的类。  
-3.应用程序加载器(Application ClassLoader)：调用getSystemClassLoader()就可以获取得到这个加载器，它负责将ClassPath上指定的类库加载。如果没有自定义的类加载器，默认就是这个了。
+3.应用程序加载器(Application ClassLoader)：调用ClassLoader.getSystemClassLoader()就可以获取得到这个加载器，它负责将ClassPath上指定的类库加载。如果没有自定义的类加载器，我们的应用默认就是使用这个了。
 
 上面的3种加载器是继承关系的，所以加载的过程应该是先调用父类来加载，如果加载失败再自己进行加载。
 
-## 3.Java的内存结构
+在2.6说了如果new一个类的话就会触发初始化，然后会把类加载进内存；如果我们只是想要加载一个类，有两种方法：
+
+>ClassLoader.getSystemClassLoader().loadClass("org.zhangge.testclass.TestClass");
+
+当然可以不使用getSystemClassLoader，而使用随便一个对象.getClass().getClassLoader()就可以了，这样就使用了同一个ClassLoader了。这里也可以知道其实每一个Class类都有相应的ClassLoader的引用。
+
+第二种方法：
+
+>Class.forName("org.zhangge.testclass.TestClass");
+
+很熟悉，这就是我们学校JDBC的时候用的方法。也就是说JDBC那里把驱动加载进去内存并完成了类的初始化。
+
+这个方法还有一个多参数的重载方法：
+
+>public static Class<?> forName(String name, boolean initialize, ClassLoader loader) throws ClassNotFoundException;
+
+这里的initialize参数是很重要的，即被加载同时是否完成初始化的工作，单参数版本的forName方法默认是完成初始化的：
+
+>Class.forName(className, true, currentLoader)。
+
+### 3.1 ClassLoader类
+
+ClassLoader有下面一些重要的方法：
+
+1.loadCass方法：以类的全限定名加载类。  
+2.defineClass方法：这个方法把类class文件的字节数组转换成Class对象。字节数组可以是从本地文件系统或网络装入的数据。它把字节码分析成运行时数据结构、校验有效性等等。当我们自定义ClassLoader的时候需要调用这个方法。  
+3.findSystemClass方法：从本地文件系统装入Java字节码。它在本地文件系统中寻找类文件，如果存在，就使用defineClass将字节数组转换成Class对象。当运行Java应用程序时,这是JVM正常装入类的缺省机制。  
+4.resolveClass方法：解析装入的类，如果该类已经被解析过那么将不做处理。当调用loadClass方法时，通过它的resolve参数决定是否要进行解析。  
+5.findLoadedClass方法：当调用loadClass方法装入类时，调用findLoadedClass方法来查看ClassLoader是否已装入这个类，如果已装入，那么返回Class对象，否则返回NULL。如果强行装载已存在的类，将会抛出链接错误。
+
+什么时候需要自定义ClassLoader？
+
+例如我们要加密class文件不让别人反编译的时候，那么我们就需要自定义ClassLoader了，先按照自己的加密方式解密得到原来的class文件，再loader进去。
+
+### 3.2 Class类与反射
+
+从上面我们了解到了每个对象都有Class对象，也就是说，如果java的Class对象很强大的话，我们就可以在运行时通过Class对象做很多事情了，事实就是这样的，java还有专门的reflect包，专门是搞反射的。让我们可以通过class对象任意获取对象的属性和调用对象的方法，尽管是private的。
+
+一些学习测试的代码在：JavaTestBox/org.zhangge.reflection
+
+一些常用的反射：
+
+1.获取对象的属性值：
+
+{% highlight java %}
+
+Class ownerClass = owner.getClass();
+Field field = ownerClass.getField(fieldName);
+Object property = field.get(owner);
+
+{% endhighlight %}
+
+2.获取类的静态属性值：
+
+{% highlight java %}
+
+Class ownerClass = owner.getClass();
+Field field = ownerClass.getField(fieldName);
+Object property = field.get(ownerClass);//区别在这里的参数
+
+{% endhighlight %}
+
+3.执行对象的方法：
+
+{% highlight java %}
+
+Method method = ownerClass.getMethod(methodName, argsClass);//argsClass是参数的类型数组
+method.invoke(owner, args);//args是参数的Object数组
+
+//下面是执行静态方法，第一个参数传null
+//method.invoke(null, args);//args是参数的Object数组
+
+{% endhighlight %}
+
+4.新建实例：
+
+{% highlight java %}
+
+Class newoneClass = Class.forName(className);
+
+//如果调用没有参数的构造方法：
+newoneClass.newInstance();
+
+//如果调用有参数的构造方法：
+Constructor cons = newoneClass.getConstructor(argsClass);//argsClass是参数的类型数组
+cons.newInstance(args);
+
+{% endhighlight %}
+
+当然反射还能做更多的事情，这里就不列举了。以后用到再补充。
+
+## 4.Java的内存结构
 
 
 1.虚拟机是什么？进程？常驻的服务？唯一？还是每跑一个java代码就启动一个虚拟机？
