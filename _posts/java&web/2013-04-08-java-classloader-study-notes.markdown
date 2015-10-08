@@ -56,6 +56,8 @@ final的意思是不能被修改了，如果只用final来修饰的话，按道�
 
 类的整个生命周期包括七个阶段：`加载(Loading)`，`验证(Verification)`，`准备(Preparation)`，`解析(Resolution)`，`初始化(Initialization)`，`使用(Using)`和`卸载(Unloading)`。其中验证，准备和解析统称为`连接(linking)`阶段。前5个阶段并不是严格串行的，通常会在一个阶段执行的过程中调用激活另外一个阶段。虚拟机规范并没有指定什么时候必须进行第一步的加载，但是却严格规定了5中情况必须对类进行初始化，而初始化之前肯定先得加载和连接过程了。
 
+对象被GC回收以后会被卸载吗？如果会，什么时候卸载？
+
 ### 2.2 加载
 
 加载阶段只需要完成3件事情：  
@@ -97,9 +99,9 @@ PS：在android里面this.getClass()可能会报错，说不知道this是哪个O
 完成第一阶段加载工作的代码模块就是类加载器（ClassLoader）。同一个类加载器只能加载相同的一个类，不同的类加载器却可以加载相同的类，但是这两个类的实例对象却不是相同的类来的，使用instanceof的时候会返回false。
 
 类加载器分为三种：  
-1.启动类加载器（Bootstrap ClassLoader）：它是C++语言实现的，负责加载<JAVA_HOME>/lib目录下的所有jar包。它是顶层的根类加载器。其他的加载器都是用java实现的，而且是实现抽象类ClassLoader。 
+1.启动类加载器(Bootstrap ClassLoader)：它是C++语言实现的，负责加载<JAVA_HOME>/lib目录下的所有jar包。它是顶层的根类加载器。其他的加载器都是用java实现的，而且是实现抽象类ClassLoader。 
  
-2.扩展类加载器（Extension ClassLoader)：它负责加载<JAVA_HOME>/lib/ext目录，或者java.ext.dirs环境变量指定的目录的类。  
+2.扩展类加载器(Extension ClassLoader)：它负责加载<JAVA_HOME>/lib/ext目录，或者java.ext.dirs环境变量指定的目录的类。  
 
 3.应用程序加载器(Application ClassLoader)：调用ClassLoader.getSystemClassLoader()就可以获取得到这个加载器，它负责将ClassPath上指定的类库加载。如果没有自定义的类加载器，我们的应用默认就是使用这个了。
 
