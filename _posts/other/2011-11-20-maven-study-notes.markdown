@@ -44,4 +44,64 @@ mvn install:install-file -Dfile=外部包的路径 \
 
 对于android，maven构建jar时是不支持aidl的，so库这些的,而apklib支持，apklib只是对源码和资源文件的打包，所以apklib是maven自己搞的东西，但是已经不支持和流行了，官方文档都没了，现在已经被gradle的aar锁代替了。
 
+## Troubleshooting
+
+1.构建android的时候，突然出现这样一个错误，说是debug的证书过期了，google了以后发现说证书过期就去删掉debug证书就可以了，debug证书在c盘用户目录的.android目录下。
+
+>[ERROR] Failed to execute goal com.simpligility.maven.plugins:android-maven-plugin:4.3.0:apk (default-apk) on project xxx: Debug Certifica
+te expired on xxx 下午4:23 -> [Help 1]
+
+然而我删掉了以后发现还是不行，那就说明不是那个证书，也试过重开，重启，清缓存，都解决不了。于是加了-X选项重新运行mvn命令，发现，错误的地方在：
+
+>at com.simpligility.maven.plugins.android.phase09package.ApkMojo.doAPKWithAPKBuilder(ApkMojo.java:710)
+
+再去github上找到simpligility/android-maven-plugin，找到了ApkMojo.doAPKWithAPKBuilder方法，发现这样获取debug证书：
+
+>final String debugKeyStore = signWithDebugKeyStore ? ApkBuilder.getDebugKeystore() : null;
+
+ApkBuilder.getDebugKeystore()是android的工具，于是在google，发现源码如下：
+
+地址：
+
+https://android.googlesource.com/platform/sdk/+/e162064a7b5db1eecec34271bc7e2a4296181ea6/sdkmanager/libs/sdklib/src/com/android/sdklib/build/ApkBuilder.java
+
+{% highlight java %}
+
+public static String getDebugKeystore() throws ApkCreationException {
+    try {
+        return DebugKeyProvider.getDefaultKeyStoreOsPath();
+    } catch (Exception e) {
+        throw new ApkCreationException(e, e.getMessage());
+    }
+}
+{% endhighlight %}
+
+继续找到DebugKeyProvider.getDefaultKeyStoreOsPath：
+
+{% highlight java %}
+
+public static String getDefaultKeyStoreOsPath()
+            throws KeytoolException, AndroidLocationException {
+    String folder = AndroidLocation.getFolder();
+    if (folder == null) {
+        throw new KeytoolException("Failed to get HOME directory!\n");
+    }
+    String osKeyStorePath = folder + "debug.keystore";
+    return osKeyStorePath;
+}
+
+{% endhighlight %}
+
+原来都在AndroidLocation.getFolder()这里：
+
+{% highlight java %}
+
+String home = findValidPath(new EnvVar[] { EnvVar.ANDROID_SDK_HOME,
+                                                       EnvVar.USER_HOME,
+                                                       EnvVar.HOME });
+
+{% endhighlight %}
+
+其实分别从三个地方获取，sdk目录，用户主目录和环境变量的目录，先去看sdk目录，果然发现了，然后问题就解决了。
+
 慢慢再记录。
