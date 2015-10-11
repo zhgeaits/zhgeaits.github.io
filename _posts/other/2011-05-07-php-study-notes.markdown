@@ -20,9 +20,13 @@ php是一门轻量级别的脚本语言，用于快速开发web，它是嵌入�
 
 1.到官网http://www.php.net/下载稳定的php
 
-2.解压：tar -jxv -f php-5.4.13.tar.bz2 -C .
+2.解压：
 
-3.配置：sudo ./configure —prefix=/usr/local/php —with-apxs2=/usr/local/apache/bin/apxs —with-mysql=/usr/local/mysql
+>tar -jxv -f php-5.4.13.tar.bz2 -C .
+
+3.配置：
+
+>sudo ./configure —prefix=/usr/local/php —with-apxs2=/usr/local/apache/bin/apxs —with-mysql=/usr/local/mysql
 
 如果是apt-get安装mysql的话，这里指定mysql的库的路径,即包含头文件的路径，理论上应该是/usr/include/mysql。如果依然安装不了，有三种办法：1.mysql改成编译安装。2.安装mysql-devel包，用apt安装，sudo apt-get install libmysqllient-dev或者到官网下载headers and libraries包。3.目录改成--with-mysql=/usr/。
 
@@ -43,18 +47,21 @@ php是一门轻量级别的脚本语言，用于快速开发web，它是嵌入�
 
 到apache的配置文件httpd.conf修改：
 
-在#AddType application/x-tar.tgz下加一行:  
+在#AddType application/x-tar.tgz下加一行:
+
 >AddType application/x-httpd-php .php  
 
 在#LoadModule foo_module modules/mod_foo.so下加一行
+
 >LoadModule php5_module  modules/libphp5.so
   
-找到DirectoryIndex index.html在后面添加 
+找到DirectoryIndex index.html在后面添加
+
 >index.php
 
 然后重启apache：
 
-Sudo ./usr/loca/apache/bin/apachectl restart
+>sudo ./usr/loca/apache/bin/apachectl restart
 
 6.测试：
 
