@@ -53,3 +53,5 @@ I get 10 times more traffic from [Google][1] than from
 	</pre>
 	
 8.代码区域内的文字不会被处理，按照原样输出。每一行前边加入4个空格或者一个tab可以标记一个代码段落
+
+9.左上点符号，在Esc键下面，可以包围html符号不被转义。
