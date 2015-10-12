@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "JDK环境搭建!"
-date:   2013-05-06 14:00:03
+date:   2010-12-12 10:00:03
 categories: java
 type: java&web
 ---
