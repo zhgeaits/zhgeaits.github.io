@@ -8,6 +8,8 @@ type: other
 
 ## 1 什么是github博客
 
+git是一个重量级的分布式版本控制器，详情看我另外一篇blog；而github则是一个综合性的scm平台，即github是你提交代码的后台，除了管理代码，它还有更多的功能，例如协同开发，建立实验室，建立项目page等等。所以它也是一个开源社区，每个人都可以分享自己的代码，由这个project-page就衍生出了github-page，可以建立个人的blog了。而这个blog是运行在jekyll之上的一个project，只要按照一定的规则建立一个jekyll project，github就会去build这个project，帮你生成一个站点了。
+
 ## 2 使用github
 
 ### 2.1 注册github
@@ -26,9 +28,13 @@ type: other
 
 在官网的初始化一个名为`XXX.github.io`的库,XXX就是你的github账号。这里的详细步骤以后补充
 
-## 3 Linux下搭建github-blog
+### 2.4 什么是jekyll
 
-## 4 Windows下的github-blog搭建
+它的官网是http://jekyllrb.com/。其实jekyll是一个ruby编写的工具，它为blog而生，它的功能就是把通过Markdown（或者Textile）以及Liquid编写的模板转化成一个完整的可发布的静态网站，当然也可以直接解析html网页文件。所以要搞一个这个东西，就先学习ruby语言，然后学会jekyll项目的目录结构，还学习Markdown之类的标记语言。要在本地跑起来jekyll的站点就必须先搭建ruby环境，安装jekyll。
+
+## 3 Linux下搭建github-blog环境
+
+## 4 Windows下搭建github-blog环境
 
 ### 4.1 安装ruby（赶紧去学习吧！！！）
 
@@ -199,7 +205,7 @@ self.content = File.read_with_options(File.join(base, name), :encoding=>"utf-8",
 >gem uninstall pygments.rb --version "=0.5.1"  
 gem install pygments.rb --version "=0.5.0"
 
-## 5 Mac下搭建github-blog
+## 5 Mac下搭建github-blog环境
 
 ### 5.1 更新gem
 
