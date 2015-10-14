@@ -6,25 +6,43 @@ categories: other
 type: other
 ---
 
-## Windows下的github-blog搭建
+## 1 什么是github博客
 
-**1.**下载git，官方版本，不需要另外的gui版本了，纯命令比较好！呵呵！地址：
+## 2 使用github
+
+### 2.1 注册github
+
+这个不用教了，直接注册一个账号就好了。
+
+### 2.2 安装git
+
+下载git，官方版本，不需要另外的gui版本了，纯命令比较好！呵呵！地址：
 
 > http://git-scm.com/downloads
   
 直接安装完毕即可
 
-**2.**必须得注册一个github账号。
+### 2.3 新建一个project
 
-**3.**在官网的初始化一个名为`XXX.github.io`的库,XXX就是你的github账号。这里的详细步骤以后补充
+在官网的初始化一个名为`XXX.github.io`的库,XXX就是你的github账号。这里的详细步骤以后补充
 
-**4.**安装ruby（赶紧去学习吧！！！）下载地址：
+## 3 Linux下搭建github-blog
+
+## 4 Windows下的github-blog搭建
+
+### 4.1 安装ruby（赶紧去学习吧！！！）
+
+下载地址：
 
 > http://rubyinstaller.org/downloads/
   
 安装过程简单，选择配置环境变量和gui tool即可。我下载的版本是：Ruby 1.9.3
 
-**5.**安装Ruby DevKit（还不了解是什么，估计就是ruby的开发工具吧，学了ruby就知道了。貌似是集成linux下的make，gcc等命令工具）下载地址：
+### 4.2 安装Ruby DevKit
+
+还不了解Ruby DevKit是什么，估计就是ruby的开发工具吧，学了ruby就知道了。貌似是集成linux下的make，gcc等命令工具。
+
+下载地址：
 
 > http://rubyinstaller.org/downloads/
   
@@ -46,7 +64,9 @@ type: other
 
 > ruby dk.rb install
 
-**6.**安装jekyll，运行命令:
+### 4.3 安装jekyll
+
+运行命令:
 
 > gem install jekyll
   
@@ -58,7 +78,9 @@ type: other
 
 > gem install rdiscount
 
-**7.**如果使用语法高亮插件Pygments，则需要安装Python(有几个版本，不太懂，什么portable python，还有distribute 0.6.49，还有settools等等。。。赶紧学python就懂了。）
+### 4.4 使用语法高亮插件Pygments
+
+如果使用语法高亮插件Pygments，则需要安装Python(有几个版本，不太懂，什么portable python，还有distribute 0.6.49，还有settools等等。。。赶紧学python就懂了。）
 
 这里下载portable python：
 
@@ -78,7 +100,9 @@ type: other
 
 >easy_install Pygments
 
-**8.**如果使用另一个语法高亮引擎Rouge。它是ruby写的，所以不需要再安装python了。
+### 4.5 使用语法高亮引擎Rouge
+
+如果使用另一个语法高亮引擎Rouge。它是ruby写的，所以不需要再安装python了。
 
 >gem install rouge
 
@@ -87,7 +111,9 @@ type: other
 
 我还没使用过rouge所以不知道语法怎么样的。
 
-**9.**其实在执行完第5步以后，我自己的blog不需要再执行其他步骤的了，因为使用bundle更方便，我在项目下配置了Gemfile:
+### 4.6 使用Bundle一次性搞完
+
+其实在安装Ruby DevKit以后，我自己的blog不需要再执行其他步骤的了，因为使用bundle更方便，我在项目下配置了Gemfile:
 
 >source 'https://ruby.taobao.org'  
 gem 'github-pages'
@@ -104,24 +130,12 @@ gem 'github-pages'
 
 >bundle exec jekyll serve --watch
 
-具体详情看jekyll的官网：
+具体Bundle详情看jekyll的官网：
 >http://jekyllrb.com/docs/github-pages/
 
-**10.**一般问题都是版本原因，不要总用最新版本，版本之间兼容问题比较多。
+### 4.7 TroubleShooting
 
-
-## 命令
-
-> ruby dk.rb init  
-ruby dk.rb install  
-gem sources -l  
-gem sources -remove http://rubygems.org/  
-gem sources -a http://ruby.taobao.org/
-
-指定在某个源来安装，例如
-> gem install jekyll -source http://ruby.taobao.org
-
-## TroubleShooting
+一般问题都是版本原因，不要总用最新版本，版本之间兼容问题比较多。
 
 **问题1**
 
@@ -184,3 +198,113 @@ self.content = File.read_with_options(File.join(base, name), :encoding=>"utf-8",
 
 >gem uninstall pygments.rb --version "=0.5.1"  
 gem install pygments.rb --version "=0.5.0"
+
+## 5 Mac下搭建github-blog
+
+### 5.1 更新gem
+
+为了保证少掉错误，最好更新gem到最新版本
+
+>sudo gem update --system
+
+### 5.2 修改源
+
+gem sources -l
+gem sources --remove http://rubygems.org
+gem sources -a https://ruby.taobao.org/
+gem sources --add http://gems.github.com
+
+### 5.3 安装xcode
+
+因为xcode包含了不少东西，其中我们需要ruby，所以先去appstore安装xcode。但是这个ruby并没有开发工具包的，所以需要安装Ruby on Rails。
+
+### 5.4 安装Homebrew
+
+Homebrew是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件。
+
+>ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+如果已经有了homebrew，那么可以先更新升级一下
+
+>brew update
+>brew upgrade
+>brew doctor
+
+然后安装rails必须的一些第三方库
+
+>brew install libxml2 libxslt libiconv
+
+### 5.4 安装rvm
+
+xcode包含的ruby是没有开发工具的，完全不能用来安装jekyll的，需要用rvm来安装ruby。gem是ruby的程序，用来安装啊ruby软件的。而rvm是装各种版本ruby的，是个ruby版本管理器。bundle是rails框架里面安装Gemfile指定的各种库的工具，相当于一个套件。
+
+>curl -L https://get.rvm.io | bash -s stable
+
+完了以后会有提示，其实已经加入环境变量了的，但是当前的shell还是没有更新，所以可以执行：
+
+>source ~/.rvm/scripts/rvm
+>rvm --version
+
+### 5.5 安装ruby
+
+需要指定一个ruby版本，例如2.0.0
+
+> rvm install 2.0.0
+
+
+
+### 5.6 安装jekyll
+
+sudo gem install jekyll
+
+
+
+
+### 5.7 使用Bundle一次性搞完
+
+安装完ruby，即5.5步骤以后，可以直接使用bundle来搞了。
+
+>gem install bundle
+
+最后update一下就可以了：
+
+>bundle update
+
+完了以后就去跑一下：
+
+>bundle exec jekyll serve --watch
+
+具体Bundle详情看jekyll的官网：
+>http://jekyllrb.com/docs/github-pages/
+
+### 5.8 TroubleShooting
+
+一般问题不是网络就是ruby的开发工具没安装，即没安装ruby on rails。只要使用rvm成功安装ruby即可。
+
+**问题1**
+
+安装完xcode以后虽然有ruby，然后就安装jekyll，报下面的错，原因就是没有ruby开发工具，使用rvm安装
+
+	ERROR:  Error installing jekyll:
+	ERROR: Failed to build gem native extension.
+
+    /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby -r ./siteconf20151014-4264-1hl3zb6.rb extconf.rb
+
+**问题2**
+
+安装完xcode以后虽然有ruby，然后就安装bundle，报下面的错，原因就是没有ruby开发工具，使用rvm安装
+
+	An error occurred while installing RedCloth (4.2.9), and Bundler cannot continue.
+	Make sure that `gem install RedCloth -v '4.2.9'` succeeds before bundling.
+
+## 6 相关命令
+
+> ruby dk.rb init  
+ruby dk.rb install  
+gem sources -l  
+gem sources -remove http://rubygems.org/  
+gem sources -a https://ruby.taobao.org/
+gem sources --add http://gems.github.com
+
+指定在某个源来安装，例如
+> gem install jekyll -source http://ruby.taobao.org
