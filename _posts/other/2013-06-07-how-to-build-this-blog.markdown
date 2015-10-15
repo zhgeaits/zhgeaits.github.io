@@ -224,61 +224,84 @@ gem sources --add http://gems.github.com
 
 因为xcode包含了不少东西，其中我们需要ruby，所以先去appstore安装xcode。但是这个ruby并没有开发工具包的，所以需要安装Ruby on Rails。
 
+还需要在命令行安装xcode的这个工具集合，不然会缺少很多工具导致无法编译：
+
+	xcode-select --install
+
+>其实安装完xcode-select以后，可以先试一下直接安装bundler和rails，如果不行再用rvm来安装。
+
 ### 5.4 安装Homebrew
 
 Homebrew是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件。
 
->ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 如果已经有了homebrew，那么可以先更新升级一下
 
->brew update
->brew upgrade
->brew doctor
+	brew update
+	brew upgrade
 
 然后安装rails必须的一些第三方库
 
->brew install libxml2 libxslt libiconv
+	brew install libxml2 libxslt libiconv
 
 ### 5.4 安装rvm
 
 xcode包含的ruby是没有开发工具的，完全不能用来安装jekyll的，需要用rvm来安装ruby。gem是ruby的程序，用来安装啊ruby软件的。而rvm是装各种版本ruby的，是个ruby版本管理器。bundle是rails框架里面安装Gemfile指定的各种库的工具，相当于一个套件。
 
->curl -L https://get.rvm.io | bash -s stable
+	curl -L https://get.rvm.io | bash -s stable
 
 完了以后会有提示，其实已经加入环境变量了的，但是当前的shell还是没有更新，所以可以执行：
 
->source ~/.rvm/scripts/rvm
->rvm --version
+	source ~/.rvm/scripts/rvm
+	rvm --version
 
 ### 5.5 安装ruby
 
-需要指定一个ruby版本，例如2.0.0
+需要指定一个ruby版本，例如2.2.3
 
-> rvm install 2.0.0
+	rvm install 2.2.3
 
+有可能安装不了，因为被墙了，所以下载不了二进制包，提示：
 
+>No binary rubies available for: osx/10.10/x86_64/ruby-2.2.3
+
+可以查看这个remote文件`~/.rvm/config/remote`，获取下载地址，然后翻墙下载，再用mount命令安装：
+
+	rvm mount ~/Downloads/ruby-2.2.3.tar.bz2
+
+最后设置使用ruby的版本：
+
+	rvm 2.2.3 --default
+	ruby -v
+	gem -v
+
+再安装bundler和rails
+
+	gem install bundler  
+	gem install rails
 
 ### 5.6 安装jekyll
 
-sudo gem install jekyll
+	sudo gem install jekyll
 
+跑一个：
 
-
+	jekyll serve --watch
 
 ### 5.7 使用Bundle一次性搞完
 
 安装完ruby，即5.5步骤以后，可以直接使用bundle来搞了。
 
->gem install bundle
+	gem install bundle
 
-最后update一下就可以了：
+最后切换到blog目录update一下就可以了：
 
->bundle update
+	bundle update
 
 完了以后就去跑一下：
 
->bundle exec jekyll serve --watch
+	bundle exec jekyll serve --watch
 
 具体Bundle详情看jekyll的官网：
 >http://jekyllrb.com/docs/github-pages/
@@ -305,12 +328,12 @@ sudo gem install jekyll
 
 ## 6 相关命令
 
-> ruby dk.rb init  
-ruby dk.rb install  
-gem sources -l  
-gem sources -remove http://rubygems.org/  
-gem sources -a https://ruby.taobao.org/
-gem sources --add http://gems.github.com
+	ruby dk.rb init  
+	ruby dk.rb install  
+	gem sources -l  
+	gem sources -remove http://rubygems.org/  
+	gem sources -a https://ruby.taobao.org/
+	gem sources -a http://gems.github.com
 
 指定在某个源来安装，例如
 > gem install jekyll -source http://ruby.taobao.org
