@@ -224,3 +224,53 @@ for(Cookie cookie:cookies){
 	HttpSessionListener：监听HttpSession的操作
 	ServletRequestAttributeListener：监听request的参数属性
 	ServletRequestListener：监听request
+
+## 6 Filter过滤器
+
+过滤器和struts的拦截器很相似，都是在处理请求之前进行相关的处理，这里是在请求来到servlet之前交给过滤器处理，一般我们做权限控制，地址拦截等等。
+
+实现一个Filter以后，也是在web.xml配置的，所以它也是服务器进行管理生命周期的：
+
+	<filter>
+		<filter-name>FilterTimer</filter-name>
+		<filter-class>org.zhangge.FirstFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>FilterTimer</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+Filter是接口，主要有三个方法:init(), doFilter, destroy()。一般我们实现doFilter即可，代码如下：
+
+{% highlight java %}
+
+public class FirstFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("init LoginFilter");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest)request;
+        HttpServletResponse resp = (HttpServletResponse)response;
+
+        String comment = req.getParameter("comment");
+        comment = comment.replace("Sex", "***");
+
+        req.setAttribute("comment", comment);
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("destroy!!!");
+    }
+}
+
+{% endhighlight %}
+
+如果需要过滤掉这个请求直接就返回好了，否则就交给过滤链的下一个过滤器进行处理。

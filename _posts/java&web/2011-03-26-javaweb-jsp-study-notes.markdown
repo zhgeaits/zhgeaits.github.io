@@ -125,3 +125,19 @@ forEach标签：
 	</c:forEach>
 
 另外还有I18N格式标签库，SQL标签库，XML标签库和函数标签库等等。
+
+## 4 中文乱码问题
+
+解决乱码问题的方法就是保持编码一致性，html，jsp和servlet三个地方都一致即可，一般都使用utf8编码：
+
+servlet上：
+
+>response.setContentType("text/html;charset=utf8")
+
+JSP上：
+
+><%@ page contentType="text/html; charset=utf8"%>
+
+IE上：
+
+><meta http-equiv="Content-Type"content="text/html; charset=utf8">
