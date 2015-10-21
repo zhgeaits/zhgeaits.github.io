@@ -10,6 +10,8 @@ type: java&web
 
 JavaEE是一套很大很全的技术规范，详细可以google更多标准文档。而javaweb只不过是能响应网络请求的服务器，servlet就是这样的一个小程序，它的名字是server+applet的合称，而applet你懂得！虽然servlet小，但是它却是核心，http的请求是交给它来处理响应的，当然前后会经过很多处理。而tomcat上面运行的就是servlet程序。
 
+>javaee都是开源的，下载源码的地址是：https://java.net/projects/servlet-spec/。但是这个地址一般没有svn的权限，下载不了，可以来这里：http://grepcode.com/project/repo1.maven.org/maven2/javax.servlet/javax.servlet-api/。其实很多开源的maven库都是可以去拿到源码的。这个是javaee的api：http://grepcode.com/snapshot/repo1.maven.org/maven2/javax/javaee-api/7.0
+
 ## 2 Servlet的API和生命周期
 
 ### 2.1 API
