@@ -30,6 +30,10 @@ IntelliJ IDEA也是一个IDE，对于我习惯了eclipse的来说，使用起来
 
 > settings->Editor->Code Style->Right margin(columns)，如果想要在输入的时候自动wrap，可以勾选Wrap when typing reaches right margin。设置了这个不一定生效，要再到Code Style->Java->Wrapping and Braces勾选Ensure right margin is not exceeded(超出)才行。
 
+**Serializable接口自动生成serialVersionUID**
+
+eclipse是自动警告提示生成的，但是idea没有，然后我们在使用序列化的时候会出现一些问题，所以我们最好是每个实现序列化接口的类都根据指纹生成一个id。File => Settings => Inspections => Serialization issues =>  Serializable class without 'serialVersionUID' 如果没找到就直接在settings里面搜索serialVersionUID就发现了，然后enable，那么在类那里就会有警告的了，选择生成一个id即可。
+
 **设置项目的Language Level:**
 
 新版的idea会提示这个
