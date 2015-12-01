@@ -45,3 +45,6 @@ adt就是android develop tool，要做eclipse可以识别sdk，支持android，�
 安装：adb install -r D:\test.apk  
 拉取文件：adb pull /mnt/sdcard/yymobile/logs/logs.txt D:/  
 拉取日志logcat：adb logcat > D:/logcat.txt  
+
+获取debug keystore的sha1值：keytool -list -v -keystore .android/debug.keystore -alias androiddebugkey -storepass android -keypass android  
+idea的debug.keystore在sdk目录的.android下。
