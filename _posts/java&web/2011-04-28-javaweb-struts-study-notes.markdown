@@ -42,4 +42,78 @@ Controller是应用程序中处理用户交互的部分，通常控制器负责�
 
 再怎么厉害，复杂，牛逼设计的框架，也只不过是一个工具而已，从高层次来看，它就是一个软件，和平时我们下载一个软件差不多，都是开发人员写出来给别人使用的；所以，我们先不需要了解它的内部，第一步就尽管使用它就好了。参考examples里面struts-blank-1.3.10，看看这个空白项目里面添加了哪些支持。
 
+先忽略maven和Ant的配置构建文件，发现这个blank有以下和别的web项目不一样的（主要是在WEB-INF下）：
+
+1.在src/java目录下有这个文件MessageResources.properties，其实这个文件是放在src目录的包里面即可的。这文件是配置一些变量的地方，主要是一些错误码等等。
+
+2.libs目录下添加了支持struts需要的jar包。
+
+3.添加了一个validation.xml文件，这个是配置了struts的字段校验功能，并非必须的。
+
+4.添加了struts-config.xml文件，这个是struts的主要配置文件，重点！
+
+5.web.xml文件里面添加了ActionServlet这个servlet，mapping的url是*.do。主要是配置读取struts-config.xml。
+
+**MyEclipse是可以直接配置struts支持的**
+
+新建一个web项目以后，右键选择MyEclipse，再选择Add Struts Capabilities就可以选择添加struts各个版本的支持。最后发现改变的东西和blank项目几乎一样。
+
+### 3.2 struts1的MVC流程
+
+<img src="/image/struts1_mvc.jpg" width="700px">
+
+因为在web.xml配置了ActionServlet，所以所有的*.do请求都会来到这个servlet，它只是一个中央控制器，并不是MVC里面的controller。ActionServlet读取了struts-config.xml配置，这个配置文件主要是配置了formbean和action。Action就是controller，它处理主要的业务逻辑，formbean是一个model存储了各种数据，实际就是一个javabean，是struts通过反射生成的，而视图view是jsp文件。ActionServlet根据请求的url分发给相应配置的action进行处理，action返回跳转的url，实际上交给了ActionServlet来处理跳转响应浏览器的。
+
+### 3.3 一个登陆例子
+
+1.在struts-config.xml配置formbean和action，如下：
+
+{% highlight xml %}
+
+<form-beans>
+	<form-bean name="loginForm"    
+    type="com.zhangge.struts.LoginForm">
+	</form-bean>
+</form-beans>
+
+<action-mappings>
+	<action path="/login" name="loginForm"
+		type="com.zhangge.struts.LoginAction">
+		<forward name="ok" path="/ok.jsp"></forward>
+        <forward name="error" path="/error.jsp" redirect="true"></forward>
+	</action>
+</action-mappings>
+
+{% endhighlight %}
+
+ActionServlet首先根据url请求/login.do找到action-mappings节点下的某个action节点的path属性，path的属性值必须是唯一的，然后判断此action节点是否有name属性，如有，找到form-beans节点下某个form-bean节点，创建type指定的formBean类。
+
+2.LoginForm和LoginAction的实现。
+
+这个就不详细了，formBean必须继承actionForm，是标准的JavaBean，属性名必须与客户端请求参数名一致，前三个字母要小写。action必须继承Action，需要实现excute方法。
+
+3.页面请求和跳转
+
+注意到action配置的path是带有斜杠/的，在jsp编写表单如下：
+
+{% highlight xml %}
+
+<form id="loginForm" action="${pageContext.request.contextPath}/login.do">
+	<input type="text" name="name"/>
+	<br>
+	<input type="password" name="password"/>
+	<br>
+	<input type="submit" name="login" value="login"/>
+</form>
+
+{% endhighlight %}
+
+action在执行完excute方法以后调用ActionMapping.findForward()方法返回一个ActionForward进行跳转，方法传递的就是一个String，struts会根据这个string去struts-config配置action节点下forward节点的name属性进行匹配，当对上了以后就会掉转到响应的jsp。
+
+至于参数传递，在excute方法里面带有formbean，request和response参数了，一般我们直接使用formbean就足够了，也可以从request里面获得参数。所以在request里面set参数以后，在jsp也就获取得到了。
+
+### 3.4 校验Validation
+
+一般开发都会需要用到校验的功能。这里就不说明了，参考文档或者sample即可。
+
 ## 4 struts2最实用的第二个版本
