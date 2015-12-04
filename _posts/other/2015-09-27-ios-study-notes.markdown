@@ -40,3 +40,5 @@ type: other
 32.	方法前面的括号除了是返回类型，还是表示这个方法是什么，例如IBAction
 33.	[[UIApplication sharedApplication] scheduledLocalNotifications:note];编译不通过。
 34.	controller传递参数的时候，@Class到底什么作用，还是没明白。
+35.	协议就是java里面定义的监听接口，是委托就是监听的实现。
+36.viewDidLoad

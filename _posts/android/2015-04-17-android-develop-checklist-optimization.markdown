@@ -16,32 +16,68 @@ type: android
 
 其实，对于测试来讲，就是他们经常考虑的分支测试用例，而开发呢，就是状态机的转换，我们应该考虑各种状态，各个状态之间的转换，会发生什么？你的代码考虑到了吗？
 
-1.当你要点一个方法或者属性的时候，记住要想想，会不会null呢？万恶的NullPointerException老是崩溃。
+### 需求功能类
 
-2.写完代码以后，用不保留活动来测试一下，这就像用户使用手机助手来释放内存一样的效果，android的界面UI，如activity都会被回收，所以状态变量的不要存在UI了。
+1.功能开发完毕了，是否和产品文档一致呢？不要以为和产品口头沟通过了，按照自己理解开发完功能就可以了，测试可是对照着产品文档来设计测试用例的。
 
-3.各个组件的生命周期考虑到了吗？按下home键以后，你的程序会怎么处理呢？就是说把你的程序切换到后台，状态保存了吗？恢复的时候，状态恢复了吗？
+2.如果产品修改需求，没有通知你，没有发邮件，没有更新产品文档，这时候一定要保留最原始的产品文档，不然自己就吃亏了。
 
-4.可恶的handler，会在后台去修改ui，但是你的ui被释放了，或者被回收了，你处理你的handler了吗？要在onDestroy那里remove掉。要么就是activity不能被释放，导致内存泄露。也可以使用WeakHandler处理。
+3.产品文档上面没有的功能不要画蛇添足，模棱两可的地方一定要先和产品讨论好让他修改文档后再去开发。涉及到设计方面的时候要拉上ios的人一起。
 
-5.写文件，写数据库的时候，需要考虑有一些手机是无法写的情况哦。
+### 代码规范类
 
-6.别忘了写注释，不然时间久了自己都忘记为什么要这样写了。
+1.一般情况在gradle分支可以比较随意提交svn，但是如果要合并到shenqu分支，或者直接在shenqu分支，develop分支提交代码的时候，最好是提交一个更改集，即一个比较完整的功能，能让本地跑通，不要遗漏提交文件，如新增的ui资源等，并且要有比较详细的说明。
 
-7.要多点打日志，在关键的地方，但是不要打太多，否则影响性能。
+2.每个类在头部加上注释说明这个类是干嘛用的，如果别人要修改的话，需要注意什么地方，必须的时候还需要加上大概的逻辑说明等。
+
+3.关键的地方需要写注释的话，请不要犹豫，因为长时间以后肯定会忘记的。
+
+4.变量命名方面，一般类的全局变量以m开头(main的意思)，局部变量无需m。
+
+5.要多点打日志，在关键的地方，但是不要打太多，特别循环的地方，否则影响性能。关键需要的日志用info等级，内部测试用debug或者verbose，错误日志用error，目前手Y的verbose是不写文件的，但是不知修改没有。在catch到exception的以后用error打印出来，不要直接e.printStatce。日志的规范如：MLog.error(this, "zhangge-model methodName error", e);最好有自己的一定模板来打印日志。日志规范在这个地址：https://svn.yy.com/yy-music/mobile/techdoc/android/Log
+
+### 模式设计类
+
+1.如果很多if else的时候，考虑一下是否可以用多态来解决了呢？参考这篇blog。http://blog.xiaohansong.com/2015/11/24/clean-code-polymorphism/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+
+2.当写到工具类的方法时候，考虑一下是否可以抽取出来放在ShenquUtils等等里面？或者先去那里看看有实现的没有？
+
+3.尽量不要在onCreate(), onCreateView(), onResume()这些方法里面做一下耗时的操作，会影响到你的页面打开速度；耗时的东西可以先放到后台线程去做，尽量在适当的地方使用lazy loading的思想。
+
+4.现在Activity，fragment等已经不再充当MVC模式中的Controller角色了，推荐使用MVP模式，activity只负责与用户交互，把逻辑封装到Presentor中去了。
+
+5.一个方法不要写太长，例如一个init方法就把初始化view，设置listener等等都写完了，这样不便于阅读，最好把代码模块化。
+
+6.界面类太复杂，布局太多的时候，可以考虑一下布局的模块设计优化一下。
+
+### 性能故障类
+
+1.if else和switch语句的时候，要考虑到default的分支，不然很有可能会出现NullPointerException。
+
+2.当你要点一个方法或者属性的时候，记住要想想，会不会null呢？万恶的NullPointerException老是崩溃。
+
+3.UI布局上不必要的就不要加载了，不要以为把visibility设置为gone就可以，其实它还是会去draw的，这样性能有影响，应该使用viewstub；例如，首次提示语，录制界面的倒计时，编辑界面的面板等等。还有布局要检查一下尽量不要包那么没必要的层次，例如用相对布局仅仅包含一个Textview；减少性能会更好。
+
+4.写完代码以后，用不保留活动来测试一下，这就像用户使用手机助手来释放内存一样的效果，android的界面UI，如activity都会被回收，所以状态变量的不要存在UI了，会在在onSaveInstance那里保存。
+
+5.各个组件的生命周期考虑到了吗？按下home键以后，你的程序会怎么处理呢？就是说把你的程序切换到后台，状态保存了吗？恢复的时候，状态恢复了吗？界面不可见的情况，监听的接口回来数据需要处理吗？
+
+6.可恶的handler，会在后台去修改ui，例如我delay一个handle在10秒以后修改一个textview，但是你的ui被释放了，或者被回收了，你处理你的handler了吗？要在onDestroy那里remove掉。要么就是activity不能被释放，导致内存泄露。也可以使用WeakHandler处理。
+
+7.写文件，写数据库的时候，需要考虑有一些手机是无法写的情况哦。
 
 8.如果需要用到网络的逻辑，有没有先判断网络是否可用？
 
-9.如果使用的api比较高的话，加了判断没有？不然就抛NoSuchMethod的Exception是多么的不知所措。
+9.需要用户登录才能使用的功能，有没有先判读用户登录状态？考虑到被踢的情况没？
 
-10.不要在布局里面的imageview等其他view设置太多的background或者src，尽量在代码里面用ImageManager来load，否则在加载布局的时候就容易出现oom，而且在代码里面动态加载可以修改的bitmap的大小比较科学，也可以检测到oom。
+10.如果使用的api比较高的话，加了判断没有？不然就抛NoSuchMethod的Exception是多么的不知所措。
 
-11.一些不必要的布局就不要了，不要只是设置gone掉，又或者能用viewstub来动态渲染是最好的，那样性能更好。
+11.不要在布局里面的imageview等其他view设置太多的background或者src，尽量在代码里面用ImageManager来load，否则在加载布局的时候就容易出现oom，而且在代码里面动态加载可以修改的bitmap的大小，这比较科学，也可以检测到oom。
 
-12.布局要检查一下尽量不要包那么层就减少，性能会更好。
+12.client注册了以后，在onDestory的时候有没有remove掉？
 
-13.client注册了以后，在onDestory的时候有没有remove掉？  
+13.某些手机的的foreach会有问题，在死循环了，例如vivo，所以之前一定要判空不要进去了，例如File[] files = currentDir.listFiles(filter);for (File subFile : files) {}
 
-14.一些逻辑处理，考虑到是否登录没有？考虑到被踢的情况没？
+14.不要直接new thread，非UI的线程使用ScheduledTask，UI的就使用主handler
 
-15.某些手机的的foreach会有问题，在死循环了，例如vivo，所以之前一定要判空不要进去了，例如File[] files = currentDir.listFiles(filter);for (File subFile : files) {}
+15.打开了文件流一定要注意在finally里面关闭，还有其他bitmap，sdk等等也要等到release
