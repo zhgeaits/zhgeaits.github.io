@@ -96,7 +96,7 @@ ActionServlet首先根据url请求/login.do找到action-mappings节点下的某�
 
 注意到action配置的path是带有斜杠/的，在jsp编写表单如下：
 
-{% highlight xml %}
+{% highlight html %}
 
 <form id="loginForm" action="${pageContext.request.contextPath}/login.do">
 	<input type="text" name="name"/>
@@ -114,6 +114,153 @@ action在执行完excute方法以后调用ActionMapping.findForward()方法返�
 
 ### 3.4 校验Validation
 
-一般开发都会需要用到校验的功能。这里就不说明了，参考文档或者sample即可。
+一般开发都会需要用到校验的功能。这里就不说明了，参考文档或者sample即可。还会用到很多标签库之类.....struts的更多使用可以看文档，也可以直接google别人怎么使用的，最好还是看pdf的书，人家分析比较清晰那些设计思想的...
 
-## 4 struts2最实用的第二个版本
+## 4 struts2 最实用的第二个版本
+
+官方网站依旧是：http://struts.apache.org/。去下载最新的稳定版本然后解压，发现里面也是apps，docs，libs和src，包含了详细的教程。
+
+相比struts1，struts2的确好很多，更适合开发
+
+### 4.1 配置使用
+
+和struts1一样的学习过程，直接看struts2-blank，还是看看WEB-INF目录多了些什么东西。
+
+1.libs目录下添加了支持struts需要的jar包。
+
+2.src/java目录下包含了struts.xml，example.xml，log4j2.xml，Login-validation.xml和velocity.properties这几个文件。log4j2.xml是日志文件，可以先不关注。velocity.properties是另外一个技术，也先不用关注。而struts.xml是主配置文件，是重点。example.xml只是struts.xml的一个子文件，最终是在struts.xml里面通过include包含进去的。Login-validation.xml是校验配置，很简单的。
+
+3.web.xml里面配置了StrutsPrepareAndExecuteFilter这个filter，不再是servlet了，而filter的mappingurl是/*。security那些节点的配置暂时不知道干嘛用的可以先不管。
+
+然后把这些配置复制到自己的项目即可了。
+
+**MyEclipse是可以直接配置struts支持的**
+
+新建一个web项目以后，右键选择MyEclipse，再选择Add Struts Capabilities就可以选择添加struts各个版本的支持。最后发现改变的东西和blank项目几乎一样。
+
+### 4.2 struts2的原理流程
+
+![alt text](/image/struts2_flow.png "mvc")
+
+struts2也是mvc模式的实践，Action是一个控制器Controller，JSP页面是视图View，后面的JavaBean是模型Model。
+
+![alt text](/image/struts2_core.png "mvc")
+
+第一个图还是比较抽象的，第二个图才是比较详细的架构。相比struts1，struts2采用了大量的filter和interceptor来实现的（Servlet在哪里？哪里封装了它？）。主要是FilterDispatcher被调用，然后调用ActionMapper来决定这个请是否需要调用某个Action，如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy，ActionProxy通过ConfigurationManager读取框架的配置文件，找到需要调用的Action类。然后ActionProxy会创建一个ActionInvocation的实例，ActionInvocation实例使用命名模式来调用，在调用Action的过程前后，涉及到相关拦截器（Intercepter）的调用。最后Action执行完毕，通过result返回到不同的页面上。
+
+### 4.3 struts2对比struts1
+
+1.可以直接知道的是struts2看不到哪里有servlet了，主要框架使用filter来实现，里面包含了大量的拦截器，这样的框架可以让我们做更多的业务，如权限控制等等。
+
+2.Action明显没有依赖servlet的api了，这样非常方便测试，不需要初始化那些request，response对象等等，也就是说测试action根本不用考虑web容器！
+
+3.Action没有依赖框架，也就是没有明显的侵入式设计，只是继承ActionSupport。于是在重构的时候，Action是非常方便移植和重用的。
+
+4.Action每次请求都是一个新实例对象，这是线程安全的。
+
+5.其他细节的不同就不再对比了。
+
+### 4.4 一个登陆例子
+
+同样是一个登陆例子，其实也就是struts2-blank里面的代码而已。
+
+1.web.xml已经配置了一个filter以后就不需要过多配置什么了，只要关注struts.xml就可以了。
+
+{% highlight xml %}
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="default" namespace="/" extends="struts-default">
+	
+	    <default-action-ref name="index" />
+	
+	    <global-results>
+	        <result name="error">/WEB-INF/jsp/error.jsp</result>
+	    </global-results>
+	
+	    <global-exception-mappings>
+	        <exception-mapping exception="java.lang.Exception" result="error"/>
+	    </global-exception-mappings>
+	
+	    <action name="index">
+	        <result type="redirectAction">
+	            <param name="actionName">HelloWorld</param>
+	            <param name="namespace">/example</param>
+	        </result>
+	    </action>
+	</package>
+	
+	<package name="example" namespace="/example" extends="default">
+	
+	    <action name="HelloWorld" class="example.HelloWorld">
+	        <result>/WEB-INF/jsp/example/HelloWorld.jsp</result>
+	    </action>
+	
+	    <action name="Login_*" method="{1}" class="example.Login">
+	        <result name="input">/WEB-INF/jsp/example/Login.jsp</result>
+	        <result type="redirectAction">Menu</result>
+	    </action>
+	
+	    <action name="*" class="example.ExampleSupport">
+	        <result>/WEB-INF/jsp/example/{1}.jsp</result>
+	    </action>
+	
+	    <!-- Add actions here -->
+	</package>
+</struts>
+{% endhighlight %}
+
+可以看到根节点是struts，下面节点主要是package和一些常量配置，而且package是可以继承的！package下的主要节点是action，action下的主要节点是result。package的主要属性是namespace，namespace则决定了action的访问路径。注意到default这个package，里面配置的默认访问路径是/，而默认访问的action是index，还配置了全局的result和全局的exception。而example这个package则是配置了3个action。
+
+2.编写一个LoginAction
+
+{% highlight java %}
+public class Login extends ActionSupport {
+
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
+    }
+
+    @SkipValidation
+    public String form() throws Exception {
+        return INPUT;
+    }
+
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+{% endhighlight %}
+
+这个action是继承ActionSupport的，但是这并不是必须的。还可以发现，参数都是通过set方法注入的，并且命名方面还是和struts1一样；而get方法是用于在在页面上读取的数据，还可以返回对象等等。默认是执行execute()方法的，而返回的则是string，struts根据返回的string找到相应的result进行响应。
+
+3.struts.xml里面一个比较重要的特性就是通配符的，然后通过配置method属性可以指定执行的方法。一个*就是一个通配符，然后用{1}来读取这个值，还可以应用到result里面去。观察上面的Login_*这个action即可明白了。
+
+4.action底下的是result这个节点，它有四种类型type，分别是dispatcher，redirect，chain，redirectAction；默认是dispatcher这个类型，具体各个区别最好还是需要看看文档，dispatcher应该是带有参数回去的，redirect是重定向到新的URL，result里面填写的内容都是指定jsp；redirectAction则是跳到另外一个Action上去，result里面的内容则是action的名字。所以一般使用这三个就足够了。
+
+到这里就完成了一个简单的例子，不需要写formbean这个鬼东西，使用ModelDriven的设计模式，struts2开发更方便，只需要编写action就完了，action还很方便junit来测试！
+
+### 4.5 其他的技术
+
+struts还有更多的技术，标签库，拦截器，国际化，异常处理；理解值栈等等这些还是需要好好深入去学习的。
+
+PS：以上配图均来自互联网。
