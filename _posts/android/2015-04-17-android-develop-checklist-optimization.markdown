@@ -50,6 +50,8 @@ type: android
 
 6.界面类太复杂，布局太多的时候，可以考虑一下布局的模块设计优化一下。
 
+7.非必要情况，Adapter.notifyDataSetChanged()方法最好写在Adapter里面，不要外面来调用。
+
 ### 性能故障类
 
 1.if else和switch语句的时候，要考虑到default的分支，不然很有可能会出现NullPointerException。
