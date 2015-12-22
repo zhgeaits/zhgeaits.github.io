@@ -263,4 +263,4 @@ public class Login extends ActionSupport {
 
 struts还有更多的技术，标签库，拦截器，国际化，异常处理；理解值栈等等这些还是需要好好深入去学习的。
 
-PS：以上配图均来自互联网。
+>PS：以上配图均来自互联网。
