@@ -187,7 +187,7 @@ String sql = “select * from user where name=’ ” + name + “ ’ ”;
 
 ### 5.2什么是DAO
 
-要去开发持久化层，就需要写DAO，什么是DAO？DAO的全称为data access object，即数据访问对象。
+要去开发持久化层，就需要写DAO，什么是DAO？DAO的全称为data access object，即数据访问对象。如果我们把对数据库的关系操作封装成为对象的话，那么操作起来将会十分的方便。
 
 我们学的数据库是关系型数据库（二维表），要与面向对象结合起来就是：
 
