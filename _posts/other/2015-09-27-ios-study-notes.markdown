@@ -16,7 +16,8 @@ cocoapods和maven一样，是用来管理依赖的，它是ruby编写的，所�
 
 ### AppDelegate
 
-它就像android里面的application，或者说activity，参考这边blog比较他们的生命周期：http://seniorzhai.github.io/2014/12/11/Android%E3%80%81iOS%E5%A4%A7%E4%B8%8D%E5%90%8C%E2%80%94%E2%80%94%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/
+它就像android里面的application，或者说activity，参考这边blog比较他们的[生命周期](http://seniorzhai.github.io/2014/12/11/Android%E3%80%81iOS%E5%A4%A7%E4%B8%8D%E5%90%8C%E2%80%94%E2%80%94%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/ "生命周期")
+
 
 实际上AppDelegate是UIApplication的一个委托，即UIApplicationDelegate协议的实现，同时，它也是继承了UIResponder的。
 
@@ -48,6 +49,20 @@ cocoapods和maven一样，是用来管理依赖的，它是ruby编写的，所�
 
 如果是以+号开始，则表示是类方法，就是java的静态方法。
 
+#### 数据类型
+
+NSNumber是封装的对象类型，类似于java那边的Integer，Double这些。
+
+NSString是字符串类型，用@来标记，而其实NSNumber也是可以使用@的。
+
+NSArray，NSMutableArray，NSSet，NSMutableSet，NSDictionary，NSMutableDictionary是常用的数据结构，Mutable的意思是可变的，即数据结构的长度是可以动态改变的。
+
+常量数组一般是@加中括号，如：@[a,b,c];
+
+NSNull是nil的对象类型，不要在数据结构使用nil，应该使用NSNull，因为在c里面，nil是代表结尾。
+
+NSUserDefaults就像android里面的Preference一样。
+
 ### 协议与委托
 
 协议可以理解为接口，而委托就是协议的实现。因为每一个类都会有头文件，这个头文件不能完全理解为java那边的接口，因为协议也有重合的意思了。
@@ -62,7 +77,85 @@ cocoapods和maven一样，是用来管理依赖的，它是ruby编写的，所�
 
 init—>loadView—>viewDidLoad—>viewWillApper—>viewDidApper—>viewWillDisapper—>viewDidDisapper—>viewWillUnload->viewDidUnload—>dealloc
 
+数据传递：
+
+在同一个NavigationController里面，传递数据是直接访问controller的属性来赋值的。不同NavigController的时候，是通过segue来获取controller，然后还是访问属性来读取赋值的。
+
+页面跳转：
+
+## xib界面
+
+一个xib是一个界面，其实就是xml，所以是xml interface builder的意思。选择File’s Owner，在右边的custom class可以设置ViewController，在controller的loadView方法的时候就会加载一个xib。xib文件编译以后就是nib文件了。
+
+## storyboard界面
+
+一个stroyboard包括了多个界面，即多个viewcontroller，如果没有设置custom controller，应该是有默认的。
+
+视图控制器选定后，选取“Editor”>“Embed In”>“Navigation Controller”，可以装配到导航控制器。
+
+在storyboard里面，如果需要为点击某个按钮跳转到下一个界面，只要按住control键，拖动那个按钮指向下一个界面，然后在弹出来的窗口选择push即可。如果需要点击某个按钮退出当前界面回到上一个界面，如果都是在NavigationController里面，会自动有返回键的，但是如果是从一个NavigationController返回到另一个NavigationController的话，需要要按住control键，拖动那个按钮指向Exit项即可，需要在上一个界面定义IBAction操作，如下：
+
+- (IBAction)unwindBack:(UIStoryboardSegue *)segue;
+
+## 关于NSBundle
+
 ## xcode
+
+在Deployment Info里面的Main Interface可以设置选择主要的storyboard界面。选择一个storyboard以后，在右边的custom class可以设置ViewController。还需要在检查器面板那里设置这个ViewController为初始化控制器，即勾上Is initial View Controller。
+
+### 快捷键
+
+<table>
+	<tr>
+		<td>command+0,1,2..</td>
+		<td>工程导航器的显示和隐藏，并对应上面的每一个tab</td>
+	</tr>
+	<tr>
+		<td>command+option+0,1,2..</td>
+		<td>工具面板（检查器面板）的显示和隐藏，并对应上面的每一个tab</td>
+	</tr>
+	<tr>
+		<td>option+左键点击</td>
+		<td>打开Assistant Editor</td>
+	</tr>
+	<tr>
+		<td>Command+Shift+F</td>
+		<td>全局搜索r</td>
+	</tr>
+	<tr>
+		<td>Command+F</td>
+		<td>本页面搜索</td>
+	</tr>
+	<tr>
+		<td>Control+6（键入方法/变量名+Enter跳转）</td>
+		<td>相当于idea上面ctrl+F12快速定位到某个方法</td>
+	</tr>
+	<tr>
+		<td>Command + Shift + O</td>
+		<td>快速打开</td>
+	</tr>
+	<tr>
+		<td>command+control+上下键</td>
+		<td>打开Assistant Editor</td>
+	</tr>
+	<tr>
+		<td>Command + Shift + 0 (Zero)</td>
+		<td>文档和参考</td>
+	</tr>
+	<tr>
+		<td>在类或者方法名上执行Option + 左键</td>
+		<td>内联帮助</td>
+	</tr>
+	<tr>
+		<td>control+1</td>
+		<td>快速定位到打开的文件</td>
+	</tr>
+	<tr>
+		<td>option+左键点击</td>
+		<td>打开Show Related Items弹出菜单，非常方便查看很多东西，如哪里调用这个方法了</td>
+	</tr>
+
+</table>
 
 ## 其他
 
@@ -71,9 +164,7 @@ init—>loadView—>viewDidLoad—>viewWillApper—>viewDidApper—>viewWillDisa
 3.	New group相当于new一个package吗？
 4.	如果直接new一个oc文件的时候，可用选择的那三种filetype是什么意思
 5.	button没法设置背景颜色
-6.	ViewController是怎么和xib建立联系的？为什么File’s Owner有东西？好像是custom class那里建立联系的
 7.	怎么修改屏幕尺寸？
-8.	感觉Delegate就是android那边的application，UIViewController就是Activity之类的。
 9.	为什么初始化的是调用了super init后返回值直接赋值给self？所以构造方法返回的是instanceType，而不是某个类的指针地址，虽然调用的是父类的init方法，实际上是子类的对象实例。
 10.	子类也能调用父类的静态方法？java好像不行？
 11.	Cocoa Touch框架感觉就像是jdk一样，提供了OC类的集合。
