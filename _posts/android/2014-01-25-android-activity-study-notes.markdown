@@ -58,7 +58,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 ## 传参
 
 
+## starting window
 
+在做应用的时候，很多初始化的东西都放在了application里面去，例如初始化一个sdk。然后导致启动第一个activity的时候很慢，会卡在一个黑屏或者白屏的地方。这是因为应用还没有在运行，系统会为这个Activity所属的应用创建一个进程，但进程的创建与初始化都需要时间，于是系统就会先创建一个starting window，或者叫preview window。Starting Window就是一个用于在应用程序进程创建并初始化成功前显示的临时窗口，拥有的Window Type是TYPE_APPLICATION_STARTING。
 
-
+启动慢这个问题无法解决，因为你的进程就是需要启动那么久，我们只能修改这个starting window的主题来改进体验，就是在第一个activity，如splash activity那里给他单独设置一个theme，为他设置android:windowBackground属性，为透明，或者一张图片也好。
 
