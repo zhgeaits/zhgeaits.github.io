@@ -105,6 +105,10 @@ viewDidLoad
 
 它的特点的是不需要访问原生类的代码，也就是说不需要知道父类，本质实现是？
 
+## Protocol
+
+协议
+
 ## xib界面
 
 一个xib是一个界面，其实就是xml，所以是xml interface builder的意思。选择File’s Owner，在右边检查器面板的custom class可以设置ViewController，在controller的loadView方法的时候就会加载一个xib。xib文件编译以后就是nib文件了。
@@ -169,12 +173,36 @@ viewDidLoad
 		<td>内联帮助</td>
 	</tr>
 	<tr>
-		<td>control+1</td>
+		<td>command+shift+j</td>
 		<td>快速定位到打开的文件</td>
 	</tr>
 	<tr>
-		<td>option+左键点击</td>
+		<td>control+1</td>
 		<td>打开Show Related Items弹出菜单，非常方便查看很多东西，如哪里调用这个方法了</td>
+	</tr>
+	<tr>
+		<td>shift+command+y</td>
+		<td>hide or show debug area</td>
+	</tr>
+	<tr>
+		<td>ctrl+command+y</td>
+		<td>debug的时候play</td>
+	</tr>
+	<tr>
+		<td>F6</td>
+		<td>debug的时候step over</td>
+	</tr>	
+	<tr>
+		<td>F7</td>
+		<td>debug的时候step into</td>
+	</tr>
+	<tr>
+		<td>option+command+左右箭头</td>
+		<td>把括号里面的代码收缩起来</td>
+	</tr>
+	<tr>
+		<td>command+[或者]</td>
+		<td>相当于tab或者shift+tab的效果，缩进</td>
 	</tr>
 
 </table>
