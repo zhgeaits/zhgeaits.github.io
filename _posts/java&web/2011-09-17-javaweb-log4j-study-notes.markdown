@@ -53,3 +53,9 @@ log4j.logger.org.xhome.clk.intercept=ERROR
 {% endhighlight %}
 
 更多详细的使用，去官网看，当然可以直接google，也可以看以前做的项目。
+
+### 4.2 使用
+
+当然log4j不仅仅是用在web项目中，只要是java项目都可以使用。
+
+一般情况下的使用，都要调用一下log.isDebugEnabled()来判断等级，这样可以提升不少的性能，减少拼字符串的操作等等。
