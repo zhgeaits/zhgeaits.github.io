@@ -12,6 +12,8 @@ type: java&web
 
 Tomcat是Apache软件基金会的，所以它是开源免费的，官网是：http://tomcat.apache.org/。百科上说Tomcat是apache服务器的扩展，并且说Tomcat处理静态HTML的能力不如Apache服务器，当配置正确时，Apache为HTML页面服务，而Tomcat实际上运行JSP页面和Servlet；这点还是不太明白，因为也没有认真研究过，不过，以前工作室的网络架构还算比较正确，一台服务跑apache，然后逆向代理到tomcat服务器，也就是说一般的网页处理是在apache的，而java的web是在另一台服务器的tomcat的。
 
+网上一篇很不错的关于tomcat的文章：[传送门](http://www.ibm.com/developerworks/cn/java/j-lo-tomcat1/ "Tomcat 系统架构与设计模式").
+
 ## 2 安装配置
 
 当时tomcat出到7.0版本的时候我就已经没再跟进了。到官网下载一个7.0版本，解压，配置环境变量就完成了，windows和linux，mac都一样的道理。就算是新的版本8.0也不会差太多，只要看RUNNING.txt这个文档即可。
@@ -80,3 +82,27 @@ windows下载以后解压，然后配置环境变量如下：
                redirectPort="8443" />
 
 修改即可。
+
+## 5 TroubleShooting
+
+### 5.1 无法启动问题
+
+材料库部署以后，本来是在ubuntu server + tomcat6 + jdk6的环境，但是，客户的各种原因导致现在是放在了win2003server下，而且又不能登录来调试，出问题比较麻烦。今天又出问题了，tomcat无法启动，于是叫客户发了tomcat的日志过来，发现出现这个问题：
+
+{% highlight bash %}
+[2013-07-02 13:44:15] [info]  [ 2300] Commons Daemon procrun (1.0.15.0 32-bit) started
+[2013-07-02 13:44:15] [info]  [ 2300] Running 'Tomcat6' Service...
+[2013-07-02 13:44:15] [info]  [ 6056] Starting service...
+[2013-07-02 13:44:15] [error] [ 6056] Failed creating java C:\Program Files\Java\jre6\bin\client\jvm.dll
+[2013-07-02 13:44:15] [error] [ 6056] 系统找不到指定的路径。
+[2013-07-02 13:44:15] [error] [ 6056] ServiceStart returned 1
+[2013-07-02 13:44:15] [error] [ 6056] 系统找不到指定的路径。
+[2013-07-02 13:44:15] [info]  [ 2300] Run service finished.
+[2013-07-02 13:44:15] [info]  [ 2300] Commons Daemon procrun finished
+{% endhighlight %}
+
+再次询问才知道原来是把jdk升级到7了，jvm.dll已经改变路径了，然后只能目前叫客户在tomcat的配置那里修改重新指向了，其实也可以重新安装jre6的。
+
+另外[Google]了其他的解决办法。
+
+[Google]: http://www.mkyong.com/tomcat/tomcat-error-prunsrvc-failed-creating-java-jvmdll
