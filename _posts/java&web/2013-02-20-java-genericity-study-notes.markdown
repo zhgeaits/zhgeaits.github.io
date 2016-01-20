@@ -106,7 +106,8 @@ public void test(Base<?> temp);//任何类型
 public void test(Base<? extends SecondBase> temp);//规定了上限，只能接收SecondBase及其SecondBase的子类     
 public void test(Base<? super String> temp);//规定上限，只能接收String或Object类型的泛型  
 
-其实Class类也可以是这样的用法，例如：HashMap<Class<? extends IBaseCore>, Class<? extends AbstractBaseCore>> coreClasses; 
+//其实Class类也可以是这样的用法，例如：
+private HashMap<Class<? extends IBaseCore>, Class<? extends AbstractBaseCore>> coreClasses; 
 
 {% endhighlight %}
 
