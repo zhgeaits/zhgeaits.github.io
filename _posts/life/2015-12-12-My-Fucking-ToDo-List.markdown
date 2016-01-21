@@ -23,6 +23,33 @@ type: life
 </tr>
 
 <tr>
+<td>1</td><td>2013-06-19</td><td>8</td><td>整理java线程的学习笔记，主要在blog上</td><td>50%</td><td>进行中</td><td>好好整理java的基础知识</td>
+</tr>
+
+<tr>
+<td>1</td><td>2013-04-01</td><td>8</td><td>整理java异常笔记，并记录在blog</td><td>10%</td><td>进行中</td><td>子类中方法抛出的异常范围不能大于父类中方法抛出的异常的范围的原则，子类可以不抛出异常也满足该原则</td>
+</tr>
+
+<tr>
+<td>1</td><td>2013-05-25</td><td>5</td><td>温习排序算法，写一篇blog</td><td>0%</td><td>搁浅中</td><td>好像记熟快速排序那样记住堆排序</td>
+</tr>
+
+<tr>
+<td>1</td><td>2013-05-03</td><td>5</td><td>学习java虚拟机，写一篇blog</td><td>0%</td><td>搁浅中</td><td>JVM的通讯方式有哪些？
+比如一个大项目，可能需要部署在多台机器上，在这些机器上的JVM如何进行通讯，如何传递讯息。我猜：本质上jvm是进程，所以jvm的通信就是进程间的通信，进程通信有管道，信号量，socket，文件，共享内存等方式  
+本地的话，就是两个进程就可以使用管道，信号和socket通信。  
+多台机器的话，就是只能网络通信了，使用socket，或者java的远程方法调用RMI</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+<tr>
 <td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
 </tr>
 
@@ -152,5 +179,7 @@ SwipeRefreshLayout
 axis2  webservice
 android soap 协议
 java rmi
+
+java ldap，rmi，分布式对象
 
 重新温习一下算法，数据结构，整理一下简历，更新这个blog的简历
