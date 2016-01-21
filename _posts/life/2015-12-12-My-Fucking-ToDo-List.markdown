@@ -1,12 +1,44 @@
 ---
 layout: post
-title: "My Fucking ToDo List"
-date: 2015-12-12 12:12:12
+title: "Zhang Ge's ToDo List"
+date: 2016-12-12 12:12:12
 categories: life
 type: life
 ---
 
-因为本人有极其复杂的懒惰症，天天做白日梦，很多事情，太多计划，又来不及做，又老是忘记。实在蛋疼无语，好吧，就在blog这里顶一个top post，一直提醒自己要做什么。不然老是觉得没事情做，这是一种病态，盯着电脑不知道干嘛。
+>很多事情，太多计划，又来不及做，又老是忘记。于是乎，就在blog这里顶一个top post，一直提醒自己要做什么。
+
+<table>
+
+<tr>
+<th>序号</th><th>时间</th><th>优先级</th><th>内容</th><th>进度</th><th>状态</th><th>备注</th>
+</tr>
+
+<tr>
+<td>1</td><td>2014-07-30</td><td>2</td><td>学习google的java库Guava，并写一篇blog</td><td>10%</td><td>一直被搁浅</td><td>代茂在去哪儿网培训告诉我的一个google的万能库</td>
+</tr>
+
+<tr>
+<td>1</td><td>2013-07-20</td><td>9</td><td>整理java注解的笔记，并写一篇blog记录《学习Java注解Annotation之笔记》</td><td>0%</td><td>进行中</td><td>好好整理java的基础知识</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
+</table>
 
 双击
 瀑布流
