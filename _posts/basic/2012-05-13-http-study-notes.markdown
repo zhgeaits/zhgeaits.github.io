@@ -3,7 +3,7 @@ layout: post
 title:  "关于Http&DNS的理解与学习"
 date:   2012-05-13 11:00:03
 categories: other
-type: other
+type: basic
 ---
 
 既是跻身于互联网之中，又是做web开发的，不得不学习了解http啊。

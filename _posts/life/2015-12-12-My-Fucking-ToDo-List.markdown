@@ -6,7 +6,7 @@ categories: life
 type: life
 ---
 
->很多事情，太多计划，又来不及做，又老是忘记。于是乎，就在blog这里顶一个top post，一直提醒自己要做什么。
+>很多事情，太多计划，又来不及做，又老是忘记。于是乎，就在blog这里顶一个top post，一直提醒自己要做什么。这个列表真的很大，很多事情要做，毕竟我是一个终身学习者，永不止步的，学习新的，又会温故，不断使自己变得更强大。
 
 <table>
 
@@ -42,23 +42,43 @@ type: life
 </tr>
 
 <tr>
-<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+<td>1</td><td>2011-04-01</td><td>3</td><td>写一篇blog记录《数据库建模神器工具PowerDesigner》的使用</td><td>0%</td><td>搁浅中</td><td>做过那么多的web外包项目，在学校也学习过那么的相关知识，这个工具虽然简单，却没有笔记记录，而且现在工作中没用过了，逐渐的疏远了，不过还是需要记录下来</td>
 </tr>
 
 <tr>
-<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+<td>1</td><td>2011-07-27</td><td>2</td><td>学习ant，写blog《经典的JAVA项目构建工具之Ant》</td><td>10%</td><td>搁浅中</td><td>那一年，我搞上了高大上的hadoop，无意中就接触到了构建工具Ant，虽然什么是构建都不懂，后面学习scm课才慢慢了解很多软件的概念。Ant的地位就相当于C里面的make，可惜Ant太复杂了，现在已经不再流行起来了，学习成本太大，大家都在用maven和ivy，android那边更是流行使用gradle了。但是Ant还是很经典的，必须要了解一下，有很多时候会接触到ant，我就不会去认真学习了，这里只会记录一下笔记罢了。Ant的执行脚本是基于xml，默认是build.xml</td>
 </tr>
 
 <tr>
-<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+<td>1</td><td>2011-11-20</td><td>8</td><td>重新去学习maven，并整理笔记，更新blog</td><td>30%</td><td>进行中</td><td>这个工作中经常用到的，还要去学习nexus，并搭建起来使用，毕竟以前在工作使用过</td>
 </tr>
 
 <tr>
-<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+<td>1</td><td>2012-05-13</td><td>7</td><td>学习http更多的知识，整理那篇dns的blog，有点乱</td><td>40%</td><td>进行中</td><td>既然自己是搞互联网的，那必须学习http，最好去看权威指南！</td>
 </tr>
 
 <tr>
-<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+<td>1</td><td>2012-06-01</td><td>5</td><td>作为程序员，不懂正则表达式，不如回家种田吧！</td><td>30%</td><td>搁浅中</td><td>其实，大学是认真学过正则表达式的，但是，由于几乎没用过，也没笔记，就这样忘记了。</td>
+</tr>
+
+<tr>
+<td>1</td><td>2014-02-27</td><td>7</td><td>重新认真去学习ffmpeg，要看全英文的文档，写blog记录</td><td>10%</td><td>进行中</td><td>我和代码做的第一个android项目，这个播放器算是比较大的了，可惜没积累下来。</td>
+</tr>
+
+<tr>
+<td>1</td><td>2014-03-01</td><td>7</td><td>重新认真去学习sdl，要看全英文的文档，写blog记录</td><td>10%</td><td>进行中</td><td>做tongli这个项目涉及到的sdl，很有意思的东西，要去学习</td>
+</tr>
+
+<tr>
+<td>1</td><td>2014-03-27</td><td>7</td><td>去整理arm，neon的学习笔记</td><td>10%</td><td>进行中</td><td>tongli 3d项目的东西，哈哈，我做得比较厉害，这个经历一定要记录下来</td>
+</tr>
+
+<tr>
+<td>1</td><td>2015-02-26</td><td>4</td><td>还是需要认真学习一下ps吧，记录blog</td><td>10%</td><td>被搁浅了</td><td>因为想要做自由开发者，又由于自己美术UI方面实在不行，所以下决心想要学习ps技术</td>
+</tr>
+
+<tr>
+<td>1</td><td>2015-05-08</td><td>5</td><td>学习groovy这么java的分支语言，记录blog</td><td>30%</td><td>被搁浅了</td><td>因为gradle所以想要学习这语言</td>
 </tr>
 
 <tr>

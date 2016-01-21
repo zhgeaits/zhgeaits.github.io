@@ -6,9 +6,9 @@ categories: other
 type: other
 ---
 
-这个东西和maven相似，可以对比来学习。还需要学习groovy语言，因为gradle是基于这个的。
+>这个东西和maven相似，可以对比来学习。还需要学习groovy语言，因为gradle是基于这个的。
 
-**Gradle是什么**
+## 1. Gradle是什么
 
 Gradle和maven，ant，ivy等都是项目构建工具，Gradle只是提供了构建项目的一个框架，真正起作用的是Plugin。Gradle在默认情况下为我们提供了许多常用的Plugin，其中包括有构建Java，android项目的Plugin等。与Maven不同的是，Gradle不提供内建的项目生命周期管理，只是java Plugin向Project中添加了许多Task，这些Task依次执行，为我们营造了一种如同Maven般项目构建周期。
 
@@ -22,11 +22,11 @@ gradle的bean和delegate机制。bean机制就是默认给属性生成getter和s
 
 >API：http://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/TaskContainer.html
 
-**环境搭建**
+## 2. 环境搭建
 
 配置环境比较简单，只需要下载以后解压，配置环境变量Gradle_HOME，然后加入到PATH即可。
 
-**使用**
+## 3. 使用
 
 在默认情况下，Gradle将当前目录下的build.gradle文件作为项目的构建文件。
 
@@ -63,8 +63,7 @@ java项目的目录结构和maven的一致，也可以自己去定义修改。
 
 >api:http://dcow.io/android-gradle-plugin-docs/com/android/build/gradle/api/AndroidSourceSet.html
 
-
-**修改目录结构**  
+### 3.1 修改目录结构  
 {% highlight groovy %}
 sourceSets {
    main {
@@ -188,7 +187,7 @@ task hello1(type:HelloWorldTask){
 * 自定义plugin
 
 
-**构建android项目**  
+### 3.2 构建android项目  
 
 >官方指南：http://tools.android.com/tech-docs/new-build-system/user-guide  
 例子（例如兼容eclipse使用）：https://github.com/Goddchen/Android-Gradle-Examples
@@ -220,7 +219,7 @@ buildTypes{
 * 打多渠道包：  
 
 
-**命令**
+## 4. 命令
 
 >gradle tasks：查看Project中所有的Task  
 gradle properties：查看Project中所有的Property  
@@ -228,11 +227,11 @@ apply plugin：应用插件
 gradle clean：清除gradle 插件  
 gradle build：构建android 项目
 
-**疑惑**  
+## 5. 疑惑  
 
 定义task的时候，"<<"和doLast和doFirst的区别是什么？    
 闭包这些还是需要好好理解一下，因为没有学习过groovy，所以比较难理解。
 
-**troubleshotting**
+## 6. Troubleshotting
 
 >Error:Execution failed for task ':yymobile_client:dexDebug'.>    com.android.ide.common.process.ProcessException:    org.gradle.process.internal.ExecException: Process 'command 'C:\Program Files\Java\jdk1.7.0_25\bin\java.exe'' finished with non-zero exit value 2

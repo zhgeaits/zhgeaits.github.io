@@ -6,7 +6,7 @@ categories: other
 type: other
 ---
 
-## 什么是MediaWiki
+## 1. 什么是MediaWiki
 
 mediawiki就是php写的用来跑wiki的web软件，而wikipedia是一个自由编辑的百科网站，我们可以利用wiki搭建自己的知识管理系统。
 
@@ -14,7 +14,7 @@ mediawiki就是php写的用来跑wiki的web软件，而wikipedia是一个自由�
 
 > http://zh.wikipedia.org/wiki/MediaWiki
 
-## 安装
+## 2. 安装
 
 到[官网](http://www.mediawiki.org/wiki/MediaWiki)去获得下载，可以直接下载`tar.gz`的压缩包，也可以用git来clone。
 
@@ -28,7 +28,7 @@ mediawiki就是php写的用来跑wiki的web软件，而wikipedia是一个自由�
 >sudo apt-get install mediawiki
 
 
-##配置
+## 3. 配置
 
 **安装**
 
@@ -68,4 +68,4 @@ mediawiki就是php写的用来跑wiki的web软件，而wikipedia是一个自由�
 
 > 在apache.conf文件，例如设置dec.xhomestudiro.org
 
-## wiki的编辑使用技巧
+## 4. wiki的编辑使用技巧

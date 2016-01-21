@@ -6,7 +6,7 @@ categories: other
 type: other
 ---
 
-# 什么是SVN
+## 1. 什么是SVN
 
 svn是Subversion的缩写，因为在命令行里面命令肯定是越短越好的嘛。Subversion是一个版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上免费的版本控制服务多基于Subversion。而TortoiseSVN是GUI版本的svn而已，比较好用。svn是比较简单的版本控制器，是单一的集中式的中央仓库，所有人都必须提交过去。比较好理解和使用，具体我就不说了，看我另外一篇scm的blog足以。
 
@@ -21,17 +21,17 @@ svn是Subversion的缩写，因为在命令行里面命令肯定是越短越好�
 5. 分支的开销非常小。
 6. 优化过的数据库访问，使得一些操作不必访问数据库就可以做到。这样减少了很多不必要的和数据库主机之间的网络流量。
 
-## svn架构
+## 2. svn架构
 
 ![alt svn_structure](/image/svn_structure.png "svn_structure")
  
 Subversion的版本库可以通过网络访问，从而使用户可以在不同的电脑上进行操作。从某种程度上来说，允许用户在各自的空间里修改和管理同一组数据 可以促进团队协作。因为修改不再是单线进行，开发速度会更快。此外，由于所有的工作都已版本化，也就不必担心由于错误的更改而影响软件质量—如果出现不正确的更改，只要撤销那一次更改操作即可。
 
-## 使用
+## 3. 使用
 
 在windows下的GUI版本的使用比较简单，就算是server端的GUI使用也比较简单，下面我记录的linux的使用：
 
-### 安装
+### 3.1 安装
 
 可以采用命令行安装：
 
@@ -79,7 +79,7 @@ make install
 
 安装完毕以后执行svn —version就可以看到版本号了
 
-### 配置服务器仓库
+### 3.2 配置服务器仓库
 
 **创建一个库：**
 
@@ -131,7 +131,7 @@ realm = zhangge
 
 >svnserve -d -r /home/zhangge/svnrepos
 
-### 客户端操作
+### 3.3 客户端操作
 
 **1、将文件checkout到本地目录**
 
@@ -259,7 +259,7 @@ svn help ci
 >svn cat 目标[@版本]…如果指定了版本，将从指定的版本开始查找。  
 svn cat -r PREV filename > filename (PREV 是上一版本,也可以写具体版本号,这样输出结果是可以提交的)
 
-## 下面是windows下的GUI版本平时的使用记录
+## 4. 下面是windows下的GUI版本平时的使用记录
 
 * **TortoiseSVN查看某一个文件的版本历史**  
 在项目目录右键show log是查看项目的提交历史。如果选择某个文件右键show log可以看到这个文件的提交历史。
