@@ -85,6 +85,10 @@ type: life
 <td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
 </tr>
 
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+
 </table>
 
 双击
@@ -178,10 +182,6 @@ SwipeRefreshLayout
 开发一个java工程AlmightyZGBox。提取发邮件，验证码，string编码等功能。还有以后一些常用功能，去查看以前写过的代码吧！
 
 学习python语言
-
-学习gradle
-
-学习ps
 
 学习unity
 
