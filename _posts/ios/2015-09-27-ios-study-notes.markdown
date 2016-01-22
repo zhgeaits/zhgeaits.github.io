@@ -227,10 +227,15 @@ viewDidLoad
 		<td>command+option+[或者]</td>
 		<td>上移或者下移一行代码，跟java那边的一样，非常方便</td>
 	</tr>
-
+	<tr>
+		<td>command+option+左键点击</td>
+		<td>垂直打开文本编辑</td>
+	</tr>
 </table>
 
 ## 其他
+
+translatesAutoresizingMaskIntoConstraints
 
 1.	organization identifier相当于包名
 2.	新建一个OC文件的时候，选择的是cocoa touch class是什么意思？

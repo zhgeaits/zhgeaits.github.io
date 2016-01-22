@@ -109,6 +109,13 @@ Comparable
 SectionIndexer
 SwipeRefreshLayout
 
+1.屏幕方向，监听，各个参数意义区别等
+2.activity group
+3.http2.0
+
+
+用FP
+
 ------配置通阿里云服务器，反向代理。
 
 ++++++++++++++和谯林飞写闹钟project
