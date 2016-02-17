@@ -279,3 +279,8 @@ wait阻塞调用它的程序直到子程序结束。wait返回结束进程的PID
   semctl(semset_id semnum, cmd, arg)			<sys/sem.h>
   semop(semid, actions, numactions)			<sys/sem.h>
 {% endhighlight %}
+
+
+### make命令
+
+执行make命令时如何给makefile里面指定执行的命令传递参数:在运行make的时候，加上A=B的形式，在makefile里面就可以了${A}使用了。
