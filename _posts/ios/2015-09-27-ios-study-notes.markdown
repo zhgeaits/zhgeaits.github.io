@@ -19,6 +19,7 @@ cocoapods和maven一样，是用来管理依赖的，它是ruby编写的，所�
 它就像android里面的application，或者说activity，参考这边blog比较他们的[生命周期](http://seniorzhai.github.io/2014/12/11/Android%E3%80%81iOS%E5%A4%A7%E4%B8%8D%E5%90%8C%E2%80%94%E2%80%94%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/ "生命周期")
 
 
+
 实际上AppDelegate是UIApplication的一个委托，即UIApplicationDelegate协议的实现，同时，它也是继承了UIResponder的。
 
 比较重要的一个方法是：
@@ -94,11 +95,13 @@ awakeFromNib:
 当一个nib文件对应两个类，File's Owner的class为XXXViewController，Objects下的View对应的为XXXView时：
 
 awakeFromNib：在XXXView.m文件中有效，即只有写在这个类文件中才会调用，写在XXXViewController.m文件中时，不会被调用。
+
 viewDidLoad：写于XXXViewController.m文件中，作用同awakeFromNib。
- 
+
 当.nib文件被加载的时候，会发送一个awakeFromNib的消息到.nib文件中的每个对象，每个对象都可以定义自己的 awakeFromNib函数来响应这个消息，执行一些必要的操作。也就是说通过nib文件创建view对象是执行awakeFromNib 
 
 viewDidLoad 
+
 当view对象被加载到内存是就会执行viewDidLoad，所以不管通过nib文件还是代码的方式创建对象都会执行viewDidLoad 
 
 ### UIWindow
@@ -107,8 +110,9 @@ viewDidLoad
 
 如果屏幕进行了旋转，则需要对UIWindow进行设置transform属性，代码如下：
 
->float angle = ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft)?90:-90;  
->view.transform = CGAffineTransformMakeRotation(degreesToRadian(angle));
+> float angle = ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft)?90:-90;  
+> 
+> view.transform = CGAffineTransformMakeRotation(degreesToRadian(angle));
 
 另外，还需要对frame进行调整。
 
@@ -147,90 +151,175 @@ viewDidLoad
 ### 快捷键
 
 <table>
+
 	<tr>
+
 		<td>command+0,1,2..</td>
+
 		<td>工程导航器的显示和隐藏，并对应上面的每一个tab</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+option+0,1,2..</td>
+
 		<td>工具面板（检查器面板）的显示和隐藏，并对应上面的每一个tab</td>
+
 	</tr>
+
 	<tr>
+
 		<td>option+左键点击</td>
+
 		<td>打开Assistant Editor</td>
+
 	</tr>
+
 	<tr>
+
 		<td>Command+Shift+F</td>
+
 		<td>全局搜索</td>
+
 	</tr>
+
 	<tr>
+
 		<td>Command+F</td>
+
 		<td>本页面搜索</td>
+
 	</tr>
+
 	<tr>
+
 		<td>Control+6（键入方法/变量名+Enter跳转）</td>
+
 		<td>相当于idea上面ctrl+F12快速定位到某个方法</td>
+
 	</tr>
+
 	<tr>
+
 		<td>Command + Shift + O</td>
+
 		<td>快速打开</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+control+上下键</td>
+
 		<td>打开Assistant Editor</td>
+
 	</tr>
+
 	<tr>
+
 		<td>Command + Shift + 0 (Zero)</td>
+
 		<td>文档和参考</td>
+
 	</tr>
+
 	<tr>
+
 		<td>在类或者方法名上执行Option + 左键</td>
+
 		<td>内联帮助</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+shift+j</td>
+
 		<td>快速定位到打开的文件</td>
+
 	</tr>
+
 	<tr>
+
 		<td>control+1</td>
+
 		<td>打开Show Related Items弹出菜单，非常方便查看很多东西，如哪里调用这个方法了</td>
+
 	</tr>
+
 	<tr>
+
 		<td>shift+command+y</td>
+
 		<td>hide or show debug area</td>
+
 	</tr>
+
 	<tr>
+
 		<td>ctrl+command+y</td>
+
 		<td>debug的时候play</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+y</td>
+
 		<td>断点生效或无效</td>
+
 	</tr>
+
 	<tr>
+
 		<td>F6</td>
+
 		<td>debug的时候step over</td>
+
 	</tr>	
+
 	<tr>
+
 		<td>F7</td>
+
 		<td>debug的时候step into</td>
+
 	</tr>
+
 	<tr>
+
 		<td>option+command+左右箭头</td>
+
 		<td>把括号里面的代码收缩起来</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+[或者]</td>
+
 		<td>相当于tab或者shift+tab的效果，缩进</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+option+[或者]</td>
+
 		<td>上移或者下移一行代码，跟java那边的一样，非常方便</td>
+
 	</tr>
+
 	<tr>
+
 		<td>command+option+左键点击</td>
+
 		<td>垂直打开文本编辑</td>
+
 	</tr>
+
 </table>
 
 ## 其他
@@ -238,31 +327,169 @@ viewDidLoad
 translatesAutoresizingMaskIntoConstraints applyAutoResizingMaskWithOldSuperviewSize
 
 1.	organization identifier相当于包名
+
 2.	新建一个OC文件的时候，选择的是cocoa touch class是什么意思？
+
 3.	New group相当于new一个package吗？
+
 4.	如果直接new一个oc文件的时候，可用选择的那三种filetype是什么意思
+
 5.	button没法设置背景颜色
+
 7.	怎么修改屏幕尺寸？
+
 9.	为什么初始化的是调用了super init后返回值直接赋值给self？所以构造方法返回的是instanceType，而不是某个类的指针地址，虽然调用的是父类的init方法，实际上是子类的对象实例。
+
 10.	子类也能调用父类的静态方法？java好像不行？
+
 11.	Cocoa Touch框架感觉就像是jdk一样，提供了OC类的集合。
+
 12.	OC里面使用指针指向对象，而不是引用或者句柄。
+
 13.	OC的alloc方法是类方法，和java的类初始化方法一样<clinit>，注意，不是实例的构造方法哦，oc的init才是对应构造方法。
+
 14.	OC里面调用方法称为发送消息：接收方，选择器，实参。接收方就是类或者对象，选择器则是方法，实参就是参数了。发送一个消息的形式是中括号。这种方式比较符合面向对象，因为对象之间是需要通信的，而不是方法的调用。
+
 15.	OC的所有对象都是继承NSObject，里面的description方法相当于java的toString方法。
+
 16.	NSString,NSArray,NSMutableArray,NSLog都是以NS开头的，NS就是nextstep的意思，你懂得！
+
 17.	只有调用NSLog才和java比较像，还有就是NSString的一些类方法也是比较相似，例如，initWithFormat，因为是不定参数的原因吧。其他的方法调用都是以发送消息形式的。打印的时候，基本上和c相同，就字符串是％@，实际上是调用对象的description方法。
+
 18.	OC相对于C新增的关键字基本上都是以@开头的，但是也有一些不是，例如：instancetype。还有，一个字符串是用@开头的。
+
 22.	id类型相当于c里面的void＊，指向任意对象的指针。
+
 23.	为什么在重载构造方法的时候可用调用self，这个时候self不是nil吗？
+
 25.	@的神奇作用。字符串，关键字，NSArray初始值，import
+
 26.	调用一个对象的时候，也就是发送消息的时候，在编译期间不能知道这个对象有没有这个方法，只有在运行期才会发生错误。
+
 27.	属性使用copy的时候，当给它赋值的时候就会copy一份再赋值。
+
 28.	synthesized不懂怎么用。
+
 29.	这个调用的是Core Graphics的上下文[[UIColor lightGrayColor] setStroke];还是需要好好学习了解。
+
 30.	图片资源文件添加在哪里？
+
 31.	UITabBarController不能预览？
+
 32.	方法前面的括号除了是返回类型，还是表示这个方法是什么，例如IBAction
+
 33.	[[UIApplication sharedApplication] scheduledLocalNotifications:note];编译不通过。
+
 34.	controller传递参数的时候，@Class到底什么作用，还是没明白。
-36. viewDidLoad
+
+1. viewDidLoad
+
+
+
+objective-c 计算md5和sha1
+
+
+{% highlight objective-c %}
+
++ (NSString *)fileMD5:(NSString *)filePath {
+    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+  
+    if(!handle)
+  
+    {
+  
+    return nil;
+  
+    }
+  
+    CC_MD5_CTX md5;
+  
+    CC_MD5_Init(&md5);
+  
+    BOOL done = NO;
+  
+    while (!done)
+  
+    {
+    NSData *fileData = [handle readDataOfLength:256];
+    CC_MD5_Update(&md5, [fileData bytes], [@([fileData length]) unsignedIntValue]);
+    if([fileData length] == 0)
+        done = YES;
+
+  
+    }
+  
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+  
+    CC_MD5_Final(digest, &md5);
+  
+    NSString *result = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+  
+                    digest[0], digest[1],
+                    digest[2], digest[3],
+                    digest[4], digest[5],
+                    digest[6], digest[7],
+                    digest[8], digest[9],
+                    digest[10], digest[11],
+                    digest[12], digest[13],
+                    digest[14], digest[15]];
+  
+    return result;
+  
+  }
+  
++ (NSString *)fileSha1:(NSString *)filePath
+  
+  {
+  
+    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+  
+    if(!handle)
+  
+    {
+  
+    return nil;
+  
+  
+    }
+  
+    CC_SHA1_CTX sha1;
+  
+    CC_SHA1_Init(&sha1);
+  
+    BOOL done = NO;
+  
+    while (!done)
+  
+    {
+  
+    NSData *fileData = [handle readDataOfLength:256];
+    CC_SHA1_Update(&sha1, [fileData bytes], [@([fileData length]) unsignedIntValue]);
+    if([fileData length] == 0)
+        done = YES;
+  
+    }
+  
+    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+  
+    CC_SHA1_Final(digest, &sha1);
+  
+    NSString *result = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+  
+                    digest[0], digest[1],
+                    digest[2], digest[3],
+                    digest[4], digest[5],
+                    digest[6], digest[7],
+                    digest[8], digest[9],
+                    digest[10], digest[11],
+                    digest[12], digest[13],
+                    digest[14], digest[15],
+                    digest[16], digest[17],
+                    digest[18], digest[19]
+                    ];
+  
+    return result;
+  
+  }
+
+{% endhighlight %}
