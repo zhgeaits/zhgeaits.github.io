@@ -235,7 +235,7 @@ viewDidLoad
 
 ## 其他
 
-translatesAutoresizingMaskIntoConstraints
+translatesAutoresizingMaskIntoConstraints applyAutoResizingMaskWithOldSuperviewSize
 
 1.	organization identifier相当于包名
 2.	新建一个OC文件的时候，选择的是cocoa touch class是什么意思？
