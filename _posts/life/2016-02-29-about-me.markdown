@@ -28,7 +28,7 @@ Well, I also dreamed to be a great artist, writer, goverment official or success
 
 In five-grade class, I was confused with no real hobbies except did the study well at that time. Luckily, I met my first mentor, Miss lao, who was every kind to me, taught me how to program using the computer langauge.
 
-Thanks to my parents, they bought me a computer which was so rare and expensive in china at that time. Without playing games, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with machines. I won the third prize when I took part in the computer competition in the city. From then on I have loved computer programming.
+Thanks to my parents, they bought me a computer which was so rare and expensive in china at that time. Without playing games, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with machines. Pretty exciting, programming is not so hard for me as a child. And then I won the third prize when I took part in the computer competition in the city. From then on I have loved computer programming.
 
 ### What am I seeking for
 
@@ -38,7 +38,7 @@ I was about to go to college then. University means freedom to all students in C
 
 I worked at two studios. The first one is star studio, maintaining the primary bbs of my school, where I learned php to build website. The second one is yiwei studio where I met my mentor and learn more about how do deal with university life. I use java to code for the most time and do lot of projects in school such as about javaee, android, c#, php and hadoop etc, which gave me a lot of experience to grow up. I also have an opportunity to be the internship in alibaba where is the biggest e-commerce in China.
 
-Today I still using java to develop android app, but I also learn objective-c to develop ios app. I still program website and other stuff. That means I am not stop in any one of techniques. Language or techniques is just a tool or a way to express my mind. Learning new technique is the best way to improve my abilities. Therefore, I will not settle down, and keep looking my final object. Perhaps it called full-stack enginner. :-)
+Today I still using java to develop android app, but I also learn objective-c to develop ios app. I still program website and other stuff. That means I am not stop in any one of techniques. Language or techniques is just a tool or a way to express my mind. Learning new technologies is the best way to improve my abilities. Therefore, I will not settle down, and keep looking my final object. Perhaps it called full-stack enginner. :-)
 
 ### Resume
 
