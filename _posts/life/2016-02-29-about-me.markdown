@@ -12,33 +12,33 @@ What do you want to know about me?
 
 ### Who am I
 
-I'm Zhang Ge, a software-enginner in China. Actually now I am living in GuangZhou working in YY.inc. I have coded for almost 6 years since I went to university in 2010, and I love to program, for sure.
+I'm Zhang Ge, a software-enginner in China. Actually now I am living in GuangZhou and working in YY.inc Company. I have programmed for almost 6 years since I went to university in 2010, and I love to program, for sure.
 
 ### What about this blog zhgeaits.me
 
-Between 2010 with 2014, I was a student in University of Electronic Science and Technology of China majoring in Software Engineering. I learn all computer science knowledge and wrote a lot of codes. However, I was lazy and my memory is abysmal, so as time passed, I've been stuck with it.
+Between 2010 with 2014, I was a student in University of Electronic Science and Technology of China(UESTC) majoring in Software Engineering. I learn all computer science knowledge and wrote a lot of codes. However, I was lazy and my memory ability is abysmal, so as time passed, I've been stuck with it.
 
-I decided to record and share with others. At that moment, I heard about github, and registered in. This is it! I don't like other simple blogs tool website because I love linux and write pages with vim.
+I decided to record and share with others. At that moment, I heard about github, and registered in. This is it! I don't like other simple-blog-tool-website because I love linux and write pages with vim. Using vim to edit blog pages like coding and using git to commit it, which will post automatically, is amazing beacuse everything is under version control. That is programming my blog! That is code-style to blog! That is Geek!
 
 _zhgeaits_ is my ID using in everywhere named with 2-letter prefix of my name. I used to own zhgeaits.github.io which is default and free hostname by github. After I have a job which give me ability to have global credit card, then I bought hostname _zhgeaite.me_.
 
 ### Why do I want to be a programmer
 
-Well, I also dreamed to be a great artist, writer, goverment official or successful businessman like all kids when I was young. Of course, that was great but we don't know what we can do in the future. In our country, our school just push us to study and do the unlimited examination beacuse if we study well then we will go to the better university. That is the only way for us in everyone's mind, especially for our parents.
+Well, I also dreamed to be a great artist, writer, goverment official or successful businessman like all kids when I was young. Of course, that was great dream but we don't know what we can do in the future. In our country, school just push us to study and do the unlimited examination beacuse if we study well then we will go to the better university which is the only way for our life in everyone's mind, especially for our parents.
 
-In five-grade class, I was confused with no real hobbies except did the study well at that time. Luckily, I met my first mentor, Miss lao, who was every kind to me, taught me how to program using the computer langauge.
+In five-grade class, I was confused with no real hobbies except did the study well at that time. Luckily, I met my first mentor, Miss lao, who was every kind to me, taught me how to program by using the computer langauge.
 
-Thanks to my parents, they bought me a computer which was so rare and expensive in china at that time. Without playing games, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with machines. Pretty exciting, programming is not so hard for me as a child. And then I won the third prize when I took part in the computer competition in the city. From then on I have loved computer programming.
+Thanks to my parents, they bought me a computer which was so rare and expensive in china at that time. Without playing games, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with machines. Pretty exciting, programming is not so hard for me as a child. And then I won the third prize when I took part in the computer competition named NOIP in the city. From then on I have interest in computer programming.
 
 ### What am I seeking for
 
-I started to learn another computer language pascal when I went to senior school. Unfortunately, I didn’t have a good tutor at that time, so I didn’t have any chance to learn algorithm and data structure or other program stuff. You know I cannot access network easily at that time. But I began learn algorithm and data structure by myself which it's so hard to me. I have to spend all time on studying and I must focus on it. So I quit!
+I started to learn another computer language pascal when I went to senior school. Unfortunately, I didn’t have a good tutor at that time, so I didn’t have any chance to learn algorithm and data structure or other programming stuffs. You know I cannot access network easily at that time. There is no wifi, no bbs and no github! But I began learn algorithm and data structure by reading books myself which it's so hard for me to understand new concept like stack, list, binary tree，deep/wide search, dynamic programming, system and so on. Another side I have to spend all time on normal compulsory studying and I must focus on it. So I quit!
 
-I was about to go to college then. University means freedom to all students in China. I went to continue my original interest and study Software Engineering where I learned computer science knowledge systematically, such as from top down to bottom to know about how to develop a software and from bottom up to top to understand computer mechanism. More importantedly, I learned to communicate and work with my teammates and the ability to design a software. 
+I was about to go to college then. University means freedom to all students in China. I went to continue my original interest and study Software Engineering where I learned computer science knowledge systematically, from top down to bottom to know about how to develop a software and from bottom up to top to understand computer mechanism. There I know unix system, computer network, version control system, c, assembly, database, architecture, testing, uml and so. More importantedly, I learned to communicate and work with my teammates and the ability to design a software. 
 
-I worked at two studios. The first one is star studio, maintaining the primary bbs of my school, where I learned php to build website. The second one is yiwei studio where I met my mentor and learn more about how do deal with university life. I use java to code for the most time and do lot of projects in school such as about javaee, android, c#, php and hadoop etc, which gave me a lot of experience to grow up. I also have an opportunity to be the internship in alibaba where is the biggest e-commerce in China.
+I worked at two studios. The first one is star studio, maintaining the primary bbs of my school, where I learned linux/apache/mysql/php(LAMP) to build website. The second one is yiwei studio where I met my mentor and learn more about how do deal with university life. I use java to code for the most time and do lot of projects in school. I learn struts/spring/hibernate/mybatis/maven/js... to develop javaee project, and I also using c# to write windows app and write unity games. I still use hadoop to do cloud-computing project etc, which gave me a lot of experience to grow up. So I also have an opportunity to be the internship in alibaba where is the biggest e-commerce in China.
 
-Today I still using java to develop android app, but I also learn objective-c to develop ios app. I still program website and other stuff. That means I am not stop in any one of techniques. Language or techniques is just a tool or a way to express my mind. Learning new technologies is the best way to improve my abilities. Therefore, I will not settle down, and keep looking my final object. Perhaps it called full-stack enginner. :-)
+Today I still using java to develop android app, but I also learn objective-c to develop ios app. I still program website and other stuff. That means I am not stop in any one of techniques. Computer languages or techniques are just a tool or a way to express my mind. Learning new technologies is the best way to improve my abilities. Therefore, I will not settle down, and keep looking my final object. Perhaps it called full-stack enginner. :-)
 
 ### Resume
 
