@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "学习Java之泛型小记!"
+title:  "Java系列之泛型"
 date:   2013-02-20 11:00:03
 categories: java
 type: java&web

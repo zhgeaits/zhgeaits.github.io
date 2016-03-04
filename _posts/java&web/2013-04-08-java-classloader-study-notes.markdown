@@ -1,12 +1,10 @@
 ---
 layout: post
-title:  "Java的class字节码文件，内存模型，classloader类加载机制，反射学习笔记!"
+title:  "Java系列之class字节码，内存模型，classloader类加载机制及反射"
 date:   2013-04-08 13:00:03
 categories: java
 type: java&web
 ---
-
->我并不是java专家，对于更加深入的java虚拟机和相关的java语言规范并没有去深入学习，所以这里不是详细的学习教程，只不过是我学习java时候的一些笔记而已。或许以后会继续把这文章详细化。
 
 ## 1 什么是java的类Class
 
