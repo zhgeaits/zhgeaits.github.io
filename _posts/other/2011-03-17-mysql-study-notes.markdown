@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "轻量级关系型数据库MySQL学习笔记"
+title:  "轻量级关系型数据库MySQL"
 date:   2011-03-17 11:00:03
 categories: other
 type: other

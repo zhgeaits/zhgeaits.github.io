@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "重量级关系型数据库oracle学习笔记"
+title:  "重量级关系型数据库oracle"
 date:   2011-02-14 11:00:03
 categories: other
 type: other
@@ -10,7 +10,7 @@ type: other
 
 ## 1.什么是数据库
 
-关于数据库的知识，请看我关于数据库的blog。
+关于数据库的知识，请看我关于数据库的[blog](http://zhgeaits.me/other/2012/09/27/database-study-notes.html)。
 
 ### 1.1什么是oracle
 

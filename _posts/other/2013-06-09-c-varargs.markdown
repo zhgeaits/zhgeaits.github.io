@@ -32,7 +32,7 @@ int errexit(const char *format, ...)
 
 可以看到C的不定参数也是用三个点来表示，但是不能确定类型和个数，上面那个函数是通过format里面%的参数来确定个数和类型的。
 
-man va_start可以看到stdarg的手册，但是看到的东西有点乱，不太容易懂!然后locate了以下stdarg\.h找到它的位置打开：
+man va_start可以看到stdarg的手册，但是看到的东西有点乱，不太容易懂！然后locate了一下`stdarg.h`找到它的位置打开：
 
 {% highlight vim %}
 $locate stdarg.h
