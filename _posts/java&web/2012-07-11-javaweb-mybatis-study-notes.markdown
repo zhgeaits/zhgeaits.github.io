@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "轻量级的ORM框架MyBatis学习记录"
+title: "轻量级的ORM框架MyBatis"
 date: 2012-07-11 01:15:24
 categories: javaweb
 type: java&web

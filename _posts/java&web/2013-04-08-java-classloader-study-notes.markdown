@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java系列之class字节码，内存模型，classloader类加载机制及反射"
+title:  "Java系列之class字节码，内存模型，classloader类加载及反射机制"
 date:   2013-04-08 13:00:03
 categories: java
 type: java&web

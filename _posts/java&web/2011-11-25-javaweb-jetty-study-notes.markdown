@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "更轻量级的Javaweb应用服务器Jetty学习记录"
+title: "更轻量级的Javaweb应用服务器Jetty"
 date: 2011-11-25 01:15:24
 categories: javaweb
 type: java&web

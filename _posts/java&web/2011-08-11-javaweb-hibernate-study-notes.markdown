@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "相对较为重量级的ORM框架Hibernate学习记录"
+title: "相对较为重量级的ORM框架Hibernate"
 date: 2011-08-11 01:15:24
 categories: technology
 type: java&web
 ---
 
->那年暑假，大一，留校学习，Php，javaweb，hadoop，而这，看西安云工厂视频学习的Hibernate。
+>那年暑假，大一，留校学习，Php，javaweb，hadoop，而这是看西安云工厂视频学习的Hibernate。
 
 ## 1. 什么是ORM和Hibernate
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "网站开发需要学习的第一门技术HTML!"
+title:  "网站开发需要学习的第一门技术HTML"
 date:   2011-03-09 11:00:03
 categories: frontend
 type: java&web

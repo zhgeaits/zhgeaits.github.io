@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "伟大的框架SpringFramework学习记录"
+title: "伟大的框架SpringFramework"
 date: 2011-08-15 01:15:24
 categories: javaweb
 type: java&web

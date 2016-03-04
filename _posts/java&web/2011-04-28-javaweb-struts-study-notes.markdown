@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "经典的MVC设计模式产品Struts学习记录"
+title: "经典的MVC设计模式产品Struts"
 date: 2011-04-28 01:15:24
 categories: javaweb
 type: java&web

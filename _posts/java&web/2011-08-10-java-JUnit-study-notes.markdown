@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "开源的单元测试框架JUnit学习笔记!"
+title:  "开源的单元测试框架JUnit"
 date:   2011-08-10 11:00:03
 categories: java
 type: java&web

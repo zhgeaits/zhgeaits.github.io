@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java中最流行的日志框架log4j学习记录"
+title: "Java中最流行的日志框架log4j"
 date: 2011-09-17 01:15:24
 categories: javaweb
 type: java&web

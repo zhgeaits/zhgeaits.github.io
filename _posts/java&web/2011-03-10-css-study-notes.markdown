@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "网站开发需要学习的第二门技术CSS!"
+title:  "网站开发需要学习的第二门技术CSS"
 date:   2011-03-10 11:00:03
 categories: frontend
 type: java&web

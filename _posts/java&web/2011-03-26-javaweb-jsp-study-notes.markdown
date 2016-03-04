@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JavaWeb服务器页面JSP学习记录"
+title: "JavaWeb服务器页面JSP组件"
 date: 2011-03-26 01:15:24
 categories: javaweb
 type: java&web
