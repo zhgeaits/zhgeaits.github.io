@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "可扩展标记语言XML学习笔记!"
+title:  "可扩展标记语言XML"
 date:   2011-05-07 11:00:03
 categories: xml
 type: basic
