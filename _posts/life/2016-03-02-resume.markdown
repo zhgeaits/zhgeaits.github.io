@@ -105,51 +105,50 @@ type: life
 - **涉及：**struts，spring，mybatis，maven，hg，jetty，linux，mysql，jquery，poi
 - 这是工作室的外包项目，给成都成房置业公司开发关于材料品牌的信息管理系统，涉及常用的javaee技术。我作为项目负责人，主要负责和客户交涉确定需求，并设计和实现后台的业务逻辑，也要编写前后台连接部分的JS代码和实现报表的导入导出开发工作。
 	
-### [移动短信交易项目]()
+### 移动短信交易项目
 
 - **时间：**2012/07 – 2012/09
 - **人员：**四个开发
-- **涉及：**java，
-- adsf
+- **涉及：**javase，jdbc，swing，ioc，aop，oracle
+- 这是在沈阳东软实训的小项目，非常简单的模拟短信交易，查询，天气等功能。我带领3个几乎完全没有代码经验的同学完成开发，项目虽小，我却运用spring的ioc，aop，dao等思想实现了一个小小的框架，更重要的是锻炼了带领团队合作协同开发的能力。最终答辩我们也获得了最优团队的成绩。
 								 			 
-### [基于Hadoop的新闻个性化推荐系统分析与实现](https://github.com/zhgeaits)	
+### 基于Hadoop的新闻个性化推荐系统分析与实现
 
 - **时间：**2012/03 – 2012/06
 - **人员：**指导老师 + 三人团队
 - **涉及：**hadoop，hbase，hdfs，个性化推荐算法
-- 跟随一个老师研究Google新闻个性化推荐算法minHash、PLSI和covisitation，然后用
-开源框架Hadoop的MapReduce，HDFS和HBase实现。参与整体的算法分析，主要负责minHash算法的实现。
+- 继续跟随老师学习大数据，并参与课题研究[Google新闻个性化推荐算法](http://xueshu.baidu.com/s?wd=paperuri:(ac8856df5864796bc2c17f04c15baaa7)&filter=sc_long_sign&sc_ks_para=q%3DGoogle+news+personalization%3A+scalable+online+collaborative+filtering&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8)，其中包括三个重要算法，minHash、PLSI和covisitation，我们用开源框架Hadoop的MapReduce，HDFS和HBase实现，采用[MovieLens](http://grouplens.org/datasets/movielens/)的数据来训练和验证，可惜准确率并不算好。其中我参与整体的算法分析，主要负责minHash算法的实现。
 
-### [碳资产交易与质押授信管理系统](https://github.com/zhgeaits)
+### 碳资产交易与质押授信管理系统
 
 - **时间：**2011/09 – 2011/12
 - **人员：**经管学院 + 软件学院七人团队
-- **涉及：**javaee，matlab，DB2，hg，tomcat
-- 软件学院与经济管理学院合作参加花旗杯金融软件设计大赛的作品，后期该作品加入IBM大型主机开发和DB2数据库来参加IBM主机应用大赛。参与数据库设计与JavaWeb后台开发
+- **涉及：**struts，spring，hibernate，matlab，DB2，hg，tomcat
+- 这个是大一的时候代表软件学院与经济管理学院合作参加花旗杯金融软件设计大赛的作品，后期该作品加入IBM大型主机开发和DB2数据库来参加IBM主机应用大赛。虽然刚接触javaee，但是技术难点在于java连接matlab和db2数据库，我在其中参与数据库设计与JavaWeb后台开发。
 
-### [基于Hadoop的链式非负矩阵分解实现](https://github.com/zhgeaits)
+### 基于Hadoop的链式非负矩阵分解实现
 
-- **时间：**2011/07 – 2011/12
+- **时间：**2011/06 – 2011/12
 - **人员：**指导老师 + 二人团队
 - **涉及：**linux，hadoop，java，非负矩阵分解
-- 跟随一个老师学习Hadoop和非负矩阵分解，然后用MapReduce编程模型实现非负矩阵分解。编写所有MapReduce实现NMF代码
+- 大一的时候有幸跟随一个老师学习大数据，参与一个课题，Hadoop和非负矩阵分解。我们两个学生另外一个由于困难而退出，剩下我一个人学习hadoop，linux，网络等知识，然后用MapReduce编程模型根据算法编写代码实现非负矩阵分解，最后还采用迭代的框架[haloop](https://code.google.com/p/haloop)重新实现，提高效率。
 
 ### [学生之家用户中心平台](www.stuhome.net)
 
 - **时间：**2011/07 – 2011/10
 - **人员：**三个前端 + 两个后端
 - **涉及：**linux，apache，mysql，php，svn，js
-- 大一的时候经过层层考验筛选，加入了当时学校有名的[星辰工作室](http://starstudio.org/)，这个工作室开发了火爆的[清水河畔论坛](http://bbs.uestc.edu.cn/)，并承接学校相关的项目。我在里面短时间内学习了php语言，熟悉lamp架构，并用php开发的学生之家用户中心平台帮助学校学工部管理学生信息，而过程中我负责的是php后台开发和数据库表设计，首个版本的项目并没有使用过多的框架，基本都是原生php实现的。
+- 这个是工作室的项目，用php开发的学生之家用户中心平台帮助学校学工部管理学生信息，而过程中我负责的是php后台开发和数据库表设计，首个版本的项目并没有使用过多的框架，基本都是原生php实现的。
 
 ---
 
 ## 演讲和讲义
 
- - 2015公司小组内部分享：[软件架构]()
- - 2015年度工作review：[Review&Refactor]()
- - 电子科大银杏黄项目答辩：[碳系统]()
- - 东软实训答辩：[移动短信交易项目]()
- - 异维工作室新人培训：[introducte to javaee]()
+ - 2015公司小组内部分享：[软件架构分享](https://raw.githubusercontent.com/zhgeaits/PersonalResources/master/personal/ppt/yymobile_architecture.pptx)
+ - 2015年度工作review：[Review&Refactor](https://raw.githubusercontent.com/zhgeaits/PersonalResources/master/personal/ppt/Review.pptx)
+ - 电子科大银杏黄项目答辩：[碳系统](https://raw.githubusercontent.com/zhgeaits/PersonalResources/master/personal/ppt/carbonsystem.ppt)
+ - 东软实训答辩：[移动短信交易项目](https://raw.githubusercontent.com/zhgeaits/PersonalResources/master/personal/ppt/mpc.ppt)
+ - 异维工作室新人培训：[introducte to javaee](https://raw.githubusercontent.com/zhgeaits/PersonalResources/master/personal/ppt/introducte%20to%20javaee.ppt)
 
 ---
 
@@ -172,22 +171,22 @@ type: life
 ### 实习
 
  - 时间：2013/07 – 2013/10
- - 阿里巴巴集团天猫技术有限公司导购&垂直线部门实习
+ - 打三暑假拿到的一个不错的offer，暑假前往杭州，在阿里巴巴集团天猫技术有限公司导购&垂直线部门实习。这次学习最大的成长不在技术，而是从学校到社会的转变，对以后职业生涯的准备，对公司，真实团队的认识等等。
 
 ### 实训
 
  - 时间：2012/07 – 2012/09
- - 在沈阳东软总部参加了为其两个月的实训
+ - 我参与了我们学院的实训项目，在沈阳东软总部参加了为其两个月的暑假实训，虽然时间短，并且那时候我们掌握的技术能力不多，却是一个非常好的锻炼，包括团队交流合作等能力。
 
 ### 工作室
 
  - 时间：2011/05 – 2011/11
- - 加入电子科技大学星辰工作室学习Php
+ - 大一的时候经过层层考验筛选，加入了当时学校有名的[星辰工作室](http://starstudio.org/)，这个工作室开发了火爆的[清水河畔论坛](http://bbs.uestc.edu.cn/)，并承接学校相关的项目。我在里面短时间内学习了php语言，熟悉lamp架构，学习使用svn，最后开发完成学生之家项目后便退出了。
 
 ### 工作室
 
  - 时间：2010/11 – 2014/07
- - 加入电子科技大学启梦（原名异维）工作室学习Java编程
+ - 大一加入[电子科技大学启梦（原名异维）工作室](www.xhomestudio.org)学习Java编程，便一直在里面，担任过元老，负责人，也培训和带出不少优秀的学弟，这是四年来对我影响最深的团队，在那里我学到一切我需要的东西，包括技术和为人处事方面，也认识了非常多的朋友，希望这个工作室一直传承下去。
 
 ---
 
@@ -203,13 +202,11 @@ type: life
 
 ---
 
-## 兴趣爱好
+## 兴趣爱好&评价
 
-健身，[骑行]()，[羽毛球]()，[旅游]()，电影，[文学（小说，诗歌）]()
+- [健身]()，[骑行]()，[羽毛球]()，[旅游]()，文学（小说，诗歌），电影
 
-熵，维持有序 
-
-执着追求、热爱编程
+- 一个关注健康生活，执着追求，激情澎湃，热爱编程的上进文艺程序员，他善于攻克难点，却难于维护细节，有点懒，并且有大姨妈心理周期，可以连续几天疯狂编程，也可以连续几天毫无精神。
 
 ---
 
