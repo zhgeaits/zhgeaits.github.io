@@ -154,15 +154,11 @@ type: life
 
 ## 技能清单
 
-- 算法(★★★★)，数据结构(★★★★)
-- 计算机网络(★★★★)，操作系统
-- Java(★★★★)，C(★★★★)，shell(★★★), php(★★★), objective-c(★★★), C++, groovy
-- html(★★★), css(★★★★), js(★★★★), jquery
-- opengles(★★★), junit(★★★), poi(★★★), 
-- Hg Git SVN, gradle, maven, jetty, tomcat
-- mysql, oracle, oracle(★★★), powerdesigner(★★★)
-- spring, struts, mybatis, 
-- Linux, ios, Android, Hadoop, xml，uml
+- java，c，shell，php，objective-c
+- html，css，js，xml，jquery
+- hg，git，svn，gradle，maven，tomcat，mysql
+- spring，struts，mybatis，hibernate，junit
+- linux，ios，android，hadoop，opengles
 
 ---
 
