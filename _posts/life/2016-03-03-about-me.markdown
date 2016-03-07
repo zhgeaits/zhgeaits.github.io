@@ -42,4 +42,4 @@ Today I still using java to develop android app, but I also learn objective-c to
 
 ### Resume
 
-You can find more about me in [resume](http://zhgeaits.me/life/2016/03/02/resume.html "resume markdown") or [resume(pdf version).](http://zhgeaits.me/zhangge-resume.pdf "resume pdf") or 
+You can find more about me in [resume](http://zhgeaits.me/life/2016/03/02/resume.html "resume markdown") or [resume(pdf version).](http://zhgeaits.me/zhangge-resume.pdf "resume pdf") 
