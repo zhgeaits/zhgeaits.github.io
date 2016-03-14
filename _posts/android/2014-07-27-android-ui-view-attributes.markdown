@@ -1,10 +1,20 @@
 ---
 layout: post
-title:  "Android的自定义控件属性attrs.xml, TypedArray学习笔记!"
+title:  "Android的View学习"
 date:   2014-07-27 10:00:03
 categories: android
 type: android
 ---
+
+## 
+
+引用网上一句话：Android系统中的所有UI类都是建立在View和ViewGroup这两个类的基础上的。所有View的子类成为”Widget”，所有ViewGroup的子类成为”Layout”。  
+View和ViewGroup之间采用了组合设计模式，可以使得“部分-整体”同等对待。ViewGroup作为布局容器类的最上层，布局容器里面又可以有View和ViewGroup。
+
+View是最顶层的界面类，ViewGroup是继承View的抽象类，所以ViewGroup是一组view的集合。view又是所有界面的父类引用，view引用可以指向viewgroup，实现了多态，
+在adapter那里getView什么的是很好的体现。
+
+## Canvas
 
 当自定义一个控件后，可以给这个控件自定义更多属性，例如我自定义一个ImageView，给它一个属性，是否圆角。
 
