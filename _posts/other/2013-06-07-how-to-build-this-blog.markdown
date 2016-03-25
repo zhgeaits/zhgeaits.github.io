@@ -215,10 +215,10 @@ gem install pygments.rb --version "=0.5.0"
 
 ### 5.2 修改源
 
-gem sources -l
-gem sources --remove http://rubygems.org
-gem sources -a https://ruby.taobao.org/
-gem sources --add http://gems.github.com
+	gem sources -l
+	gem sources --remove http://rubygems.org
+	gem sources -a https://ruby.taobao.org/
+	gem sources --add http://gems.github.com
 
 ### 5.3 安装xcode
 
