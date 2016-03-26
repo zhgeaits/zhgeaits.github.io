@@ -162,7 +162,7 @@ void main()
 
 ### 3.4 创建绘制的View
 
-首先，要知道绘制OpenGL是通过GLSurfaceView，显然，它是继承于SurfaceView的，关于SurfaceView，可以从另外一篇blog知道。我们创建一个MyOpenGLESView，继承GLSurfaceView；然后还要创建一个内部类MyOpenGLESRenderer，它实现了GLSurfaceView.Renderer的接口。
+首先，要知道绘制OpenGL是通过GLSurfaceView，显然，它是继承于SurfaceView的，关于SurfaceView，可以从另外一篇[blog](http://zhgeaits.me/android/2014/03/20/android-surfaceview-study-notes.html)知道。我们创建一个MyOpenGLESView，继承GLSurfaceView；然后还要创建一个内部类MyOpenGLESRenderer，它实现了GLSurfaceView.Renderer的接口。
 
 代码如下：
 
@@ -220,4 +220,4 @@ public class MyOpenGLESView extends GLSurfaceView {
 
 代码和效果就不上了，因为我不建议复制粘贴，直接去github上clone下来，跑起来，动手修改看看吧。[传送门](https://github.com/zhgeaits/AndroidOpenGLESDemo)
 
-另外，demo代码还是很多没有解析的，那些将在后面的blog介绍，关注下一篇，[Android OpenGLES学习之实现弹幕渲染]()。
+另外，demo代码还是很多没有解释清楚的，我也不想在一篇blog就解释那么，首先侧重的是理解OpenGLES的原理机制，以及简单知道它是怎么在android平台上应用的，关于其他细节实现方面，和一些深入的理解，如坐标系等等，那些将在后面的blog介绍，关注下一篇，[Android OpenGLES学习之实现弹幕渲染]()。
