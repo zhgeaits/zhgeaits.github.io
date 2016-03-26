@@ -212,12 +212,21 @@ public class MyOpenGLESView extends GLSurfaceView {
 
 ### 3.5 创建一个三角类
 
-实际的绘制逻辑是在三角形类里面的。首先要初始化三角形的顶点坐标数据和顶点颜色数据，然后初始化着色器。然后在drawSelf方法里面使用着色器程序和传递顶点数据下去即可。
+实际的绘制逻辑是在三角形类里面的。首先要初始化三角形的顶点坐标数据和顶点颜色数据，然后初始化着色器。然后在drawSelf方法里面使用着色器程序和传递顶点数据下去即可。这些细节代码就不粘贴出来了，我们首先关注原理逻辑即可。
 
 ### 3.6 在界面上显示
 
 在Activity里面直接使用MyOpenGLESView即可，注意的是，在onResume和onPause方法分别调用，本质是wait和wake渲染线程。
 
-代码和效果就不上了，因为我不建议复制粘贴，直接去github上clone下来，跑起来，动手修改看看吧。[传送门](https://github.com/zhgeaits/AndroidOpenGLESDemo)
+{% highlight java %}
+
+myview = new MyOpenGLESView(this);
+myview.requestFocus();
+myview.setFocusableInTouchMode(true);
+setContentView(myview);
+
+{% endhighlight %}
+
+详细的代码和效果就不上了，因为我不建议复制粘贴，直接去github上clone下来，跑起来，动手修改看看吧。[传送门](https://github.com/zhgeaits/AndroidOpenGLESDemo)
 
 另外，demo代码还是很多没有解释清楚的，我也不想在一篇blog就解释那么，首先侧重的是理解OpenGLES的原理机制，以及简单知道它是怎么在android平台上应用的，关于其他细节实现方面，和一些深入的理解，如坐标系等等，那些将在后面的blog介绍，关注下一篇，[Android OpenGLES学习之实现弹幕渲染]()。
