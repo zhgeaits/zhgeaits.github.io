@@ -40,7 +40,7 @@ GPU内部有许多处理图形信号的并行处理单元，所以它比CPU的�
 
 重点理解几点：
   
-- 什么是图元，其实就是图像单元；绘制方式有点，线和三角形，分别对应三种图元。
+- 什么是图元，其实就是图像单元；OpenGL绘制图形的时候，是有一个个的图元组合而成的。绘制方式有点，线和三角形，分别对应三种图元。
 - 什么是光栅化，图元在数学上是连续的量，但是在显示器就是离散的像素，所以，光栅化就是把顶点数据转换为片元的过程。
 - 什么是片元，为什么不叫像素？像素是屏幕上的点，那是二维的，但是一个屏幕上的像素在三维中，可能覆盖了很多个像素，于是在三维中不能叫像素，应该叫片元。
 
@@ -52,7 +52,7 @@ GPU内部有许多处理图形信号的并行处理单元，所以它比CPU的�
 
 2.0的最大区别就是多了顶点着色器和片元着色器。
 
-#### 2.2.1 定点着色器
+#### 2.2.1 顶点着色器
 
 什么是顶点？就是几何图形的顶点的意思，例如三角形有3个顶点，矩形有4个顶点，线段只有两个顶点。顶点着色器是就是一个可编程的处理单元，图形的每一个顶点都会经过顶点着色器进行处理转换，产生纹理坐标，颜色，点位置等所需的顶点属性信息。工作原理图如下：
 
@@ -66,7 +66,7 @@ GPU内部有许多处理图形信号的并行处理单元，所以它比CPU的�
 
 uniform mat4 uMVPMatrix; //总变换矩阵
 attribute vec3 aPosition;  //顶点位置
-attribute vec2 aTexCoor;    //顶点纹理坐标
+attribute vec2 aTexCoor;    //纹理坐标
 varying vec2 vTextureCoord;  //用于传递给片元着色器的变量
 void main()     
 {                            		
@@ -92,7 +92,7 @@ varying数据是从顶点着色器来的；uniform通常是纹理的数据。
 
 {% highlight bash %}
 
-precision mediump float;
+precision mediump float;//告诉精度是float
 varying vec2 vTextureCoord; //接收从顶点着色器过来的参数
 uniform sampler2D sTexture;//纹理内容数据
 void main()                         
@@ -158,7 +158,7 @@ void main()
 
 ### 3.3 创建一个工具类来加载着色器代码
 
-基本的步骤是，首先创建着色器shader，然后加载着色器代码（vertex.sh/frag.sh），再编译这些代码，最后创建一个gl程序，attach这些编译的代码，最终链接程序即可。这里就不上代码了
+基本的步骤是，首先创建着色器shader，然后加载着色器代码（vertex.sh/frag.sh），再编译这些代码，最后创建一个gl程序，attach这些编译的代码，最终链接程序即可。这里就不上代码了，直接去看ShaderUtils这个类即可。
 
 ### 3.4 创建绘制的View
 
@@ -229,4 +229,4 @@ setContentView(myview);
 
 详细的代码和效果就不上了，因为我不建议复制粘贴，直接去github上clone下来，跑起来，动手修改看看吧。[传送门](https://github.com/zhgeaits/AndroidOpenGLESDemo)
 
-另外，demo代码还是很多没有解释清楚的，我也不想在一篇blog就解释那么，首先侧重的是理解OpenGLES的原理机制，以及简单知道它是怎么在android平台上应用的，关于其他细节实现方面，和一些深入的理解，如坐标系等等，那些将在后面的blog介绍，关注下一篇，[Android OpenGLES学习之实现弹幕渲染]()。
+另外，demo代码还是很多没有解释清楚的，我也不想在一篇blog就解释那么，首先侧重的是理解OpenGLES的原理机制，以及简单知道它是怎么在android平台上应用的，关于其他细节实现方面，和一些深入的理解，如坐标系等等，那些将在后面的blog介绍，关注下一篇，[Android OpenGLES学习之实现弹幕渲染](http://zhgeaits.me/android/2016/02/27/android-opengles-danmaku-study-notes.html)。
