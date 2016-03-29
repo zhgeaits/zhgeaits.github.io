@@ -58,7 +58,7 @@ GPU内部有许多处理图形信号的并行处理单元，所以它比CPU的�
 
 ![alt opengles2.0vertexshader](/image/opengles2.0vertexshader.png "opengles2.0vertexshader")
 
-其中attribute是每个顶点各自不同信息所属的变量，一般包含顶点坐标和顶点纹理坐标，通过高级语言传输下来的；uniform是全局变量，是通过高级语言传输下来的数据；varying是产生输出到片元着色器的数据，一般是纹理坐标。
+其中attribute是每个顶点各自不同信息所属的变量，一般包含顶点坐标和顶点纹理坐标，通过高级语言传输下来的；uniform是全局变量，是通过高级语言传输下来的数据；varying是产生输出到片元着色器的数据，一般是纹理坐标。然后就是你编写代码的临时变量和gl_xxx的内置变量了。
 
 一个顶点着色器例子代码如下：
 
@@ -75,6 +75,8 @@ void main()
 }
 
 {% endhighlight %}
+
+可以看到，gl语言并不复杂，类似于c，uniform，attribute，varying都是关键字，mat4，vec3，vec2分别是数据类型，分别是4维矩阵，3维向量和2维向量的意思。
 
 #### 2.2.2 片元着色器
 
