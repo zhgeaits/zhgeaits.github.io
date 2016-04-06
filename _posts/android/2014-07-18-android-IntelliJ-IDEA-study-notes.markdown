@@ -208,6 +208,10 @@ Error:java: Compilation failed: internal java compiler error
 		<td>Ctrl + Alt + I</td>
 		<td>Indent，自动跳到适合位置，不用多次tab键，超爽。</td>
 	</tr>
+	<tr>
+		<td>Ctrl + Shift + J</td>
+		<td>多行合并成一行</td>
+	</tr>
 </table>
 
  
