@@ -183,7 +183,7 @@ T result = resultType.newInstance();
 
 开头就说了，因为java的设计者要兼容到过去版本的代码，所以做了一个折中，达到迁移兼容性，保留原生的类库。于是乎，在泛型代码内部，无法获取任何有关泛型参数类型的信息，这些类型信息全都被擦除了。也就是说，下面代码是等价的：
 
->new ArrayList<String>() == new ArrayList<Integer>();
+	new ArrayList<String>() == new ArrayList<Integer>();
 
 在C++的模板里面，可以直接写t.f();模板是编译通过的，但是在实例化使用这个模板的类的时候，如果对应的泛型T没有f这个方法就会报错。但是，在java中，编译就已经通不过了，就是因为擦除了T的所有信息。
 
