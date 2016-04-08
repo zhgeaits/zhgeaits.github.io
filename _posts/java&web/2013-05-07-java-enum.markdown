@@ -1,0 +1,136 @@
+---
+layout: post
+title: "Java系列之枚举类型"
+date: 2013-05-07 13:12:54
+categories: java
+type: java&web
+---
+
+## 1 理解枚举类型
+
+初次听到枚举这个词是在小学学习穷举法的时候，那也叫枚举算法，意思就是把所有的情况都穷举出来，最后选取最好的结果。其实枚举的意思就是元素个数是有限的集合，那么枚举类型也是说规定了类型的范围。例如，我们定义一个类型是星期，那么它就只有七种可能而已。但是我们通常使用枚举类型的情况比较少，因为一般情况通过定义常量的方式就能代替了，而且更好理解。而实际上是我们对枚举类型理解得不够多，不知道如何正确使用，例如，用枚举结合switch是一个很好的组合使用，因为枚举是有限的，而且省去了default的分支。
+
+为什么使用枚举，也许比较重要的一个原因是优雅和清晰吧，正是因为它们区分了成功的解决方案与失败的解决方案，通常失败的解决方案就是因为其他人无法理解它。
+
+## 2 使用方法
+
+先来看看如何定义使用枚举类型。
+
+### 2.1 定义
+
+先看看一个简单的定义和使用：
+
+{% highlight java %}
+
+enum WeekDays {
+	MON, TES, WED, THUR, FRI, SAT, SUN
+}
+public class TestEnum {
+	public static void main(String[] args) {
+		for(WeekDays day : WeekDays.values()) {
+			System.out.println(day);
+			System.out.println(day.compareTo(WeekDays.FRI));
+			System.out.println(day.equals(WeekDays.SUN));
+			System.out.println(day == WeekDays.SAT);
+			System.out.println(day.getDeclaringClass());
+			System.out.println(day.name());
+			System.out.println(day.ordinal());
+		}
+	}
+}
+
+{% endhighlight %}
+
+可以看到语法非常简单，只用一个`enum`关键字就可以了，一般里面的类型我们都用大写命名的，因为它和常量一样！不过，平时我们还真用得少枚举类型，因为潜意识里面没有想到要用枚举。
+
+### 2.2 枚举的方法
+
+class类是一种类型，enum枚举也是一种类型，两者是有相似之处的，对于枚举的每个值就相当于类的每一个实例，并且，可以调用相关的方法。由2.1看到可以调用很多的方法，其实，每一个枚举类型实际上是继承与Enum类的，就像每个类都默认继承Object类一样。所以，默认每个枚举类型都有`toString()`方法的。实际上，枚举类型就像我们定义的`final static int`一样，本质就是整型，从0开始，所以它可以结合switch来使用；要获取它的int值就调用`ordinal()`即可；因此要比较枚举类型的时候，不管用哪种比较方法都是一样的，比较的不是引用，而是int值。
+
+除了可以使用枚举类型继承自Enum的方法外，我们也可以覆盖重写父类方法，定义自己的方法。还可以写构造方法，但是构造方法默认就是private的，因为只能内部调用，不能外部调用；实际上，枚举里面的每一个值都是这个枚举类型的实例。要编写方法，必须在最后一个枚举实例后加一个分号。既然可以定义方法，那就也可以定义属性的了。
+
+例子如下：
+
+{% highlight java %}
+
+enum LikeClass {
+	ZHANG("zhang"),
+	GE("ge"),
+	HANDSOME("handsome"),
+	BOY("boy");
+	
+	private String desc;
+	
+	private LikeClass(String desc) {
+		this.desc = desc;
+	}
+	
+	public String getDesc() {
+		return desc;
+	}
+}
+
+{% endhighlight %}
+
+这样就清晰明白很多了，这跟常规的类非常的像，实际上枚举的每一个值都是枚举类型的实例，而且必须定义在前（为什么？）。如果定义了一个abstract方法，那么在实例的时候就必须实现这个方法了，这不就是多态的表现么！
+
+### 2.2 实现接口
+
+枚举可以定义属性，方法，但是不能继承别的类了，因为它继承了Enum，却可以实现接口，虽然这我们根本就很少用到，例如：
+
+{% highlight java %}
+
+interface Course {
+	
+}
+enum Yuwen implements Course {
+	GUWEN, ZUOWEN
+}
+
+{% endhighlight %}
+
+## 3 高阶理解
+
+在2.1中的WeekDays实际上是编译成了一个独立的class文件，我们可以反编译它看看是什么：
+
+>使用反编译工具：http://jd.benow.ca/jd-gui/downloads/#jd-gui
+
+### 3.1 关于Values()方法
+
+直接调用`LikeClass.values()`可以返回枚举的所有实例，我们直接去看Enum类，发现里面根本没有这个方法，用反射却能get到这个Method，反编译会发现，实际上，这是由编译器添加的static方法。如果我们向上转型为Enum的时候，就不能调用values()方法了，但是jdk在class给我们提供了`getEnumConstanst()`方法，依旧能获取所有的枚举实例。
+
+通常会写这样一个工具类来随机获取一个枚举类型的实例：
+
+{% highlight java %}
+
+public class Enums {
+	private static Random rand = new Random(47);
+	public static <T extends Enum<T>> T random(Class<T> ec) {
+		return random(ec.getEnumConstants());
+	}
+	public static <T> T random(T[] values) {
+		return values[rand.nextInt(values.length)];
+	}
+}
+
+{% endhighlight %}
+
+`<T extends Enum<T>>`这是在声明T就是一个枚举类型，因为前面说了，枚举类型是继承于Enum的。直接调用`Enums.random(LikeClass.class)`即可使用了。
+
+### 3.2 枚举的本质
+
+在2.1说到为什么枚举实例必须在方法之前，因为每一个实例都是static final的常量，实际上枚举也就是一个abstract class，很多行为方法的东西都是编译器加上去的。
+
+## 4 高阶运用
+
+枚举还有很多高级的用法，这些高级的用法可以使得性能更好，代码更加优雅清晰。
+
+### 4.1 使用EnumSet和EnumMap
+
+其实Enum的特性和Set有类似之处，但是Enum不能添加和删除枚举实例，如果需要这种功能的话，就可以使用EnumSet了，里面是用bit来实现的，实际上就是用long类型，超过64位的时候会自动扩容的。
+
+而EnumMap是一种特殊的map，key必须是enum类型，内部是用数组实现的，速度很快。
+
+### 4.2 运用枚举于设计模式
+
+在责任链设计模式，状态机，多路分发中都是可以使用到枚举的，这些地方都是比较适合或者可以使用枚举，当然也可以不使用，只不过是运用以后会比较优雅清晰，特别是状态机的时候。
