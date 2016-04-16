@@ -34,7 +34,11 @@ git是一个重量级的分布式版本控制器，详情看我另外一篇blog�
 
 ## 3 Linux下搭建github-blog环境
 
+Todo here
+
 ## 4 Windows下搭建github-blog环境
+
+虽然不喜欢windows，但是还是很常用的，也要在windows下搭建这个环境，方便编辑。
 
 ### 4.1 安装ruby（赶紧去学习吧！！！）
 
@@ -137,6 +141,7 @@ gem 'github-pages'
 >bundle exec jekyll serve --watch
 
 具体Bundle详情看jekyll的官网：
+
 >http://jekyllrb.com/docs/github-pages/
 
 ### 4.7 TroubleShooting
