@@ -3,6 +3,7 @@ layout: post
 title:  "Android开发IDE之IntelliJ IDEA使用，DIY设置，快捷键，常用技巧!"
 date:   2014-07-18 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

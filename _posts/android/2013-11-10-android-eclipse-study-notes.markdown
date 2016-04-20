@@ -3,6 +3,7 @@ layout: post
 title:  "Android的Eclipse的使用记录，常用设置，技巧等记录!"
 date:   2013-11-10 10:10:10
 categories: android
+supertype: career
 type: android
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Unix初级编程学习笔记"
 date:   2013-06-06 19:12:03
 categories: Unix
+supertype: career
 type: other
 ---
 

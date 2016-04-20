@@ -3,6 +3,7 @@ layout: post
 title: "JavaWeb开发神器IDE之MyEclipse"
 date: 2012-03-06 09:15:24
 categories: frontend
+supertype: career
 type: java&web
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "关于Http&DNS的理解与学习"
 date:   2012-05-13 11:00:03
 categories: other
+supertype: career
 type: basic
 ---
 

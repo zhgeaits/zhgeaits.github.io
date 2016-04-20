@@ -3,6 +3,7 @@ layout: post
 title:  "快速开发web站点的轻量级脚本语言PHP"
 date:   2011-05-07 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title: "Java系列之枚举类型"
 date: 2013-05-07 13:12:54
 categories: java
+supertype: career
 type: java&web
 ---
 

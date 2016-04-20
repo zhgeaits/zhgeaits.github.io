@@ -3,6 +3,7 @@ layout: post
 title:  "关于SCM项目管理，VCS版本控制的理解以及集中式与分布式的区别理解"
 date:   2013-03-06 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

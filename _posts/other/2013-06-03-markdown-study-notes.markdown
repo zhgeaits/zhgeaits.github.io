@@ -3,6 +3,7 @@ layout: post
 title:  "编写这个blog的轻量级标记语言markdown的一些备忘使用记录"
 date:   2013-06-03 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

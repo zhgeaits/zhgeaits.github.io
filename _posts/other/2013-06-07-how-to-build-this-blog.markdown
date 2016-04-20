@@ -3,6 +3,7 @@ layout: post
 title:  "这个Blog是如何搭建的"
 date:   2013-06-07 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

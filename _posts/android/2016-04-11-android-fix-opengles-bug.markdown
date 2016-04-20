@@ -3,6 +3,7 @@ layout: post
 title:  "记录解决一个Android OpenGLES纹理绘制错误混乱的问题过程"
 date:   2016-04-11 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

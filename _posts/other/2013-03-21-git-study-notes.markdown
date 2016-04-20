@@ -3,6 +3,7 @@ layout: post
 title:  "重量级分布式版本控制器Git教程"
 date:   2013-03-21 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

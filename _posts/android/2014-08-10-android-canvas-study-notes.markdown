@@ -3,6 +3,7 @@ layout: post
 title:  "Android的Canvas类, Paint类, Color类, ColorMatrix类, Matrix类学习笔记!"
 date:   2014-08-10 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

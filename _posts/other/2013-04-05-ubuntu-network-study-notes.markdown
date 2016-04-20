@@ -3,6 +3,7 @@ layout: post
 title:  "Ubuntu下的网络设置"
 date:   2013-04-05 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

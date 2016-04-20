@@ -3,6 +3,7 @@ layout: post
 title: "阿里巴巴终试"
 date: 2013-06-03 17:44:00
 type: other
+supertype: career
 categories: other
 ---
 

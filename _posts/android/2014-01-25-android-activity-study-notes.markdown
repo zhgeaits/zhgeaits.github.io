@@ -3,6 +3,7 @@ layout: post
 title:  "Android的四大组件之Activity界面学习笔记!"
 date:   2014-01-25 15:00:01
 categories: android
+supertype: career
 type: android
 ---
 

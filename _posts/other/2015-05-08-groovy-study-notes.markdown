@@ -3,6 +3,7 @@ layout: post
 title:  "Groovy语言学习笔记"
 date:   2015-05-08 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

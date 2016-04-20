@@ -3,6 +3,7 @@ layout: post
 title:  "腾达无线网卡832U安装记录"
 date:   2013-06-07 17:00:03
 categories: linux
+supertype: career
 type: other
 ---
 

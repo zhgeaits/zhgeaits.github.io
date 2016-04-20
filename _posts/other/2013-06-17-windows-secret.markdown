@@ -3,6 +3,7 @@ layout: post
 title: "关于Windows你不知道的秘密"
 date: 2013-06-17 12:49:03
 categories: os
+supertype: career
 type: other
 ---
 

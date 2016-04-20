@@ -3,6 +3,7 @@ layout: post
 title:  "关系型数据库"
 date:   2012-09-27 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

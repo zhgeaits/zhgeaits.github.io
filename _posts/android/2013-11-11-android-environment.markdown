@@ -3,6 +3,7 @@ layout: post
 title:  "Android的开发环境搭建!"
 date:   2013-11-11 11:11:11
 categories: android
+supertype: career
 type: android
 ---
 

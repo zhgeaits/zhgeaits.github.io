@@ -3,6 +3,7 @@ layout: post
 title:  "Linux下进行连接vpn"
 date:   2012-03-06 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title: "Java操作office文件的解决方案之POI框架"
 date: 2012-02-27 01:15:24
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

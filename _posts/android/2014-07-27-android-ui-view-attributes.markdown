@@ -3,6 +3,7 @@ layout: post
 title:  "Android的View学习"
 date:   2014-07-27 10:00:03
 categories: android
+supertype: career
 type: android
 ---
 

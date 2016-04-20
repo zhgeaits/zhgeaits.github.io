@@ -3,6 +3,7 @@ layout: post
 title:  "C语言学习手记"
 date:   2013-06-08 15:00:03
 categories: c
+supertype: career
 type: other
 ---
 

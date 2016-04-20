@@ -3,6 +3,7 @@ layout: post
 title:  "Linux下shell编程"
 date:   2013-06-10 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "网站开发需要学习的第三门技术JavaScript"
 date:   2011-03-11 11:00:03
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

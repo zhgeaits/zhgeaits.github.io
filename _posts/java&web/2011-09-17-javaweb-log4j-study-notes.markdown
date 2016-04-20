@@ -3,6 +3,7 @@ layout: post
 title: "Java中最流行的日志框架log4j"
 date: 2011-09-17 01:15:24
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

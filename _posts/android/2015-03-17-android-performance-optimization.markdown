@@ -3,6 +3,7 @@ layout: post
 title:  "Android的应用性能优化，方法数优化，内存分析"
 date:   2015-03-17 10:06:03
 categories: android
+supertype: career
 type: android
 ---
 

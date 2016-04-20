@@ -3,6 +3,7 @@ layout: post
 title: "Java系列之线程并发"
 date: 2013-06-19 23:12:54
 categories: java
+supertype: career
 type: java&web
 ---
 

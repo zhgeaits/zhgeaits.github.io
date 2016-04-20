@@ -3,6 +3,7 @@ layout: post
 title: "JavaWeb服务器页面JSP组件"
 date: 2011-03-26 01:15:24
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Linux下的神级文本编辑器vim/vi"
 date:   2013-05-02 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

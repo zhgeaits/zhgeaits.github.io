@@ -3,6 +3,7 @@ layout: post
 title: "相对较为重量级的ORM框架Hibernate"
 date: 2011-08-11 01:15:24
 categories: technology
+supertype: career
 type: java&web
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Android的九宫格图理解与学习笔记!"
 date:   2014-08-01 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

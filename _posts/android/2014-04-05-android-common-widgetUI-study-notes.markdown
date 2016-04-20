@@ -3,6 +3,7 @@ layout: post
 title:  "Android的常用UI学习笔记&会持续更新的!"
 date:   2014-04-05 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

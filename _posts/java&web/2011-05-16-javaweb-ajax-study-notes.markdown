@@ -3,6 +3,7 @@ layout: post
 title: "异步刷新技术"
 date: 2011-05-16 01:15:24
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

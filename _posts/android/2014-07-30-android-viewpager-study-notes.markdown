@@ -3,6 +3,7 @@ layout: post
 title:  "Android的ViewPager学习笔记!"
 date:   2014-07-30 07:30:00
 categories: android
+supertype: career
 type: android
 ---
 

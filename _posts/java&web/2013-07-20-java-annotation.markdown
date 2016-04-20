@@ -3,6 +3,7 @@ layout: post
 title: "Java系列之注解Annotation"
 date: 2013-07-20 13:12:54
 categories: java
+supertype: career
 type: java&web
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Java系列之泛型"
 date:   2013-02-20 11:00:03
 categories: java
+supertype: career
 type: java&web
 ---
 

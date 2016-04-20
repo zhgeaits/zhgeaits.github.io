@@ -3,6 +3,7 @@ layout: post
 title:  "在Linux下使用MediaWiki搭建wiki系统"
 date:   2013-04-05 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

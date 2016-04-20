@@ -3,6 +3,7 @@ layout: post
 title:  "Android的广播接收者类学习笔记!"
 date:   2014-01-27 15:00:01
 categories: android
+supertype: career
 type: android
 ---
 这个东西很简单，但是时间一长总是容易忘记，容易混淆！BroadcastReceiver是android四大组件之一，注意，

@@ -3,6 +3,7 @@ layout: post
 title: "伟大的框架SpringFramework"
 date: 2011-08-15 01:15:24
 categories: javaweb
+supertype: career
 type: java&web
 ---
 

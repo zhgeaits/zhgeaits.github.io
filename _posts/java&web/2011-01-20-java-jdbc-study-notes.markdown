@@ -3,6 +3,7 @@ layout: post
 title:  "Java Database Connection(JDBC)Java连接数据库"
 date:   2011-01-20 11:00:03
 categories: java
+supertype: career
 type: java&web
 ---
 

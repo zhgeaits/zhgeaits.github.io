@@ -3,6 +3,7 @@ layout: post
 title:  "Java系列之GC垃圾回收机制"
 date:   2013-06-02 16:00:03
 categories: java
+supertype: career
 type: java&web
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Android OpenGLES学习之入门理解"
 date:   2014-10-16 10:06:03
 categories: android
+supertype: career
 type: android
 ---
 

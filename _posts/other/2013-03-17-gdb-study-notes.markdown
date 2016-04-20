@@ -3,6 +3,7 @@ layout: post
 title:  "Ubuntu下GDB调试C语言程序"
 date:   2013-03-17 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

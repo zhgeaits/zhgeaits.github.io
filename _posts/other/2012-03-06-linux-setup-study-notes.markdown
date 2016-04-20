@@ -3,6 +3,7 @@ layout: post
 title:  "linux装机配置记录"
 date:   2012-03-06 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

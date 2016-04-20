@@ -3,6 +3,7 @@ layout: post
 title:  "Android的View，ViewGroup，Window，WindowManager学习笔记!"
 date:   2014-02-05 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

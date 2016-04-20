@@ -3,6 +3,7 @@ layout: post
 title:  "轻量级分布式版本控制器Hg/Mercurial教程"
 date:   2011-08-02 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

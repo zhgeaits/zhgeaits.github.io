@@ -3,6 +3,7 @@ layout: post
 title:  "Android的动画Animation学习笔记!"
 date:   2014-05-20 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

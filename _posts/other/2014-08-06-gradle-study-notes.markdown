@@ -3,6 +3,7 @@ layout: post
 title:  "新秀项目构建神器之Gradle"
 date:   2014-08-05 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

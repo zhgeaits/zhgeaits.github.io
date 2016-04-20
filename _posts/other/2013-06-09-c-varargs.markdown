@@ -3,6 +3,7 @@ layout: post
 title:  "C语言的不定参数学习"
 date:   2013-06-09 10:00:00
 categories: c
+supertype: career
 type: other
 ---
 

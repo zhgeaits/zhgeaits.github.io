@@ -3,6 +3,7 @@ layout: post
 title: "关于Cookie和Session"
 date: 2013-06-11 01:15:24
 categories: frontend
+supertype: career
 type: java&web
 ---
 

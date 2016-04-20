@@ -3,6 +3,7 @@ layout: post
 title:  "Android的ListView学习笔记!"
 date:   2014-03-15 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

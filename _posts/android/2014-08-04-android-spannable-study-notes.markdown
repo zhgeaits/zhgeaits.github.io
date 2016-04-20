@@ -3,6 +3,7 @@ layout: post
 title:  "Android的Spannable, SpannableString，SpannableStringBuilder，ImageSpan学习笔记!"
 date:   2014-08-04 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

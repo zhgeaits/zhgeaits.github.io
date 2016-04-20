@@ -3,6 +3,7 @@ layout: post
 title:  "Android的Fragment片段，响应式用户界面学习笔记!"
 date:   2014-05-28 11:00:03
 categories: android
+supertype: career
 type: android
 ---
 

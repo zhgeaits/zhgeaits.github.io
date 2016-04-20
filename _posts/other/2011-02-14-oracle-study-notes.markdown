@@ -3,6 +3,7 @@ layout: post
 title:  "重量级关系型数据库oracle"
 date:   2011-02-14 11:00:03
 categories: other
+supertype: career
 type: other
 ---
 

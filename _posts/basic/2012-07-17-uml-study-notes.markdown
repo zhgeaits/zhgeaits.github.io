@@ -3,6 +3,7 @@ layout: post
 title:  "作为面向对象的程序员，不懂UML，不如回家种番薯"
 date:   2012-07-17 11:00:03
 categories: uml
+supertype: career
 type: basic
 ---
 
