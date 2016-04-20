@@ -30,6 +30,8 @@ In five-grade class, I was confused with no real hobbies except did the study we
 
 Thanks to my parents, they bought me a computer which was so rare and expensive in china at that time. Without playing games, I began to learn a computer language named Q-basic to solve simple math problem, which had amazed me because I have found that I can communicate with machines. Pretty exciting, programming is not so hard for me as a child. And then I won the third prize when I took part in the computer competition named NOIP in the city. From then on I have interest in computer programming.
 
+In my middle school period, I was impressed by hacker techniques so that I learn a lot tools in bbs. The crazy things I did was that I hackered the software in school named Recovery Genius by using the winhex to get password. And I also learned trojan horses program to hacker others QQ password. Sometimes just for fun, I used windows command 'shutdown' to shutdown the other class's computer when the student using it to play games or watch movies.
+
 ### What am I seeking for
 
 I started to learn another computer language pascal when I went to senior school. Unfortunately, I didn’t have a good tutor at that time, so I didn’t have any chance to learn algorithm and data structure or other programming stuffs. You know I cannot access network easily at that time. There is no wifi, no bbs and no github! But I began learn algorithm and data structure by reading books myself which it's so hard for me to understand new concept like stack, list, binary tree，deep/wide search, dynamic programming, system and so on. Another side I have to spend all time on normal compulsory studying and I must focus on it. So I quit!
