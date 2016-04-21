@@ -116,7 +116,6 @@ type: life
 </table>
 
 
-dllhost.exe
 用FP
 Comparable
 学习rpc相关东西，有时间自己写一个android的web-rpc框架：搜索一下关键字

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RSS的理解"
+title: "关于对RSS的理解"
 date: 2013-06-11 01:23:14
 categories: xml
 supertype: career
@@ -24,7 +24,10 @@ RSS阅读器只要订阅我的blog，就是记住我的xml文件的url就可以�
 但是，RSS阅读器还是需要知道你这个xml文件的url啊，所以要在网页上添加这个标签：
 
 {% highlight html %}
-<link rel="alternate" type="application/rss+xml" title="{{ site\.name }}" href="{{ site\.url }}/feed.xml">
+<link 	rel="alternate" 
+		type="application/rss+xml" 
+		title="{{ site\.name }}" 
+		href="{{ site\.url }}/feed.xml">
 {% endhighlight %}
 
 如此一来，就算订阅的时候填blog的地址就能找到xml文件了。
@@ -34,7 +37,10 @@ RSS阅读器只要订阅我的blog，就是记住我的xml文件的url就可以�
 注册以后，添加github的blog作为一个feed，并生成永久的地址，然后修改原来的xml link，并加入一个图标超链接：
 
 {% highlight html %}
-<link rel="alternate" type="application/atom+xml" title="{{ site.name }}" href="http://feed.feedsky.com/zhgeaits">
+<link 	rel="alternate" 
+		type="application/atom+xml" 
+		title="{{ site.name }}" 
+		href="http://feed.feedsky.com/zhgeaits">
 <a id="subscribe" href="http://feed.feedsky.com/zhgeaits">
 	<img src="/image/rss.png" alt="Subscribe to RSS Feed" id="rsspic"/>
 </a>
