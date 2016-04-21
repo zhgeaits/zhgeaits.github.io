@@ -113,13 +113,8 @@ type: life
 <td>24</td><td>2015-08-08</td><td>9</td><td>整理android知识：双击，瀑布流，混淆，listview无滚动条，camera权限，浮窗的输入框，size span，progressbar style，动态构建selector，SectionIndexer，SwipeRefreshLayout，屏幕方向，监听，各个参数意义区别等，activity group</td><td>30%</td><td>进行中</td><td>总结android的知识</td>
 </tr>
 
+<tr>
+<td>25</td><td>2016-03-08</td><td>9</td><td>实现webrpc的框架，根据自己的专利文档来写吧。</td><td>0%</td><td>进行中</td><td>学习rpc相关东西，有时间自己写一个android的web-rpc框架：搜索一下关键字 axis2 webservice android soap 协议 java rmi 分布式对象</td>
+</tr>
+
 </table>
-
-
-用FP
-Comparable
-学习rpc相关东西，有时间自己写一个android的web-rpc框架：搜索一下关键字
-axis2  webservice
-android soap 协议
-java rmi
-分布式对象
