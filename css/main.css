@@ -66,7 +66,7 @@ ul.posts span {
 }
 
 #home {
-  width: 65em;
+  width: 53em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
@@ -94,7 +94,7 @@ ul.posts span {
 }
 
 #motofooter {
-	width: 65em;
+	width: 57em;
    	text-align: right;
     background-color:#005b7f;
     padding:0;
@@ -121,7 +121,7 @@ ul.posts span {
 #motohead {
     margin:0px auto auto auto;
     padding: 0;
-	width: 65em;
+	width: 51em;
     line-height: 1.5em;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 16px;
@@ -147,7 +147,7 @@ ul.posts span {
 }
 
 .site .header {
-  width: 65em;
+  width: 54em;
   margin-right: auto;
   margin-left: auto;
 }
@@ -188,7 +188,7 @@ ul.posts span {
 .site .footer {
   font-size: 80%;
   color: #666;
-  width: 80em;
+  width: 71em;
   margin-top: 2em;
   margin-left: auto;
   margin-right: auto;
