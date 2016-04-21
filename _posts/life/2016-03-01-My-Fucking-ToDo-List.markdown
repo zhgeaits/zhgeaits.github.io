@@ -39,18 +39,6 @@ type: life
 </tr>
 
 <tr>
-<td>7</td><td>2013-07-20</td><td>9</td><td>整理java注解的笔记，并写一篇blog记录《学习Java注解Annotation之笔记》</td><td>0%</td><td>进行中</td><td>好好整理java的基础知识</td>
-</tr>
-
-<tr>
-<td>8</td><td>2013-06-19</td><td>8</td><td>整理java线程的学习笔记，主要在blog上</td><td>50%</td><td>进行中</td><td>好好整理java的基础知识</td>
-</tr>
-
-<tr>
-<td>9</td><td>2013-04-01</td><td>8</td><td>整理java异常笔记，并记录在blog</td><td>10%</td><td>进行中</td><td>子类中方法抛出的异常范围不能大于父类中方法抛出的异常的范围的原则，子类可以不抛出异常也满足该原则</td>
-</tr>
-
-<tr>
 <td>10</td><td>2013-05-25</td><td>5</td><td>温习排序算法，写一篇blog</td><td>0%</td><td>搁浅中</td><td>好像记熟快速排序那样记住堆排序</td>
 </tr>
 
@@ -63,10 +51,6 @@ type: life
 
 <tr>
 <td>12</td><td>2013-11-01</td><td>4</td><td>写一个班级贪吃蛇游戏</td><td>0%</td><td>搁浅中</td><td>当时就是想做一个东西给班级而已</td>
-</tr>
-
-<tr>
-<td>13</td><td>2013-12-12</td><td>10</td><td>看完这本书精彩绝伦的Android UI设计：响应式用户界面与设计模式</td><td>100%</td><td>已完成</td><td>学习android必看</td>
 </tr>
 
 <tr>
@@ -90,39 +74,11 @@ type: life
 </tr>
 
 <tr>
-<td>19</td><td>2014-11-20</td><td>10</td><td>看书《挪威的森林》</td><td>100%</td><td>已完成</td><td>电影了看过了，还想去重温一遍</td>
-</tr>
-
-<tr>
-<td>20</td><td>2014-03-17</td><td>4</td><td>看完这本书图灵交互设计丛书：Android应用UI设计模式</td><td>10%</td><td>搁浅中</td><td>感觉这本书没什么用，但是还是要看看</td>
-</tr>
-
-<tr>
-<td>21</td><td>2014-04-04</td><td>5</td><td>学习unity</td><td>10%</td><td>搁浅中</td><td>以前做过一个unity的项目，还是由必要学习的</td>
-</tr>
-
-<tr>
 <td>22</td><td>2015-02-26</td><td>4</td><td>还是需要认真学习一下ps吧，记录blog</td><td>10%</td><td>被搁浅了</td><td>因为想要做自由开发者，又由于自己美术UI方面实在不行，所以下决心想要学习ps技术</td>
 </tr>
 
 <tr>
-<td>23</td><td>2015-05-08</td><td>5</td><td>学习groovy这么java的分支语言，记录blog</td><td>30%</td><td>被搁浅了</td><td>因为gradle所以想要学习这语言</td>
-</tr>
-
-<tr>
-<td>24</td><td>2015-11-23</td><td>10</td><td>看书《黑客与画家》，有感想就写一篇blog</td><td>90%</td><td>进行中</td><td>书已经看完了，写一篇《关于思维方式和设计思想》感想吧</td>
-</tr>
-
-<tr>
-<td>25</td><td>2015-06-17</td><td>10</td><td>看书《三体》</td><td>100%</td><td>已完成</td><td>好书，后悔当初没早点看</td>
-</tr>
-
-<tr>
-<td>26</td><td>2015-07-11</td><td>7</td><td>看书《1Q84》</td><td>20%</td><td>进行中</td><td>一共有三部，还在看第一部</td>
-</tr>
-
-<tr>
-<td>27</td><td>2015-07-11</td><td>7</td><td>看书《平凡的世界》</td><td>40%</td><td>进行中</td><td>一共有三部，已经看完第一部，现在看第二部</td>
+<td>23</td><td>2015-05-08</td><td>5</td><td>学习groovy这门java的分支语言，记录blog</td><td>30%</td><td>被搁浅了</td><td>因为gradle所以想要学习这语言</td>
 </tr>
 
 <tr>
@@ -154,10 +110,6 @@ type: life
 </tr>
 
 <tr>
-<td>35</td><td>2015-02-01</td><td>8</td><td>看完这本书Android C++高级编程</td><td>100%</td><td>已完成</td><td>是为了做播放器而看的，已经看完需要的了，但是没有总结在blog</td>
-</tr>
-
-<tr>
 <td>36</td><td>2015-07-07</td><td>5</td><td>看这些技术书:代码之美,代码大全,Effective JAVA,编程珠玑深入理解计算机系统,编程之美,Android应用性能优化重构：改善既有代码的设计</td><td>10%</td><td>进行中</td><td>好多书要看，看完要总结一下</td>
 </tr>
 
@@ -167,10 +119,6 @@ type: life
 
 <tr>
 <td>38</td><td>2015-08-08</td><td>5</td><td>学习ruby语言</td><td>10%</td><td>搁浅中</td><td>这个blog就是ruby搭建的，必须学</td>
-</tr>
-
-<tr>
-<td>39</td><td>2015-01-12</td><td>10</td><td>学习opengles</td><td>40%</td><td>进行中</td><td>红蓝播放器需要的，然后学会了，也做出了一个blog，但是还有很多东西想要学习</td>
 </tr>
 
 <tr>
