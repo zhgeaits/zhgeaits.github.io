@@ -52,93 +52,93 @@ type: life
 ### [单单通](http://dandantong.com:81/)
 
 - **时间：**2015/08 - 2016/01
-- **人员：**一个后端 + 一个Android + 一个IOS + 一个产品
-- **涉及：**Android，环信SDK等各种sdk
-- 这是业余时间做的一个外包项目，涉及到三端，而我主要负责android开发；这个项目技术上没有难点，而是在于业务极其复杂，几乎每个领域都涉及一些功能，集大成者；而且用户产品定位，需求不定，影响开发进度。不过这过程中也是锻炼了我产品，管理，交流等方面的能力。
+- **人员：**一个后端 + 一个Android + 一个iOS + 一个产品
+- **涉及：**Android，环信SDK等各种SDK
+- 这是业余时间做的一个外包项目，涉及到三端，而我主要负责Android开发；这个项目技术上没有难点，而是在于业务极其复杂，几乎每个领域都涉及一些功能，集大成者；而且用户产品定位，需求不定，影响开发进度。不过这过程中也是锻炼了我产品，管理，交流等方面的能力。
 
 ### [红蓝3D播放器RBPlayer](https://play.google.com/store/apps/details?id=org.zhangge.rbplayerpro)
 
 - **时间：**2015/03
 - **人员：**一人
 - **涉及：**Android，OpenGLES，红蓝3D算法
-- 这是业余个人爱好开发；看到暴风影音有红蓝3D功能，反编以后发现是ffmpeg实现，属于软解码，性能差，于是打算开发一个比它更好的，突破点在于渲染，播放器使用MediaPlayer进行硬解码。从国外文献中学习到6种3D算法以后花了一个星期学习OpenGLES，总共不到两个星期就完成了开发。这个技术难点在于OpenGL，它需要不同以往的编程思维转变才能掌握，我凭着极强的自学能力，在没有任何人的帮助之下完成了。未来会考虑加入单图转换3D和开源。
+- 这是业余个人爱好开发；看到暴风影音有红蓝3D功能，反编以后发现是ffmpeg实现，属于软解码，性能差，于是打算开发一个比它更好的，突破点在于渲染，播放器使用MediaPlayer进行硬解码。从国外文献中学习到6种3D算法以后花了一个星期学习OpenGLES，总共不到两个星期就完成了开发。这个技术难点在于OpenGLES，它需要不同以往的编程思维转变才能掌握，我凭着极强的自学能力，在没有任何人的帮助之下完成了。未来会考虑加入单图转换3D和开源。
 
 ### [弹幕吐槽图](http://www.wandoujia.com/apps/org.zgmlt.ttkmz2)
 
 - **时间：**2015/02
 - **人员：**一人
 - **涉及：**Android，Volley
-- 这是个人兴趣开发；看完volley的源码以后，想练习一下，就做一个简单app，从煎蛋网抓取妹纸图和评论，并写了一个简单弹幕控件，应用在图片之上，让用户也能进行交互。总共开发时间不到一个星期。
+- 这是个人兴趣开发；看完Volley的源码以后，想练习一下，就做一个简单APP，从煎蛋网抓取妹纸图和评论，并写了一个简单弹幕控件，应用在图片之上，让用户也能进行交互。总共开发时间不到一个星期。
 
 ### 中医药自助式健康管理系统
 
 - **时间：**2013/12 – 2014/06
 - **人员：**两个前端 + 三个后端
-- **涉及：**spring，mybatis，jquery，mysql，linux，jetty，tomcat
+- **涉及：**Spring，MyBatis，JQuery，MySQL，Linux，Jetty，Tomcat
 - 在校期间，工作室接的一个外包项目，是学校一个老师的研究性信息管理系统，是基于中医理论的健康管理系统，使用J2EE实现，没有多大的技术难点，基本上直接应用以往项目的框架即可，主要是编写业务代码。我主要负责项目需求设计，项目管理，后台数据库设计和主要的代码编写，完成第一期交接给工作室学弟，后面还要加入人工智能的研究模块。
 
 ### 供销存管理系统
 
 - **时间：**2014/04
 - **人员：**三个开发者
-- **涉及：**c#，vistual studio，SQL server
+- **涉及：**C#，Vistual Studio，SQL Server
 - 在校期间和室友共同接的一个外包项目，是搜狐某部门内部使用的系统。项目对于我的难点在于没有C#的经验，但是凭借什么都学的拼搏精神，花了两个通宵基本掌握技术，最后我负责项目的数据层和业务层，效仿JavaEE框架的思想，直接应用过去搭建简单的开发框架；项目在两个星期以后顺利完成。
 
 ### [通利裸眼3D横屏Flappy Bird](http://www.tonglioptech.com/downloadsfront.do?method=picker&flag=all&id=5714436b-dcdf-4fa0-bf4c-f1e3f49967e8&fileId=11&memstate=&v=2.zip)
 
 - **时间：**2014/03
 - **人员：**两个开发者
-- **涉及：**unity，c#，android，ios
-- 这是下面3D播放器项目的衍生项目，修改原版游戏的设计为横版和换成3D素材。游戏逻辑并不困难，难点在于我完全没有游戏开发的经验，于是快速学习unity，使用c#编写脚本实现；另外一个难点在于游戏素材在unity上的处理必须非常精确，渲染和纹理采用算法要最精确的线性方法，因为不管场景还是皮肤，只要偏差一个像素都会导致3D效果偏差，所以在这点上花了不少精力解决。最后unity打包成apk和xcode项目进行发布。
+- **涉及：**Unity，C#，Android，iOS
+- 这是下面3D播放器项目的衍生项目，修改原版游戏的设计为横版和换成3D素材。游戏逻辑并不困难，难点在于我完全没有游戏开发的经验，于是快速学习Unity，使用C#编写脚本实现；另外一个难点在于游戏素材在Unity上的处理必须非常精确，渲染和纹理采用算法要最精确的线性方法，因为不管场景还是皮肤，只要偏差一个像素都会导致3D效果偏差，所以在这点上花了不少精力解决。最后用Unity打包成APK和xCode项目进行发布。
 
 ### [通利裸眼3D播放器](http://www.tonglioptech.com/download.html)
 
 - **时间：**2013/12 – 2014/03
 - **人员：**两个开发者
-- **涉及：**android，jni，c，ffmpeg，sdl
+- **涉及：**Android，JNI，C，FFmpeg，SDL
 - 外包[通利科技](https://item.taobao.com/item.htm?spm=a230r.1.14.6.iUF9Gc&id=37746502197&ns=1&abbucket=11#detail)的一个Android播放器，将普通视频和左右格式的视频分别合成3D视频。由于需要在每一帧应用3D算法，所以不能使用MediaPlayer，便要重新实现一个播放器，包括解码，渲染，同步和在线网络播放等关键技术。对于一个完全android新手来说，是极大的挑战，即使牺牲了春晚也把项目完成。当3D算法改进的时候，需要更高的性能，我再次从零学习并使用汇编armv7的128位寄存器替换原来的算法，性能提升了7倍。
 
 ### 成都成房置业有限公司材料品牌库管理系统
 
 - **时间：**2012/05 – 2013/01
 - **人员：**一个前端 + 两个后端
-- **涉及：**struts，spring，mybatis，maven，hg，jetty，linux，mysql，jquery，poi
-- 这是工作室的外包项目，给成都成房置业公司开发关于材料品牌的信息管理系统，涉及常用的javaee技术。我作为项目负责人，主要负责和客户交涉确定需求，并设计和实现后台的业务逻辑，也要编写前后台连接部分的JS代码和实现报表的导入导出开发工作。
+- **涉及：**Struts，Spring，MyBatis，Maven，hg，jetty，Linux，MySQL，JQuery，POI
+- 这是工作室的外包项目，给成都成房置业公司开发关于材料品牌的信息管理系统，涉及常用的JavaEE技术。我作为项目负责人，主要负责和客户交涉确定需求，并设计和实现后台的业务逻辑，也要编写前后台连接部分的JS代码和实现报表的导入导出开发工作。
 	
 ### 移动短信交易项目
 
 - **时间：**2012/07 – 2012/09
 - **人员：**四个开发
-- **涉及：**javase，jdbc，swing，ioc，aop，oracle
-- 这是在沈阳东软实训的小项目，非常简单的模拟短信交易，查询，天气等功能。我带领3个几乎完全没有代码经验的同学完成开发，项目虽小，我却运用spring的ioc，aop，dao等思想实现了一个小小的框架，更重要的是锻炼了带领团队合作协同开发的能力。最终答辩我们也获得了最优团队的成绩。
+- **涉及：**JavaSE，JDBC，Swing，Oracle
+- 这是在沈阳东软实训的小项目，非常简单的模拟短信交易，查询，天气等功能。我带领3个几乎完全没有代码经验的同学完成开发，项目虽小，我却运用Spring的IOC，AOP，DAO等思想实现了一个小小的框架，更重要的是锻炼了带领团队合作协同开发的能力。最终答辩我们也获得了最优团队的成绩。
 								 			 
 ### 基于Hadoop的新闻个性化推荐系统分析与实现
 
 - **时间：**2012/03 – 2012/06
 - **人员：**指导老师 + 三人团队
-- **涉及：**hadoop，hbase，hdfs，个性化推荐算法
+- **涉及：**Hadoop，HBase，HDFS，个性化推荐算法
 - 继续跟随老师学习大数据，并参与课题研究[Google新闻个性化推荐算法](http://xueshu.baidu.com/s?wd=paperuri:(ac8856df5864796bc2c17f04c15baaa7)&filter=sc_long_sign&sc_ks_para=q%3DGoogle+news+personalization%3A+scalable+online+collaborative+filtering&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8)，其中包括三个重要算法，minHash、PLSI和covisitation，我们用开源框架Hadoop的MapReduce，HDFS和HBase实现，采用[MovieLens](http://grouplens.org/datasets/movielens/)的数据来训练和验证，可惜准确率并不算好。其中我参与整体的算法分析，主要负责minHash算法的实现。
 
 ### 碳资产交易与质押授信管理系统
 
 - **时间：**2011/09 – 2011/12
 - **人员：**经管学院 + 软件学院七人团队
-- **涉及：**struts，spring，hibernate，matlab，DB2，hg，tomcat
-- 这个是大一的时候代表软件学院与经济管理学院合作参加花旗杯金融软件设计大赛的作品，后期该作品加入IBM大型主机开发和DB2数据库来参加IBM主机应用大赛。虽然刚接触javaee，但是技术难点在于java连接matlab和db2数据库，我在其中参与数据库设计与JavaWeb后台开发。
+- **涉及：**Struts，Spring，Hibernate，Matlab，DB2，Hg，Tomcat
+- 这个是大一的时候代表软件学院与经济管理学院合作参加花旗杯金融软件设计大赛的作品，后期该作品加入IBM大型主机开发和DB2数据库来参加IBM主机应用大赛。虽然刚接触JavaEE，但是技术难点在于Java连接Matlab和DB2数据库，我在其中参与数据库设计与JavaWeb后台开发。
 
 ### 基于Hadoop的链式非负矩阵分解实现
 
 - **时间：**2011/06 – 2011/12
 - **人员：**指导老师 + 二人团队
-- **涉及：**linux，hadoop，java，非负矩阵分解
-- 大一的时候有幸跟随一个老师学习大数据，参与一个课题，Hadoop和非负矩阵分解。我们两个学生另外一个由于困难而退出，剩下我一个人学习hadoop，linux，网络等知识，然后用MapReduce编程模型根据算法编写代码实现非负矩阵分解，最后还采用迭代的框架[haloop](https://code.google.com/p/haloop)重新实现，提高效率。
+- **涉及：**Linux，Hadoop，Java，非负矩阵分解
+- 大一的时候有幸跟随一个老师学习大数据，参与一个课题，Hadoop和非负矩阵分解。我们两个学生另外一个由于困难而退出，剩下我一个人学习Hadoop，Linux，网络等知识，然后用MapReduce编程模型根据算法编写代码实现非负矩阵分解，最后还采用迭代的框架[haloop](https://code.google.com/p/haloop)重新实现，提高效率。
 
 ### [学生之家用户中心平台](www.stuhome.net)
 
 - **时间：**2011/07 – 2011/10
 - **人员：**三个前端 + 两个后端
-- **涉及：**linux，apache，mysql，php，svn，js
-- 这个是工作室的项目，用php开发的学生之家用户中心平台帮助学校学工部管理学生信息，而过程中我负责的是php后台开发和数据库表设计，首个版本的项目并没有使用过多的框架，基本都是原生php实现的。
+- **涉及：**Linux，Apache，MySQL，Php，SVN，JS
+- 这个是工作室的项目，用Php开发的学生之家用户中心平台帮助学校学工部管理学生信息，而过程中我负责的是Php后台开发和数据库表设计，首个版本的项目并没有使用过多的框架，基本都是原生Php实现的。
 
 ---
 
@@ -154,11 +154,11 @@ type: life
 
 ## 技能清单
 
-- java，c，shell，php，objective-c
-- html，css，js，xml，jquery
-- hg，git，svn，gradle，maven，tomcat，mysql
-- spring，struts，mybatis，hibernate，junit
-- linux，ios，android，hadoop，opengles
+- Java，C，Shell，php，Objective-C
+- html，CSS，JS，XML，JQuery
+- Hg，Git，Svn，Gradle，Maven，Tomcat，MySQL
+- Spring，Struts，MyBatis，Hibernate，JUnit
+- Linux，iOS，Android，Hadoop，OpenGLES
 
 ---
 
@@ -177,7 +177,7 @@ type: life
 ### 工作室
 
  - 时间：2011/05 – 2011/11
- - 大一的时候经过层层考验筛选，加入了当时学校有名的[星辰工作室](http://starstudio.org/)，这个工作室开发了火爆的[清水河畔论坛](http://bbs.uestc.edu.cn/)，并承接学校相关的项目。我在里面短时间内学习了php语言，熟悉lamp架构，学习使用svn，最后开发完成学生之家项目后便退出了。
+ - 大一的时候经过层层考验筛选，加入了当时学校有名的[星辰工作室](http://starstudio.org/)，这个工作室开发了火爆的[清水河畔论坛](http://bbs.uestc.edu.cn/)，并承接学校相关的项目。我在里面短时间内学习了Php语言，熟悉LAMP架构，学习使用Svn，最后开发完成学生之家项目后便退出了。
 
 ### 工作室
 
@@ -202,7 +202,7 @@ type: life
 
 - [健身]()，[骑行]()，[羽毛球]()，[旅游]()，文学（小说，诗歌），电影
 
-- 一个关注健康生活，执着追求，激情澎湃，热爱编程的上进文艺程序员，他善于攻克难点，却难于维护细节，有点懒，并且有大姨妈心理周期，可以连续几天疯狂编程，也可以连续几天毫无精神。
+- 一个关注健康生活、执着追求、激情澎湃、有个性、热爱编程的上进文艺程序员。
 
 ---
 
