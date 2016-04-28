@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的九宫格图理解与学习笔记!"
+title:  "关于九宫格图Nine Patch的理解"
 date:   2014-08-01 11:00:03
 categories: android
 supertype: career

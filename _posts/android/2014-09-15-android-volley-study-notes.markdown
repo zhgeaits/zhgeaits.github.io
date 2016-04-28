@@ -1,53 +1,42 @@
 ---
 layout: post
-title:  "Android的官方的框架Volley，异步网络请求框架AsyncHttpClient，图片加载框架UniversalImageLoader等学习笔记!"
+title:  "Android网络层框架收集"
 date:   2014-09-15 10:06:03
 categories: android
 supertype: career
 type: android
 ---
 
-异步网络请求的开源框架，大家用得最火的就是Async Http Client了，可以自行去github上获取代码。它可以处理文本、二进制等各种格式的 web 资源，应该可以用来下载大文件。
+## 1. 引子
 
-异步图片加载的开源框架，Universal Image Loader这个最火，而且一直在更新，自行去github，而且使用很简单。
+当我们进行网络请求的时候，特别是http的请求，虽然已经有很多开源的库，如ApacheHttpClient可以使用了，也有AndroidHttpClient，Java底层也有HttpURLConnection，但是对于现在开发来说，还是不够便利，例如加载网络图片，下载文件等等，于是，便出现了很多很多的框架便于我们开发。
 
-上面两个功能android的官方出了volley的这个框架，功能都集中了。Volley在性能方面也进行了大幅度的调整，它的设计目标就是非常适合去进行数据量不大，但通信频繁的网络操作，而对于大数据量的网络操作，比如说下载文件等，Volley的表现就会非常糟糕。
+## 2. [AsyncHttpClient](https://github.com/AsyncHttpClient/async-http-client)
 
-**volley的使用**  
-从官方下载volley的源码：项目不大，有时间自己去学习。。。   
-git clone https://android.googlesource.com/platform/frameworks/volley  
-因为这个项目是支持多个构建工具的，最简单就是导入eclipse，然后导出jar包即可。  
-如果会maven的话，直接在目录下运行mvn clean javadoc:jar source:jar install -Dmaven.test.skip=true即可。  
-还可以用ant，gradle来构建。。  
-具体使用在androidbox自己进行了封装。  
-网上很多学习这个源码的笔记，比较好的有这个：  
-http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90
+这个是Java通用的框架，包括了异步Http请求和WebSocket。里面使用了netty。曾经用得很火的框架，不过在android上出现了更多好用的框架。已经开源，有空的话还是很值得去学习一下的。
 
+## 3. [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader)
 
-**AsyncHttpClient的使用**  
+当我们需要异步加载显示网络图片的时候，这个真的最经典的了，关于源码的学习，在[codeKK](http://a.codekk.com/detail/Android/huxian99/Android%20Universal%20Image%20Loader%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)上面已经有文章了。
 
+## 4. [Volley](https://android.googlesource.com/platform/frameworks/volley/)
 
+针对http请求和图片加载，Google官方估计也是觉得这片缺乏了一些东西，于是出了volley的这个框架，它比较轻量和高可扩展。Volley的设计目标就是非常适合去进行数据量不大，但通信频繁的网络操作，而对于大数据量的网络操作，就不太适合。针对源码的学习，在[codeKK上面也有了文章。](http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90)
 
-**UniversalImageLoader的使用**  
-去github下载jar包放到自己的项目，或者maven依赖也可以。github上有非常详细的使用。我自己封装了一下来使用，还是以后学习volley以后自己重新实现。
+### 4.1 为什么不适合数据量大的操作？
 
-**volley的源码学习笔记**  
-Volley不能大量处理数据量大的请求的原因是，一个请求，它是把网络流一次读完，然后放到内存的byte里面。  
-初始化volley就是运行一个请求队列池RequestQueue。  
-RequestQueue类，它相当于一个请求队列池。  
-里面包含了4请求的队列：  
-mWaitingRequests//维护了一个等待请求的集合，如果一个请求正在被处理并且可以被缓存，后续的相同 url 的请求，将进入此等待队列。  
-mCurrentRequests//维护了一个正在进行中，尚未完成的请求集合。  
-mCacheQueue//缓存请求队列。  
-mNetworkQueue//网络请求队列。  
-处理请求，要么能够从本地完成（内存，文件），要么需要从网络读取。分别两个实现：  
-Cache接口（DiskBasedCache），Network接口（BasicNetwork）。PS：要针对接口编程，而不是针对具体实现编程，这样扩展性高。  
-还有处理请求完以后响应分发器ResponseDelivery，包含主线程的handler，还有一个线程执行器Executor，里面纯粹是包装了一下handler，没有管理好线程，估计是为了方便以后的扩展。  
-两个分发器分别处理不同的请求，CacheDispatcher和NetworkDispatcher，其中NetworkDispatcher默认有四个，而CacheDispatcher只有一个。这些分发器其实就是线程，不断从队列中取出请求来处理。
+Volley不能大量处理数据量大的请求的原因是，一个请求，它是把网络流一次读完，然后放到内存的byte里面。在BasicNetwork里面看到这个方法：
 
-当一个请求来的时候，首先加入mCurrentRequests队列，如果这个请求不能缓存的话，直接加入mNetworkQueue队列以后就返回。否则如果mWaitingRequests队列已经包含了，就继续加入到mWaitingRequests队列，其中mWaitingRequests是Map<String, Queue<Request<?>>>类型，value是linkedlist。如果mWaitingRequests没有包含这个请求，就往mWaitingRequests队列插入null值，也加入mCacheQueue队列。这些相同的请求，它没有直接丢弃，而是放到mWaitingRequests缓存起来，暂时不知道有什么作用，估计是以后扩展用吧。mCurrentRequests队列也是。  
+>byte[] entityToBytes(HttpEntity entity);
 
-CacheDispatcher启动的时候首先初始化DiskBasedCache，cache初始化的时候首先读取缓存目录，把缓存的数据都加载到内存，这个写到文件的内容有一套比较完整的文件序列化协议的。  
-CacheDispatcher分发器不断读取mCacheQueue队列的请求，读到一个以后就去cache那里获取结果，如果没有或者结果已经过期了就把请求加入到mNetworkQueue队列就可以等待下一个请求了。命中缓存就交给ResponseDelivery来处理了。
+可以知道它每个请求都是把HttpEntity里面读取完数据，然后返回byte，如果是大文件则会爆掉内存。改进的方法可以是：
 
-NetworkDispatcher从mNetworkQueue队列获取请求后交给mNetwork来处理网络请求，获取得到网络的结果以后就加入mCache，最后交给ResponseDelivery来处理。
+1.把network开发出来，我们可以实现一个network来一部分一部分读取网络流。
+
+2.为request增加接口处理数据量大的请求，设置标记使用这个接口就不要使用entityToBytes了。
+
+### 4.2 小记
+
+Volley的优点在于设计非常优美，都是基于接口来编程的，即根据抽象来设计，那样封装的事情交给了具体实现，与设计无关。这样非常便于扩展，而且这个实现很轻量，并没有复杂，易于理解。
+
+关于重试策略，是在网络请求的时候捕获的异常来调用的。分别有SocketTimeoutException、ConnectTimeoutException和IOException。
