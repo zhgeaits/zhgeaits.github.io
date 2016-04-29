@@ -155,7 +155,7 @@ Error:java: Compilation failed: internal java compiler error
 	</tr>
 	<tr>
 		<td>Ctrl + Alt + 空格：</td>
-		<td>提示，相当于eclipse的Alt+/</td>
+		<td>Class Name Completion提示，相当于eclipse的Alt+/，在mac里面的是ctrl + option + space，不过可能会被系统的键盘设置的输入法快捷键给抢了，修改idea或者输入法的都可以</td>
 	</tr>
 	<tr>
 		<td>Ctrl + Shift + F：</td>
