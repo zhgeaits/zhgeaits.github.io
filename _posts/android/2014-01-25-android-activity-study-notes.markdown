@@ -103,7 +103,7 @@ type: android
 
 - data标签：这个比较复杂，包含了mimeType和URI，mimeType是媒体类型，比较熟悉了，URI包含比较多信息，如下：
 
-	<scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
+`<scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]`
 
 在intent里面调用`setDataAndType()`来设置的。另外，通过在MainActivity配置data，我们可以让别的应用来打开，例如我们的app是播放器，然后配置这个来支持打开视频文件。或者配置使得可以用js打开应用。一个例子如下：
 
