@@ -49,7 +49,7 @@ type: android
 
 > public void onWindowFocusChanged(boolean hasFocus)
 
-从onWindowFocusChanged被执行起，用户可以与应用进行交互了，而这之前，对用户的操作需要做一点限制。
+从onWindowFocusChanged被执行起，用户可以与应用进行交互了，而这之前，对用户的操作需要做一点限制。实际上这个方法的含义是，View已经初始化完毕了，宽高已经准确计算好了，一般是在这里来获取view的宽高。而且，这个方法是会被调用多次的。
 
 ### 2.3 关于`onSaveInstanceState()`和`onRestoreInstanceState()`
 
