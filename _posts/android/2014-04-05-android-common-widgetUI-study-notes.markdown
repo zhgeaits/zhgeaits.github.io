@@ -239,3 +239,9 @@ view.getLocationOnScreen(location);
 int x = location[0];
 int y = location[1];
 {% endhighlight %}
+
+**dialog的edittext无法弹出键盘问题**  
+//只用下面这一行弹出对话框时需要点击输入框才能弹出软键盘  
+window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);  
+//加上下面这一行弹出对话框时软键盘随之弹出  
+window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);  
