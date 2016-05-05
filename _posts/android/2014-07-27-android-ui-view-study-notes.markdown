@@ -21,7 +21,55 @@ View是最顶层的界面类，ViewGroup是继承View的抽象类，ViewGroup是
 
 <img src="/image/android_view.png" width="500px">
 
-DecorView实际上是一个FrameLayout，底下嵌套了LinearLayout，上面放的是TitleBar，下面放的是ContentView，从id可以看出为什么叫setContentView。这个TitleBar是ActionBar，通常我们开发都不会使用，直接取消掉了的。DecorView不是SDK的代码，关于更多只能从android的源码去获取了。ContentView是一个FrameLayout，我们所有的View都是在这里开始的。
+由上看出，通常DecorView实际上是一个FrameLayout，底下嵌套了LinearLayout，上面放的是TitleBar，下面放的是ContentView，从id可以看出为什么叫setContentView。这个TitleBar是ActionBar，通常我们开发都不会使用，直接取消掉了的。DecorView不是SDK的代码，关于更多只能从android的源码去获取了。ContentView是一个FrameLayout，我们所有的View都是在这里开始的，所以通常我用IDE分析界面的时候会看到顶层的根View是FrameLayout，就是它了。
+
+### 1.1 关于DecorView
+
+看源码我们会发现DecorView的定义如下：
+
+>private final class DecorView extends FrameLayout implements RootViewSurfaceTaker{}
+
+调用setContentView()方法以后，会调用到PhoneWindow的installDecor()方法，里面会调用generateDecor()方法来直接new出一个DecorView：
+
+{% highlight java %}
+
+protected DecorView generateDecor() {
+    return new DecorView(getContext(), -1);
+}
+
+{% endhighlight %}
+
+由于DecorView是FrameLayout，所以，这时候需要根据Activity的Theme主题设置寻找相应得布局，一般是会找到一个LinearLayout的布局，上方是title，下方是content，如上图所示；然后inflate这个布局，add到DecorView里面去，再去find出contentView，如下所示：
+
+{% highlight java %}
+
+//...根据theme，寻找layoutResource
+
+View in = mLayoutInflater.inflate(layoutResource, null);
+decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+mContentRoot = (ViewGroup) in;
+
+ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);
+if (contentParent == null) {
+    throw new RuntimeException("Window couldn't find content container view");
+}
+
+{% endhighlight %}
+
+看出ID_ANDROID_CONTENT其实就是android.R.content，contentParent就是ContentView了，一般就是FrameLayout，我们可以随意找到系统的一个theme主题布局R.layout.screen_simple看看就找到了。
+
+当拿到了contentParent以后，就可以把我们的布局add进去了，setContentView的参数可以是id，可以是view，实际调用的是：
+
+{% highlight java %}
+
+mLayoutInflater.inflate(layoutResID, mContentParent);
+mContentParent.addView(view, params);
+
+{% endhighlight %}
+
+### 1.2 关于Window
+
+
 
 ## 2 View的绘制流程
 
@@ -156,7 +204,11 @@ private void performTraversals() {
 
 ## 3 View的事件体系
 
+### Activity的事件分发
 
+### ViewGroup的事件分发
+
+### View的事件分发
 
 ## 4 自定义View控件
 
