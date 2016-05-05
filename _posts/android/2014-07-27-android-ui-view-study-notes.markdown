@@ -192,7 +192,7 @@ private void performTraversals() {
     <declare-styleable name="roundedimageview">
         <attr name="border_thickness" format="dimension" />
         <attr name="border_inside_color" format="color" />
-        <attr name="border_outside_color" format="color"></attr>
+        <attr name="border_outside_color" format="color" />
     </declare-styleable>
 </resources>
 {% endhighlight %}
