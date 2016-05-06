@@ -17,7 +17,9 @@ type: android
 
 View是最顶层的界面类，ViewGroup是继承View的抽象类，ViewGroup是一组view的集合。View又是所有界面的父类引用，View引用可以指向ViewGroup，实现了多态。
 
-通常我们理解Activity为一个界面，那是不够准确的，真正的界面是View，Activity只是一个组件，它更像是一个控制器的角色，在Activity里面，我们只是调用了一个setContentView()的方法来把xml文件编写的界面使用。如下图所示，一个Activity含有一个Window，而这个Window的实例是PhoneWindow；Window包含了一个DecorView，这个DecorView才是正在看得见的界面。注意到除了Activity并不是界面。
+通常我们理解Activity为一个界面，那是不够准确的，真正的界面是View，Activity只是一个组件，它更像是一个控制器的角色，在Activity里面，我们只是调用了一个setContentView()的方法来把xml文件编写的界面使用。如下图所示，一个Activity含有一个Window，而这个Window的实例是PhoneWindow；Window包含了一个DecorView，这个DecorView才是正在看得见的界面。采用的是组合方式，Activity里面有mWindow这个属性，Window里面有mDecor这个属性。
+
+在Activity的`attach()`里面会new出PhoneWindow来，同时也会设置Callback接口。通常这个callback有一个用法，在`setContentView()`最后就会回调callback的`onContentChanged()`方法通知界面已经设置完毕了，Activity里面的这个方法是空实现，实际上，我们是可以在调用`findViewsById()`方法的了。
 
 <img src="/image/android_view.png" width="500px">
 
@@ -29,7 +31,7 @@ View是最顶层的界面类，ViewGroup是继承View的抽象类，ViewGroup是
 
 >private final class DecorView extends FrameLayout implements RootViewSurfaceTaker{}
 
-调用setContentView()方法以后，会调用到PhoneWindow的installDecor()方法，里面会调用generateDecor()方法来直接new出一个DecorView：
+调用setContentView()方法以后，会调用到PhoneWindow的setContentView方法，里面调用installDecor()方法，里面会调用generateDecor()方法来直接new出一个DecorView：
 
 {% highlight java %}
 
@@ -56,7 +58,7 @@ if (contentParent == null) {
 
 {% endhighlight %}
 
-看出ID_ANDROID_CONTENT其实就是android.R.content，contentParent就是ContentView了，一般就是FrameLayout，我们可以随意找到系统的一个theme主题布局R.layout.screen_simple看看就找到了。
+看出ID_ANDROID_CONTENT其实就是android.R.content，contentParent就是ContentView了，一般就是FrameLayout，我们可以随意找到系统的一个theme主题布局R.layout.screen_simple看看就找到了。这里我们也明白了，为什么要先设置activity的主题，和布局特性，例如NO_TITLE之后才能设置布局。
 
 当拿到了contentParent以后，就可以把我们的布局add进去了，setContentView的参数可以是id，可以是view，实际调用的是：
 
@@ -204,11 +206,140 @@ private void performTraversals() {
 
 ## 3 View的事件体系
 
-### Activity的事件分发
+当我们从手触碰到屏幕开始，Android系统会把这个触碰封装成为`MotionEvent`，然后把这个事件进行网上传递，直到应用层Activity，最后进行分发处理。至于这个是怎么从硬件底层传递到应用层Activity的，那就真的要深入研究系统才知道了；或者我们能从资料中研究知道事件的分发是从Activity开始的！对于`MotionEvent`对象，包含了三种类型，DOWN，MOVE和UP，从DOWN到UP的过程，包含了多个MotionEvent对象，称为一个事件序列。根据View的结构体系，而Activity实际上会把事件传递到PhoneWindow处理，它又会把事件传递给DecorView处理，最终DecorView把事件传递到我们定义的View上面去。
 
-### ViewGroup的事件分发
+由View得树状结构可以理解到，这是一个递归的过程，事件从树根往下传递，每到一个节点都会问它一下处理（分发）的结果，如果返回true就是说明已经处理好了，事件不用再传递了；如果返回false就说明没有处理好，事件交回给你。
 
-### View的事件分发
+### 3.1 Activity的事件分发
+
+Activity的事件是从`dispatchTouchEvent()`开始的，直接可以看到它的代码如下：
+
+{% highlight java %}
+
+public boolean dispatchTouchEvent(MotionEvent ev) {
+    if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+        onUserInteraction();
+    }
+    if (getWindow().superDispatchTouchEvent(ev)) {
+        return true;
+    }
+    return onTouchEvent(ev);
+}
+
+{% endhighlight %}
+
+看到如果是事件序列开始的第一个DOWN事件，是会调用`onUserInteraction()`，但是这个方法是个空实现，根据描述，通常在屏保应用中会去重写这个方法。然后会调用Window的`superDispatchTouchEvent(ev)`，如果Window返回true，则是处理了这个事件，直接返回true，否则就调用`onTouchEvent(ev)`，Activity自己处理这个事件。
+
+Window是一个抽象类，它只有一个实现PhoneWindow，看源码知道Window的处理如下：
+
+{% highlight java %}
+
+public boolean superDispatchTouchEvent(MotionEvent event) {
+    return mDecor.superDispatchTouchEvent(event);
+}
+
+{% endhighlight %}
+
+可以知道实际上是调用了DecorView的`superDispatchTouchEvent(event)`来处理的，这个方法里面实际上也是调用了`super.dispatchTouchEvent(event)`方法的，由前面我们知道DecorView是继承FrameLayout的，因此，触发的ViewGroup的方法，事件是交给了ViewGroup来分发了。
+
+### 3.2 ViewGroup的事件分发
+
+DecorView根据分发逻辑，事件是会走到TitleBar或者ContentView的。ViewGroup的`dispatchTouchEvent()`方法非常的复杂，所有细节有需要再去研究，核心的就几点，先看前面的一部分代码：
+
+{% highlight java %}
+
+// Handle an initial down.
+if (actionMasked == MotionEvent.ACTION_DOWN) {
+    // Throw away all previous state when starting a new touch gesture.
+    // The framework may have dropped the up or cancel event for the previous gesture
+    // due to an app switch, ANR, or some other state change.
+    cancelAndClearTouchTargets(ev);
+    resetTouchState();
+}
+
+// Check for interception.
+final boolean intercepted;
+if (actionMasked == MotionEvent.ACTION_DOWN
+        || mFirstTouchTarget != null) {
+    final boolean disallowIntercept = (mGroupFlags & FLAG_DISALLOW_INTERCEPT) != 0;
+    if (!disallowIntercept) {
+        intercepted = onInterceptTouchEvent(ev);
+        ev.setAction(action); // restore action in case it was changed
+    } else {
+        intercepted = false;
+    }
+} else {
+    // There are no touch targets and this action is not an initial down
+    // so this view group continues to intercept touches.
+    intercepted = true;
+}
+
+{% endhighlight %}
+
+DOWN事件刚进来会做一些初始化的工作，重要的是重置了FLAG_DISALLOW_INTERCEPT这个标记和设置mFirstTouchTarget为null。接下来就要询问ViewGroup自身是否需要拦截这个事件了，即调用了`onInterceptTouchEvent()`方法。要注意到的是disallowIntercept是会影响拦截的，这个标记可以通过调用`requestDisallowInterceptTouchEvent()`方法来设置。
+
+为了不用每次都判断要不要拦截，它是这么做的，从if条件看出，如果第一个DOWN事件来到，是要判断一下自己要不要拦截，要是拦截成功，那么intercepted是true，mFirstTouchTarget会一直是null，下个MOVE或者UP事件来的时候，intercepted默认设置为true了。要是拦截onInterceptTouchEvent()返回false或者不允许拦截，那么会把事件交给了子元素处理。
+
+>实际上，ViewGroup的onInterceptTouchEvent方法默认返回false，不拦截事件。
+
+如果子元素处理成功了，mFirstTouchTarget会被赋值指向子元素，那么这些事件都需要调用ViewGroup来判断是否要拦截。只有在当DOWN事件拦截成功以后才不会继续判断。
+
+从addView的倒序开始遍历子view，即从浮在上层的view开始，调用子View的dispatchTouchEvent()方法来处理事件，一旦返回true就退出循环了：
+
+{% highlight java %}
+
+newTouchTarget = addTouchTarget(child, idBitsToAssign);
+alreadyDispatchedToNewTouchTarget = true;
+break;
+
+{% endhighlight %}
+
+并且给mFirstTouchTarget赋值了。如果所有子元素都不处理事件，即返回了false，那么会触发下面的代码：
+
+{% highlight java %}
+
+// Dispatch to touch targets.
+if (mFirstTouchTarget == null) {
+    // No touch targets so treat this as an ordinary view.
+    handled = dispatchTransformedTouchEvent(ev, canceled, null,
+            TouchTarget.ALL_POINTER_IDS);
+} 
+
+{% endhighlight %}
+
+注意到第三个参数为null，即传递的child为null，然后实际上会调用到ViewGroup的父类的dispatchTouchEvent()方法，即是View的方法，本质上，这个方法里面会调用到onTouchEvent方法和OnTouchListener的onTouch方法。而ViewGroup是没有重写onTouchEvent方法的，交给了具体的Layout去实现了。
+
+>注意到，子元素可以实际上处理了事件，然后还是返回false表明没有处理的，我们在自定义View的时候，可以根据实际需求这样做。
+
+### 3.3 View的事件分发
+
+View底下没有了子元素，所以它的分发就会很简单，dispatchTouchEvent()方法会比较简单，看核心的代码如下：
+
+{% highlight java %}
+
+if (onFilterTouchEventForSecurity(event)) {
+    //noinspection SimplifiableIfStatement
+    ListenerInfo li = mListenerInfo;
+    if (li != null && li.mOnTouchListener != null
+            && (mViewFlags & ENABLED_MASK) == ENABLED
+            && li.mOnTouchListener.onTouch(this, event)) {
+        result = true;
+    }
+
+    if (!result && onTouchEvent(event)) {
+        result = true;
+    }
+}
+
+{% endhighlight %}
+
+可以看到是首先判断了有没有OnTouchListener，有的话就先执行它的`onTouch()`方法，如果返回false，那么才会去执行`onTouchEvent()`方法的，即它的优先级会更高一些。至于View的`onTouchEvent()`方法，逻辑比较复杂，包括了处理各种CLICKABLE和LONG_CLICKABLE属性，在UP事件中还会触发`performClick()`方法，实际上是调用了OnClickListener里面的`onClick()`方法。
+
+### 3.4 事件冲突解决方案
+
+由上面的事件分发机制可以知道，如果没有处理好事件的话，就会发生冲突，举个例子，父组件支持左右滑动，子组件支持上下滑动；又或者它们滑动的方向是一致的情况，这些事件该怎么处理？
+
+显然，解决的套路是拦截事件，不要让它传递。在父容器里面重写onInterceptTouchEvent方法，然后根据实际的情况逻辑是否要消耗这个事件来返回是否拦截这个事件。
 
 ## 4 自定义View控件
 
