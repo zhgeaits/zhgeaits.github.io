@@ -71,11 +71,17 @@ mContentParent.addView(view, params);
 
 ### 1.2 关于Window
 
+由上可以Window也不是界面，真正的界面是View，它只是一个抽象的概念，根据官方的描述，Window类可以控制顶级View(DecorView)的外观和行为策略，它的实现是PhoneWindow。从1.1也看到了Window是会创建DecorView的，它还会创建ViewRootImpl来进行绘制View。由上面我们也知道了，Activity对应于一个Window，而Window又是View的直接管理者，在其他形式下的Window都是这样的关系。View必须要有Window才能显示。
 
+WindowManager是外界访问Window的入口，Window的实现位于WindowManagerService，所以这写交互式一个IPC的过程。如果我们想要创建Window等等，可以直接使用WindowManager的接口。WindowManager主要用来管理窗口的一些状态、属性、view增加、删除、更新、窗口顺序、消息收集和处理等。在WindowManager中还有一个重要的静态类LayoutParams，通过它可以设置和获得当前窗口的一些属性。
+
+Window有三种类型，分别是应用类Window，如Activity的Window；子Window，如Dialog，它只能依附于特定的父Window，所以必须有Activity才能。系统类Window，如Toast，它也是一个Window来的。对于Dialog和Toast，其实都可以去看源码便会知道实际上它们是创建了一个Window来显示View的。实际上，PopupWindow，菜单等等，这些的实现都是依托在Window的。
+
+由此我们可以知道，整个应用，都会有各种各样的Window存在。
 
 ## 2 View的绘制流程
 
-根据我们的经验，编写界面的xml文件是一个树状的结构，父节点通常是布局Layout，也就是一个ViewGroup，而叶子节点则是一个View，符合了ViewGroup包含View的关系。在Activity创建成功以后，变回创建ViewRoot对象ViewRootImpl，并与DecorView联系起来，这是底层系统源码，SDK上次无法查看的。View的绘制流程是从ViewRoot的peformTraversals方法开始的，分别对view进行测量，布局和绘制，最终才会显示在屏幕上。
+根据我们的经验，编写界面的xml文件是一个树状的结构，父节点通常是布局Layout，也就是一个ViewGroup，而叶子节点则是一个View，符合了ViewGroup包含View的关系。在Activity创建成功以后，便会创建ViewRoot对象ViewRootImpl，并与DecorView联系起来，这是底层系统源码，SDK上次无法查看的。View的绘制流程是从ViewRoot的peformTraversals方法开始的，分别对view进行测量，布局和绘制，最终才会显示在屏幕上。
 
 由于是树状结构，所以从顶级的DecorView开始，分别往下遍历三个流程，实际是一个递归的过程。
 
@@ -276,7 +282,7 @@ if (actionMasked == MotionEvent.ACTION_DOWN
 
 {% endhighlight %}
 
-DOWN事件刚进来会做一些初始化的工作，重要的是重置了FLAG_DISALLOW_INTERCEPT这个标记和设置mFirstTouchTarget为null。接下来就要询问ViewGroup自身是否需要拦截这个事件了，即调用了`onInterceptTouchEvent()`方法。要注意到的是disallowIntercept是会影响拦截的，这个标记可以通过调用`requestDisallowInterceptTouchEvent()`方法来设置。
+DOWN事件刚进来会做一些初始化的工作，重要的是重置了FLAG_DISALLOW_INTERCEPT这个标记和设置mFirstTouchTarget为null。接下来就要询问ViewGroup自身是否需要拦截这个事件了，即调用了`onInterceptTouchEvent()`方法。要注意到的是disallowIntercept是会影响拦截的，这个标记可以通过调用`requestDisallowInterceptTouchEvent()`方法来设置，默认这个标记都是false的。
 
 为了不用每次都判断要不要拦截，它是这么做的，从if条件看出，如果第一个DOWN事件来到，是要判断一下自己要不要拦截，要是拦截成功，那么intercepted是true，mFirstTouchTarget会一直是null，下个MOVE或者UP事件来的时候，intercepted默认设置为true了。要是拦截onInterceptTouchEvent()返回false或者不允许拦截，那么会把事件交给了子元素处理。
 
@@ -339,7 +345,7 @@ if (onFilterTouchEventForSecurity(event)) {
 
 由上面的事件分发机制可以知道，如果没有处理好事件的话，就会发生冲突，举个例子，父组件支持左右滑动，子组件支持上下滑动；又或者它们滑动的方向是一致的情况，这些事件该怎么处理？
 
-显然，解决的套路是拦截事件，不要让它传递。在父容器里面重写onInterceptTouchEvent方法，然后根据实际的情况逻辑是否要消耗这个事件来返回是否拦截这个事件。
+显然，解决的套路是拦截事件，不要让它传递。在父容器里面重写onInterceptTouchEvent方法，然后根据实际的情况逻辑是否要消耗这个事件来返回是否拦截这个事件。有一点要注意的是，如果在DOWN事件拦截，那么该事件序列之后的所有事件都将不能再传递到子元素了，应该在MOVE事件处理，因为他每次都要调用onInterceptTouchEvent判断的，所以DOWN事件都返回false。
 
 ## 4 自定义View控件
 
