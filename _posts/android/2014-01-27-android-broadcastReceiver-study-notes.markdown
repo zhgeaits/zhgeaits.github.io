@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的广播接收者类学习笔记!"
+title:  "Android的四大组件之BroadcastReceiver"
 date:   2014-01-27 15:00:01
 categories: android
 supertype: career
