@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "我做android开发时的CheckList"
+title:  "我做Android开发时的CheckList"
 date:   2015-04-17 10:06:03
 categories: android
 supertype: career

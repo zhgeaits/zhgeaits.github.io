@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java开发神奇IDE之Eclipse"
+title:  "Java开发神器IDE之Eclipse"
 date:   2010-12-20 10:10:10
 categories: android
 supertype: career

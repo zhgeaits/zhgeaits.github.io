@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的Service组件学习笔记!"
+title:  "Android四大组件之Service"
 date:   2014-03-25 11:00:03
 categories: android
 supertype: career

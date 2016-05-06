@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android的SurfaceView学习笔记!"
+title:  "Android之SurfaceView"
 date:   2014-03-20 11:00:03
 categories: android
 supertype: career
