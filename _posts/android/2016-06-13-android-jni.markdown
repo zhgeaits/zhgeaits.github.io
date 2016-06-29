@@ -323,10 +323,10 @@ include $(BUILD_SHARED_LIBRARY)
 
 {% highlight shell %}
 
-#include $(CLEAR_VARS)
-#LOCAL_MODULE    := libmp3lame
-#LOCAL_SRC_FILES := libmp3lame.a
-#include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_MODULE    := libmp3lame
+LOCAL_SRC_FILES := libmp3lame.a
+include $(PREBUILT_STATIC_LIBRARY)
 //...
 LOCAL_WHOLE_STATIC_LIBRARIES += libmp3lame
 
