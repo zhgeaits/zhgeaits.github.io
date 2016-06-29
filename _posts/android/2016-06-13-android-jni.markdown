@@ -90,6 +90,48 @@ static {
 
 {% endhighlight %}
 
+### 2.5 C还是C++
+
+进行JNI开发的时候，即可以用C语言，也可以用C++语言，因为C++是对C的扩展，一般来说，C++的代码.cpp文件里面是可以直接兼容c的，但是如果要混合的话，是会出现很多问题的，所以，我建议使用一种就好了，我自己是熟悉c的，基本是用C进行开发的。
+
+当我们用javah命令生成的头文件以后，可以发现有这么一段代码：
+
+{% highlight c %}
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+//functions defines here
+
+#ifdef __cplusplus
+}
+#endif
+
+{% endhighlight %}
+
+这个extern "C"包含了我们的函数的原型定义。原本extern关键字是修饰变量的，使得我们可以获取外部的变量，而这里结合了“C”来使用，告诉编译器这些函数按照C的方式来编译，那就不会出现错误了。关于extern这一块的知识，还是蛮多的，因为我不做c++开发，所以没有深入理解。
+
+`__cplusplus`是C++的自定义宏定义，我不知道怎么搞来的，只要后缀是cpp的时候就会有这个宏定义了。我们看到jni.h里面有这样的定义：
+
+{% highlight c %}
+
+#if defined(__cplusplus)
+typedef _JNIEnv JNIEnv;
+typedef _JavaVM JavaVM;
+#else
+typedef const struct JNINativeInterface* JNIEnv;
+typedef const struct JNIInvokeInterface* JavaVM;
+#endif
+
+{% endhighlight %}
+
+可以知道，如果是cpp文件的话，JNIEnv实际上就是c++的对象，如果是c文件的话，就是一个结构体了。如果没有搞懂这些的话，使用JNIEnv的时候就不会注意到使用的是结构体还是对象了，会出现这样的一个报错：
+
+>applying operator -> to JNIEnv instead of pointer
+
+我建议使用c开发就可以了。
+
 ## 3. Android JNI开发
 
 在Android上也是可以进行jni开发的，因为android也是基于linux系统来的，也是可以在dvm里面跑c的代码，不过需要用到ndk里面的`ndk-build`来编译，并不是说随便拿一个so库来就可以执行的，必须通过ndk编译过的才能在android系统上运行，具体估计跟编译环境和系统等等有关系，我还没学习过相关知识，所以无法解释了。[ndk-build](https://developer.android.com/ndk/guides/ndk-build.html)是Google提供的一个编译脚本。
@@ -234,10 +276,8 @@ ABI是Application Binary Interface的意思，即我们需要把代码编译到�
 
 ### 6. 手动加载JNI函数
 
-### 7. 关于C和CPP
+### 7. JNI的相关API使用
 
-### 8. JNI的相关API使用
+### 8. so加解密
 
-### 9. so加解密
-
-关于C和CPP的相关知识就不记录在这里了。
+另外关于C和CPP的语言相关知识就不记录在这里了。
