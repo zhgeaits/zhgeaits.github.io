@@ -82,6 +82,14 @@ Android系统是基于Linux而来的，当我们电脑连接好手机以后，�
 
 >adb shell dumpsys activity
 
+6. 使用top命令查看cpu占用率
+
+adb shell 以后 top -m 10，还可以结合grep来使用
+
+7.查看内存的使用情况
+
+adb shell dumpsys meminfo <package_name>
+
 ### 8.2 其他命令
 
 1. 获取debug keystore的sha1值：

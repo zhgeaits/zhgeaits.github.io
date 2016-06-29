@@ -272,12 +272,228 @@ ABI是Application Binary Interface的意思，即我们需要把代码编译到�
 
 ### 5. Android.mk
 
-[官网文档](https://developer.android.com/ndk/guides/android_mk.html)
+它是GNU Makefile的一个片段，NDK是基于make的，所以本质上它就是makefile，详细可以去看[官网文档](https://developer.android.com/ndk/guides/android_mk.html)。我们可以进入NDK的目录，在build/core目录下有很多的.mk文件，其实就是NDK的构建系统了。mk文件的注释是#号，这个不用多说了，直接看一个简单的例子：
+
+{% highlight shell %}
+
+#当前目录 开头必须以这个开始
+LOCAL_PATH := $(call my-dir)
+
+#CLEAR_VARS变量指向了clear-vars.mk位置，include这个可以清除出来LOCAL_PATH以外的LOCAL开头的变量，如LOCAL_MODULE等
+#这样做是因为android构建系统再单次执行中解析多个构建文件和模块定义，而LOCAL开头这些是全局变量，清除它们可以避免冲突。
+#如果Android.mk文件有多个模块，则每个模块开始之前都要写这行！
+include $(CLEAR_VARS)
+
+#库的名字
+LOCAL_MODULE    := ZGPlayer
+
+#源码目录
+LOCAL_SRC_FILES += \
+	src/ZGPlayerJNI.c \
+	src/player_main.c
+
+#头文件目录，还可以有各种的编译选项
+LOCAL_CFLAGS := \
+	-I$(LOCAL_PATH)"/include" \
+	-I$(LOCAL_PATH)"/../ffmpeg/include"
+	
+#连接到一些库
+LOCAL_LDLIBS := -llog -ljnigraphics -lz -landroid
+LOCAL_SHARED_LIBRARIES := libffmpeg
+	
+ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
+#C编译器的可选标记选项
+	LOCAL_CFLAGS += -DHAVE_NEON=1
+#这个会使得去编译.neon文件。
+	#LOCAL_ARM_NEON := true
+endif
+
+#为了建立供主应用程序使用的模块，必须将该模块编程共享库。这个变量指向了build-shared-library.mk的位置，这个makefie包含了构建的过程。
+include $(BUILD_SHARED_LIBRARY)
+
+{% endhighlight %}
+
+基本上也是以Key-Value的形式来定义的，但是支持得比较多，可以累加，还有条件判断，循环，函数等等，实际上它就相当于脚本，没一行都是一个单独的指令。
+
+看到第一行给LOCAL_PATH这个变量赋值，`$()`包含的就是读取变量的值，call是一个指令，my-dir是这个指令的目标，即相当于执行函数。include也是一条指令，它会把外部的mk文件引入进来，例如这里引入了clear-vars.mk文件，然后清空了变量，引入了build-shared-library.mk文件，怎么编译一个共享库。
+
+#### 5.1 共享库与静态库
+
+通常编译为so的文件是共享库，它可以直接使用了，也可以提供给别的模块使用，当共享使用的时候需要编写这句`include $(PREBUILT_SHARED_LIBRARY)`，表明它是预编译的，在java里面使用的时候所有的so都需要load的。静态库是.a结尾的文件，它不能直接提供给java使用，但是可以提供给别的模块使用，别的模块会把静态库编译进来只生成一个so库，但是如果一个库要提供给多个模块使用的时候，就不建议用静态块了，那样重复了体积会很大，建议用共享库。静态库的使用如下：
+
+{% highlight shell %}
+
+#include $(CLEAR_VARS)
+#LOCAL_MODULE    := libmp3lame
+#LOCAL_SRC_FILES := libmp3lame.a
+#include $(PREBUILT_STATIC_LIBRARY)
+//...
+LOCAL_WHOLE_STATIC_LIBRARIES += libmp3lame
+
+{% endhighlight %}
+
+#### 5.2 LOCAL_CFLAGS编译选项
+
+这个是编译的选项，除了配置头文件目录以外，还可以配置很多信息。而其实配置头文件应该使用`LOCAL_C_INCLUDES`。例子如下：
+
+{% highlight shell %}
+
+#-marm 是指定arm的指令,-mthumb是指定thumb的指令
+LOCAL_CFLAGS := -DSTDC_HEADERS
+
+ifeq ($(TARGET_ARCH_ABI), armeabi)
+LOCAL_CFLAGS := -marm -mfpu=vfp -mfpu=vfpv3 -DCMP_HAVE_VFP
+endif
+
+ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
+# 采用NEON优化技术
+LOCAL_ARM_NEON := true
+LOCAL_CFLAGS += -DHAVE_NEON=1
+endif
+
+{% endhighlight %}
+
+除此之外，gcc一些编译参数都是可以用在这里的，如上面的-fPIC等等。
 
 ### 6. 手动加载JNI函数
 
+一般来说，按照上面说的用javah命令生成头文件以后，就会把native方法生成按规则约定的方法名，然后编译器就会自定连接到对应的方法，即加载so库以后，只要调用native方法就会触发调用到了相应的底层c的函数了。新版的JNI系统都是这样自动注册jni函数的了，但是旧版就不一样了，必须根据方法前面注册相应的函数，否则的话就会报一个错误，或者只是警告：
+
+>D/dalvikvm( 2272): No JNI_OnLoad found in /data/data/org.zhangge.jni/lib/libhelloworld.so 0x40517ac8, skipping init
+
+实际上，我们可以理解，jni是把c函数注册到一个列表，当java运行native方法的时候就会去列表里面查找相应的函数，如果找不到的话就抛出无链接的异常，而查找的根据正是方法签名，方法签名的规则是先用括号包起来参数签名，然后是返回值的签名，如果是对象类型需要全名，然后分号隔开。具体每个类型可以看我以前的[虚拟机blog](http://zhgeaits.me/java/2013/04/08/java-classloader-study-notes.html)。
+
+因此，我们需要编写`JNI_OnLoad`函数，它会在加载so的时候调用，然后我们在里面注册相应的native函数即可，同时还要编写`JNI_OnUnload`，来卸载这些函数：
+
+{% highlight c %}
+
+//参数映射表
+static JNINativeMethod methods[] = {
+        {"dispHelloWorld", "(V)V", Java_org_zhangge_jni_HelloWorld_dispHelloWorld}
+};
+static int registerNativeMethods(JNIEnv *env, const char *className, JNINativeMethod *gMethods,
+                                 int numMethods) {
+    jclass clazz;
+    clazz = (*env)->FindClass(env, className);
+    if (clazz == NULL) {
+        return JNI_FALSE;
+    }
+    if ((*env)->RegisterNatives(env, clazz, gMethods, numMethods) < 0) {
+        return JNI_FALSE;
+    }
+    return JNI_TRUE;
+}
+static int unregisterNativeMethods(JNIEnv *env, const char *className) {
+    jclass clazz;
+    clazz = (*env)->FindClass(env, className);
+    if (clazz == NULL) {
+        return JNI_FALSE;
+    }
+    if ((*env)->UnregisterNatives(env, clazz) < 0) {
+        return JNI_FALSE;
+    }
+    return JNI_TRUE;
+}
+static int registerNatives(JNIEnv *env) {
+    const char *kClassName = "org/zhangge/jni/HelloWorld";
+    return registerNativeMethods(env, kClassName, methods, sizeof(methods) / sizeof(methods[0]));
+}
+static int unregiterNatives(JNIEnv *env) {
+    const char *kClassName = "org/zhangge/jni/HelloWorld";
+    return unregisterNativeMethods(env, kClassName);
+}
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env = NULL;
+    jint result = -1;
+    if ((*vm)->GetEnv(vm, (void **) &env, JNI_VERSION_1_4) != JNI_OK) {
+        __android_log_print(ANDROID_LOG_DEBUG, "zhangge", "JNI_OnLoad not version 1.4");
+        return -1;
+    }
+    if (!registerNatives(env)) {
+        __android_log_print(ANDROID_LOG_DEBUG, "zhangge", "JNI_OnLoad failed!");
+        return -1;
+    }
+    return JNI_VERSION_1_4;
+}
+JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
+    JNIEnv *env = NULL;
+    jint result = -1;
+    if ((*vm)->GetEnv(vm, (void **) &env, JNI_VERSION_1_4) != JNI_OK) {
+        __android_log_print(ANDROID_LOG_DEBUG, "zhangge", "JNI_OnUnload not version 1.4");
+        return;
+    }
+    if (!unregiterNatives(env)) {
+        __android_log_print(ANDROID_LOG_DEBUG, "zhangge", "JNI_OnUnload failed!");
+        return;
+    }
+}
+
+{% endhighlight %}
+
+然后其实很多初始化的工作我们可以放到这里来做也是可以的了。
+
 ### 7. JNI的相关API使用
 
+主要的API都是JNIEnv这个结构体或者对象了，在2.5有说过一些JNIEnv的东西，其实就是定义在`jni.h`的结构体，里面含有大量的函数指针。
+
+#### 7.1 JNI回调Java方法
+
+其实用到的是反射，看下面如何获取Android的Context对象：
+
+{% highlight c %}
+
+/**
+ * 获取context
+ * 坑爹的一个问题:在一个2.3的三星手机上,在播放时获取不到context,估计是因为ActivityThread被占用所以无法反射
+ */
+jobject getGlobalContext(JNIEnv *env) {
+    jclass activityThread = (*env)->FindClass(env, "android/app/ActivityThread");
+    jmethodID currentActivityThread = (*env)->GetStaticMethodID(env, activityThread,
+                                                                "currentActivityThread",
+                                                                "()Landroid/app/ActivityThread;");
+    jobject at = (*env)->CallStaticObjectMethod(env, activityThread, currentActivityThread);
+    jmethodID getApplication = (*env)->GetMethodID(env, activityThread, "getApplication",
+                                                   "()Landroid/app/Application;");
+    jobject context = (*env)->CallObjectMethod(env, at, getApplication);
+    return context;
+}
+
+{% endhighlight %}
+
+反射的开销还是有的，不要频繁调用，可以保存起来一些信息。注意到要认真看JNIEnv的各种方法，除了CallStaticObjectMethod，还有CallVoidMethod等等！
+
+#### 7.2 java数组转c数组
+
+{% highlight c %}
+
+//传进来的buffer和length
+jbyteArray buffer;
+char* data = (char*)(*env)->GetByteArrayElements(env, buffer, 0);
+//do something with data
+(*env)->SetByteArrayRegion(env, buffer, 0, length, data);
+//这里有个坑,如果不释放的话就会报错
+//Failed adding to JNI pinned array ref table (1024 entries)
+//这不是释放byte数组,而是释放它的索引,它的索引存在一个table里面,低端机table比较小
+(*env)->ReleaseByteArrayElements(env, buffer, data, 0);
+
+{% endhighlight %}
+
+真的要时刻调用ReleaseByteArrayElements类似的方法，它不是释放数组的内容，而是释放引用，在jni里面，所有的java引用都存放在一个table里面，这个table很小的，一旦满了就会崩溃，不会自动去释放的。
+
+#### 7.3 打印日志
+
+需要`include <android/log.h>`，然后就可以使用接口了：
+
+>__android_log_print(ANDROID_LOG_DEBUG, "zhangge-test", "code format here:%s", "hahaha");
+
+同样我们可以定义在宏那里，使用更方面，它直接支持不定参数的传递，比写方法方便多了，如果要看C的不定参数，可以去看另外一篇[blog](http://zhgeaits.me/c/2013/06/09/c-varargs.html)。
+
+`#define LOGE(format, ...) __android_log_print(ANDROID_LOG_ERROR, "zhangge-test", format, ##__VA_ARGS__)`	
+
 ### 8. so加解密
+
+以前想过把核心代码写到so别人就很难破解了，特别是我做3D播放器的时候，想要把一些OpenGLES的代码写到so里面去，就是一些字符串而已，当我全都写好了以后，无意中一次在Eclipse里面用Text文本器打开了so，居然全部字符串的东西都能看到了！瞬间就被打击惨了。另外就算如果把代码写到so里面，那么native方法是不可以被混淆的，别人很容易直接拿你的库来使用。
+
+对于字符串的问题，解决方法是，先声明一个字符数组，然后在初始化函数里面一个字符一个字符的来赋值，那么就不会那么容易被破解了。如果要防止别人调用自己的so，可以在运行的时候取获取Android的Context，然后读取包名和签名的hash值，然后比较，存包名和hash值的时候不能直接原来的值直接存，要分段存储，然后还可以异或算法加密，校验的时候拼接以后解密再比较即可。不能通过jni调用java方法还验证，那样会抛出异常告诉用户具体哪个方法没找到，根本没有作用的。因为jni不能捕获异常啊！至于其他高级的方法就有待深入研究了，那需要修改到汇编的代码了。
 
 另外关于C和CPP的语言相关知识就不记录在这里了。
