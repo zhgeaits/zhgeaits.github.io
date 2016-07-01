@@ -60,7 +60,7 @@ public class TestObject implements Parcelable {
 
 在Android里面，启动应用的时候回默认启动一个进程，进程的名字就是应用的包名；我们也知道Android是以组件的形式来划分的，四大组件是必须依附在进程上运行的，当第一次启动的时候需要创建进程，会比较慢，但是当下次启动组建的时候，如果进程还在那速度就会很快了；组件没有进程就运行不了，进程没有任何组建也会有被回收的风险。
 
-使用多进程的正常方式只有一直，那就是在`AndroidManifest.xml`里面配置四大组建的时候，加一个参数：
+使用多进程的正常方式只有一种，那就是在`AndroidManifest.xml`里面配置四大组建的时候，加一个参数：
 
 >android:process=":processname"
 
@@ -72,7 +72,7 @@ Android为每个应用/进程都分配了一个独立的虚拟机，因此他们
 
 ## 3 Android里面的IPC
 
-当使用多线程的时候，我们都需要处理不少，那使用多进程更是一个复杂的事情，而在Android里面进程间通信有以下几种方式。
+当使用多线程的时候，我们都需要处理不少事情，那使用多进程更是一个复杂的事情，而在Android里面进程间通信有以下几种方式。
 
 ### 3.1 文件共享
 
@@ -84,7 +84,7 @@ Android为每个应用/进程都分配了一个独立的虚拟机，因此他们
 
 ### 3.3 Intent/Bundle
 
-学习Android的时候，启动一个组件是需要用到Intent的，而Intent中是带了Bundle数据的，Bundle是可以带基本类型和支持序列化的对象的。在单进程的情景下可以使用Bundle传递数据，那么跨进程的时候也是支持的，Android系统的底层是支持实现了的。例如，从一个进程的Activity启动另外一个进程的Activity的时候，Intent就可以带Bundle数据过去，并且在Result回来的时候也是可以带Bundle数据了。
+学习Android的时候，知道启动一个组件是需要用到Intent的，而Intent中是带了Bundle数据的，Bundle是可以带基本类型和支持序列化的对象的。在单进程的情景下可以使用Bundle传递数据，那么跨进程的时候也是支持的，Android系统的Framework底层是支持实现了的。例如，从一个进程的Activity启动另外一个进程的Activity的时候，Intent就可以带Bundle数据过去，并且在Result回来的时候也是可以带Bundle数据了。
 
 因此，这种方式是适用于Android原生的四大组件间通信的。
 
@@ -170,7 +170,7 @@ private ServiceConnection mConnection = new ServiceConnection() {
 
 {% endhighlight %}
 
-当与Service连接成功以后，通过Binder对象构造一个Messenger，然后就可以用来发送消息了，同时也要创建一个Messenger对象设置到replyTo属性，这样服务就能拿到来回复消息了。理解到Messenger时单向通信的，如果要双向发消息必须需要两个Messenger，每一个Messenger都创建了Binder对象。
+当与Service连接成功以后，通过Binder对象构造一个Messenger，然后就可以用来发送消息了，同时也要创建一个Messenger对象设置到replyTo属性，这样服务就能拿到来回复消息了。理解到Messenger是单向通信的，如果要双向发消息必须需要两个Messenger，每一个Messenger都创建了Binder对象。
 
 另外也理解到Handler没有用来跨进程，因此传递数据最好不要用到Message里面的属性，特别是obj这个属性，就算设置的Parcelable对象也没法传输，所以我们应该把数据放置在Bundle里面。
 
@@ -382,7 +382,7 @@ public interface TestServiceCore extends android.os.IInterface
 
 {% endhighlight %}
 
-可以看到，当我们创建Binder对象的时候，实际上new的是Stub这个抽象类，它实现了我们定义的接口，所以我们要具体实现接口方法；当把这个对象传递给客户端的时候，客户端调用了Stub的静态方法asInterface()来把把Binder进行转换，可以看到这个方法里面调用了queryLocalInterface()方法查询本地接口，就是从本进程里面寻找，如果能找到就返回这个Binder对象，如果找不到，就返回新创建的Proxy这个对象。
+可以看到，当我们创建Binder对象的时候，实际上new的是Stub这个抽象类，它实现了我们定义的接口，所以我们要具体实现接口方法；当把这个对象传递给客户端的时候，客户端调用了Stub的静态方法asInterface()来把Binder进行转换，可以看到这个方法里面调用了queryLocalInterface()方法查询本地接口，就是从本进程里面寻找，如果能找到就返回这个Binder对象，如果找不到，就返回新创建的Proxy这个对象。
 
 所以说，如果不是跨进程调用的话，那么直接就是Binder对象的方法调用了，否则就是调用了Proxy对象的方法。而Proxy对象实际上是包装了Service返回的Binder对象的。首先，这里分别把定义的业务接口相应定义了int常量，然后在调用Proxy的方法时候把这些int常量相应传递下去，服务端就会根据int常量去执行不同的业务方法。实际上它调用的是Service的Binder对象的`transact()`方法，这个方法还包含了两个Parcel参数，一个是传递的参数，一个是返回的参数，因此，当调用`transact()`方法的时候线程是会被挂起的。
 
