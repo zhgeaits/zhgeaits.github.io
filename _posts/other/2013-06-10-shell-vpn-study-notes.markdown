@@ -138,5 +138,6 @@ type: other
 56.comm:一行行比较两个文件，参数有1，2，3，具体man去
 57.测试网络服务命令netcat：nc host port,如：nc localhost 8080  -u参数是指定UDP测试
 58.rm删除一些特殊字符的文件名文件时，例如删除-.markdown，则用rm -- -.markdown
+59.进程监控命令：top -m 30
 
 {% endhighlight %}
