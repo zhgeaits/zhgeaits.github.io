@@ -140,7 +140,7 @@ __为什么要去写native代码？__
 
 首先是需要实现java无法实现的功能，有些时候可能是java没有api支持，那么我们如果对c比较熟悉的话就可以去写c来实现了；其次，当我们需要提高性能的时候，用c写的效率是会比较高的，就是如果要实现性能优化的时候可以考虑jni开发；如果开发的功能依赖到第三方的库来实现，如ffmpeg，shine, sdl等等，这些都是c来实现的，那么我们就需要移植到android，然后自己再用jni进行开发了。再就是想要动态加载库的时候，我们可以把核心模块写到c里面，不需要集成到apk里面去，当运行到这里的时候才让用户进行下载so库加载（jar包可以么？）；还有，如果我们想要保护核心的功能不被破解，是可以把功能写到so里面的，破解so至少比破解jar难一些，不过也是可以的，对于安全这块又是一大块领域了。最后，因为开发的so是native代码实现的，几乎是可以在其他平台上重用的！
 
-关于一些ndk的概念，可以从[官网](https://developer.android.com/ndk/guides/concepts.html#hiw)上阅读更多。
+关于一些ndk的概念，可以从[官网](https://developer.android.com/ndk/guides/concepts.html#hiw)上阅读更多。而关于NDK更多官方的例子可以看[Github](https://github.com/googlesamples/android-ndk/tree/android-mk)。
 
 ### 3.1 环境
 
