@@ -33,7 +33,7 @@ ffmpeg是开源的，几乎全世界的人都在维护，它的代码量有80w�
 
 #!/bin/bash
 #这句很重要，不然会报错 unable to create temporary file in
-export TMPDIR=/Users/zhgeaits/develop/resources/ffmpeg/ffmpeg-3.1.1
+export TMPDIR=/Users/zhgeaits/develop/resources/ffmpeg/ffmpeg-3.1.1/ffmpegtmp
 
 # NDK的路径，根据自己的安装位置进行设置
 NDK=/Users/zhgeaits/develop/android-ndk-r11c
@@ -269,6 +269,8 @@ EXTRA_CFLAGS="-O2 -fpic -I$PLATFORM/usr/include -I$LAMEDIR/jni/libmp3lame -I$LAM
 
 {% endhighlight %}
 
+>注意上面$LAMEDIR/obj/local/$ARMEABI指向的是libmp3lame.a位置。
+
 重新运行脚本会发现报错`ERROR: libmp3lame >= 3.98.3 not found`，我们去查看`config.log`会发现：
 
 >fatal error: lame/lame.h: No such file or directory
@@ -452,4 +454,119 @@ void close_vidmate_lame(lame_global_flags *glf) {
 }
 {% endhighlight %}
 
-然后剩下的是在java层定义JNI的接口来调用即可，首先是初始化，然后encode，最后flush和close，流程都非常简单，注意到的是encodeBufferInterleaved()函数是交叉存储的意思，即不分左右音轨的意思，有时候我们解码拿到的数据就是交叉存储的，不用专门去拆分左右音轨了。
+然后剩下的是在java层定义JNI的接口来调用即可，首先是初始化`init`，然后`encode`，最后`flush`和`close`，流程都非常简单，注意到的是`encodeBufferInterleaved()`函数是交叉存储的意思，即不分左右音轨的意思，有时候我们解码拿到的数据就是交叉存储的，不用专门去拆分左右音轨了。另外，编码是不支持多线程的，可能需要自己去修改源码，应该就是全局变量的问题。
+
+## 4. What's libshine
+
+原本使用libmp3lame这个库就已经足够的了，它已经是业界的权威mp3编码库，非常的标准和稳定，但是效率方面太慢了，就算我针对arm架构cpu的各种特性，neon，vfp等等编译加速，在高端手机上还是蛮快的，但是一旦遇到低端手机以后就非常非常的慢！不能满足需求，于是各种网上google和Github，发现了[shine](https://github.com/toots/shine)，根据说明和测试，它是超级快的一个mp3编码库，特别是在没有FPU的cpu上，使用的是Fixed-point算法，具体我也不懂，不过使用以后，性能真的快了很多！
+
+### 4.1 编译libshine
+
+可以看到Github上的源码它直接是支持android的了，clone下来代码，发现里面有一个Makefile.am文件，去掉后缀名，Makefile文件里面已经有android的目标了，我们修改Binary.mk和Library.mk文件，去掉formatbits.c，因为src目录下并没有这个文件的了。然后直接在shine目录下执行make命令，即可完成编译了，可以看到在android目录生成了libshine.so了。当然我们可以修改Library.mk文件，生成静态库libshine.a而不是so库，不管怎么样，都是可以直接在jni使用的了。
+
+另外，我们完全可以像libmp3lame那样，把代码复制出来，建立jni目录，创建Android.mk和Application.mk文件，然后自行编译。
+
+### 4.2 Build ffmpeg with libshine
+
+比较麻烦的就是要把libshine集成到ffmpeg里面去了。我们在ffmpeg目录运行`./configure --help | grep shine`，发现ffmpeg已经和libmp3lame那样支持的了，我们需要模仿libmp3lame那样修改编译脚本：
+
+{% highlight shell %}
+
+--enable-libshine
+--enable-encoder=libshine
+ARMEABI=armeabi-v7a
+SHINEDIR=/Users/zhgeaits/develop/resources/ffmpeg/shine
+EXTRA_LDFLAGS="-L$SHINEDIR/obj/local/$ARMEABI"
+EXTRA_CFLAGS="-O2 -fpic -I$PLATFORM/usr/include -I$SHINEDIR/jni/shine $OPTIMIZE_CFLAGS"
+
+{% endhighlight %}
+
+注意到上面的脚本是没有包含libmp3lame的，当然我们是完全可以同时包含两个库的。另外`--enable-encoder=libshine`这个一定要有，不然ffmpeg是不会编译进去shine库的。然后开始编译，你会发现报错找不到shine，然后我们去看`config.log`：
+
+	check_pkg_config shine shine/layer3.h shine_encode_buffer 
+	false --exists --print-errors shine 
+	ERROR: shine not found using pkg-config
+
+难道又是头文件位置不对？我去修改layer3.h的位置，依然报错！我们去查看configure文件，所有地方lame和shine都是一样的配置，唯独这里不同：
+
+>enabled libmp3lame        && require "libmp3lame >= 3.98.3" lame/lame.h lame_set_VBR_quality -lmp3lame
+
+而shine是这样的：
+
+>enabled libshine          && require_pkg_config shine shine/layer3.h shine_encode_buffer
+
+我再去看`libavcodec/Makefile`和`libavcodec/allcodecs.c`，里面两者的配置都是一样的，我依旧不明白为什么上面的配置不同，我目前也不懂pkg-config是个上面东东！这留给以后去学习好了，我就尝试修改为这样：
+
+>enabled libshine          && require "shine" shine/layer3.h shine_encode_buffer -lshine
+
+再次运行脚本，居然成功了！看来并没有多大的区别和关系啊。我猜测原本的配置是用于检查编译有没有pkg-config的，而这个应该是pc平台，在android平台并找不到。
+
+另外，ffmpeg是怎么把libmp3lame和libshine集成过去的？我们看到`libavcodec/libmp3lame.c`和`libavcodec/libshine.c`文件，里面调用了编码的接口，实现了ffmpeg的标准接口，瞬间明白，这就像插件一样把库插进去了！如果我们没有`--enable-encoder=libshine`这样的配置，那么就不会编译libshine.c文件了！
+
+### 4.3 JNI中调用shine接口
+
+不管是直接用libshine的库，还是编译进去ffmpeg里面，只要用到jni里面去，我们都可以直接调shine的接口了。关于shine的api使用，并没有文档，不过由于比较简单，代码也不多，加上如果对音频多媒体知识有点了解，基本是没有困难的。我们可以查看源码里面`main.c`文件简单的使用把wav转换mp3，还可以查看`layer3.h`头文件对api的说明。
+
+{% highlight shell %}
+
+shine_config_t config;
+shine_t s;
+int written;
+
+void zhangge_init_shine(int channels, int samplerate) {
+    shine_set_config_mpeg_defaults(&config.mpeg);
+    config.wave.channels = channels;
+    config.wave.samplerate = samplerate;
+    /* Set to stereo mode if wave data is stereo, mono otherwise. */
+    if (config.wave.channels > 1)
+        config.mpeg.mode = STEREO;
+    else
+        config.mpeg.mode = MONO;
+    s = shine_initialise(&config);
+}
+int get_samples_per_pass() {
+    return shine_samples_per_pass(s);
+}
+unsigned char *zhangge_shine_encode_buffer(int16_t **data) {
+    return shine_encode_buffer(s, data, &written);
+}
+unsigned char *zhangge_shine_encode_buffer_interleaved(int16_t *data, int *byteEncode) {
+    unsigned char *result = shine_encode_buffer_interleaved(s, data, byteEncode);
+    return result;
+}
+unsigned char *zhangge_shine_flush() {
+    return shine_flush(s, &written);
+}
+void zhangge_shine_close() {
+    return shine_close(s);
+}
+JNIEXPORT void JNICALL Java_org_zhangge_ShineCodec_shineInit
+        (JNIEnv *env, jclass cls, jint channels, jint samplerate) {
+    zhangge_init_shine(channels, samplerate);
+}
+JNIEXPORT jint JNICALL Java_org_zhangge_ShineCodec_shineSamplesPerPass
+        (JNIEnv *env, jclass cls) {
+    int sample_per_pass = get_samples_per_pass();
+    return sample_per_pass;
+}
+JNIEXPORT void JNICALL Java_org_zhangge_ShineCodec_shineFlush
+        (JNIEnv *env, jclass cls) {
+    zhangge_shine_flush();
+}
+JNIEXPORT void JNICALL Java_org_zhangge_ShineCodec_shineClose
+        (JNIEnv *env, jclass cls) {
+    zhangge_shine_close();
+}
+JNIEXPORT jbyteArray JNICALL Java_org_zhangge_ShineCodec_shineEncodeInterleaved
+        (JNIEnv *env, jclass cls, jshortArray data) {
+    short *pcm = (*env)->GetShortArrayElements(env, data, NULL);
+    unsigned char *mp3buf = zhangge_shine_encode_buffer_interleaved(pcm, &written);
+    jbyteArray result = (*env)->NewByteArray(env, written);
+    (*env)->SetByteArrayRegion(env, result, 0, written, mp3buf);
+    (*env)->ReleaseShortArrayElements(env, data, pcm, 0);
+    return result;
+}
+
+{% endhighlight %}
+
+上面就是核心的代码了，对于java层的使用就更简单了，但是它不并lame那么简单，可以任意传一个buffer下去编码，这个buffer的大小需要通过调用get_samples_per_pass()来获取，而written参数是编码成功以后的大小。
