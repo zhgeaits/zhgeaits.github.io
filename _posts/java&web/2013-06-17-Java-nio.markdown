@@ -19,11 +19,11 @@ type: java&web
 
 ## 3. 字节流
 
-最原始的操作方式，也是最灵活的了。顾名思义，就是对字节进行操作。两个顶级接口分别是InputStream和OutputStream。直接在IDE是看这两个接口有哪些子类和实现类即可。比较常用的就是FileInputStream，GZipInputStream，ByteArrayInputStream和ObjectInputStream了，分别对应于outputstream的。
+最原始的操作方式，也是最灵活的了。顾名思义，就是对字节进行操作。两个顶级接口分别是`InputStream`和`OutputStream`。直接在IDE是看这两个接口有哪些子类和实现类即可。比较常用的就是`FileInputStream`，`GZipInputStream`，`ByteArrayInputStream`和`ObjectInputStream`了，同样的`Output`接口分别对应于`outputstream`的。
 
 ## 4. 字符流
 
-这是以字符的形式进行操作的，很方便的对文本进行操作，不过要注意编码方式。两个顶级的接口是Reader和Writer。同样查看IDE就可以查看实现类和子类。比较常用的是BufferedReader, InputStreamReader, FileReader，对应于writer。
+这是以字符的形式进行操作的，很方便的对文本进行操作，不过要注意编码方式。两个顶级的接口是`Reader`和`Writer`。同样查看IDE就可以查看实现类和子类。比较常用的是`BufferedReader`, `InputStreamReader`, `FileReader`，同样的`Writer`接口对应于writer。
 
 ## 5. RandomAccessFile
 
@@ -31,7 +31,7 @@ type: java&web
 
 ## 6. 新IO系统
 
-上面的笔记都是很简单的，也是因为比较简单，重点是学习下面的nio。代码在Github上JavaTextBox项目的io包下。
+上面的笔记都是很简单的，也是因为比较简单，重点是学习下面的nio。代码在Bitbucket上JavaTextBox项目的io包下。
 
 nio就是new io的意思，是java1.4引入的。nio的引入是为了提高速度，实际上，旧的IO包已经使用nio重新实现过了，因此，即使我们不显式地用nio编写代码，也能从中受益。所谓新的IO系统，其实就是采用了更接近于操作系统执行IO的方式：通道（Channel）和缓冲器（Buffer）。可以这样子理解，文件就是一个矿藏，我们要挖采它就需要开取一条通道，就像火车道一样，最后用一个卡车来运输，卡车就是缓冲器。通道是一种相当基础的东西：可以向它传送用于读写的ByteBuffer，并且可以锁定文件的某些区域用于独占式访问。我们只需要对缓冲器进行操作即可，就像在使用c来操作文件一样。
 
@@ -109,22 +109,23 @@ fcOutput.transferFrom(fcInput, 0, fcInput.size());
 
 ### 6.5 缓冲器的详细API
 
-上面虽然知道了基本的使用，但是，实际上缓冲器的细节还是有点复杂的，不了解的话，是不能好好的使用的。实际上，缓冲器就是一个数组，但是它有四个关键索引：position位置，limit界限，capacity容量，mark标记。
+上面虽然知道了基本的使用，但是，实际上缓冲器的细节还是有点复杂的，不了解的话，是不能好好的使用的。实际上，缓冲器就是一个数组，但是它有四个关键索引：`position`位置，`limit`界限，`capacity`容量，`mark`标记。
 
-position是当前移动的指针的位置，每次调用get，或者put方法的时候，指针都会往后移动，至于移动多少个字节要根据get和put操作的字节数。
+- `position`是当前移动的指针的位置，每次调用get，或者put方法的时候，指针都会往后移动，至于移动多少个字节要根据get和put操作的字节数。
 
-capacity是这个缓冲器的容量，即大小，能存多少数据。
+- `capacity`是这个缓冲器的容量，即大小，能存多少数据。
 
-limit是对缓冲器进行操作的时候的限制。如果对缓冲器进行写的时候，我们先调用clear()来清空数据，这时候limit被设置为capacity。如果对缓冲器进行读的时候，我们先调用flip()来准备读取，这时候limit被设置为position，即写到的最后一个数据位置，然后再把position设置为0。
+- `limit`是对缓冲器进行操作的时候的限制。如果对缓冲器进行写的时候，我们先调用clear()来清空数据，这时候limit被设置为capacity。如果对缓冲器进行读的时候，我们先调用flip()来准备读取，这时候limit被设置为position，即限制指向了写入时的最后一个数据位置，然后再把position设置为0。
 
-mark是一个辅助的功能，用于标记位置。调用mark()的时候会把mark设置为当前的position，当我们调用reset()的时候就会把position设置为mark。
+- `mark`是一个辅助的功能，用于标记位置。调用mark()的时候会把mark设置为当前的position，当我们调用reset()的时候就会把position设置为mark。
 
 详细的api如下：
 
 {% highlight java %}
 
 capacity();//返回缓冲器的容量
-clear();//清空缓冲器为可写状态，position=0，limit=capacity, mark标记被清空。如上所述；实际上并不会抹掉数据，因为你去写数据就会覆盖
+//清空缓冲器为可写状态，position=0，limit=capacity, mark标记被清空。如上所述；实际上并不会抹掉数据，因为你去写数据就会覆盖
+clear();
 flip();//准备缓冲器为可读状态，limit=position, position=0。如上所述
 limit();//返回limit值
 limit(int limit);//设置limit
@@ -134,15 +135,17 @@ position(int pos);//设置position
 remaining();//返回(limit-position)
 hasremaining();//若有有介于position和limit之间的元素，则返回true
 rewind();//倒回重新读取数据，position=0，mark标记被清空。区别于clear，是不会重新设置limit的。
-slice();//从position位置开始新创建一个缓冲器，mark为定义，limit和capacity为剩余的大小。但是元素并没有复制多一份，而是共享的，一旦修改都会互相影响的。
+//从position位置开始新创建一个缓冲器，mark为定义，limit和capacity为剩余的大小。
+//但是元素并没有复制多一份，而是共享的，一旦修改都会互相影响的。
+slice();
 
 {% endhighlight %}
 
 ### 6.6 关于字节存放的顺序
 
-学过操作系统和网络，都知道字节存放顺序的，一般就是大端和小端。大端（big end）就是高位优先，将数的高位存放在低位地址的存储器上；小端（little end）是地位优先，将地位数存放低位地址的存储器上。注意的是，左边的是低位地址的存储器，右边是高位地址的存储器，刚好和我们想的想法了。例如：
+学过操作系统和网络，都知道字节存放顺序的，一般就是大端和小端。大端（big end）就是高位优先，将数的高位存放在低位地址的存储器上；小端（little end）是地位优先，将地位数存放低位地址的存储器上。注意的是，左边的是低位地址的存储器，右边是高位地址的存储器，刚好和我们想的相反了。例如：
 
-00000000 01100001，这是两个字节的数，从左往右数，分别是低位，高位存储器。如果用大端方式读取，就是97；如果用小端方式读取，就是24832了，即实际的二进制是01100001 00000000。
+`00000000 01100001`，这是两个字节的数，从左往右数，分别是低位-高位存储器。如果用大端方式读取，就是`97`；如果用小端方式读取，就是`24832`了，即实际的二进制是`01100001 00000000`。
 
 对ByteBuffer设置字节顺序的接口是：
 
@@ -157,11 +160,11 @@ buff.order(ByteOrder.LITTLE_ENDIAN);
 
 ### 6.7 视图缓冲器
 
-上面用到的都是最基本的字节缓冲器，是比较底层的一些操作，而实际上，java在上层封装了很多基本数据类型的视窗来查看ByteBuffer的。对int，float，long，double，char，short分别有对应的缓冲器。只要在获取得到ByteBuffer以后调用asXXX的方法就能获取得到相应的视图缓冲器了，或者调用视图缓冲器的wrap方法，如下图所示：
+上面用到的都是最基本的字节缓冲器，是比较底层的一些操作，而实际上，java在上层封装了很多基本数据类型的视窗来查看ByteBuffer的。对`int，float，long，double，char，short`分别有对应的缓冲器。只要在获取得到ByteBuffer以后调用asXXX的方法就能获取得到相应的视图缓冲器了，或者调用视图缓冲器的wrap方法，如下图所示：
 
 ![alt text](/image/java_nio.png "nio")
 
-需要注意两个问题，一是ShortBuffer调用put方法的时候，可能需要考虑到转型。二是编码的问题，如果是用ByteBuffer写的数据，然后用CharBuffer读取，则会出现乱码，需要用Charset来decode，或者直接用CharBuffer来写再读就不会乱码，如下例子所示：
+需要注意两个问题，一是ShortBuffer调用put方法的时候，可能需要考虑到转型。二是编码的问题，如果是用ByteBuffer写的数据，然后用CharBuffer读取，则会出现乱码，需要用`Charset`来decode，或者直接用CharBuffer来写再读就不会乱码，如下例子所示：
 
 {% highlight java %}
 
@@ -211,15 +214,17 @@ fc.close();
 
 int length = 0x8FFFFFF;//128M，实际可以更大
 
-MappedByteBuffer out = new RandomAccessFile("test.data", "rw").getChannel().map(FileChannel.MapMode.READ_WRITE, 0, length);
+MappedByteBuffer out = new RandomAccessFile("test.data", "rw")
+							.getChannel()
+							.map(FileChannel.MapMode.READ_WRITE, 0, length);
 
 {% endhighlight %}
 
-MappedByteBuffer几乎具有所有视图缓冲器的方法，所以操作极其方便，最大的区别是，对MappedByteBuffer操作完了以后，是不需要通过filechannel来read和write的，因为是filechannel映射过来的。但是，映射文件中的所有输出必须使用RandomAccessFile。
+MappedByteBuffer几乎具有所有视图缓冲器的方法，所以操作极其方便，最大的区别是，**对MappedByteBuffer操作完了以后，是不需要通过filechannel来read和write的，因为是filechannel映射过来的**。但是，映射文件中的所有输出必须使用RandomAccessFile。
 
 ### 6.8 文件加锁
 
-学过操作系统，线程互斥的知识，就知道多线程的时候锁问题了。在这里，实际上是调用FileChannel来对文件加锁的。SocketChannel,DatagramChannel, ServerSOcketChannel不需要加锁，因为他们是从单进程实体继承而来的，我们通常不再两个进程之间共享网络socket。如果，竞争同一文件的线程不在同一个java虚拟机上，或者，一个是java的线程，一个是操作系统的本地线程，这种问题，能否锁住？肯定是可以的，这里的文件锁和java线程那边的锁不一样，这个文件锁对其他的系统进程是可见的，java的文件加锁是直接映射到操作系统的加锁工具的。
+学过操作系统，线程互斥的知识，就知道多线程的时候锁问题了。在这里，实际上是调用FileChannel来对文件加锁的。`SocketChannel`,`DatagramChannel`, `ServerSocketChannel`不需要加锁，因为他们是从单进程实体继承而来的，我们通常不在两个进程之间共享网络socket。如果，竞争同一文件的线程不在同一个java虚拟机上，或者，一个是java的线程，一个是操作系统的本地线程，这种问题，能否锁住？肯定是可以的，这里的文件锁和java线程那边的锁不一样，这个文件锁对其他的系统进程是可见的，java的文件加锁是直接映射到操作系统的加锁工具的。
 
 {% highlight java %}
 
