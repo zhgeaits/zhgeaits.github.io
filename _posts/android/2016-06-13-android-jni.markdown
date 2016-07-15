@@ -207,6 +207,8 @@ ndk{
 
 >android.useDeprecatedNdk=true
 
+最后项目运行成功以后，生成的so库在build/intermediates/jniLibs目录下。
+
 #### 3.3.2 去掉jni的支持
 
 在我要使用第三方的so库，可以是复制到libs目录，这是不合理的用法，另外，如果使用的是.a静态库并要加入到jni的编译中去的时候就没法做了。因为很多Android.mk的配置，在gradle上还没有支持，以后的版本是会改进的。于是就需要去掉gradle自动编译jni目录了，让我们自己手动编译即可。
