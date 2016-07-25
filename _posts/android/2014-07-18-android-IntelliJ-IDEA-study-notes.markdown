@@ -148,6 +148,14 @@ Error:java: Compilation failed: internal java compiler error
 		<td>删除行</td>
 	</tr>
 	<tr>
+		<td>Command + D：</td>
+		<td>这是我在mac下修改为删除行，因为我习惯eclipse的快捷键，实际上delete line，可以去设置里面keymap改</td>
+	</tr>
+	<tr>
+		<td>fn + Ctrl + option + up：</td>
+		<td>复制行，mac下的复制行，非常实用，但是如果是选中block，复制的不会出现在新行。对应设置是duplicate lines</td>
+	</tr>
+	<tr>
 		<td>Ctrl + O：</td>
 		<td>重载方法Override</td>
 	</tr>
@@ -165,7 +173,7 @@ Error:java: Compilation failed: internal java compiler error
 	</tr>
 	<tr>
 		<td>Double click shift：</td>
-		<td>双击shift键，超级查询，可以查到jar包里面的东西</td>
+		<td>双击shift键，超级查询，可以查到jar包里面的东西，设置可以查到android系统的代码，如PhoneWindow。</td>
 	</tr>
 	<tr>
 		<td>Ctrl + F12</td>
@@ -214,6 +222,10 @@ Error:java: Compilation failed: internal java compiler error
 	<tr>
 		<td>Ctrl + Shift + J</td>
 		<td>多行合并成一行</td>
+	</tr>
+	<tr>
+		<td>Ctrl + N</td>
+		<td>生成代码，toString，构造方法，hashcode方法等等</td>
 	</tr>
 </table>
 
