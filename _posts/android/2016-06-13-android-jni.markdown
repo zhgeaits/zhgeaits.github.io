@@ -132,6 +132,22 @@ typedef const struct JNIInvokeInterface* JavaVM;
 
 我建议使用c开发就可以了。
 
+### 2.6 捕获异常
+
+在JNI底下也是可以抛出异常的，具体可以看JNIEnv里面定义的方法。我在使用里面的一个FindClass方法的时候，如果没有找到class就会抛出ClassNotFound的异常，我想要捕获，然后清除这些异常信息，可以这样做：
+
+{% highlight c %}
+
+jclass activityThread = (*env)->FindClass(env, "android/app/ActivityThread");
+if ((*env)->ExceptionCheck(env)) {
+    (*env)->ExceptionClear(env);
+    return;
+}
+
+{% endhighlight %}
+
+这样以后就不会出现异常信息和crash了，可以让程序继续跑并且可以保护信息不让别人看到。
+
 ## 3. Android JNI开发
 
 在Android上也是可以进行jni开发的，因为android也是基于linux系统来的，也是可以在dvm里面跑c的代码，不过需要用到ndk里面的`ndk-build`来编译，并不是说随便拿一个so库来就可以执行的，必须通过ndk编译过的才能在android系统上运行，具体估计跟编译环境和系统等等有关系，我还没学习过相关知识，所以无法解释了。[ndk-build](https://developer.android.com/ndk/guides/ndk-build.html)是Google提供的一个编译脚本。
@@ -226,7 +242,7 @@ sourceSets.main{
 
 最后在jni的目录配置就和eclipse的一样了，需要编写Android.mk和Application.mk文件，每次都需要自己在命令行运行ndk-build命令了。
 
-### 4. Application.mk
+## 4. Application.mk
 
 这里只记录了常用的一些配置，全面详细的解释可以去[官网文档](https://developer.android.com/ndk/guides/application_mk.html)阅读。
 
@@ -272,7 +288,7 @@ ABI是Application Binary Interface的意思，即我们需要把代码编译到�
 
 >ndk-build NDK_PROJECT_PATH=. NDK_APPLICATION_MK=Application.mk
 
-### 5. Android.mk
+## 5. Android.mk
 
 它是GNU Makefile的一个片段，NDK是基于make的，所以本质上它就是makefile，详细可以去看[官网文档](https://developer.android.com/ndk/guides/android_mk.html)。我们可以进入NDK的目录，在build/core目录下有很多的.mk文件，其实就是NDK的构建系统了。mk文件的注释是#号，这个不用多说了，直接看一个简单的例子：
 
@@ -319,7 +335,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 看到第一行给LOCAL_PATH这个变量赋值，`$()`包含的就是读取变量的值，call是一个指令，my-dir是这个指令的目标，即相当于执行函数。include也是一条指令，它会把外部的mk文件引入进来，例如这里引入了clear-vars.mk文件，然后清空了变量，引入了build-shared-library.mk文件，怎么编译一个共享库。
 
-#### 5.1 共享库与静态库
+### 5.1 共享库与静态库
 
 通常编译为so的文件是共享库，它可以直接使用了，也可以提供给别的模块使用，当共享使用的时候需要编写这句`include $(PREBUILT_SHARED_LIBRARY)`，表明它是预编译的，在java里面使用的时候所有的so都需要load的。静态库是.a结尾的文件，它不能直接提供给java使用，但是可以提供给别的模块使用，别的模块会把静态库编译进来只生成一个so库，但是如果一个库要提供给多个模块使用的时候，就不建议用静态块了，那样重复了体积会很大，建议用共享库。静态库的使用如下：
 
@@ -334,7 +350,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += libmp3lame
 
 {% endhighlight %}
 
-#### 5.2 LOCAL_CFLAGS编译选项
+### 5.2 LOCAL_CFLAGS编译选项
 
 这个是编译的选项，除了配置头文件目录以外，还可以配置很多信息。而其实配置头文件应该使用`LOCAL_C_INCLUDES`。例子如下：
 
@@ -357,7 +373,7 @@ endif
 
 除此之外，gcc一些编译参数都是可以用在这里的，如上面的-fPIC等等。
 
-### 6. 手动加载JNI函数
+## 6. 手动加载JNI函数
 
 一般来说，按照上面说的用javah命令生成头文件以后，就会把native方法生成按规则约定的方法名，然后编译器就会自定连接到对应的方法，即加载so库以后，只要调用native方法就会触发调用到了相应的底层c的函数了。新版的JNI系统都是这样自动注册jni函数的了，但是旧版就不一样了，必须根据方法前面注册相应的函数，否则的话就会报一个错误，或者只是警告：
 
@@ -434,11 +450,11 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
 
 然后其实很多初始化的工作我们可以放到这里来做也是可以的了。
 
-### 7. JNI的相关API使用
+## 7. JNI的相关API使用
 
 主要的API都是JNIEnv这个结构体或者对象了，在2.5有说过一些JNIEnv的东西，其实就是定义在`jni.h`的结构体，里面含有大量的函数指针。
 
-#### 7.1 JNI回调Java方法
+### 7.1 JNI回调Java方法
 
 其实用到的是反射，看下面如何获取Android的Context对象：
 
@@ -464,7 +480,7 @@ jobject getGlobalContext(JNIEnv *env) {
 
 反射的开销还是有的，不要频繁调用，可以保存起来一些信息。注意到要认真看JNIEnv的各种方法，除了CallStaticObjectMethod，还有CallVoidMethod等等！
 
-#### 7.2 java数组转c数组
+### 7.2 java数组转c数组
 
 {% highlight c %}
 
@@ -482,7 +498,7 @@ char* data = (char*)(*env)->GetByteArrayElements(env, buffer, 0);
 
 真的要时刻调用ReleaseByteArrayElements类似的方法，它不是释放数组的内容，而是释放引用，在jni里面，所有的java引用都存放在一个table里面，这个table很小的，一旦满了就会崩溃，不会自动去释放的。
 
-#### 7.3 打印日志
+### 7.3 打印日志
 
 需要`include <android/log.h>`，然后就可以使用接口了：
 
@@ -492,7 +508,7 @@ char* data = (char*)(*env)->GetByteArrayElements(env, buffer, 0);
 
 `#define LOGE(format, ...) __android_log_print(ANDROID_LOG_ERROR, "zhangge-test", format, ##__VA_ARGS__)`	
 
-### 8. so加解密
+## 8. so加解密
 
 以前想过把核心代码写到so别人就很难破解了，特别是我做3D播放器的时候，想要把一些OpenGLES的代码写到so里面去，就是一些字符串而已，当我全都写好了以后，无意中一次在Eclipse里面用Text文本器打开了so，居然全部字符串的东西都能看到了！瞬间就被打击惨了。另外就算如果把代码写到so里面，那么native方法是不可以被混淆的，别人很容易直接拿你的库来使用。
 
