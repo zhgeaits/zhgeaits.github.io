@@ -15,7 +15,7 @@ ffmpeg里面提供了四大工具，ffmpeg，ffserver，ffprobe，ffplay，目�
 
 ffmpeg包含了七大模块：libavutil, libavcodec, libavformat, libavdevice, libavfilter, libswscale, libswresample，大部分从名字就能看出是什么，而libavformat主要是提供是mux和demux功能；libswscale是转换相关，libswresample是重新采样的了，跟转换相关，libavdevice我并不太了解。大部分我都不是很了解，更多详细可以去官网了解。
 
-ffmpeg是开源的，几乎全世界的人都在维护，它的代码量有80w行了，非常的庞大，但是我们可以只编译出一些需要的库！因为它大了吧，ffmpeg的人出来搞了一个相对小一点的[libav](http://libav.org/)库，几乎和ffmpeg有着同样的功能，具体我也没有去了解过。
+ffmpeg是开源的，几乎全世界的人都在维护，它的代码量有80w行了，非常的庞大，但是我们可以只编译出一些需要的库！因为它太大了吧，ffmpeg的人出来搞了一个相对小一点的[libav](http://libav.org/)库，几乎和ffmpeg有着同样的功能，具体我也没有去了解过。
 
 ## 2. Compile FFmpeg
 

@@ -7,7 +7,7 @@ supertype: career
 type: android
 ---
 
->这里必须先说一个故事，在我大三拿到offer以后决定转行Android，然后决定在大四的时候一变游玩一边写一个Android项目，以备毕业入职之需。然而，在我还没入门的时候就拿到工作室的高大上的项目，做一个裸眼3D播放器，哈哈！我还没熟悉Android的时候就涉足了JNI的开发，那个时候主要涉及的都是底层的C和视频编解码相关的知识！就是没有记录多少在Blog上。那时候用的还是Eclipse，现在工作两年了，早已放弃了用Android Studio了，现在AS对JNI的支持还是不太好，刚好现在的工作再次涉及到JNI了，所以便有了这篇...
+>这里必须先说一个故事，在我大三拿到offer以后决定转行Android，然后决定在大四的时候一边游玩一边写一个Android项目，以备毕业入职之需。然而，在我还没入门的时候就拿到工作室的高大上的项目，做一个裸眼3D播放器，哈哈！我还没熟悉Android的时候就涉足了JNI的开发，那个时候主要涉及的都是底层的C和视频编解码相关的知识！就是没有记录多少在Blog上。那时候用的还是Eclipse，现在工作两年了，早已放弃了而用Android Studio了，现在AS对JNI的支持还是不太好，刚好现在的工作再次涉及到JNI了，所以便有了这篇...
 
 ## 1. What's JNI
 
@@ -58,7 +58,7 @@ C语言靠的是头文件进行连接的，所以要生成约定形式的头文�
 
 `-shared`代表的是生成so动态链接库
 
-命名：lib是必须的，helloworld是loadLibrary指定的。
+>命名：lib是必须的，helloworld是loadLibrary指定的。
 
 最后生成`libhelloworld.so`。
 
@@ -110,7 +110,7 @@ extern "C" {
 
 {% endhighlight %}
 
-这个extern "C"包含了我们的函数的原型定义。原本extern关键字是修饰变量的，使得我们可以获取外部的变量，而这里结合了“C”来使用，告诉编译器这些函数按照C的方式来编译，那就不会出现错误了。关于extern这一块的知识，还是蛮多的，因为我不做c++开发，所以没有深入理解。
+这个`extern "C"`包含了我们的函数的原型定义。原本extern关键字是修饰变量的，使得我们可以获取外部的变量，而这里结合了“C”来使用，告诉编译器这些函数按照C的方式来编译，那就不会出现错误了。关于extern这一块的知识，还是蛮多的，因为我不做c++开发，所以没有深入理解。
 
 `__cplusplus`是C++的自定义宏定义，我不知道怎么搞来的，只要后缀是cpp的时候就会有这个宏定义了。我们看到jni.h里面有这样的定义：
 
@@ -191,21 +191,21 @@ __为什么要去写native代码？__
 
 在jni目录下写了c文件以后，就算运行ndk-build，它并不会像java那样自动编译所有的c文件的，如果我们学习过c编译会知道make工具，它是GNU的编译工具，需要根据Makefile来进行编译链接代码。看到后缀名mk便知道是make的缩写，android的ndk既然是编译c，也是需要make的，官方文档说这两个是GNU Makefile的片段，暂时还是不太懂这些的了。另外，android的配置文件一般都是有继承关系的，可以去到ndk目录下找到很多父类的.mk文件，而且语法比较完善。
 
-全局jni目录下只有一个`Application.mk`，这个文件列举和描述了我们app所需要的模块，里面主要包括了编译的abi，toolchains和包含的标准库(static、dynamic STLport 或者 default system)。
+全局jni目录下只有一个`Application.mk`，这个文件列举和描述了我们app所需要的模块，里面主要包括了编译的abi，toolchains和包含的标准库(static、dynamic STLport或者default system)。
 
 我们至少需要一个`Android.mk`文件，当有多个模块的时候就需要多个Android.mk文件了。里面定义了模块和它的名字，需要编译的文件，build flags和需要链接的库，每次运行ndk-build脚本命令的时候必然会去寻找这个文件进行编译的。通常有些变量可以在Application.mk全局定义，会应用到每一个Android.mk。
 
 ### 3.3 Android Studio配置
 
-在as2.0以后对jni的支持已经相对够好了，想SDK一样配置NDK的目录即可，结合gradle基本上能完成基本的开发，但是对于第三方库的时候，却很多地方无法配置，无奈我只能去掉jni的支持，自己手动执行ndk-build来编译，因为使用了gradle，所以一般来说，是不需要Android.mk和Application.mk配置文件的了。
+在as2.0以后对jni的支持已经相对够好了，像SDK一样配置NDK的目录即可，结合gradle基本上能完成基本的开发，因为使用了gradle，所以一般来说，是不需要Android.mk和Application.mk配置文件的了。但是对于第三方库的时候，却很多地方无法配置，无奈我只能去掉jni的支持，自己手动执行ndk-build来编译。
 
 #### 3.3.1 添加JNI支持
 
 只需要在main目录下，右键选择new，在Folder那里选择Add Jni Folder即可，其实直接new一个名字为jni的目录也是可以的。gradle在构建的时候就会去检查并执行ndk命令的了。
 
-然后把javah生成的头文件复制到jni目录，在去编写c文件就可以的了。生成的so库不在install到外面的libs目录，libs目录一般放的是第三方的jar包了。它会install到了build目录intermediates/ndk下的了。
+然后把javah生成的头文件复制到jni目录，再去编写c文件就可以的了。生成的so库不再是install到外面的libs目录，libs目录一般放的是第三方的jar包了。它会install到了build目录`intermediates/ndk`下的了。
 
-然后在`build.gradle`文件的defaultConfig节点下加入下面配置：
+接着在`build.gradle`文件的defaultConfig节点下加入下面配置：
 
 {% highlight gradle %}
 
@@ -223,11 +223,11 @@ ndk{
 
 >android.useDeprecatedNdk=true
 
-最后项目运行成功以后，生成的so库在build/intermediates/jniLibs目录下。
+最后项目运行成功以后，生成的so库在`build/intermediates/jniLibs`目录下。
 
 #### 3.3.2 去掉jni的支持
 
-在我要使用第三方的so库，可以是复制到libs目录，这是不合理的用法，另外，如果使用的是.a静态库并要加入到jni的编译中去的时候就没法做了。因为很多Android.mk的配置，在gradle上还没有支持，以后的版本是会改进的。于是就需要去掉gradle自动编译jni目录了，让我们自己手动编译即可。
+当我要使用第三方so库的时候，可以是复制到libs目录，但这是不合理的用法，另外，如果使用的是.a静态库并要加入到jni的编译中去的时候就没法做了。因为很多Android.mk的配置，在gradle上还没有支持，以后的版本是会改进的。于是就需要去掉gradle自动编译jni目录了，让我们自己手动编译即可。
 
 在`build.gradle`我们就不用配置ndk节点了，然后在android节点下配置下面信息，修改jniLibs和jni的目录即可。
 
@@ -254,7 +254,7 @@ sourceSets.main{
 
 可以看到里面采用的就是Key-Value的形式来配置的，解释如下：
 
-**APP_AB**
+**APP_ABI**
 
 ABI是Application Binary Interface的意思，即我们需要把代码编译到哪一种cpu架构的指令集。通常包含armeabi，x86，mips等等，更多内容可以阅读[官方文档](https://developer.android.com/ndk/guides/abis.html)。
 
@@ -331,9 +331,9 @@ include $(BUILD_SHARED_LIBRARY)
 
 {% endhighlight %}
 
-基本上也是以Key-Value的形式来定义的，但是支持得比较多，可以累加，还有条件判断，循环，函数等等，实际上它就相当于脚本，没一行都是一个单独的指令。
+基本上也是以Key-Value的形式来定义的，但是支持得比较多，可以累加，还有条件判断，循环，函数等等，实际上它就相当于脚本，每一行都是一个单独的指令。
 
-看到第一行给LOCAL_PATH这个变量赋值，`$()`包含的就是读取变量的值，call是一个指令，my-dir是这个指令的目标，即相当于执行函数。include也是一条指令，它会把外部的mk文件引入进来，例如这里引入了clear-vars.mk文件，然后清空了变量，引入了build-shared-library.mk文件，怎么编译一个共享库。
+看到第一行给LOCAL_PATH这个变量赋值，`$()`包含的就是读取变量的值，call是一个指令，my-dir是这个指令的目标，即相当于执行函数。include也是一条指令，它会把外部的mk文件引入进来，例如这里引入了clear-vars.mk文件，然后清空了变量，引入了build-shared-library.mk文件来编译一个共享库。
 
 ### 5.1 共享库与静态库
 
