@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "关口知宏的中国之旅"
+title: "不得不告诉你，关口知宏的中国之旅，寻找发光的东西"
 date: 2017-02-17 11:03:05
 categories: life
 type: life
