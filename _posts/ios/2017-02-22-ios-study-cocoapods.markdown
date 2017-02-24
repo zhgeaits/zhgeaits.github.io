@@ -7,7 +7,7 @@ supertype: career
 type: ios
 ---
 
-## 1。 什么是CocoaPods
+## 1. 什么是CocoaPods
 
 CocoaPods和Maven一样，是用来管理依赖的，它是ruby编写的，所以有机会还是有必要学习一下Ruby的。因为有过[Maven](http://zhgeaits.me/other/2011/11/20/maven-study-notes.html)，Ant，[Gradle](http://zhgeaits.me/other/2014/08/05/gradle-study-notes.html)的经验，也很容易懂了，在Java的世界里面，由于什么都崇尚开源，所以就是百花齐放的状况，连构建工具，依赖工具都是一个个，而且一个比一个好，每次出新的一个都说比之前谁家的好多少。而在iOS的世界里面，我发现，几乎所有的项目都用CocoaPods，也不见得还有其他的好用的工具，好吧，只有一个，也简单咯！
 
