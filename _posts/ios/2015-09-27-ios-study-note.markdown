@@ -7,9 +7,11 @@ supertype: career
 type: ios
 ---
 
-## 0. 关于CocoaPods
+1.Main.storyboard和LaunchScreen.storyboard，为什么一定是程序的入口？
 
-cocoapods和maven一样，是用来管理依赖的，它是ruby编写的，所以还是有必要学习一下ruby的。
+2.为什么使用个人开发者的时候，修改Bundle Identifier就可以了跑起来了？否则跟别的开发者冲突？这个不是包名吗？在Android里面，包名是唯一的。
+
+3.按住option+command+enter就可以打开切分的窗口了。
 
 ## 1. 关于Object-C
 

@@ -62,6 +62,17 @@ CocoaPods和Maven一样，是用来管理依赖的，它是ruby编写的，所�
 
 实际上，这里依赖了三个项目Reachability、SBJson和AFNetworking，其中AFNetworking的平台是7.0。
 
+再看一个例子：
+
+	#platform :ios, '7.0'
+	source 'https://github.com/CocoaPods/Specs.git'
+	use_frameworks!
+	target:"QianjiangFarm" do
+	    pod 'AFNetworking', '~> 3.0'
+	    pod 'AMap2DMap'
+	    pod 'YYModel'
+	end
+
 然后执行命令：
 
 >pod install

@@ -7,59 +7,135 @@ supertype: career
 type: ios
 ---
 
-1. Main.storyboard和LaunchScreen.storyboard，为什么一定是程序的入口？
+学习iOS，入门核心便是学习它的语言，只要学会了它的语言，基本上在这个平台的开发就已经掌握了基础。而语言无非就是由语法组成，学会了语法也就学会了表达，实际上，学习一门语言就是学习它的表达式即可，当然，里面会有很多语言的整体设计思想，例如，设计到内存，就会有地址，即C语言的指针，由于Objective-C是面向对象的，这也就包括面向对象的思想，重要的还有内存模型，内存管理，垃圾回收，等等。既然我是学习C语言起步的，学习过C++，Pascal，Basic等，又是非常的熟悉Java语言，那么掌握OC就是相对容易的事情了。
 
-## 1. 关于Object-C
+## 1.编译
 
-程序入口其实是main.mm，.mm的意思是兼容c，c++和oc混编。这个文件里面就一个c的main函数，被@autoreleasepool包围着，意思是交给了arc来进行内存管理，然后这个函数调用了UIApplicationMain方法，可以看到这里初始化了AppDelegate，也创建了UIApplication对象实例。更多的东西以后慢慢学习。
+既然OC是从改过来的，实际上和C就是同一个家族的了，编译环境就很类似的了，编译C和C++都可以使用GCC，但是编译OC就只能用clang了。而其实也有过IDE的，那就是xcode，这个工具也是非常复杂的，特别是开发界面的时候。在mac上应该自带了clang编译器的，如果没有，只要安装一下xcode就有了。
 
-### 1.1 AppDelegate
+oc也是有头文件的，但是实现文件是以.m结尾的了，这个m的意思是module的意思。clang的用法和gcc很相似的，不同的是要引入oc的framework Foundation，例如下面编译HelloWorld：
 
-它就像android里面的application，或者说activity，参考这边blog比较他们的[生命周期](http://seniorzhai.github.io/2014/12/11/Android%E3%80%81iOS%E5%A4%A7%E4%B8%8D%E5%90%8C%E2%80%94%E2%80%94%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/ "生命周期")
+>% clang -o helloworld HelloWorld.m -framework Foundation
 
+实际上，这个framework就像是oc的SDK，和JDK一样，提供了很多的类和函数调用，都封装在一起，叫Cocoa环境，iOS里面的是Cocoa Touch环境。只要引入一个头文件即可：
 
+>#import <Foundation/NSObject.h>
 
-实际上AppDelegate是UIApplication的一个委托，即UIApplicationDelegate协议的实现，同时，它也是继承了UIResponder的。
+另外，如果一个源码文件里面混合了c，c++和oc的话，那么文件后缀就是.mm了。clang的语法和gcc是非常的相似，慢慢了解即可，用了IDE以后也很少接触clang的了。
 
-比较重要的一个方法是：
+## 2.对象和消息
 
-`- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`
+虽然说Java是非常纯的面向对象语言，但是，里面对象之间的交互通信依然是叫做方法调用，其实就是函数调用，每个对象的动作函数叫做方法，要触发对象执行动作就需要调用该对象的方法，这一点并没有让人感觉到面向对象的不同。而在OC里面就彻底改变了这个概念，不再使用调用函数的概念了，而是发送消息，如果一个对象要触发另外一个对象的动作，那么就需要给该对象发送一个消息，消息内容包括了方法名字和参数，方法名就是消息名，这个概念下就不会存在空指针异常了，因为允许没对象接收消息，就像广播一样。这是一个非常好的概念，一切对象的通信都是通过消息，而且在语法上也发生了改变，采用中括号[]的表达式，而消息名是由多个字符串组成，一个字符串对应一个参数，不再像函数一样了，一个字符串然后括号里面多个参数。例如：
 
-它就像android里面的onCreate一样，一般我们都在这里编写主要的初始化代码，其他的方法，以后再来总结。
+[obj msg1:param1 withSecondParam:param2 withThirdParam:param3]
 
-### 1.2 类class
+上面就是给obj发送了一个消息，消息名/方法名就是msg1:withSecondParam:withThirdParam，然后是传了三个参数的。当然如果十几个参数的话，那么这个名字就有点长了，不过，这个概念脱离了数学上的函数，因为毕竟函数还是很抽象的一个概念，而是更加接近了面向对象。
 
-.h是头文件，即公共api，.m是实现文件，包含了公共api的实现和私有api。在.m里面用@interface Foo() @end来定义私有api。
+中括号还是会和数组有混淆的，代码读起来也不会那么顺畅，挺乱的，不过熟悉以后可读性还是不错的，因为比较容易理解这个消息的意义。
 
-#### 1.2.1 属性
+java里面可以链式的调用方法，就是不挺的点下去，发送消息也是可以不断的嵌套发送，不过，嵌套太多的中扩展，可读性就会非常低了，完全不如点的链式。
 
-在头文件里面，定义它的实例变量还需要｛｝，即在@interface后面用大括号包围变量，实例变量的规范是_开头。但是调用这些变量的时候必须通过编写setter和getter方法。规范是setter方法是setXXX，而getter方法是直接的属性名去掉_，因为通过点符号是这样规范使用的。
+消息名还有一个名字，叫做选择器；要注意的是，如果选择器同名，区别在于有没参数，那么这个选择器的名字区别就在于有没有冒号了。
 
-@property定义的属性，会自动生成getter和setter方法的了，属性设置strong，nonatomic，getter，setter等。strong是强引用；nonatomic是非原子性，即不是线程安全；getter和setter是用来修改方法名字的。例如：
+## 3.类与实例
 
-@property (strong, nonatomic, getter=isChosen) BOOL chosen;
+在java里面，较好的规范是一个文件一个类，而类的方法有范围的修饰符，如果是public的修饰，那么就是公共的api了，对别的类来说的可见的。而在c语言的规范里面，存在头文件，通常在头文件里面声明了各个函数，然后在实现文件里面实现函数，这样别的地方通过include这个头文件就可以使用这些函数接口了。oc也是一样的，存在头文件，因此，规范的做法是每一个类都需要编写一个头文件，在头文件里面编写类的接口声明。这一点上，java是合并在一个文件里面，实际上是不好的做法，混淆了接口的概念，还增加了另外一个“接口interface”的概念，在oc里面使用的是“协议”这个概念。
 
-通过点的方式就能调用setter和getter方法了。点方法只用于setter和getter方法，其他方法都不会用。
+oc的类的声明语法如下：
 
-assign,weak,strong
+	@interface 类名:父类名 {
+		实例变量的定义；
+		...
+	}
+	消息声明;
+	...
+	@end
 
-#### 1.2.2 方法
+可以看到以@开头的指令，实际上这就是oc区别于c的编译指令。实例变量的声明是在花括号里面的，如果是实例的声明定义也采用了@指令的形式，即@property，那么就不需要在花括号里面了，而通常我们开发iOS都是这样做的。为什么这样，因为是property熟悉隐含的帮我们声明了getter和setter的方法。
 
-在头文件里面定义方法，以减号-开始，紧跟着是括号，里面方法的返回类型。oc里面的方法名不再是一个字符串了，而是多个字符串组成，一个字符串对应一个方法参数。如下：
+类的实现单独编写在.m文件，语法如下：
+
+	@implementation 类名
+	方法实现
+	...
+	@end
+
+在java里面编写好类以后，通过new关键字就可以实例化类来使用了，只需要理解存在一个跟类名一样的构造方法就可以了，实际上里面隐含了很多虚拟机的阶段，从分配内存到真正实例化一个类分了好几个阶段的，虽然便于了开发，但是也区别普通和高级程序员。而在oc里面就不一样了，必须要理解两个步骤，一个是分配内存，另外一个是初始化。所以实例化一个类需要调用两个方法，如下：
+
+>[[类名 alloc] init]
+
+这两个消息都是默认的名字，所有的类都有的，我们可以重载或者重写一个init方法，但是必须调用原来的init方法，而且init方法是有返回值的，不像java里面的构造方法没有返回值。
+
+java里面所有的类都是Object的子类，根据多态的思想，所有的引用都可以是Object的引用。但是oc里面分了三个不同的情况，首先，所有的类都是NSObject的子类，其次，指向任意类的指针并不是NSObject，而是id，这个id就像c里面的void*一样，最后，init消息返回的并不是当前类的指针，而是instancetype。所有创建实例返回的方法都是intancetype。
+
+由于init这些初始化方法并不是像java里面的特殊的构造方法，它是像普通方法一样的方法，所以不能存在方法名相同，而返回类型不同，这点和java是一样的，所以init方法就不能返回当前类的指针了，否则会导致父类和子类的init方法冲突，java不存在这个问题是因为使用构造方法，oc的解决方案就是init都是返回同一个叫instancetype的类型，那么就实现了方法的重载。因此在调用子类的init方法里面必须调用父类的init方法。
+
+在java里面本类的实现的引用是this，而oc里面是叫self，父类的引用，都是叫super。
+
+### 3.1 属性
+
+普通实例变量的定义：
+
+>int _number;
+
+由于oc里面的对象通信只能通过消息的形式，所以oc里面没有像java那样点的方式来调用，即使是属性也是，这样面向对象的概念封装得更好，所有的属性变量都是私有的，访问这些属性变量的时候必须通过编写setter和getter方法。如果没有编写属性的setter和getter方法，只能在本类里面直接通过属性名来访问。
+
+可以看到实例变量的规范是_开头，setter方法是setXXX，而getter方法是直接的属性名去掉_，不是getXXX了。为什么？因为这是一个坑，开发人员发现对于属性来说，不通过点来调用的话开发是很不方便的，于是还是让它支持了点的调用语法，但是实际上触发的就是getter和setter方法，其他方法还是必须发消息调用。这会让我们不熟悉的人踩坑，总以为点属性的语法只是简单的取值和设置值，没想到的是调用了两个方法，里面可能还有更多的逻辑。于是乎，通过点调用语法的时候就成了self.number,而不是self._number了，oc自动帮我们优化了，按照这个规则编写即可。
+
+每个属性都必须这样写两个方法，如果没有编写setter和getter方法的话，即使在本类的实现里面也不能通过self点属性名来访问该属性。
+
+非常的繁琐，于是oc又发明了@property的指令，自动帮我们生成setter和getter方法，而且支持更多的配置，非常的强大。
+
+@property的变量声明：
+
+>@property (strong, nonatomic, getter=isChosen) BOOL chosen;
+
+@property定义的属性，属性设置strong，nonatomic，getter，setter等。strong是强引用；nonatomic是非原子性，即不是线程安全；getter和setter是用来修改方法名字的。另外除了strong，还有assign，weak，copy，readonly等配置。
+
+**私有属性**
+
+在头文件里面定义的都是公开的属性，因为头文件就是api嘛，若想定义本类使用的私有属性，就需要在.m的实现文件里面编写了。在@implementation上面定义，语法如下：
+
+	@interface 类名 () {
+		普通属性;
+		...
+	}
+	@property属性;
+	...
+	@end
+	@implementation
+	...
+	@end
+
+可以看到的区别是类名后面多了一个括号。
+
+### 3.2 方法/函数/消息/选择器
+
+在头文件里面定义方法，以减号-开始，紧跟着是括号，里面方法的返回类型。例如：
 
 `- (NSString *)generateXXXNames:(NSString *)test withPrefix:(NSString *)aaa;`
 
-如果是以+号开始，则表示是类方法，就是java的静态方法。
+方法就是一条消息，前面明白了消息的发送，这里的声明也非常容易理解，特别的是以减号-开始，然后是括号，里面是返回值的类型。那么如果是以加号+开始的是什么？那是java里面的类方法，也就是静态方法。如果声明的是静态方法，那么发送消息的时候，消息的接收者就是类了，而不是实例了。另外，声明私有方法的时候和私有属性一样，在同样的地方声明即可。
 
-#### 1.2.3 数据类型
+还要注意的是，没有返回值的消息是void，返回任意指针的是id，而非NSObject*，如果返回本实例引用的消息是instancetype。
 
-NSNumber是封装的对象类型，类似于java那边的Integer，Double这些。
+一切的对象通信都是通过消息，即使属性的点语法也是发送了setter和getter消息，因此就弱化了函数调用的概念，即使在本类里面，一个方法调用另外一个方法，也只能通过对self进行发送消息的形式来调用。除非是混合编译的情况，就是oc的代码里面混合c的代码，比如说，引入了stdio.h头文件的时候，进行一些系统调用，那么就可以使用函数调用的语法了，源码的文件后缀也是.mm了。
 
-NSString是字符串类型，用@来标记，而其实NSNumber也是可以使用@的。
+### 3.3 引入
 
-NSArray，NSMutableArray，NSSet，NSMutableSet，NSDictionary，NSMutableDictionary是常用的数据结构，Mutable的意思是可变的，即数据结构的长度是可以动态改变的。
+c里面如果引入其他的模块，使用的是#include 头文件的形式，java里面是直接import，而oc里面也是使用了#import，虽然兼容c，但是区别c的include在于不会重复引入头文件，除非我们混合c编程，否则都不会使用到include指令的。虽然c里面使用#ifndef和#define这些指令解决重复引入问题，不过就比较麻烦，还容易出错。
 
-常量数组一般是@加中括号，如：@[a,b,c];
+## 4.数据类型
+
+和java一样，oc可以使用基本类型，如int，long，float，double，char，byte，short，布尔类型是BOOL。还有一堆对象类型，以NS开头的，NSNumber是封装的对象类型，类似于java那边的Integer，Double这些。NSString是字符串类型。当使用对象类型的时候只能使用指针了。和java一样，基本类型通常不用指针，对象类型使用指针，就是java的引用。
+
+当给对象类型初始化值的时候，使用@的指令，如：
+
+	NSNumber *number = @123;
+	NSString *name = @"zhangge";
+	NSArray *array = @[@"helloworld", @27];
+
+NSArray，NSMutableArray，NSSet，NSMutableSet，NSDictionary，NSMutableDictionary是常用的数据结构，Mutable的意思是可变的，即数据结构的长度是可以动态改变的。这些数据结构里面没有泛型，所以可以混合放任意类型的对象指针。
 
 NSNull是nil的对象类型，不要在数据结构使用nil，应该使用NSNull，因为在c里面，nil是代表结尾。
 
