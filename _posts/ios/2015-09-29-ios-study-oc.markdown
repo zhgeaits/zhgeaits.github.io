@@ -74,7 +74,7 @@ java里面所有的类都是Object的子类，根据多态的思想，所有的�
 
 由于存在id这样的类型，那么oc其实不像java那样是强类型语言，而是弱类型语言，可以很灵活的编程，不过也容易出现错误。
 
-在java里面本类的实现的引用是this，而oc里面是叫self，父类的引用，都是叫super。
+在java里面本类的实现的引用是this，而oc里面是叫self，父类的引用，都是叫super。self和this还是很不同的，java里面只有实例才能访问this变量，但是oc里面在类方法里面是可以访问self变量来alloc init实例化类的。
 
 在oc里面如果重写init方法，或者重写父类其他的初始化方法，那么必须先调用父类相同的初始化方法，不能调用父类其他的初始化方法，否则可能出现递归死循环调用。例如父类A里面有init和initWithMax方法，那么子类B重写init方法就必须先调用父类的init方法，如果重写initWithMax方法就必须调用父类的initWithMax方法，不可以交叉调用。如果父类没有initWithMax方法，但是子类新增加了initWithMax方法，那么就必须先调用父类的init方法。
 
