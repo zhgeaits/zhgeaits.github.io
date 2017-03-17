@@ -201,7 +201,7 @@ __为什么要去写native代码？__
 
 #### 3.3.1 添加JNI支持
 
-只需要在main目录下，右键选择new，在Folder那里选择Add Jni Folder即可，其实直接new一个名字为jni的目录也是可以的。gradle在构建的时候就会去检查并执行ndk命令的了。
+只需要在main目录下，右键选择new，在`Folder`那里选择`Add Jni Folder`即可，其实直接new一个名字为jni的目录也是可以的。gradle在构建的时候就会去检查并执行ndk命令的了。
 
 然后把javah生成的头文件复制到jni目录，再去编写c文件就可以的了。生成的so库不再是install到外面的libs目录，libs目录一般放的是第三方的jar包了。它会install到了build目录`intermediates/ndk`下的了。
 
@@ -217,7 +217,7 @@ ndk{
 
 {% endhighlight %}
 
-可以看到，其实配置的内容和两个.mk文件是一样的，上面的字段都比较容易理解，点进去还能看到更多的信息。
+可以看到，其实配置的内容和两个.mk文件是一样的，上面的字段都比较容易理解，点进去还能看到更多的信息。而本质上，gradle还是把这个脚本编译生成了两个mk文件的。
 
 运行的时候应该会报错的，as对jni的支持还不够好，我们在`gradle.properties`文件加上这一行即可：
 
@@ -225,7 +225,22 @@ ndk{
 
 最后项目运行成功以后，生成的so库在`build/intermediates/jniLibs`目录下。
 
-#### 3.3.2 去掉jni的支持
+#### 3.3.2 Windows版本Android Studio的Bug
+
+在mac上跑as，运行jni项目还是比较正常，没什么大问题的，但是一旦换到windows下就出现了两个问题，一个是项目路径太长，另外一个是不能编译单个文件。
+
+我的jni项目放在D盘的workspace下的某某目录，然而，实际上也不是很深的，不过，本来gradle构建的目录结构也是不浅的。run的时候就报这个错误了：
+
+>Error:(45, 1) opening dependency file D:\workspace\xxx\aaa\bbb\build\intermediates\ndk\release\obj/local/armeabi-v7a/objs/bbb/D_\workspace\xxx\aaa\bbb\src\main\jni\org_zhgeaits_ccc.o.d: No such file or directory
+
+>Error:Execution failed for task ':bbb:compileReleaseNdk'.
+>com.android.ide.common.process.ProcessException: Error while executing 'D:\develop\android-sdk-windows\ndk-bundle\ndk-build.cmd' with arguments {NDK_PROJECT_PATH=null APP_BUILD_SCRIPT=D:\workspace\xxx\aaa\bbb\build\intermediates\ndk\release\Android.mk APP_PLATFORM=android-22 NDK_OUT=D:\workspace\xxx\aaa\bbb\build\intermediates\ndk\release\obj NDK_LIBS_OUT=D:\workspace\xxx\aaa\bbb\build\intermediates\ndk\release\lib APP_ABI=armeabi-v7a,armeabi,mips,x86,arm64-v8a}
+
+当时遇到这个问题我也是懵逼了，明明是同样的项目在mac上可以执行，而且查看了as官方所有文档，已经用的是最新版了，也说明了特性，已经比较好的支持JNI开发了。为毛还是报错？我google了很多这个错误，几乎都没法解决，网上的解决方法都是用于下面的另外一个错误。于是，我就新建一个jni项目，居然正常了运行啊？把c代码复制过去，也正常啊，再把demo的项目名称修改成为一样的，也是OK啊。。。这就神奇了。后来突然灵机一动，难道是路径太长了？于是把项目复制到D盘根目录。。。好吧，problem solved！
+
+另外一个问题也是windows版本as的bug，当你新建一个jni项目的时候，如果只有一个.c或者.cpp文件，注意，不包括.h头文件。运行一样报上面的错误，所以我搜上面的error log的时候全部都是叫我新建一个empty.c文件就可以了。然后我测试了这个问题，确实是存在的。
+
+#### 3.3.3 去掉jni的支持
 
 当我要使用第三方so库的时候，可以是复制到libs目录，但这是不合理的用法，另外，如果使用的是.a静态库并要加入到jni的编译中去的时候就没法做了。因为很多Android.mk的配置，在gradle上还没有支持，以后的版本是会改进的。于是就需要去掉gradle自动编译jni目录了，让我们自己手动编译即可。
 
