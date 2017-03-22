@@ -9,33 +9,39 @@ type: java&web
 
 ## 1 什么是java的类Class
 
-刚学习C语言的时候，我才开始了解到编译器把C代码编译成obj二进制文件，然后进行链接，最后成为机器代码，这样计算机才能识别进行执行。而当我学习java的时候，确实把java代码编译成了class文件，那时候只知道这是被java虚拟机专属执行的字节码文件。因为java的目标是夸平台性的，所以它希望一次编译成功以后的class文件，不管在什么平台上面，只要装有java虚拟机都能够执行；而其实java虚拟机更是跨语言性的，不管是什么语言，只要被相应的编译器编译成class文件，都能够被执行，而目前这些语言包括了：java，groovy，jruby，scala等等。因此，class文件不过是被定义的一种文件格式罢了，因为它是字节码文件，它的每一个字节都被定义规范利用起来，然后虚拟机便能够识别来执行了。而这些定义都可以在The Java Language Specification和The Java Virtual Machine Specification上面查询。只要我们认真研究了这些规范以后，我们也就明白了其实可以进行反编译，那些反编译的工具也是这样来的，根据规范解析class文件罢了。
+刚学习C语言的时候，我才开始了解到编译器把C代码编译成obj二进制文件，然后进行链接，最后成为机器代码，这样计算机才能识别进行执行。而当我学习java的时候，确实把java代码编译成了class文件，那时候只知道这是被java虚拟机专属执行的字节码文件。因为java的目标是夸平台性的，所以它希望一次编译成功以后的class文件，不管在什么平台上面，只要装有java虚拟机都能够执行；而其实java虚拟机更是跨语言性的，不管是什么语言，只要被相应的编译器编译成class文件，都能够被执行，而目前这些语言包括了：java，groovy，jruby，scala等等。因此，class文件不过是被定义的一种文件格式罢了，因为它是字节码文件，它的每一个字节都被定义规范利用起来，然后虚拟机便能够识别来执行了。而这些定义都可以在《The Java Language Specification》和《The Java Virtual Machine Specification》上面查询。只要我们认真研究了这些规范以后，我们也就明白了其实可以进行反编译，那些反编译的工具也是这样来的，根据规范解析class文件罢了。实际上，jdk已经提供了一个命令[`javap`](http://zhgeaits.me/java/2010/12/12/java-environments.html)来帮助我们翻译class文件的了，进而增加了可读性和注释。
+
+由上我们明白了class并不是二进制的机器代码，也不是汇编语言代码，而是jvm的规范代码，jvm读取以后进而翻译为机器代码（汇编指令实际上就是机器代码）。
 
 ### 1.1 Class类文件结构
 
 定义class类的结构用了两种数据类型：无符号数和表。无符号数只有u1,u2,u4,u8，分表描述一个结构用了1，2，4，8个字节。表则是由多个无符号数或者其他表作为数据项的符合类型（递归的定义方式）。本质上class文件就是一个表，它的项有无符号类型的，也有表类型的，就像代码里的类定义一样。
 
-class文件结构大致包括了如下项：magic，version，constant\_pool，access_flags，this，super，interface，fields，methods，attributes。
+class文件结构大致包括了如下项：`magic，version，constant\_pool，access_flags，this，super，interface，fields，methods，attributes`。
 
-我们可以使用jdk提供的工具来分析class文件：javap -verbose TestClass
+我们可以使用jdk提供的工具来分析class文件：`javap -verbose TestClass`
 
-下面分表描述各项：
+下面分别描述各项：
 
-魔法数就像文件扩展名一样告诉我们它的格式，确定这个文件是否为一个能被虚拟机接受的class文件，它的值固定为0xCAFEBABE，就是咖啡宝贝，哈哈，难怪java的图标是咖啡。
+**魔法数magic**就像文件扩展名一样告诉我们它的格式，确定这个文件是否为一个能被虚拟机接受的class文件，它的值固定为`0xCAFEBABE`，就是咖啡宝贝，哈哈，难怪java的图标是咖啡。
 
-版本定义的就是编译的主版本和次版本，用来被虚拟机确定能否执行，或者兼容。
+**版本version**定义的就是编译的主版本和次版本，用来被虚拟机确定能否执行，或者兼容。
 
-常量池这里存放了所有的常量，它是从1开始按顺序给每个常量编号，当别的项或者其他地方需要用到常量的时候，就指定一个索引指向即可。如果指向了常量池的0索引，则表示的是“不引用任何一个常量池项目”。常量池的项目类型包含多种，每一个类型都是表。某一项的表的值又可以指向了常量池的某一项。总之，常量池比较复杂，存放了类名，属性，方法名，方法的代码等等。
+**常量池constant\_pool**这里存放了所有的常量，它是从1开始按顺序给每个常量编号，当别的项或者其他地方需要用到常量的时候，就指定一个索引指向即可。如果指向了常量池的0索引，则表示的是“不引用任何一个常量池项目”。常量池的项目类型包含多种，每一个类型都是表。某一项的表的值又可以指向了常量池的某一项。总之，常量池比较复杂，存放了类名，属性，方法名，方法的代码等等。
 
-access_flags是16位的二进制表示类的访问限制。
+**access_flags**是16位的二进制表示类的访问限制。
 
-this，super，interface的值分别指向不同的常量池的项，告诉我们本类名，父类名和实现的接口是什么。
+**this，super，interface**的值分别指向不同的常量池的项，告诉我们本类名，父类名和实现的接口是什么。
 
-每一个字段都需要一个表来存放，信息包括：访问标记，名字索引，描述符索引和属性。访问标记和类的差不多，名字索引是指向了常量池。描述符其实就是这个类型的简写，描述符索引也是指向了常量池，包括：B(byte)，C(char)，D(double)，F(float)，I(int)，J(long)，S(short)，Z(boolean)，V(void)，L(对象类型，如Ljava/lang/Object)，对于数组类型，则用一个[来表示，多一维就多一个[。属性则是指向了最后的属性集合。如果字段被final修饰，则这个就是常量，会出现在常量池和属性表（为什么出现两次？）。测试发现只用final修饰或者final+static修饰结构是一样的，但是只用static就不一样了。
+**fields：**每一个字段都需要一个表来存放，信息包括：`访问标记`，`名字索引`，`描述符索引和属性`。访问标记和类的差不多，名字索引是指向了常量池。描述符其实就是这个类型的简写，描述符索引也是指向了常量池，包括：·`B(byte)，C(char)，D(double)，F(float)，I(int)，J(long)，S(short)，Z(boolean)，V(void)，L(对象类型，如Ljava/lang/Object)`，对于数组类型，则用一个[来表示，多一维就多一个[。属性则是指向了最后的属性集合。如果字段被final修饰，则这个就是常量，会出现在常量池和属性表（为什么出现两次？）。__测试发现只用final修饰或者final+static修饰结构是一样的，但是只用static就不一样了__。
 
-存放方法的表结构和属性的表一样，但是方法的访问标记不一样，方法的描述符更复杂，先描述参数值，再描述返回值，例如：String a(int[] b)的描述符为([I)Ljava/lang/String。最后属性项存放的就是指向属性集合的索引。实际存放的就是方法体内的指令代码。
+**methods：**存放方法的表结构和属性的表一样，但是方法的访问标记不一样，方法的描述符更复杂，先描述参数值，再描述返回值，例如：`String a(int[] b)`的描述符为`([I)Ljava/lang/String`。最后属性项存放的就是指向属性集合的索引。实际存放的就是方法体内的指令代码。
 
-属性表存放了比较多的内容，包括了21项，方法指令，final修饰的常量，过时的方法和字段，异常表，行号，签名，源文件等等。属性表和常量池的除了有一个常量相同以外，其他都不同了。
+**属性attributes表**存放了比较多的内容，包括了21项，方法指令，final修饰的常量，过时的方法和字段，异常表，行号，签名，源文件等等。属性表和常量池的除了有一个常量相同以外，其他都不同了。
+
+大概的结构如下图所示（来自jvm规范）：
+
+![alt text](/image/java_class.png "java_class")
 
 ### 1.2 什么是常量，static和final的区别
 
@@ -46,6 +52,91 @@ this，super，interface的值分别指向不同的常量池的项，告诉我�
 final的意思是不能被修改了，如果只用final来修饰的话，按道理来说，这个是实例变量，不是类变量，不会存放在方法区的，而是存在堆的，但是测试发现final的变量存放在了class文件的常量池里面，也存放在字段的属性ConstantValue里面，我猜测在类加载的时候不会存放在方法区的，所以class文件的常量池和方法区的常量池有一些区别。
 
 同时使用static和final正好符合这个需求，这个变量同时存放在class文件的常量池里面，又存放在了字段属性的ConstantValue里面。
+
+### 1.3 例子
+
+先编写一个简单的类，如下：
+
+{% highlight java %}
+
+public class ZhangGe {
+    private int id;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+}
+
+{% endhighlight %}
+
+然后用二进制工具，如winhex打开，如下：
+
+![alt text](/image/class_bin.jpeg "java_bin")
+
+再用javap命令查看，如下：
+
+{% highlight java %}
+
+public class org.zhangge.testes.ZhangGe
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #4.#20         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #3.#21         // org/zhangge/testes/ZhangGe.name:Ljava/lang/String;
+   #3 = Class              #22            // org/zhangge/testes/ZhangGe
+   #4 = Class              #23            // java/lang/Object
+   #5 = Utf8               id
+   #6 = Utf8               I
+   #7 = Utf8               name
+   #8 = Utf8               Ljava/lang/String;
+   #9 = Utf8               <init>
+  #10 = Utf8               ()V
+  #11 = Utf8               Code
+  #12 = Utf8               LineNumberTable
+  #13 = Utf8               LocalVariableTable
+  #14 = Utf8               this
+  #15 = Utf8               Lorg/zhangge/testes/ZhangGe;
+  #16 = Utf8               getName
+  #17 = Utf8               ()Ljava/lang/String;
+  #18 = Utf8               SourceFile
+  #19 = Utf8               ZhangGe.java
+  #20 = NameAndType        #9:#10         // "<init>":()V
+  #21 = NameAndType        #7:#8          // name:Ljava/lang/String;
+  #22 = Utf8               org/zhangge/testes/ZhangGe
+  #23 = Utf8               java/lang/Object
+{
+  public org.zhangge.testes.ZhangGe();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lorg/zhangge/testes/ZhangGe;
+
+  public java.lang.String getName();
+    descriptor: ()Ljava/lang/String;
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #2                  // Field name:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 12: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lorg/zhangge/testes/ZhangGe;
+}
+
+{% endhighlight %}
 
 ## 2 类加载机制
 
