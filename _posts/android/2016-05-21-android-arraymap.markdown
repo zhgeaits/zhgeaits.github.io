@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Understand Android's ArrayMap"
+title:  "Understanding Android's ArrayMap"
 date:   2016-05-20 11:00:03
 categories: android
 supertype: career

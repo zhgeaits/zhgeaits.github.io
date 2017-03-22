@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "异步刷新技术"
+title: "异步刷新技术Ajax"
 date: 2011-05-16 01:15:24
 categories: javaweb
 supertype: career

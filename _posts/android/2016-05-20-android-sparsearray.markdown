@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Understand Android's SparseArray"
+title:  "Understanding Android's SparseArray"
 date:   2016-05-20 11:00:03
 categories: android
 supertype: career
