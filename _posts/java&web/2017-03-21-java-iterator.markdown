@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "记录一个有趣的Java问题：foreach循环"
+title: "Analysing an Interesting Java's Problem About foreach loop"
 date: 2017-03-21 13:12:54
 categories: java
 supertype: career

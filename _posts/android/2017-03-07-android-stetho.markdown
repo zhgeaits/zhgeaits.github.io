@@ -90,7 +90,7 @@ public class StethoUtils {
 
 ## 3.UI树状结构
 
-直接可以在第一个tab的Elements里面查看到整个app的view结构。最终要的一点是，它的根节点是Application，一直往下，包括了window，这非常利于我们的学习，重复告诉我们app的UI view结构。详细关于View的看这篇[blog](http://zhgeaits.me/android/2014/07/27/android-ui-view-study-notes.html)。关键是，还是可以简单修改view的值啊，直接就是可视化的开发界面了！
+直接可以在第一个tab的Elements里面查看到整个app的view结构。最终要的一点是，它的根节点是Application，一直往下，包括了window，这非常利于我们的学习，告诉我们app的UI view结构。详细关于View的看这篇[blog](http://zhgeaits.me/android/2014/07/27/android-ui-view-study-notes.html)。关键是，还是可以简单修改view的值啊，直接就是可视化的开发界面了！
 
 ## 4.网络抓包
 

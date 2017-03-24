@@ -417,15 +417,12 @@ org.zhangge.almightyzgbox_android这个是我的包名
 
 {% highlight java %}
 //获得实例  
-TypedArray typeArray = context.obtainStyledAttributes(attrs,  
-		R.styleable.FlowIndicator);  
-//从typeArray获取相应值，第二个参数为默认值，如第一个参数在atts.xml中没有定义，返回第二个参数值  
+TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.roundedimageview);  
 
+//从typeArray获取相应值，第二个参数为默认值，如第一个参数在atts.xml中没有定义，返回第二个参数值  
 thickness = typeArray.getDimension(R.styleable.roundedimageview_border_thickness, 9);  
-point_normal_color = typeArray.getColor(  
-		R.styleable.roundedimageview_border_inside_color, 0x000000);  
-point_seleted_color = typeArray.getColor(  
-		R.styleable.roundedimageview_border_outside_color, 0xffff07); 
+point_normal_color = typeArray.getColor(R.styleable.roundedimageview_border_inside_color, 0x000000);  
+point_seleted_color = typeArray.getColor(R.styleable.roundedimageview_border_outside_color, 0xffff07); 
 		
 typeArray.recycle();
 {% endhighlight %}
@@ -434,4 +431,284 @@ typeArray.recycle();
 
 属性的命名规则是：采取的名字_属性这种格式。例如：R.styleable.roundedimageview_border_thickness
 
-还有：一定要执行typeArray.recycle()回收。
+**注意：一定要执行typeArray.recycle()回收。**
+
+### 4.6 关于attrs.xml
+
+显然attrs是Attributes的意思，顾名思义，这个文件就是配置属性的。从上面知道它的根节点是`<resources>`，然后我自定义view属性的时候使用到了`<declare-styleable>`这个节点，就用上面的例子，在R文件里面打开`R.styleable.roundedimageview`发现里面是一个int数组！原来在attrs.xml里面，`<resources>`节点下是可以直接使用`<attr>`这个节点的。很容易就明白到，`<declare-styleable>`节点是帮助我们分组，清晰分开各个自定义的属性。下面是等价的：
+
+{% highlight java %}
+
+int[] attrs = {R.attr.border_thickness, R.attr.border_inside_color, R.attr.border_outside_color};
+int[] attrs2 = R.styleable.roundedimageview;
+
+{% endhighlight %}
+
+### 4.7 关于TypedArray和AttributeSet
+
+从4.5那里知道自定义View的构造方法里面除了用到Context以外，还有一个AttributeSet的参数，利用这个set和4.6的attrs就能获取TypedArray，然后就可以获取自定义view的自定义属性值了，并且最后还要recycle()!。
+
+直接跟进去`context.obtainStyledAttributes(attrs, R.styleable.roundedimageview);`方法，发现里面调用的是：
+
+{% highlight java %}
+
+/**
+ * Retrieve styled attribute information in this Context's theme.  See
+ * {@link Resources.Theme#obtainStyledAttributes(AttributeSet, int[], int, int)}
+ * for more information.
+ *
+ * @see Resources.Theme#obtainStyledAttributes(AttributeSet, int[], int, int)
+ */
+public final TypedArray obtainStyledAttributes(
+        AttributeSet set, int[] attrs) {
+    return getTheme().obtainStyledAttributes(set, attrs, 0, 0);
+}
+
+{% endhighlight %}
+
+再继续跟进去，发现`Theme`是`Resources`的内部类，`obtainStyledAttributes()`有如下的注释
+
+{% highlight java %}
+
+/**
+ * Return a TypedArray holding the attribute values in
+ * <var>set</var>
+ * that are listed in <var>attrs</var>.  In addition, if the given
+ * AttributeSet specifies a style class (through the "style" attribute),
+ * that style will be applied on top of the base attributes it defines.
+ * 
+ * <p>Be sure to call {@link TypedArray#recycle() TypedArray.recycle()} when you are done
+ * with the array.
+ * 
+ * <p>When determining the final value of a particular attribute, there
+ * are four inputs that come into play:</p>
+ * 
+ * <ol>
+ *     <li> Any attribute values in the given AttributeSet.
+ *     <li> The style resource specified in the AttributeSet (named
+ *     "style").
+ *     <li> The default style specified by <var>defStyleAttr</var> and
+ *     <var>defStyleRes</var>
+ *     <li> The base values in this theme.
+ * </ol>
+ * 
+ * <p>Each of these inputs is considered in-order, with the first listed
+ * taking precedence over the following ones.  In other words, if in the
+ * AttributeSet you have supplied <code>&lt;Button
+ * textColor="#ff000000"&gt;</code>, then the button's text will
+ * <em>always</em> be black, regardless of what is specified in any of
+ * the styles.
+ * 
+ * @param set The base set of attribute values.  May be null.
+ * @param attrs The desired attributes to be retrieved.
+ * @param defStyleAttr An attribute in the current theme that contains a
+ *                     reference to a style resource that supplies
+ *                     defaults values for the TypedArray.  Can be
+ *                     0 to not look for defaults.
+ * @param defStyleRes A resource identifier of a style resource that
+ *                    supplies default values for the TypedArray,
+ *                    used only if defStyleAttr is 0 or can not be found
+ *                    in the theme.  Can be 0 to not look for defaults.
+ * 
+ * @return Returns a TypedArray holding an array of the attribute values.
+ * Be sure to call {@link TypedArray#recycle() TypedArray.recycle()}
+ * when done with it.
+ * 
+ * @see Resources#obtainAttributes
+ * @see #obtainStyledAttributes(int[])
+ * @see #obtainStyledAttributes(int, int[])
+ */
+public TypedArray obtainStyledAttributes(AttributeSet set,
+        int[] attrs, int defStyleAttr, int defStyleRes);
+
+{% endhighlight %}
+
+以上的注释解释得很清楚了，这个方法返回的TypedArray帮助我们获取AttributeSet里面的属性值。显然AttributeSet就是一个属性的集合，查看这个接口，可以看到注释的第一句话是：
+
+>A collection of attributes, as found associated with a tag in an XML document.
+
+就是说这个set里面包含了这个View的所有属性，包括了布局里面定义的`android:layout_width`这些等等。实际上这个set的生成是由`LayoutInflater`完成的。要验证set的话可以直接调它的方法来打印里面的值即可。
+
+当我们`android:layout_width`属性的值不是一个绝对的dp或者px，而是@到了dimen的时候，AttributeSet是不会帮我们去读取的，set读取到的只是R里面的id，这个时候就需要`TypedArray`来帮我们读取了，为什么要recycle？可以点进去看方法，实际调用了SynchronizedPool来release一个TypedArray，而这个代码是看不到的了，不过也可以想想，读取的属性值都需要打开文件，这些IO资源是系统接口，肯定要释放的。当然我们也是可以不使用TypedArray的，自己来获取属性值，不过就很麻烦咯，要处理各种情况。
+
+### 4.8 关于styles.xml
+
+上面的方法`obtainStyledAttributes`的注释还有很多没看完的，而且还有好几个重载的方法，都跟style有关。我们新建一个项目的时候styles.xml里面是这样的：
+
+{% highlight xml %}
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
+{% endhighlight %}
+
+可以看到，根节点依然是`<resources>`，然后子节点便是`<style>`。显然，上面定义了两个主题，分别是AppBaseTheme和AppTheme，居然是有继承关系的！顶层父主题是`android:Theme.Light`。另外`AppTheme`的子节点是`<item>`，这个item定义了一个属性是`android:windowNoTitle`。
+
+很明显可以看出`styles.xml`和`attrs.xml`的区别，attrs是定义了有哪些属性，styles则是定义了这些属性的值。例如，上面4.5在attrs定义了`roundedimageview`这些属性，那么就可以在styles里面定义一个style来给这些属性赋值：
+
+{% highlight xml %}
+<style name="RoundedImageViewAppearance">
+    <item name="border_thickness">1dp</item>
+    <item name="border_inside_color">@android:color/black</item>
+    <item name="border_outside_color">@android:color/red</item>
+</style>
+{% endhighlight %}
+
+这个时候就可以在布局里面使用这个style了，而不需要再配置每一个属性了。
+
+{% highlight xml %}
+<org.zhangge.ui.image.ZGImageView  
+            android:id="@+id/myView"  
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"  
+            android:layout_marginBottom="5dip"  
+            style="@style/RoundedImageViewAppearance" />
+{% endhighlight %}
+
+明显能理解到style就是一套样式的意思，也就是主题的意义了嘛。另外通过这样的style配置的值也是会进入到AttributeSet里面的了。
+
+只要我们使用的view需要一个主题的时候就可以使用了R.style.xxx了。例如，在新建一个Dialog的时候可以这样：
+
+{% highlight java %}
+AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogFullscreen);
+Dialog dialog = builder.create();
+{% endhighlight %}
+
+Builder的第二个参数是theme。
+
+### 4.9 关于obtainStyledAttributes()方法
+
+上面说到context的obtainStyledAttributes()方法，有四个重载的，分别如下：
+
+{% highlight java %}
+public final TypedArray obtainStyledAttributes(
+        int[] attrs) {
+    return getTheme().obtainStyledAttributes(attrs);
+}
+public final TypedArray obtainStyledAttributes(
+        int resid, int[] attrs) throws Resources.NotFoundException {
+    return getTheme().obtainStyledAttributes(resid, attrs);
+}
+public final TypedArray obtainStyledAttributes(
+        AttributeSet set, int[] attrs) {
+    return getTheme().obtainStyledAttributes(set, attrs, 0, 0);
+}
+public final TypedArray obtainStyledAttributes(
+        AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes) {
+    return getTheme().obtainStyledAttributes(
+        set, attrs, defStyleAttr, defStyleRes);
+}
+{% endhighlight %}
+
+明显看到，实际上都是调用了Theme的同名方法，看看有几个重载方法：
+
+{% highlight java %}
+public TypedArray obtainAttributes(AttributeSet set, int[] attrs);
+public TypedArray obtainStyledAttributes(int[] attrs);
+public TypedArray obtainStyledAttributes(int resid, int[] attrs) throws NotFoundException;
+public TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes);
+{% endhighlight %}
+
+其中`obtainAttributes()`是Resources的方法，其他三个才是Theme的方法。关注到的参数就四个，set和attrs都已经知道了，另外两个是`defStyleAttr`和`defStyleRes`。顾名思义，就是default style attribute和default style resource。
+
+看上面的4.7的注释如下：
+
+{% highlight java %}
+* @param defStyleAttr An attribute in the current theme that contains a
+*                     reference to a style resource that supplies
+*                     defaults values for the TypedArray.  Can be
+*                     0 to not look for defaults.
+* @param defStyleRes A resource identifier of a style resource that
+*                    supplies default values for the TypedArray,
+*                    used only if defStyleAttr is 0 or can not be found
+*                    in the theme.  Can be 0 to not look for defaults.
+{% endhighlight %}
+
+defStyleAttr的意思是当前主题里面的一个属性值，指向了一个定义的style，提供了默认值给TypedArray，如果是0则不会去查找。defStyleRes的意思是则是直接读取styles.xml里面定义的一个style。只有当defStyleAttr是0或者查找不到的前提才会去使用defStyleRes。
+
+例如：
+
+在attrs.xml里面定义了这个属性，并没有在<declare-styleable>节点之下：
+
+{% highlight xml %}
+
+<attr name="mySwitchStyle" format="reference"/>
+
+{% endhighlight %}
+
+然后在styles.xml里面定义这个style：
+
+{% highlight xml %}
+
+<style name="switch_light">
+    <item name="mytrack">@drawable/switch_track_holo_light</item>
+    <item name="thumb">@drawable/switch_inner_holo_light</item>
+    <item name="textOn">@string/settings_switcher_textOn</item>
+    <item name="textOff">@string/settings_switcher_textOff</item>
+    <item name="mythumbTextPadding">0dip</item>
+    <item name="myswitchMinWidth">60dip</item>
+    <item name="myswitchPadding">0dip</item>
+    <item name="myswitchTextAppearance">@style/TextAppearance</item>
+</style>
+
+{% endhighlight %}
+
+然后在AppTheme里面配置了这个属性：
+
+{% highlight xml %}
+
+<style name="AppTheme" parent="AppBaseTheme">
+    <item name="android:windowNoTitle">true</item>
+    <item name="mySwitchStyle">@style/switch_light</item>
+</style>
+
+{% endhighlight %}
+
+那么，defStyleAttr这个参数就可以传`R.attr.mySwitchStyle`这个值了，而defStyleRes则是可以传`R.style.switch_light`。
+
+继续看obtainAttributes()的注释，这样说：
+
+{% highlight java %}
+
+ * <p>When determining the final value of a particular attribute, there
+ * are four inputs that come into play:</p>
+ * 
+ * <ol>
+ *     <li> Any attribute values in the given AttributeSet.
+ *     <li> The style resource specified in the AttributeSet (named
+ *     "style").
+ *     <li> The default style specified by <var>defStyleAttr</var> and
+ *     <var>defStyleRes</var>
+ *     <li> The base values in this theme.
+ * </ol>
+ * 
+ * <p>Each of these inputs is considered in-order, with the first listed
+ * taking precedence over the following ones.  In other words, if in the
+ * AttributeSet you have supplied <code>&lt;Button
+ * textColor="#ff000000"&gt;</code>, then the button's text will
+ * <em>always</em> be black, regardless of what is specified in any of
+ * the styles.
+
+{% endhighlight %}
+
+上面的意思是说属性值的优先级，目前可以知道四种方式设置属性值，因此在设置值的时候会有优先级问题，四种方式如下：
+
+1.在布局里面xml直接设置值，也是我们最常用的方式。  
+2.在布局里面xml通过style设置值，即上面4.8所说的。这两点的值都会直接出现在AttributeSet里面的。  
+3.通过defStyleAttr和defStyleRes获取的值。  
+4.默认在主题里面的值。
+
+优先级是由上至下的。
