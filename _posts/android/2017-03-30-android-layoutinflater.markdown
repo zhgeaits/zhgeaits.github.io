@@ -625,7 +625,7 @@ public final View createView(String name, String prefix, AttributeSet attrs)
 }
 {% endhighlight %}
 
-显然上面注释所说这是一个低级的方法，用于同于节点的名字来实例化一个view，实际上就是通过View的类名来创建了实例，并且给这些View对象设置属性值，实际上传的是AttributeSet对象给View，也就是为什么我们自定义View的时候会有构造方法里面传来了AttributeSet。
+显然上面注释所说这是一个低级的方法，用于同于节点的名字来实例化一个view，实际上就是通过View的类名来创建了实例，可以看到的是用了ClassLoader来实例化一个类，并且给这些View对象设置属性值，实际上传的是AttributeSet对象给View，也就是为什么我们自定义View的时候会有构造方法里面传来了AttributeSet。
 
 到这里LayoutInflater就把整个xml布局文件转换成了View的对象了。回到最初的一个疑问，为什么叫Inflater，而不是Render？我们说渲染的意思是把图形显示在屏幕上，而这里，并非把xml显示在了屏幕上面了，实际上，一个xml布局定义了界面，然后Inflater只是把xml的布局文件转化成了View的对象，只是java里面的对象，真实如何把这些对象渲染到屏幕还是底层的系统完成的，那里涉及到了OpenGLES等更多的知识了。
 
