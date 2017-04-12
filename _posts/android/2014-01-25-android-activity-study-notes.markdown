@@ -151,3 +151,33 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 其实，这两个code只是一个消息而已，A进入B，会带着requestCode，B不处理requestCode，因为不会影响B，只有intent里面的数据才会决定B，B才不会给不同的requestCode传不同的resultCode，因而B只管自己结束时有哪些状态罢了，**所以resultCode定义在B**，并把resultCode传回去，同时原封不动地隐含传requestCode回去；**因此requestCode是定义在A的**，A需要处理是B还是D回来的resultCode来改变状态。这就是状态机啊。核心是A的状态改变，依赖于出口动作所带回来的消息而改变状态，即到B还是到D回来的resultCode。
 
+## 6 其他
+
+### 6.1 判断当前的activity是否是栈顶的活动activity
+
+需要添加android.permission.GET_TASKS权限，然后获得ActivityManager，再获取getRunningTasks，最后比较getClassName就可以。具体看代码：CommonUtils。
+
+另外一种方式，可以用一个boolean变量，在onResume方法设置为true，在onPause方法设置为false，这样也可以判断。
+
+### 6.2 Activity屏幕旋转会再次执行onCreate
+
+给Activity配置属性`android:configChanges="orientation|screenSize"`，告诉activity不要去执行onCreate，我们自己处理，然后就会收到回调
+
+{% highlight java %}
+
+public void onConfigurationChanged（Configuration newConfig） {
+    super.onConfigurationChanged（newConfig）;
+    if （newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE） {
+        
+    } else {
+    
+    }
+}
+
+{% endhighlight %}
+
+### 6.3 设置全屏
+
+>getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+注意要在`setContentView()`之前调才有效。

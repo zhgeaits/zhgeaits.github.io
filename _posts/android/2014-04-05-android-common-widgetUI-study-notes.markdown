@@ -173,38 +173,7 @@ view.setLayoutParams(params);
 
 {% endhighlight %}
 
-## 4. Activity
-
-#### 判断当前的activity是否是栈顶的活动activity
-
-需要添加android.permission.GET_TASKS权限，然后获得ActivityManager，再获取getRunningTasks，最后比较getClassName就可以。具体看代码：CommonUtils。
-
-另外一种方式，可以用一个boolean变量，在onResume方法设置为true，在onPause方法设置为false，这样也可以判断。
-
-#### Activity屏幕旋转会再次执行onCreate
-
-给Activity配置属性`android:configChanges="orientation|screenSize"`，告诉activity不要去执行onCreate，我们自己处理，然后就会收到回调
-
-{% highlight java %}
-
-public void onConfigurationChanged（Configuration newConfig） {
-    super.onConfigurationChanged（newConfig）;
-    if （newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE） {
-        
-    } else {
-    
-    }
-}
-
-{% endhighlight %}
-
-#### 设置全屏
-
->getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-注意要在`setContentView()`之前调才有效。
-
-## 5. ProgressBar
+## 4. ProgressBar
 
 #### ProgressBar的左右宽度
 
@@ -217,20 +186,11 @@ android:paddingRight="0px"
 
 {% endhighlight %}
 
-## 6. ActionBar
-
-是3.0以后才有ActionBar，可以在menu/main.xml配置bar上面的item，然后在Activity的onCreateOptionsMenu里面创建。
-
-## 7. Application
-
-公司的项目里面，是自己继承了Application的，当出现异常崩溃以后，发现App的oncreate执行了一次，虽然不知道具体是什么，猜测是有一些服务例如是sticky的导致系统要去启动Application，但是不会启动应用。
-
-## 8. View 
+## 5. View 
 
 #### include和ViewStub
 
 两者都是可以直接引入一个layout，达到布局重用。区别是，前者是随着引用以后跟着父布局即时渲染，这样效率不高；后者是你去调用viewstub.inflate()方法以后才会去渲染。
-
 
 #### 获取view在屏幕的坐标
 
@@ -243,11 +203,11 @@ int y = location[1];
 
 {% endhighlight %}
 
-## 9. Switch
+## 6. Switch
 
 这个控件是4.0以后才有的，如果想要低版本用，可以直接拿官网的源码来用。。。。这也说明了一点，其实如果有时候一些新版本的控件也可以这样拿来用。
 
-## 10. Window
+## 7. Window
 
 #### starting window
 
@@ -255,7 +215,7 @@ int y = location[1];
 
 启动慢这个问题无法解决，因为你的进程就是需要启动那么久，我们只能修改这个starting window的主题来改进体验，就是在第一个activity，如splash activity那里给他单独设置一个theme，为他设置android:windowBackground,android:windowIsTranslucent属性，为透明，或者一张图片也好。
 
-## 11. ListView
+## 8. ListView
 
 #### listview 每个item的高度
 
@@ -371,7 +331,7 @@ public static void setListViewHeightBasedOnChildren(ListView listView, Context c
 
 一般调用notifyDataSetChanged()就会触发getView()方法。然后我在项目这里发现了不管怎么调用notifyDataSetChanged都不会触发getView，想了一天都不能解决，后来才发现，必须在UI线程调用啊。
 
-## 12. ViewPager
+## 9. ViewPager
 
 viewpager可以实现屏幕滑动的效果，用来做画廊，启动界面这些都不错，而且比Flipper，Gallery都快，顺畅。可以考虑把tongli的那个图片换成viewpager。
 
@@ -544,7 +504,7 @@ public View getPrimaryItem() {
 
 方法一在viewpager的onpagechange事件里面使用很好，方法二就不行了，因为是会先处理onpagechange事件，再调用adapter里面的方法来设置。注意，mPager.childAt(mPager.getCurrentItem());这个方法不准确，viewpager超过三个就不行了。
 
-## 13. Spannable
+## 10. Spannable
 
 在聊天的应用里面这个非常有用，输入框显示图片，聊天内容显示表情，图片，语音等等。  
 
@@ -573,7 +533,7 @@ title.setText(span);
 
 如此的简单！~之前公司的项目，一个搜索功能，以前的人写的时候，在搜索结果页要把关键字高亮，然他就用String.replaceAll()方法来把关键字替换html的<span>标签。然后没有处理到一些情况，如果用户输入正则表达式就会崩溃。因为这个方法就是用正则表达式来替换的。我开始用Matcher.quoteReplacement(searchKey)，但是会抛OOM错，由于转移递归了。后面处理方法就是遍历字符串，用spannable高亮了。
 
-## 14. Canvas
+## 11. Canvas
 
 Canvas是画布的意思，没有深入了解过这个类，不知道是不是一块内存，不过，可以理解为一块显示区域，因为，画布嘛，不就是给人看的么，内存又不是给人看的，所以，bitmap才是一块内存，包含像素，要把bitmap画到canvas上面去，当然还可以画很多元素。一般，在View里面的onDraw方法都带有一个canvas，可以用来画东西。调用invalidate()方法会触发onDraw()方法。
 
