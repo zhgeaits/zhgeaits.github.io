@@ -7,6 +7,25 @@ supertype: career
 type: android
 ---
 
+>这里只记录一些常用的UI View的使用技巧，而非原理性东西。虽然网上一搜都有，但是也省得每次都找得这么麻烦，于是都记录在一个blog里面，找起来也方便，遇到过的坑记录也容易找到。
+
+## 0. View
+
+#### include和ViewStub
+
+两者都是可以直接引入一个layout，达到布局重用。区别是，前者是随着引用以后跟着父布局即时渲染，这样效率不高；后者是你去调用viewstub.inflate()方法以后才会去渲染。
+
+#### 获取view在屏幕的坐标
+
+{% highlight java %}
+
+int[] location = new int[2];
+view.getLocationOnScreen(location);
+int x = location[0];
+int y = location[1];
+
+{% endhighlight %}
+
 ## 1. TextView
 
 #### TextView可以设置这样一个属性，文字上面配一个图片。
@@ -186,36 +205,11 @@ android:paddingRight="0px"
 
 {% endhighlight %}
 
-## 5. View 
-
-#### include和ViewStub
-
-两者都是可以直接引入一个layout，达到布局重用。区别是，前者是随着引用以后跟着父布局即时渲染，这样效率不高；后者是你去调用viewstub.inflate()方法以后才会去渲染。
-
-#### 获取view在屏幕的坐标
-
-{% highlight java %}
-
-int[] location = new int[2];
-view.getLocationOnScreen(location);
-int x = location[0];
-int y = location[1];
-
-{% endhighlight %}
-
-## 6. Switch
+## 5. Switch
 
 这个控件是4.0以后才有的，如果想要低版本用，可以直接拿官网的源码来用。。。。这也说明了一点，其实如果有时候一些新版本的控件也可以这样拿来用。
 
-## 7. Window
-
-#### starting window
-
-在应用的时候，很多初始化的东西都放在了application里面去，例如初始化一个sdk。然后导致启动第一个activity的时候很慢，会卡在一个黑屏或者白屏的地方。这是因为应用还没有在运行，系统会为这个Activity所属的应用创建一个进程，但进程的创建与初始化都需要时间，于是系统就会先创建一个starting window，或者叫preview window。Starting Window就是一个用于在应用程序进程创建并初始化成功前显示的临时窗口，拥有的Window Type是TYPE_APPLICATION_STARTING。
-
-启动慢这个问题无法解决，因为你的进程就是需要启动那么久，我们只能修改这个starting window的主题来改进体验，就是在第一个activity，如splash activity那里给他单独设置一个theme，为他设置android:windowBackground,android:windowIsTranslucent属性，为透明，或者一张图片也好。
-
-## 8. ListView
+## 6. ListView
 
 #### listview 每个item的高度
 
@@ -331,7 +325,7 @@ public static void setListViewHeightBasedOnChildren(ListView listView, Context c
 
 一般调用notifyDataSetChanged()就会触发getView()方法。然后我在项目这里发现了不管怎么调用notifyDataSetChanged都不会触发getView，想了一天都不能解决，后来才发现，必须在UI线程调用啊。
 
-## 9. ViewPager
+## 7. ViewPager
 
 viewpager可以实现屏幕滑动的效果，用来做画廊，启动界面这些都不错，而且比Flipper，Gallery都快，顺畅。可以考虑把tongli的那个图片换成viewpager。
 
@@ -504,7 +498,7 @@ public View getPrimaryItem() {
 
 方法一在viewpager的onpagechange事件里面使用很好，方法二就不行了，因为是会先处理onpagechange事件，再调用adapter里面的方法来设置。注意，mPager.childAt(mPager.getCurrentItem());这个方法不准确，viewpager超过三个就不行了。
 
-## 10. Spannable
+## 8. Spannable
 
 在聊天的应用里面这个非常有用，输入框显示图片，聊天内容显示表情，图片，语音等等。  
 
@@ -533,7 +527,7 @@ title.setText(span);
 
 如此的简单！~之前公司的项目，一个搜索功能，以前的人写的时候，在搜索结果页要把关键字高亮，然他就用String.replaceAll()方法来把关键字替换html的<span>标签。然后没有处理到一些情况，如果用户输入正则表达式就会崩溃。因为这个方法就是用正则表达式来替换的。我开始用Matcher.quoteReplacement(searchKey)，但是会抛OOM错，由于转移递归了。后面处理方法就是遍历字符串，用spannable高亮了。
 
-## 11. Canvas
+## 9. Canvas
 
 Canvas是画布的意思，没有深入了解过这个类，不知道是不是一块内存，不过，可以理解为一块显示区域，因为，画布嘛，不就是给人看的么，内存又不是给人看的，所以，bitmap才是一块内存，包含像素，要把bitmap画到canvas上面去，当然还可以画很多元素。一般，在View里面的onDraw方法都带有一个canvas，可以用来画东西。调用invalidate()方法会触发onDraw()方法。
 
