@@ -123,6 +123,8 @@ public static View inflate(Context context, int resource, ViewGroup root) {
 
 **总结上面的几种方法，实际上都是调用了Context.getSystemService()方法，那么我们再深入看看是如何获取这个系统服务的：**
 
+Context里面的getSysteService()的实现在`ContextThemeWrapper`里面，如下：
+
 {% highlight java %}
 public Object getSystemService(String name) {
     if (LAYOUT_INFLATER_SERVICE.equals(name)) {
@@ -135,7 +137,7 @@ public Object getSystemService(String name) {
 }
 {% endhighlight %}
 
-这就神奇了，原来LayoutInflater并不是一个系统服务，它区分了其他的系统服务，单独调用了`LayoutInflater.from(getBaseContext()).cloneInContext(this);`，那么问题来了，又调回了LayoutInflater的静态方法from()，这难道不是死循环的递归了吗？
+这就神奇了，原来LayoutInflater并不是一个系统服务，它区分了其他的系统服务，单独调用了`LayoutInflater.from(getBaseContext()).cloneInContext(this);`，并且缓存起来方便第二次获取。那么问题来了，又调回了LayoutInflater的静态方法from()，这难道不是死循环的递归了吗？
 
 非也，关键在于Context这个对象并不相同。假设在`Activity A`里面调用了`LayoutInflater.from(this)`来获取一个对象，那么底下调用了这个Activity A的`getSystemService()`方法，首次的时候mInflater为null，于是再次调用`LayoutInflater.from(getBaseContext())`，注意到的是传入的并不是this了，如果还是this，那么就肯定会死循环递归了。看看`getBaseContext()`的描述如下：
 
@@ -636,3 +638,5 @@ public final View createView(String name, String prefix, AttributeSet attrs)
 **首先总结一下，所有的xml布局文件转换成View对象都是通过LayoutInflater的，而LayoutInflater里面依赖了XmlPullParser来解析编译的xml文件，然后调用了LayoutInflater的方法createView来创建View对象，LayoutInflater还提供了两个Hook，即Factory和Factory2来给开发者自定义修改创建的View对象。每当实例化一个View对象的时候都需要调用一次Factory2的方法，我们只需要调用LayoutInflater的createView()方法来创建对象，然后修改属性即可。**
 
 因此，我们可以做的工作就是自定义Factory2的实现类，在Activity的setContentView之前把这个SkinFactory设置到Inflater里面去即可。关于如何有效实现切换皮肤或者主题的Factory，网上很多文章了，这里就不再搬砖，只是提一下这个实现。关键在于理解了Android的View是如何从xml转化而来的原理即可，剩下的便是写代码的逻辑了。
+
+**需要注意到的一点是：**我们自定义了Factory，在factory的实现方法里面通过获取LayoutInflater并调用低级的createView来创建View的实例对象，createView这个方法的实现并没有详细去讲，可以自己去看，并不复杂。实际上就是通过反射把一个View实例化的，View的构造方法里面需要用到Context，参数用到的就是LayoutInflater的`mConstructorArgs`属性，如果这个属性没有内容，就创建不了View对象了。可以看到在调用LayoutInflater的inflate方法的时候会对这个属性设置值。因此，一个新建的LayoutInflater的低级`createView`方法并不是能随便被调用的，还是需要先调用一下inflate方法。
