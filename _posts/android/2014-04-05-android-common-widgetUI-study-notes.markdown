@@ -194,6 +194,47 @@ view.setLayoutParams(params);
 
 ## 4. ProgressBar
 
+ProgressBar是继承View的，而SeekBar是继承ProgressBar实现的，实际上实现更加复杂。
+
+关于以前和康佳做的健身软件的转圈百分比UI，其实是自己画的。可以直接去看fitness的代码。
+
+#### 橫向样式和原形样式
+
+如果直接在布局里面添加一个ProgressBar的标签，那么默认是转圈圈的那个进度条，其实在AS的图形界面添加UI空间的时候可以直接拉过去的，发现也是有横向的ProgressBar的。
+添加过后发现多了一个style：
+
+style="?android:attr/progressBarStyleHorizontal"
+
+同样，转圈圈的style是：
+
+style="?android:attr/progressBarStyle"
+
+这个横向的也行：
+
+style="@android:style/Widget.ProgressBar.Horizontal"
+
+#### MultiRangeBar
+
+这个是在YY做短拍的时候编辑视频实现的，已经[开源在GitHub了](https://github.com/zhgeaits/RangeImageSelectedView)；然后在UC的时候做下载拿了MultiRangeBar来使用，实现了下载进度条的随机切分分段下载的效果。
+
+#### 2.3系统上进度条不显示问题
+
+在公司的项目里面做一个下载进度条显示的功能，因为进度条有不同的状态，所以通过setProgressDrawable来实现，因此代码的实现在每次的回调，除了设置setProgress外，还调用了setProgressDrawable。这就出现了一个问题，第二次设置progressdrawable的时候就显示不了进度条了。解决方法就是，在这两个set之前，先获取bounds：
+
+Rect bounds = progressbar.getProgressDrawable().getBounds();
+
+在这两个set之后：
+
+progressbar.getProgressDrawable().setBounds(bounds);
+progressbar.setProgress(progressbar.getProgress() + 1);
+progressbar.setProgress(progressbar.getProgress() - 1);
+
+具体不知道为什么这样就能实现，猜测是触发了重新绘制。
+
+#### 流光进度条
+
+做公司的项目的时候，UI设计的一个进度条叫流光进度条，效果就是windows复制文件的是时候那个进度条，一个绿色的光从头跑过去。本来实现起来也挺麻烦的，因为设计到一些绘制的知识根本还不了解，还好，从GitHub上找到了一个[开源的实现](https://github.com/LineChen/FlickerProgressBar)。引入开源的东西总是有不少问题的，然后就是自己修复使用了，具体去看公司项目代码即可。
+
 #### ProgressBar的左右宽度
 
 progressbar左右的padding好像默认不是0，所以要设置一下
@@ -207,7 +248,11 @@ android:paddingRight="0px"
 
 ## 5. Switch
 
-这个控件是4.0以后才有的，如果想要低版本用，可以直接拿官网的源码来用。。。。这也说明了一点，其实如果有时候一些新版本的控件也可以这样拿来用。
+就是一个切换开关的控件，这个控件是4.0以后才有的，如果想要低版本用，可以直接拿官网的源码来用。这也说明了一点，其实如果有时候一些新版本的控件也可以这样拿来用。在YY做客户端的时候，那时候最低支持是2.3，又要做一个开关控件，而且样式是iOS那样的，于是，我也忘记了当时是从那里找来的，其实源码就是官方的源码，好像是某人抽离了出来，到底是当时YY的同事做的，还是网上找到，已经不重要了。如果需要用的话，可以直接找回来以前YY的代码。
+
+现在UC做的一个项目，也用到了这个控件，但是样式也有点不同了，于是还是从YY那边搞来了代码，但是有不少问题，于是我就修改了一下源码，整合成只有一个类，应该是比之前还要好用一些的，所以如果需要可以从这里找到代码使用。
+
+关于使用这段代码的时候，会有很多自定义属性的情况，还有style，attrs，drawable等配置，关于这些的原理可以看学习View的[Blog](http://zhgeaits.me/android/2014/07/27/android-ui-view-study-notes.html)，这里就不列举Switch的使用了，直接拷代码就可以了。
 
 ## 6. ListView
 
