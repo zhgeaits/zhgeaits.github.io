@@ -11,6 +11,39 @@ type: android
 
 ## 1. GridView
 
+这是网格View，其实就是多列的listview，而且使用上跟listview几乎一样，所以很多特性技巧什么的可以直接看listview的相关[blog记录](http://zhgeaits.me/android/2014/04/05/android-common-widgetUI-study-notes.html)。
+
+使用上和listview的流程一样，在布局添加一个标签，然后写Adapter，也是继承BaseAdapter，里面的写法，还有item的布局都是一样的，没有多少的区别。
+
+{% highlight xml %}
+
+<GridView
+    android:id="@+id/bill_upload_traces_grid"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:overScrollMode="never"
+    android:listSelector="@android:color/transparent"
+    android:columnWidth="60dp"
+    android:gravity="center"
+    android:horizontalSpacing="8dp"
+    android:verticalSpacing="8dp"
+    android:numColumns="4"
+    android:stretchMode="columnWidth"/>
+
+{% endhighlight %}
+
+相关属性字段：
+
+android:numColumns="4"   这个是自定列数，也可以是"auto_fit"。
+
+android:columnWidth="60dp"  每列的宽度，也就是Item的宽度，这个和item的宽度是有区别的，注意。
+
+android:horizontalSpacing="8dp"  横向宽度
+
+android:verticalSpacing="8dp"  纵向宽度
+
+android:stretchMode="columnWidth"   缩放与列宽大小同步，这个不好理解。
+
 ## 2. ConstraintLayout
 
 这是Android里面很重要的一个布局，去年就已经出来了，但是刚出来的版本一般都很多坑，而且普及不起来，还很依赖于AS。现在AS已经发布2.3版本了，这个已经相对很稳定了，坑也比较少了。从这篇[文章](https://mp.weixin.qq.com/s?__biz=MzI1NTU4MjU3OA==&mid=2247483892&idx=1&sn=158b44ebe7ce42741227cf613750268f&chksm=ea3289e9dd4500ff384443b57973f65c1de6cdb9465f88a883efac29cd930ea5e44fbe72fe91&mpshare=1&scene=1&srcid=04123IVPi1nblZy3vp6O8eN3&key=84515918b5a0dcb41b7d259ced6e1a24a33c41f09901f8c37b3b994e37f686edb1c2e95d86c9db2b82db19b52903bfd622b12c7bd03ddafb97005146c2ced2af730062fcb90244f27aa21b63719e87a1&ascene=0&uin=MTMxNTU3NzYyMA%3D%3D&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.12.3+build(16D32)&version=12020010&nettype=WIFI&fontScale=100&pass_ticket=e%2FhOb%2BpI5NCO678PpRSFDDqdqcC%2Ba745Sdiwt8MM%2BgaqBZoREoBd2lGTsW3Jt5yi)里面看出实现它的是一个中国人，也是牛逼了。
