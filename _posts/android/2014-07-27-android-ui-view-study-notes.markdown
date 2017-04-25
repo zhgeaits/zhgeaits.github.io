@@ -19,11 +19,11 @@ View是最顶层的界面类，ViewGroup是继承View的抽象类，ViewGroup是
 
 通常我们理解Activity为一个界面，那是不够准确的，真正的界面是View，Activity只是一个组件，它更像是一个控制器的角色，在Activity里面，我们只是调用了一个setContentView()的方法来把xml文件编写的界面使用。如下图所示，一个Activity含有一个Window，而这个Window的实例是PhoneWindow；Window包含了一个DecorView，这个DecorView才是正在看得见的界面。采用的是组合方式，Activity里面有mWindow这个属性，Window里面有mDecor这个属性。
 
-在Activity的`attach()`里面会new出PhoneWindow来，同时也会设置Callback接口。通常这个callback有一个用法，在`setContentView()`最后就会回调callback的`onContentChanged()`方法通知界面已经设置完毕了，Activity里面的这个方法是空实现，实际上，我们是可以在调用`findViewsById()`方法的了。
+在Activity的`attach()`里面会new出PhoneWindow来，同时也会设置Callback接口。通常这个callback有一个用法，在`setContentView()`最后就会回调callback的`onContentChanged()`方法通知界面已经设置完毕了，Activity里面的这个方法是空实现，实际上，这告诉我们是可以在这个时候调用`findViewsById()`方法了。
 
 <img src="/image/android_view.png" width="500px">
 
-由上看出，通常DecorView实际上是一个FrameLayout，底下嵌套了LinearLayout，上面放的是TitleBar，下面放的是ContentView，从id可以看出为什么叫setContentView。这个TitleBar是ActionBar，通常我们开发都不会使用，直接取消掉了的。DecorView不是SDK的代码，关于更多只能从android的源码去获取了。ContentView是一个FrameLayout，我们所有的View都是在这里开始的，所以通常我用IDE分析界面的时候会看到顶层的根View是FrameLayout，就是它了。
+由上看出，通常DecorView实际上是一个FrameLayout，底下嵌套了LinearLayout，上面放的是TitleBar，下面放的是ContentView，从id可以看出为什么叫setContentView。这个TitleBar是ActionBar，通常我们开发都不会使用，直接取消掉了的。DecorView不是SDK的代码，关于更多只能从android的源码去获取了。ContentView是一个FrameLayout，我们所有的View都是在这里开始的，所以通常我用IDE分析界面的时候会看到顶层的根View是FrameLayout，就是它了。可以用Stetho来观察View的结构，具体看这篇[blog](http://zhgeaits.me/android/2017/03/07/android-stetho.html)。
 
 ### 1.1 关于DecorView
 
@@ -41,7 +41,7 @@ protected DecorView generateDecor() {
 
 {% endhighlight %}
 
-由于DecorView是FrameLayout，所以，这时候需要根据Activity的Theme主题设置寻找相应得布局，一般是会找到一个LinearLayout的布局，上方是title，下方是content，如上图所示；然后inflate这个布局，add到DecorView里面去，再去find出contentView，如下所示：
+由于DecorView是FrameLayout，并没有什么布局样式可言，所以，这时候需要根据Activity的Theme主题设置寻找相应得布局来add到这个FrameLayout里面去。一般是会找到一个LinearLayout的布局，上方是title，下方是content，如上图所示；然后[inflate](http://zhgeaits.me/android/2017/03/30/android-layoutinflater.html)这个布局，add到DecorView里面去，再去find出contentView进行判空处理。如下所示：
 
 {% highlight java %}
 
@@ -58,7 +58,7 @@ if (contentParent == null) {
 
 {% endhighlight %}
 
-看出ID_ANDROID_CONTENT其实就是android.R.content，contentParent就是ContentView了，一般就是FrameLayout，我们可以随意找到系统的一个theme主题布局R.layout.screen_simple看看就找到了。这里我们也明白了，为什么要先设置activity的主题，和布局特性，例如NO_TITLE之后才能设置布局。
+由上可以看出ID_ANDROID_CONTENT其实就是android.R.content，而contentParent就是ContentView了，一般也就是FrameLayout，我们可以随意找到系统的一个theme主题布局R.layout.screen_simple看看就找到了。这里我们也明白了，为什么要先设置activity的主题，和布局特性，例如NO_TITLE之后才能设置布局。
 
 当拿到了contentParent以后，就可以把我们的布局add进去了，setContentView的参数可以是id，可以是view，实际调用的是：
 
@@ -71,47 +71,96 @@ mContentParent.addView(view, params);
 
 ### 1.2 关于Window
 
-由上可以Window也不是界面，真正的界面是View，它只是一个抽象的概念，根据官方的描述，Window类可以控制顶级View(DecorView)的外观和行为策略，它的实现是PhoneWindow。从1.1也看到了Window是会创建DecorView的，它还会创建ViewRootImpl来进行绘制View。由上面我们也知道了，Activity对应于一个Window，而Window又是View的直接管理者，在其他形式下的Window都是这样的关系。View必须要有Window才能显示。
+由上可以知道Window也不是界面，真正的界面是View，它只是一个抽象的概念，根据官方的描述，Window类可以控制顶级View(DecorView)的外观和行为策略，它的唯一实现是PhoneWindow。从1.1也看到了Window是会去创建DecorView的，实际上它还会创建ViewRootImpl来进行绘制View。由上面我们也知道了，Activity对应于一个Window，而Window又是View的直接管理者，在其他形式下的Window都是这样的关系。View必须要有Window才能显示。
 
-WindowManager是外界访问Window的入口，Window的实现位于WindowManagerService，所以这写交互式一个IPC的过程。如果我们想要创建Window等等，可以直接使用WindowManager的接口。WindowManager主要用来管理窗口的一些状态、属性、view增加、删除、更新、窗口顺序、消息收集和处理等。在WindowManager中还有一个重要的静态类LayoutParams，通过它可以设置和获得当前窗口的一些属性。
+WindowManager是外界访问Window的入口，Window的实现位于WindowManagerService，所以这些交互是一个IPC的过程。如果我们想要创建Window等等，可以直接使用WindowManager的接口。WindowManager主要用来管理窗口的一些状态、属性、view增加、删除、更新、窗口顺序、消息收集和处理等。在WindowManager中还有一个重要的静态类LayoutParams，通过它可以设置和获得当前窗口的一些属性。
 
-Window有三种类型，分别是应用类Window，如Activity的Window；子Window，如Dialog，它只能依附于特定的父Window，所以必须有Activity才能。系统类Window，如Toast，它也是一个Window来的。对于Dialog和Toast，其实都可以去看源码便会知道实际上它们是创建了一个Window来显示View的。实际上，PopupWindow，菜单等等，这些的实现都是依托在Window的。
+Window有三种类型，分别是应用类Window，如Activity的Window；子Window，如Dialog，它只能依附于特定的父Window，所以必须有Activity才能。系统类Window，如Toast，它也是一个Window来的。对于Dialog和Toast，其实都可以去看源码便会知道实际上它们是创建了一个Window来显示View的。实际上，PopupWindow、菜单等等这些的实现都是依托在Window的。
 
 由此我们可以知道，整个应用，都会有各种各样的Window存在。
 
 ## 2 View的绘制流程
 
-根据我们的经验，编写界面的xml文件是一个树状的结构，父节点通常是布局Layout，也就是一个ViewGroup，而叶子节点则是一个View，符合了ViewGroup包含View的关系。在Activity创建成功以后，便会创建ViewRoot对象ViewRootImpl，并与DecorView联系起来，这是底层系统源码，SDK上次无法查看的。View的绘制流程是从ViewRoot的peformTraversals方法开始的，分别对view进行测量，布局和绘制，最终才会显示在屏幕上。
+根据我们的经验，编写界面的xml文件是一个树状的结构，父节点通常是布局Layout，也就是一个ViewGroup，而叶子节点则是一个View，符合了ViewGroup包含View的关系。在Activity创建成功以后，便会创建ViewRoot的对象ViewRootImpl，并与DecorView联系起来，这是底层的系统源码，SDK上层并无法查看的。View的绘制流程是从ViewRoot的`peformTraversals()`方法开始的，分别对view进行`测量`、`布局`和`绘制`，最终才会显示在屏幕上。
 
 由于是树状结构，所以从顶级的DecorView开始，分别往下遍历三个流程，实际是一个递归的过程。
 
 ### 2.1 Measure测量过程
 
-这是从`performMeasure()`方法开始，调用到`measure()`方法，然后会调用到`onMeasure()`方法，每个View都会经历到测量，如果是ViewGroup，则会递归测量子View。最终的结果是得到每一个View/ViewGroup的宽高。
+这是从ViewRootImpl的`performMeasure()`方法开始，然后调用到View（DecorView）的`measure()`方法，最后会调用到View的`onMeasure()`方法。这都是SDK层的代码，可以直接查看的。每个View都会经历到这样的测量，如果是ViewGroup，则会递归测量子View。最终的结果是**得到每一个View/ViewGroup的宽高。**
 
 #### 2.1.1 关于MeasureSpec
 
-在编写界面的时候，一般我们通过三种方式来确定View的宽高：match_parent、wrap_content和固定的尺寸。并且别的View，或者父节点也是由着三种方式来确定尺寸，那么将会出现很不确定的情况，如果所有的view都是使用固定的尺寸，那么根本就不需要测量的流程了。正是因为这三种模式，view的尺寸是收到父节点的影响的，所以才需要测量。
+在编写界面的时候，一般我们通过三种方式来确定View的宽高：`match_parent`、`wrap_content`和`固定的尺寸`。并且别的View，或者父节点也是由着三种方式来确定尺寸，可以想想，那么将会出现很不确定的组合情况，如果所有的view都是使用固定的尺寸，那么根本就不需要测量的流程了。正是因为这三种模式，view的尺寸是会受到父节点影响的，所以才需要测量。
 
-在测量的过程中，是由上至下的递归过程，需要传递mode和父节点的size这些参数，MeasureSpec就是这样的参数，它是一个32位的int类型，高两位是mode，剩下的30位是size。注意到的是，width和height分别对应一个int的MeasureSpec。
+在测量的过程中，是由上至下的递归过程，需要从父节点传递当前的`mode`和`父节点的size`这些参数到子节点，子节点根据父节点的参数测量好自己再递归传递下去。MeasureSpec就是这样的参数，它是一个32位的int类型，高两位是mode，剩下的30位是size。注意到的是，width和height分别对应一个int的MeasureSpec。
 
-下面是三种Mode
+下面是三种Mode的说明：
 
 - UNSPECIFIED，父容器不对View有任何限制，要多大给多大，一般用于系统内部。
 - EXACTLY，父容器已经检测所需的精确大小，就是size的值，通常是match_parent和具体的数值两种情况。
 - AT_MOST，父容器指定了一个可用的大小，就是size的值，子View不能超出这个值，通常对应于wrap_content情况。
 
+具体看下面的表格即可。
+
 #### 2.1.2 测量过程
 
-从DecorView开始，它的MeasureSpec有window的尺寸和自身的LayoutParam决定，然后通过`performMeasure()`把值传递给子View，具体可用查看`getRootMeasureSpec()`方法。子View拿到父View的MeasureSpec以后，结合自身的LayoutParam，包括padding和margin等，然后计算出自己的MeasureSpec，具体可用查看`measureChildWidthMargins()`和`getChildMeasureSpec()`方法，最后子View拿到MeasureSpec以后就会调用`child.measure(childWidthMeasureSpec, childHeightMeasureSpec)`方法了，这正是上所说的重要流程。有些方法都是系统的源码，网上搜一下就有了，其他的自行去看View里面就行。所以子View的MeasureSpec收到父View的影响。
+从DecorView开始，它的MeasureSpec由window的尺寸和自身的LayoutParam决定，然后通过ViewRootImpl的`performMeasure()`把值传递给子View，具体可用查看ViewRootImpl的`getRootMeasureSpec()`方法。子View拿到父View的MeasureSpec以后，结合自身的LayoutParam，包括padding和margin等，然后计算出自己的MeasureSpec，具体可用查看View和ViewGroup的`measureChildWidthMargins()`和`getChildMeasureSpec()`方法，最后子View拿到MeasureSpec以后就会调用`child.measure(childWidthMeasureSpec, childHeightMeasureSpec)`方法了，这正是上所说的重要流程。有些方法都是系统的源码，网上搜一下就有了，其他的自行去看就行。所以子View的MeasureSpec受到父View的影响，需要注意的是，如果对子View一次测量得不到结果，则可能会多次测量（都是理论说明，具体还得真去看源码逻辑了）。
 
 1.如果子View是一个view
 
-在子view的`measure()`方法里面会触发调用到`onMeasure()`方法，这两个方法都可以直接在View里面查看，最终在onMeasure方法里面会调用到`setMeasuredDimension()`，参数正是测量的宽高了。注意到的是，measure()方法是是final的，我们不能重写，只能重写onMeasure()方法了，通常自定义View的时候，需要重写这个方法来计算宽高。
+在子view的`measure()`方法里面会触发调用到`onMeasure()`方法，这两个方法都可以直接在View里面查看，最终在onMeasure方法里面会调用到`setMeasuredDimension()`，**参数正是测量的宽高了**。注意到的是，measure()方法是是final的，我们不能重写，只能重写onMeasure()方法了，通常自定义View的时候，需要重写这个方法来计算宽高。
 
 2.如果子View是一个ViewGroup
 
 ViewGroup是一个抽象类，它没有重写View的onMeasure方法，提供了measureChildren的方法，具体onMeasure的实现交给了子类，例如LinearLayout等等，因为它是需要递归去测量子View的尺寸的。
+
+关于MeasureSpec有人已经总结出如下的一个表：
+
+<table>
+
+<tr>
+<th>父View的MeasureSpec</th><th>子View的LayoutParam</th><th>子View的MeasureSpec</th>
+</tr>
+
+<tr>
+<td>EXACTLY + Size</td><td>dp</td><td>EXACTLY + dp</td>
+</tr>
+
+<tr>
+<td>EXACTLY + Size</td><td>wrap_content</td><td>AT_MOST + Size</td>
+</tr>
+
+<tr>
+<td>EXACTLY + Size</td><td>match_parent</td><td>EXACTLY + Size</td>
+</tr>
+
+<tr>
+<td>AT_MOST + Size</td><td>dp</td><td>EXACTLY + Size</td>
+</tr>
+
+<tr>
+<td>AT_MOST + Size</td><td>wrap_content</td><td>AT_MOST + Size</td>
+</tr>
+
+<tr>
+<td>AT_MOST + Size</td><td>match_parent</td><td>AT_MOST + Size</td>
+</tr>
+
+<tr>
+<td>UNSPECIFIED + Size</td><td>dp</td><td>EXACTLY + dp</td>
+</tr>
+
+<tr>
+<td>UNSPECIFIED + Size</td><td>wrap_content</td><td>UNSPECIFIED + 0</td>
+</tr>
+
+<tr>
+<td>UNSPECIFIED + Size</td><td>match_parent</td><td>UNSPECIFIED + 0</td>
+</tr>
+
+</table>
+
 
 #### 2.1.3 测量结果获取的时机
 
@@ -353,7 +402,7 @@ if (onFilterTouchEventForSecurity(event)) {
 
 ### 4.1 继承View
 
-这是比较原生的做法，需要做的事情比较多，但是一般我们是重写onDraw()方法，如果要支持wrap_content和padding属性，这是需要我们自己处理的。如果是wrap_content模式，对应specMode是AT_MOST，采用的specSize是parentSize，结果和match_parent一样，所以要处理的话就在重写onMeasure方法，里面使用一个默认的值，对于TextView这些，它是另外计算字体的宽高的。
+这是比较原生的做法，需要做的事情比较多，但是一般我们是重写onDraw()方法，如果要支持wrap_content和padding属性，这是需要我们自己处理的。如果是wrap_content模式，对应specMode是AT_MOST，采用的specSize是parentSize，结果和match_parent一样，所以要处理的话就在重写onMeasure方法里面使用一个默认的值。对于TextView这些，它是另外计算字体的宽高的。
 
 这种情况完全是不用重写onLayout方法的，一般是onMeasure和onDraw方法即可。
 
