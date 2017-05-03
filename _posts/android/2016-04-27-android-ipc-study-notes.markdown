@@ -244,7 +244,9 @@ public void onServiceConnected(ComponentName name, IBinder service) {
 
 {% endhighlight %}
 
-如果服务端要回调客户端，那么就再新建一个aidl，然后在客户端里面像服务端那样new出这个Binder回调对象，最后在TestServiceCore那里新增一个接口把这个对象传递给服务端，服务端拿到客户端的Binder对象就可以回调客户端了。其中有一个问题，表面上传递了这个回调的Binder对象过去，实际上是经过了序列化过程的，所以客户端和服务端之间的并不是同一个对象，所以在服务端存放这些回调对象的时候需要使用`RemoteCallbackList`这个类，它实际上里面的key存储使用了底层的Binder。
+如果服务端要回调客户端，那么就再新建一个aidl，然后在客户端里面像服务端那样new出这个Binder回调对象，这个Binder类也是继承Stub的。最后在TestServiceCore那里新增一个接口把这个对象传递给服务端，通常是在onServiceConnected()方法回调的时候传递给服务器。服务端拿到客户端的Binder对象就可以回调客户端了。
+
+其中还有一个问题，表面上传递了这个回调的Binder对象过去，实际上是经过了序列化过程的，所以客户端和服务端之间的并不是同一个对象，所以在服务端存放这些回调对象的时候需要使用`RemoteCallbackList`这个类，它实际上里面的key存储使用了底层的Binder。通常在Service里面new一个RemoteCallbackList对象出来，他是一个泛型，我们制定的类型便是客户端的binder的AIDL文件类。当客户端把他的binder传递过来的时候，就调用RemoteCallbackList.register()方法来注册进去即可。相应也还有unregister()方法。
 
 #### 3.6.3 分析AIDL
 
@@ -390,4 +392,10 @@ public interface TestServiceCore extends android.os.IInterface
 
 #### 3.6.4 Binder连接断了
 
-如果客户端与服务端的连接断了会回调到`onServiceDisconnected()`方法，但是如果Binder断了，回调哪个方法？我创建IBinder.DeathRecipient这个接口实例，然后调用binder.linkToDeath()传这个接口对象即可。相应的还有`unLinkToDeath()`方法。
+如果客户端与服务端的连接断了会回调到`onServiceDisconnected()`方法，但是如果Binder断了，回调哪个方法？
+
+通常我们在客户端创建`IBinder.DeathRecipient`这个接口实例，然后在onServiceConnected以后调用binder.linkToDeath()传这个接口对象即可，这个方法的第二个参数是一个标记位，好像没什么用，直接传0。相应的还有`unLinkToDeath()`方法。DeathRecipient这个接口只有一个方法，就是当服务端死了，binder断了，就会回调这个方法，所以我们用这个方法来监听服务端的binder是否断了，然后在里面调用unLinkToDeath和重新绑定服务。
+
+这是在客户端监听服务端死亡，反过来，使用同样的方法也是可以在服务使用DeathRecipient来监听跟客户端之间是否断开连接了的，只要使用客户端的binder来调用linkToDeath()即可。另外，上面说到RemoteCallbackList这个类，实际上我们是可以继承自己实现的，因为里面有一个空实现的方法`onCallbackDied()`，可以看到注释说，就是当callback死掉的时候就会回调，因此，我们也是可以在这里监听客户端是否死掉了。
+
+最后，Service还有一个方法onTaskRemoved()，也是可以监听到客户端是否已经死掉了。我们只要在重写这个方法就可以了，然后可以做很多事情，例如使用AlarmManager来再次启动服务等等。
