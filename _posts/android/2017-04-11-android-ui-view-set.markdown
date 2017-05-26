@@ -73,3 +73,68 @@ android:stretchMode="columnWidth"   缩放与列宽大小同步，这个不好�
 粗略看看上面的资料足够了，这里也不需要理解实现原理什么的，都是很简单的东西，在编辑器上面拖拽就可以了，也没有很多深奥的新概念什么的，所以看看上面资料就上手去写，遇到问题再记录在这里，这是程序员成长最快的方式。
 
 ## 3. RecyclerView
+
+其实RecyclerView出来的时候就知道了，那个时候才做android，连listview都没用熟悉，然后又没有特别的需求，基本上listview都够用了，那时候也懒得去单独学习，基本上就是业务驱动方式去学习的。
+
+google一下会有很多学习资料，我就不会重复了，这里只简单备忘记录一下，以防忘记的时候来看一下即可。
+
+它并没有替换ListView，使用起来其实也挺复杂的，没有比ListView封装了很多功能来得方便，如divider，header view, footer view等等。但是如它名字所示，他做得更好的是Recycle上。另外，横向滚动，gridview，瀑布流这些都已经实现了，还有很多的动画，这些我们都不需要去找第三方库了。
+
+以前会觉得使用方法和设计理念这些都很复杂，不好理解，其实，熟悉ListView以后觉得其实都不复杂的。
+
+首先当然是在xml的布局文件添加一个RecyclerView，然后也是需要设置Adapter的，且看Adapter是这样编写的：
+
+{% highlight java %}
+
+private class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder> {
+
+    @Override
+    public MyRecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(MyRecyclerViewHolder myRecyclerViewHolder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+}
+{% endhighlight %}
+
+跟ListView那样每次都写一个继承BaseAdapter类似，做同样的工作，区别是还用了泛型，居然是ViewHolder。看到三个需要实现的方法是:
+
+1.getItemCount()就不用解释了，和BaseAdapter一样的。
+
+2.onCreateViewHolder()被回调的时候通知我们去创建ViewHolder，传入了ViewGroup和viewType，可以知道它规范了ViewHolder，不用我们每次都自己去重复实现ViewHolder，之前还在github上看BaseAdapter的开源项目，现在都没有多大必要了。其中viewType就是用来实现多种view的，直接在这里就搞定了，listview还需要多一个方法。不过如果要实现多个view类型的时候，要写多个ViewHolder是在所难免的，不然在下一个方法怎么区分？
+
+3.onBindViewHolder()就想listview的getItemView了，每一个item都回调，可以看到的是直接传入了viewholder和position，我们直接用position在datas里面获取data就好了，不用以前baseAdapter那样再多一个方法了。
+
+再看ViewHolder的写法，并没有多大的新奇，和我平时的写法一样。
+
+{% highlight java %}
+
+private class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
+
+    public MyRecyclerViewHolder(View itemView) {
+        super(itemView);
+    }
+}
+
+{% endhighlight %}
+
+这些都写好了，怎么使用呢？还需要一个LayoutManager的使用，非常简单，如下：
+
+{% highlight java %}
+
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+recyclerView.setLayoutManager(linearLayoutManager);
+recyclerView.setAdapter(new MyRecyclerAdapter(context, datas));
+
+{% endhighlight %}
+
+可以看到，使用了LinearLayoutManager，还会有其他的LayoutManager，也可以我们自己去实现，更多请看[官网](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html)。还有关于动画这些东东，关于设计理念，回收机制，实现原理，这里都不记录啦。
