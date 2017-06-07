@@ -39,6 +39,8 @@ public abstract class RequestParam {
 	protected Map<String, String> mBase = new HashMap<String, String>();
 	// 上传文件参数
 	protected FileParam mFileParam;
+    // 上传流的参数
+    protected StreamParam mStreamParam;
 
 	public static RequestParam defaultParam() {
 		return new ZGRequestParam().buildBaseParam();
@@ -117,6 +119,28 @@ public abstract class RequestParam {
 		return mFileParam;
 	}
 
+    public void addStreamParam(String key, String filename, InputStream inputStream, String mediaType) {
+        if (FP.empty(key)) {
+            return;
+        }
+        if (inputStream == null) {
+            return;
+        }
+        mStreamParam = new StreamParam();
+        mStreamParam.key = key;
+        mStreamParam.filename = filename;
+        mStreamParam.inputStream = inputStream;
+        if (!FP.empty(mediaType)) {
+            mStreamParam.mediaType = mediaType;
+        } else {
+            mStreamParam.mediaType = "application/octet-stream";
+        }
+    }
+
+    public StreamParam getStreamParam() {
+        return mStreamParam;
+    }
+
 	public String makeParamsString() {
 		List<String> keyList = new ArrayList<String>();
 		Set<String> keySet = mParams.keySet();
@@ -160,6 +184,13 @@ public abstract class RequestParam {
 		public String key;
 		public File file;
 	}
+
+    public class StreamParam {
+        public String mediaType;
+        public String key;
+        public String filename;
+        public InputStream inputStream;
+    }
 }
 
 {% endhighlight %}
@@ -250,7 +281,7 @@ public class OkHttpClientUtils {
         }
     }
 
-    public void submitRequest(String url, RequestParam requestParam, final OnHttpListener listener) {
+    public void submitRequestAsync(String url, RequestParam requestParam, final OnHttpListener listener) {
         String paramUrl = requestParam.buildUrlWithQueryString(url, requestParam);
         Request request = new Request.Builder().url(paramUrl).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
@@ -386,6 +417,10 @@ public class OkHttpClientUtils {
     public interface OnHttpListener {
         void onFailure(IOException e);
         void onResponse(String response);
+    }
+
+    public interface OnProgressHttpListener extends OnHttpListener {
+        void onProgress(long total, long progress);
     }
 }
 
