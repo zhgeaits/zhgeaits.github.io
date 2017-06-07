@@ -369,22 +369,10 @@ public class OkHttpClientUtils {
         });
     }
 
-    public void submitFileRequest(String url, RequestParam requestParam, final OnHttpListener listener) {
-        MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
+    public void submitFileRequestAsync(String url, RequestParam requestParam, final OnProgressHttpListener listener) {
+        MultipartBody multipartBody = buildFileMultipartBody(requestParam, listener);
 
-        Map<String, String> allParams = requestParam.mapAllParams();
-        for (Map.Entry<String, String> entry : allParams.entrySet()) {
-            multiBuilder.addFormDataPart(entry.getKey(), entry.getValue());
-        }
-
-        RequestParam.FileParam fileParam = requestParam.getFileParam();
-        if (fileParam != null) {
-            RequestBody fileBody = RequestBody.create(MediaType.parse(fileParam.mediaType), fileParam.file);
-            multiBuilder.addFormDataPart(fileParam.key, fileParam.file.getPath(), fileBody);
-        }
-
-        Request request = new Request.Builder().url(url).post(multiBuilder.build()).build();
-
+        Request request = new Request.Builder().url(url).post(multipartBody).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -412,6 +400,121 @@ public class OkHttpClientUtils {
                 });
             }
         });
+    }
+
+    public String submitFileRequest(String url, RequestParam requestParam, OnProgressHttpListener listener) throws IOException {
+        MultipartBody multipartBody = buildFileMultipartBody(requestParam, listener);
+
+        Request request = new Request.Builder().url(url).post(multipartBody).build();
+        Response response = mOkHttpClient.newCall(request).execute();
+        if (response.isSuccessful()) {
+            String result = response.body().string();
+            if (listener != null) {
+                listener.onResponse(result);
+            }
+            return result;
+        } else {
+            IOException exception = new IOException("Unexpected code " + response);
+            if (listener != null) {
+                listener.onFailure(exception);
+            }
+            throw exception;
+        }
+    }
+
+    private MultipartBody buildFileMultipartBody(RequestParam requestParam, final OnProgressHttpListener listener) {
+        //构建一个builder，注意MIME-TYPE要设置为FORM，不然默认是MIX
+        MultipartBody.Builder multiBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        //添加普通的表单参数
+        Map<String, String> allParams = requestParam.mapAllParams();
+        for (Map.Entry<String, String> entry : allParams.entrySet()) {
+            multiBuilder.addFormDataPart(entry.getKey(), entry.getValue());
+        }
+
+        //如果是上传整个文件，则添加整个文件参数
+        final RequestParam.FileParam fileParam = requestParam.getFileParam();
+        if (fileParam != null) {
+            //原本是调用ResquestBody.create()方法构造
+            RequestBody fileBody = new RequestBody() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.parse(fileParam.mediaType);
+                }
+
+                @Override
+                public long contentLength() {
+                    return fileParam.file.length();
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    Source source = null;
+                    try {
+                        source = Okio.source(fileParam.file);
+                        //原本是sink.writeAll(source);这里替换实现，为的是可以上报进度
+                        long totalBytes = contentLength();
+                        long totalBytesRead = 0;
+                        for (long readCount; (readCount = source.read(sink.buffer(), 8192)) != -1; ) {
+                            totalBytesRead += readCount;
+                            sink.emitCompleteSegments();
+                            if (listener != null) {
+                                listener.onProgress(totalBytes, totalBytesRead);
+                            }
+                        }
+                    } finally {
+                        Util.closeQuietly(source);
+                    }
+                }
+            };
+
+            multiBuilder.addFormDataPart(fileParam.key, fileParam.file.getPath(), fileBody);
+        }
+
+        //如果是上传文件流，续传上传的场景
+        final RequestParam.StreamParam streamParam = requestParam.getStreamParam();
+        if (streamParam != null) {
+            RequestBody streamBody = new RequestBody() {
+
+                @Override
+                public MediaType contentType() {
+                    return MediaType.parse(streamParam.mediaType);
+                }
+
+                @Override
+                public long contentLength() {
+                    long length = 0;
+                    try {
+                        length = streamParam.inputStream.available();
+                    } catch (Exception e) {
+                    }
+                    return length;
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    Source source = null;
+                    try {
+                        source = Okio.source(streamParam.inputStream);
+
+                        long totalBytes = contentLength();
+                        long totalBytesRead = 0;
+                        for (long readCount; (readCount = source.read(sink.buffer(), 8192)) != -1; ) {
+                            totalBytesRead += readCount;
+                            sink.emitCompleteSegments();
+                            if (listener != null) {
+                                listener.onProgress(totalBytes, totalBytesRead);
+                            }
+                        }
+                    } finally {
+                        Util.closeQuietly(source);
+                    }
+                }
+            };
+            multiBuilder.addFormDataPart(streamParam.key, streamParam.filename, streamBody);
+        }
+
+        return multiBuilder.build();
     }
 
     public interface OnHttpListener {
