@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android UI View使用大集合--第二波"
+title:  "Android UI View使用大集合[第二波]"
 date:   2017-04-11 11:00:03
 categories: android
 supertype: career

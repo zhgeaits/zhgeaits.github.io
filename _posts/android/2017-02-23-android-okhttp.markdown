@@ -537,7 +537,7 @@ public class OkHttpClientUtils {
 
 而其实OkHttp的拦截器也是一样的原理，都是链式执行的。它拦截的是请求的头部和响应的头部，具体，它分了两种拦截器，如下图所示：
 
-![alt iterceptor](http://img.blog.csdn.net/20151125170226504?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "Iterceptor")
+![alt iterceptor](/image/okhttp_interceptor.png "Iterceptor")
 
 应用拦截器对于每个HTTP响应都只会调用一次，可以通过不调用Chain.proceed方法来终止请求，也可以通过多次调用Chain.proceed 方法来进行重试。网络拦截器对于调用执行中的自动重定向和重试所产生的响应也会被调用，而如果响应来自缓存，则不会被调用。
 

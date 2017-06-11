@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Learning an Android Debug Tool--Stetho"
+title:  "Learning an Android Debug Tool Stetho"
 date:   2017-03-07 11:00:03
 categories: android
 supertype: career
