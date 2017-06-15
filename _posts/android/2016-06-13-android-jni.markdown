@@ -146,7 +146,7 @@ if ((*env)->ExceptionCheck(env)) {
 
 {% endhighlight %}
 
-这样以后就不会出现异常信息和crash了，可以让程序继续跑并且可以保护信息不让别人看到。
+这样以后就不会出现异常信息和crash了，可以让程序继续跑并且可以保护信息不让别人看到。实际上还有更多api，例如抛出一个Java的异常，可以使用`ThrowNew()`接口。详细参考下面第七节。
 
 ## 3. Android JNI开发
 
@@ -467,7 +467,7 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
 
 ## 7. JNI的相关API使用
 
-主要的API都是JNIEnv这个结构体或者对象了，在2.5有说过一些JNIEnv的东西，其实就是定义在`jni.h`的结构体，里面含有大量的函数指针。
+主要的API都是JNIEnv这个结构体或者对象了，在2.5有说过一些JNIEnv的东西，其实就是定义在`jni.h`的结构体，里面含有大量的函数指针。详细可以前往Google的[JNI tips](https://developer.android.com/training/articles/perf-jni.html)，当然也可以查看Oracle的[Specification](https://docs.oracle.com/javase/8/docs/technotes/guides/jni/)，然后国内也有人[翻译](http://blog.csdn.net/android_hasen/article/details/27679165)了，挺不错的。
 
 ### 7.1 JNI回调Java方法
 
