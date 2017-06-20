@@ -241,15 +241,15 @@ type: android
 {% highlight java %}
 
 private void showInputDialog(Context context) {
-    AlertDialog.Builder mBuilder = new AlertDialog.Builder(context, R.style.DialogFullscreen);
-    Dialog mDialog = mBuilder.create();
+    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogFullscreen);
+    Dialog inputDialog = builder.create();
 
-    mDialog.setCancelable(true);
-    mDialog.setCanceledOnTouchOutside(true);
-    mDialog.show();
-    mDialog.setContentView(R.layout.dialog_input_layout);
+    inputDialog.setCancelable(true);
+    inputDialog.setCanceledOnTouchOutside(true);
+    inputDialog.show();
+    inputDialog.setContentView(R.layout.dialog_input_layout);
 
-    Window window = mDialog.getWindow();
+    Window window = inputDialog.getWindow();
     window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE 
         | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -280,6 +280,39 @@ private void showInputDialog(Context context) {
 而布局就只有一个输入框了，最终效果如下图所示:
 
 ![alt keyboard](/image/edittext_keyboard_10.png "keyboard")
+
+### 4.2 监听键盘收起
+
+现在已经搞定全屏问题了，但是，如果键盘收起的话，对话框还是显示的，必须再按一次返回键才能dismiss掉Dialog，这样的体验就是不太好了，让人感知到了Dialog的存在，因此，我们可以做一个键盘收起的监听，方法就是借鉴了AndroidBug5497Workaround的代码，如下：
+
+{% highlight java %}
+
+private int usableHeightPrevious;
+private void setOnKeyboardHidden(final Dialog inputDialog) {
+    final FrameLayout contentView = (FrameLayout) inputDialog.findViewById(android.R.id.content);
+    contentView.getChildAt(0).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        public void onGlobalLayout() {
+            Rect rect = new Rect();
+            contentView.getChildAt(0).getWindowVisibleDisplayFrame(rect);
+            int usableHeightNow = rect.bottom - rect.top;
+
+            if (usableHeightPrevious == 0) {
+                usableHeightPrevious = usableHeightNow;
+            } else if (usableHeightNow != usableHeightPrevious) {
+                int usableHeightSansKeyboard = contentView.getChildAt(0).getRootView().getHeight();
+                int heightDifference = usableHeightSansKeyboard - usableHeightNow;
+                if (heightDifference < (usableHeightSansKeyboard/4)) {
+                    inputDialog.dismiss();
+                }
+                usableHeightPrevious = usableHeightNow;
+            }
+        }
+    });
+}
+
+{% endhighlight %}
+
+只要在上面的showInputDialog()方法里面最后调用一下setOnKeyboardHidden()就可以，效果就不用上图了，可以自行运行一下demo就知道了。
 
 ## 5. 结案陈词
 
