@@ -300,15 +300,44 @@ public class OkHttpClientUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String result = response.body().string();
-                mMainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                if (response.isSuccessful()) {
+                    try {
+                        final String result = response.body().string();
                         if (listener != null) {
-                            listener.onResponse(result);
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onResponse(result);
+                                    }
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        if (listener != null) {
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onFailure(e);
+                                    }
+                                }
+                            });
                         }
                     }
-                });
+                } else {
+                    final IOException exception = new IOException(response.message());
+                    if (listener != null) {
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.onFailure(exception);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }
@@ -356,15 +385,44 @@ public class OkHttpClientUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String result = response.body().string();
-                mMainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                if (response.isSuccessful()) {
+                    try {
+                        final String result = response.body().string();
                         if (listener != null) {
-                            listener.onResponse(result);
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onResponse(result);
+                                    }
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        if (listener != null) {
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onFailure(e);
+                                    }
+                                }
+                            });
                         }
                     }
-                });
+                } else {
+                    final IOException exception = new IOException(response.message());
+                    if (listener != null) {
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.onFailure(exception);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }
@@ -389,15 +447,44 @@ public class OkHttpClientUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String result = response.body().string();
-                mMainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                if (response.isSuccessful()) {
+                    try {
+                        final String result = response.body().string();
                         if (listener != null) {
-                            listener.onResponse(result);
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onResponse(result);
+                                    }
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        if (listener != null) {
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onFailure(e);
+                                    }
+                                }
+                            });
                         }
                     }
-                });
+                } else {
+                    final IOException exception = new IOException(response.message());
+                    if (listener != null) {
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.onFailure(exception);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }
