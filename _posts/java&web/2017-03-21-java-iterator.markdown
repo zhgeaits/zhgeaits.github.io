@@ -82,7 +82,7 @@ is unspecified if the underlying collection is modified while the
 iteration is in progress in any way other than by calling this
 method.
 
-只能删除最后一个返回元素，即调用了next()以后的元素，也没有add等方法，只有remove。于是也就只记住了这个，并没有去研究为什么，当然在多线程的环境下，使用CopyOnWriteArrayList解决，这都是网上找到的解决方法。
+只能删除最后一个返回元素，即调用了next()以后的元素。也没有add()等方法，只有remove()方法，需要注意的是，调用的是iterator的remove()方法，不是List的remove()方法。于是也就只记住了这个，并没有去研究为什么，当然在多线程的环境下，使用CopyOnWriteArrayList解决，这都是网上找到的解决方法。
 
 ## foreach的本质
 
