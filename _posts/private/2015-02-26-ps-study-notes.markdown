@@ -2,8 +2,8 @@
 layout: post
 title:  "PS学习笔记，常用记录，操作，心得!"
 date:   2015-02-26 11:00:03
-categories: other
-type: other
+categories: private
+type: private
 ---
 
 1.双击编辑区，即可确认操作。  

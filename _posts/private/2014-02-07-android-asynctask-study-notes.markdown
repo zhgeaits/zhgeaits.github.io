@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的AsyncTask学习笔记!"
 date:   2014-02-07 14:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 AsyncTask是异步的后台线程，不是进程，其实具体要看源码才知道。它干完了创建，管理，同步等所有工作，所以我们用起来十分方便。

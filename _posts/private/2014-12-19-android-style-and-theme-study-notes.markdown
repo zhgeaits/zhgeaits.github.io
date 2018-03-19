@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的Style和Theme，还有title bar学习笔记!"
 date:   2014-12-19 10:06:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 一直不明白这个，在创建project的时候，老是很多以后。。先给出几个地址：  

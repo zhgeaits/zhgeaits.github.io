@@ -2,8 +2,8 @@
 layout: post
 title: "My Growing Thoughts!"
 date: 2015-02-14 14:19:05
-categories: life
-type: life
+categories: private
+type: private
 ---
 
 各种各样的生活领悟，感想，由于懒惰，不能好好整理，也不想记录在XX笔记中，曾经还想过每次感悟都写一篇文章，但是太懒了，基本都写不成。

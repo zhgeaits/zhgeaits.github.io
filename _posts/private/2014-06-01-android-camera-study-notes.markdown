@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的Camera学习笔记!"
 date:   2014-06-01 11:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 之前做tongli项目的时候，需要定制摄像头拍出3D照片，所以使用过Camera类，不过这都是比较简单的使用了。

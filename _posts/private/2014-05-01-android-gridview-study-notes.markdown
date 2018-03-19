@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的GridView学习笔记!"
 date:   2014-05-01 11:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 Adapter也是继承BaseAdapter。

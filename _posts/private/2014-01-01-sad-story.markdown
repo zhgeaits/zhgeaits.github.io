@@ -2,8 +2,8 @@
 layout: post
 title: "He and She，all is sad story, amlost a love story."
 date: 2014-01-01 12:20:03
-categories: life
-type: life
+categories: private
+type: private
 ---
 
 >**题记：**纪念成都春熙路银石广场元旦倒计时。

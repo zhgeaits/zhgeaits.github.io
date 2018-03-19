@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的WebView, JavaScript学习笔记!"
 date:   2014-07-25 11:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 webview的使用很简单，设置网络权限，控件，然后loadurl就OK：  

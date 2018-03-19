@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的ImageView，圆形头像，可回收的ImageView学习笔记!"
 date:   2014-03-06 11:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 * **ImageView**  

@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的抽屉效果，DrawerLayout，SlidingMenu，SlidingPaneLayout，ActionBarDrawerToggle学习笔记!"
 date:   2014-09-11 10:06:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 因为android的UI设计里面有一个Up键，这个设计好奇葩，让人不能理解，跟返回键混淆，然而，在UI设计的时候，必须给用户一个明确的导航。为了让用户更加明确这个UP键的导航左右，使用侧边的导航栏是很不错的一个解决方案。

@@ -2,8 +2,8 @@
 layout: post
 title:  "Android的拉取刷新学习笔记!"
 date:   2014-08-05 11:00:03
-categories: android
-type: android
+categories: private
+type: private
 ---
 
 以前做毕设的时候如果去使用的话就更好了。当时对android不是很了解，不知道有下面这两个库：    

@@ -2,8 +2,8 @@
 layout: post
 title: "如何成长为一个Leader，管理一个团队，成为一个大牛大神，做一个优秀的员工"
 date: 2015-05-11 21:43:04
-categories: life
-type: life
+categories: private
+type: private
 ---
 
 梦想，理想，甚至野心，每个人都有，但是去追求的没有几个，坚持的又没有几个，成功的就更加没有几个了。我也不例外，有梦想，却不能成功，为什么？
