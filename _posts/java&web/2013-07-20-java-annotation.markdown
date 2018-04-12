@@ -23,8 +23,8 @@ type: java&web
 
 ### 2.1 元注解
 
-- @Target 表示该注解可以用于什么地方。ElementType的值包括：CONSTRUCTOR构造器，FIELD域声明，LOCAL_VARIABLE局部变量声明，METHOD方法，PACKAGE包声明，PARAMETER参数声明，TYPE类、接口、枚举声明。
-- @Retention 表示需要在什么级别保存该注解信息。RetentionPolicy包括：SOURCE源文件，会被编译器丢弃；CLASS注解在class文件可用，但会被VM丢弃；RUNTIME运行期也保留，因此可以通过注解获取注解信息。
+- @Target 表示该注解可以用于什么地方。参数填的是ElementType，它的值包括：CONSTRUCTOR构造器，FIELD域声明，LOCAL_VARIABLE局部变量声明，METHOD方法，PACKAGE包声明，PARAMETER参数声明，TYPE类、接口、枚举声明。
+- @Retention 表示需要在什么级别保存该注解信息。参数填的是RetentionPolicy，它的值包括：SOURCE源文件，会被编译器丢弃；CLASS注解在class文件可用，但会被VM丢弃；RUNTIME运行期也保留，因此可以通过注解获取注解信息。
 - @Documented 将此注解包含在javadoc中。
 - @Inherited 允许子类继承父类中的注解。
 
@@ -43,9 +43,12 @@ public @interface ZGTest {
 
 {% endhighlight %}
 
-可以看到定义了一个@ZGTest注解，关键的语法是`@interface`，和接口有点区别。于是可以在任何方法上使用如这样使用了`@ZGTest(id = 1)`；这是一个运行期的注解，另外，如果要在所有ElementType上都可以用这个注解，那么就不用写@Target了。
+可以看到定义了一个@ZGTest注解，关键的语法是`@interface`，和接口有点区别。
+于是就可以在任何方法上使用如这样使用了`@ZGTest(id = 1)`；这是一个运行期的注解，另外，如果要在所有ElementType上都可以用这个注解，那么就不用写@Target了。
 
-注解里面的属性写法像接口的方法，使用这些属性的时候就像方法一样调用来使用；用public修饰，如果换其他修饰符会怎么样？会报错，只能用public或者不用修饰符。如果属性有默认值需要用default的写法，因为注解不能用null值的，编译器报错。
+注解里面的属性写法像接口的方法，使用这些属性的时候就像方法一样调用来使用；用public修饰，如果换其他修饰符会怎么样？会报错，只能用public或者不用修饰符。
+
+如果属性有默认值需要用default的写法，因为注解不能用null值的，编译器报错。
 
 属性的类型除了可以是基本类型以外，还可以是class，enum和Annotation，没错，就是可以嵌套注解，不过很少这样用的。
 
@@ -87,7 +90,7 @@ public class AnnotationTest {
 
 >一个访问者会遍历某个数据结构或一个对象的集合，对其中的每一个对象执行一个操作。该数据结构无需有序，而你对每个对象执行的操作，都是特定于此对象的类型。这就是将操作与对象解耦，也就是说，你可以添加新的操作，而无需向类的定义中添加方法。
 
-典型的观察者模式，我们可以采用注解来实现。一个Android的框架EventBus3.0就是经典的实现，可以去参考。
+典型的观察者模式，我们可以采用注解来实现。一个Android的框架EventBus就是经典的实现，可以去参考。不过EventBus旧的版本是用反射实现的，3.0以后就是不是了，采用了APT技术，效率更高。
 
 ## 4 APT处理器
 
